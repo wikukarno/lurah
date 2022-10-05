@@ -1,0 +1,100 @@
+html {
+  scroll-behavior: smooth;
+}
+
+// navbar
+.section-content-header {
+  background-color: rgb(0, 100, 45) !important;
+  img {
+    max-height: 50px;
+  }
+  .navbar-nav {
+    font-size: 18px;
+    .nav-link.active {
+      color: #fff;
+      font-weight: 600;
+    }
+  }
+  .nav-link {
+    color: #fff;
+    font-weight: 400;
+
+    &:hover {
+      color: rgb(0, 134, 60);
+    }
+  }
+}
+
+.section-hero-content {
+  // padding: 120px 0 165px;
+  // margin-top: -80px;
+  background-image: url("../images/header.jpg");
+  background-size: cover;
+  /* height: 700px; */
+
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 1;
+    padding: 100px 0 140px;
+  }
+
+  .btn-masuk {
+    background-color: rgb(0, 134, 60);
+    color: #ffff;
+
+    &:hover {
+      background-color: rgb(0, 100, 45);
+      color: #ffff;
+    }
+  }
+
+  .btn-daftar {
+    background-color: rgb(0, 134, 60);
+    color: #ffff;
+
+    &:hover {
+      background-color: rgb(0, 100, 45);
+      color: #ffff;
+    }
+  }
+}
+
+.section-schedule-content {
+  margin-top: 70px;
+
+  .img-clock-date {
+    img {
+      max-height: 70px;
+    }
+  }
+}
+
+.section-procedure-content {
+  margin-top: 70px;
+  .img-procedure {
+    img {
+      max-height: 70px;
+    }
+  }
+  .card {
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    height: 160px;
+    font-size: 16px;
+    .card-body {
+      padding: 20px;
+    }
+    img {
+      max-height: 50px;
+    }
+  }
+}
+
+.line-mf {
+  width: 50px;
+  height: 5px;
+  background-color: rgb(0, 134, 60);
+  margin: auto;
+}

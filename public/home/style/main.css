@@ -1,0 +1,86 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.section-content-header {
+  background-color: rgb(0, 100, 45) !important;
+}
+.section-content-header img {
+  max-height: 50px;
+}
+.section-content-header .navbar-nav {
+  font-size: 18px;
+}
+.section-content-header .navbar-nav .nav-link.active {
+  color: #fff;
+  font-weight: 600;
+}
+.section-content-header .nav-link {
+  color: #fff;
+  font-weight: 400;
+}
+.section-content-header .nav-link:hover {
+  color: rgb(0, 134, 60);
+}
+
+.section-hero-content {
+  background-image: url("../images/header.jpg");
+  background-size: cover;
+  /* height: 700px; */
+}
+.section-hero-content .overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 1;
+  padding: 100px 0 140px;
+}
+.section-hero-content .btn-masuk {
+  background-color: rgb(0, 134, 60);
+  color: white;
+}
+.section-hero-content .btn-masuk:hover {
+  background-color: rgb(0, 100, 45);
+  color: white;
+}
+.section-hero-content .btn-daftar {
+  background-color: rgb(0, 134, 60);
+  color: white;
+}
+.section-hero-content .btn-daftar:hover {
+  background-color: rgb(0, 100, 45);
+  color: white;
+}
+
+.section-schedule-content {
+  margin-top: 70px;
+}
+.section-schedule-content .img-clock-date img {
+  max-height: 70px;
+}
+
+.section-procedure-content {
+  margin-top: 70px;
+}
+.section-procedure-content .img-procedure img {
+  max-height: 70px;
+}
+.section-procedure-content .card {
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  height: 160px;
+  font-size: 16px;
+}
+.section-procedure-content .card .card-body {
+  padding: 20px;
+}
+.section-procedure-content .card img {
+  max-height: 50px;
+}
+
+.line-mf {
+  width: 50px;
+  height: 5px;
+  background-color: rgb(0, 134, 60);
+  margin: auto;
+}/*# sourceMappingURL=main.css.map */
