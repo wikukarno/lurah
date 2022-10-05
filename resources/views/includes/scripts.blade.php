@@ -18,8 +18,8 @@
 <script src="{{ asset('assets/modules/chart.min.js') }}"></script>
 <script src="{{ asset('assets/modules/jqvmap/dist/jquery.vmap.min.js') }}"></script>
 <script src="{{ asset('assets/modules/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.min.js"
-    integrity="sha512-eAr+jBW2rJOKfwtPPPc/LTtqgWvJvgKbO+ux5ka6Cy5jUlgL0V1VbWFVWNlqMLgRkwyu2SS8UhRilwMBQC3Asw=="
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.min.js"
+    integrity="sha512-hkBsuW3UmWrE2sPDxZnsQeGRdSi3XcTQAeQqc67ghd4B78riim8RJC3D+DFGp4LkTGlElMo8AYdK/AXRJD43UA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{ asset('assets/modules/summernote/summernote-bs4.js') }}"></script>
 
