@@ -27,7 +27,7 @@ Profile {{ Auth::user()->name }}
                                     <div class="text-center thumbnail-image" onclick="updateImage()">
                                         @if (Auth::user()->avatar != null)
 
-                                        <img src="{{ Storage::url(Auth::user()->avatar) }}"
+                                        <img src="{{ Storage::url('public/', Auth::user()->avatar) }}"
                                             class="figure-img img-fluid rounded-circle" alt="foto profile"
                                             id="foto-profile" style="max-height: 100px; background-size: cover" />
 
