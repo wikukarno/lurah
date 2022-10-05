@@ -9,7 +9,7 @@
     <ul class="navbar-nav navbar-right">
         <li class="dropdown"><a href="#" class="nav-link nav-link-lg nav-link-user">
                 @if (Auth::user()->avatar)
-                <img alt="image" src="{{ Storage::url(Auth::user()->avatar) }}" class="rounded-circle mr-1">
+                <img alt="image" src="{{ Storage::url('/public', Auth::user()->avatar) }}" class="rounded-circle mr-1">
                 @else
                 <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="rounded-circle mr-1">
                 @endif
