@@ -26,6 +26,7 @@
 
 <!-- Template JS File -->
 <script src="{{ asset('assets/js/scripts.js') }}"></script>
+<script src="{{ asset('build/assets/app.024077bb.js') }}"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

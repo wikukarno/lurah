@@ -22,4 +22,5 @@
 
 <!-- Template CSS -->
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('build/assets/app.5380b351.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
