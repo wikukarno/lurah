@@ -18,7 +18,11 @@
 <script src="{{ asset('assets/modules/chart.min.js') }}"></script>
 <script src="{{ asset('assets/modules/jqvmap/dist/jquery.vmap.min.js') }}"></script>
 <script src="{{ asset('assets/modules/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.min.js"
+    integrity="sha512-eAr+jBW2rJOKfwtPPPc/LTtqgWvJvgKbO+ux5ka6Cy5jUlgL0V1VbWFVWNlqMLgRkwyu2SS8UhRilwMBQC3Asw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{ asset('assets/modules/summernote/summernote-bs4.js') }}"></script>
+
 <script src="{{ asset('assets/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
 
 <!-- Page Specific JS File -->
@@ -32,9 +36,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.min.js"
-    integrity="sha512-eAr+jBW2rJOKfwtPPPc/LTtqgWvJvgKbO+ux5ka6Cy5jUlgL0V1VbWFVWNlqMLgRkwyu2SS8UhRilwMBQC3Asw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 <script>
     jQuery.datetimepicker.setLocale('id');
