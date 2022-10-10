@@ -2,7 +2,7 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="/">Lurah Sorek Satu</a>
+            <a href="/public">Lurah Sorek Satu</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">LSS</a>
@@ -65,7 +65,7 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="/">Lurah Sorek Satu</a>
+            <a href="/public">Lurah Sorek Satu</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">LSS</a>
@@ -121,7 +121,7 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="/">Lurah Sorek Satu</a>
+            <a href="/public">Lurah Sorek Satu</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">LSS</a>
