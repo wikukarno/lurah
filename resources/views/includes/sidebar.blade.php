@@ -29,7 +29,7 @@
 
             <li class="{{ (request()->is('pages/dashboard/lurah/ski-lurah') ? 'active' : '') }}">
                 <a href="{{ route('ski-lurah.index') }}" class="nav-link"><i class="fas fa-info-circle"></i>
-                    <span>Surat Izin</span></a>
+                    <span>SK Izin</span></a>
             </li>
 
             <li class="{{ (request()->is('pages/dashboard/lurah/laporan') ? 'active' : '') }}">
@@ -92,7 +92,7 @@
 
             <li class="{{ (request()->is('pages/dashboard/staff/ski-staff') ? 'active' : '') }}">
                 <a href="{{ route('ski-staff.index') }}" class="nav-link"><i class="fas fa-columns"></i>
-                    <span>Surat Izin</span></a>
+                    <span>SK Izin</span></a>
             </li>
 
             <li class="{{ (request()->is('pages/dashboard/staff/penduduk') ? 'active' : '') }}">
@@ -152,7 +152,7 @@
             <li
                 class="{{ (request()->is('pages/dashboard/user/ski-user') ? 'active' : '') }} {{ (request()->is('pages/dashboard/user/ski-user/create') ? 'active' : '') }}">
                 <a href="{{ route('ski-user.index') }}" class="nav-link"><i class="fas fa-columns"></i>
-                    <span>Surat Izin</span></a>
+                    <span>SK Izin</span></a>
             </li>
 
             <li
