@@ -39,7 +39,7 @@
 
             <li class="{{ (request()->is('pages/dashboard/lurah/penduduk') ? 'active' : '') }}">
                 <a href="{{ route('lurah.penduduk') }}" class="nav-link"><i class="fas fa-users"></i>
-                    <span>Pengguna</span></a>
+                    <span>Data Pengguna</span></a>
             </li>
 
             <li class="{{ (request()->is('pages/dashboard/lurah/akun-lurah') ? 'active' : '') }}">
@@ -97,7 +97,7 @@
 
             <li class="{{ (request()->is('pages/dashboard/staff/penduduk') ? 'active' : '') }}">
                 <a href="{{ route('staff.penduduk') }}" class="nav-link"><i class="fas fa-users"></i>
-                    <span>Pengguna</span></a>
+                    <span>Data Pengguna</span></a>
             </li>
 
             <li

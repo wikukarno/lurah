@@ -72,8 +72,25 @@
             </p>
 
             <div class="d-flex justify-content-center">
+                @auth
+                @if (Auth::user()->roles == 'Lurah')
+                <a href="{{ route('lurah.dashboard') }}" class="btn btn-success mx-2 mt-4">
+                    Dashboard
+                </a>
+                @elseif (Auth::user()->roles == 'Staff')
+                <a href="{{ route('staff.dashboard') }}" class="btn btn-success mx-2 mt-4">
+                    Dashboard
+                </a>
+                @else
+                <a href="{{ route('user.dashboard') }}" class="btn btn-success mx-2 mt-4">
+                    Dashboard
+                </a>
+                @endif
+                @endauth
+                @guest
                 <a href="{{ route('login') }}" class="btn btn-masuk mx-2 mt-4"> Masuk </a>
                 <a href="{{ route('register') }}" class="btn btn-daftar mx-2 mt-4"> Daftar </a>
+                @endguest
             </div>
         </div>
     </section>
