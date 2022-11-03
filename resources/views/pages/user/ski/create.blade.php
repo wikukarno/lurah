@@ -93,7 +93,7 @@ Tambah Surat Izin
                                     <div class="form-group">
                                         <label for="perihal">Perihal</label>
                                         <input type="text" class="form-control" id="perihal" name="perihal"
-                                            placeholder="Masukkan tanggal pelaksanaan" required
+                                            placeholder="Masukkan perihal" required
                                             oninvalid="this.setCustomValidity('Masukan perihal')"
                                             oninput="setCustomValidity('')">
                                     </div>
@@ -133,7 +133,8 @@ Tambah Surat Izin
                                     <div class="form-group">
                                         <label for="tempat_pelaksanaan">Tempat Pelaksanaan</label>
                                         <input type="text" class="form-control" id="tempat_pelaksanaan"
-                                            name="tempat_pelaksanaan_izin" placeholder="cth: 09:00 wib" required
+                                            name="tempat_pelaksanaan_izin"
+                                            placeholder="RT.001 RW.002 Kelurahan Sorek Satu" required
                                             oninvalid="this.setCustomValidity('Masukan tempat pelaksanaan')"
                                             oninput="setCustomValidity('')">
                                     </div>

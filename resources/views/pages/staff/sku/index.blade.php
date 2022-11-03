@@ -119,7 +119,6 @@ Surat Keterangan Usaha
                 _token: '{{csrf_token()}}'
             },
                 success: (data) => {
-                    console.log(data);
                     $('#sku_no_nik').val(data.no_nik);
                     $('#sku_nama').val(data.nama);
                     $('#sku_nama_usaha').val(data.nama_usaha);
@@ -133,10 +132,9 @@ Surat Keterangan Usaha
                     $('#sku_kelurahan').val(data.kelurahan);
                     $('#sku_rt_rw').val(data.rt_rw);
                     $('#sku_alamat').val(data.alamat);
-                    
-                    $('#ktp').attr('src', '{{ asset('storage') }}/'+data.foto_ktp);
-                    $('#kk').attr('src', '{{ asset('storage') }}/'+data.foto_kk);
-                    $('#skt_rt_rw').attr('src', '{{ asset('storage') }}/'+data.foto_surat_rt_rw);
+                    $('#ktp').attr('src', '{{ asset('storage') }}/'+data.ktp);
+                    $('#kk').attr('src', '{{ asset('storage') }}/'+data.kk);
+                    $('#surat_rt_rw').attr('src', '{{ asset('storage') }}/'+data.surat_rt_rw);
                 }
             });
         }

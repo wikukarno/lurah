@@ -68,18 +68,66 @@ class SkuUserController extends Controller
         $data = $request->all();
         $data['users_id'] = Auth::user()->id;
         $data['jenis_surat'] = 'SKU';
-        $sku = Letter::create($data);
+        $data['ktp'] = $request->file('ktp')->store('assets/sku', 'public');
+        $data['kk'] = $request->file('kk')->store('assets/sku', 'public');
+        $data['surat_rt_rw'] = $request->file('surat_rt_rw')->store('assets/sku', 'public');
+        Letter::create($data);
 
-        if ($request->hasFile('lampiran')) {
-            foreach ($request->file('lampiran') as $file) {
-                $path = $file->store('assets/sku', 'public');
+        // $lampiran = new Lampiran;
+        // $lampiran->letters_id = Auth::user()->id;
+        // $lampiran->ktp = $request->file('ktp')->store('assets/sku', 'public');
+        // $lampiran->kk = $request->file('kk')->store('assets/sku', 'public');
+        // $lampiran->surat_rt_rw = $request->file('surat_rt_rw')->store('assets/sku', 'public');
+        // $lampiran->save();
 
-                $lampiran = new Lampiran();
-                $lampiran->letters_id = $sku['id'];
-                $lampiran->lampiran = $path;
-                $lampiran->save();
-            }
-        }
+
+
+        // if ($request->hasFile('ktp')) {
+        //     $file = $request->file('ktp');
+        //     $fileName = time() . '_' . $file->getClientOriginalName();
+        //     $file->move('assets/sku', $fileName);
+
+        //     Lampiran::create([
+        //         'letters_id' => $data['users_id'],
+        //         'ktp' => $fileName
+        //     ]);
+        // }
+
+        // if ($request->hasFile('kk')) {
+        //     $file = $request->file('kk');
+        //     $fileName = time() . '_' . $file->getClientOriginalName();
+        //     $file->move('assets/sku', $fileName);
+
+        //     Lampiran::create([
+        //         'letters_id' => $data['users_id'],
+        //         'kk' => $fileName
+        //     ]);
+        // }
+
+        // if ($request->hasFile('surat_rt_rw')) {
+        //     $file = $request->file('surat_rt_rw');
+        //     $fileName = time() . '_' . $file->getClientOriginalName();
+        //     $file->move('assets/sku', $fileName);
+
+        //     Lampiran::create([
+        //         'letters_id' => $data['users_id'],
+        //         'surat_rt_rw' => $fileName
+        //     ]);
+        // }
+
+
+
+
+        // if ($request->hasFile('lampiran')) {
+        //     foreach ($request->file('lampiran') as $file) {
+        //         $path = $file->store('assets/sku', 'public');
+
+        //         $lampiran = new Lampiran();
+        //         $lampiran->letters_id = $sku['id'];
+        //         $lampiran->lampiran = $path;
+        //         $lampiran->save();
+        //     }
+        // }
 
         return redirect()->route('sku-user.index')->with('success', 'Surat SKU berhasil dibuat');
     }

@@ -42,9 +42,9 @@ class Letter extends Model
         'waktu_pelaksanaan_izin',
         'jumlah_undangan',
         'hiburan',
-        'foto_ktp',
-        'foto_kk',
-        'foto_surat_rt_rw'
+        'ktp',
+        'kk',
+        'surat_rt_rw'
 
     ];
 

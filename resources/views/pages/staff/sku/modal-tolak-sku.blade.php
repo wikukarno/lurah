@@ -9,22 +9,22 @@
       </div>
       <div class="modal-body">
         <div class="container">
-            <form id="form-tolak-sku">
-                @csrf
-                <input type="hidden" name="id" id="id-sku">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label for="nama">Alasan Penolakan</label>
-                            <textarea name="alasan_penolakan" id="alasan_penolakan" class="form-control" required></textarea>
-                        </div>
-                    </div>
+          <form id="form-tolak-sku">
+            @csrf
+            <input type="hidden" name="id" id="id-sku">
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="nama">Alasan Penolakan</label>
+                  <textarea name="alasan_penolakan" id="alasan_penolakan" class="form-control" required></textarea>
                 </div>
-                <div class="flex text-right">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                    <button type="submit" id="btnTolakSku" class="btn btn-success">Tolak Sekarang</button>
-                </div>
-            </form>
+              </div>
+            </div>
+            <div class="flex text-right">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+              <button type="submit" id="btnTolakSku" class="btn btn-success">Tolak Sekarang</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

@@ -47,9 +47,9 @@ return new class extends Migration
             $table->string('waktu_pelaksanaan_izin')->nullable();
             $table->string('jumlah_undangan')->nullable();
             $table->string('hiburan')->nullable();
-            $table->string('foto_ktp')->nullable();
-            $table->string('foto_kk')->nullable();
-            $table->string('foto_surat_rt_rw')->nullable();
+            $table->string('ktp')->nullable();
+            $table->string('kk')->nullable();
+            $table->string('surat_rt_rw')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

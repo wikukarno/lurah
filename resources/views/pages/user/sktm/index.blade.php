@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-Surat Keterangan Pemakaman
+Surat Keterangan Tidak Mampu
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@ Surat Keterangan Pemakaman
                 <div class="card">
                     <div class="card-header">
                         <div class="header-title">
-                            <h3 class="card-title">Data Surat Keterangan Pemakaman</h3>
+                            <h3 class="card-title">Data Surat Keterangan Tidak Mampu</h3>
                             <a href="{{ route('sktm-user.create') }}" class="btn btn-primary"> <i
                                     class="fas fa-plus"></i>&nbsp;
                                 Tambah Surat</a>
