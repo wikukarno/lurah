@@ -40,7 +40,7 @@
 
 <script>
     jQuery.datetimepicker.setLocale('id');
-    jQuery('#tanggal_lahir').datetimepicker({
+    jQuery(['#tanggal_lahir', '#tanggal_meninggal', '#tanggal_dimakamkan', '#tanggal_pelaksanaan_izin']).datetimepicker({
         i18n:{
             de:
             {

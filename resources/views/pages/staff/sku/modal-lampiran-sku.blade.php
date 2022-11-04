@@ -16,19 +16,19 @@
 						<div class="col-4">
 							<div class="form-group">
 								<label for="nama">NIK</label>
-								<input type="number" class="form-control" id="sku_no_nik" name="no_nik">
+								<input type="number" class="form-control" id="sku_no_nik" readonly>
 							</div>
 						</div>
 						<div class="col-4">
 							<div class="form-group">
 								<label for="nama">Nama</label>
-								<input type="text" class="form-control" id="sku_nama" name="nama">
+								<input type="text" class="form-control" id="sku_nama" readonly>
 							</div>
 						</div>
 						<div class="col-4">
 							<div class="form-group">
 								<label for="nama">Nama Usaha</label>
-								<input type="text" class="form-control" id="sku_nama_usaha" name="nama_usaha">
+								<input type="text" class="form-control" id="sku_nama_usaha" readonly>
 							</div>
 						</div>
 					</div>
@@ -37,13 +37,13 @@
 						<div class="col-6">
 							<div class="form-group">
 								<label for="nama">Tempat Lahir</label>
-								<input type="text" class="form-control" id="sku_tempat_lahir" name="tempat_lahir">
+								<input type="text" class="form-control" id="sku_tempat_lahir" readonly>
 							</div>
 						</div>
 						<div class="col-6">
 							<div class="form-group">
 								<label for="tanggal_lahir">Tanggal Lahir</label>
-								<input type="text" class="form-control" id="sku_tanggal_lahir" name="tanggal_lahir">
+								<input type="text" class="form-control" id="sku_tanggal_lahir" readonly>
 							</div>
 						</div>
 					</div>
@@ -52,20 +52,19 @@
 						<div class="col-4">
 							<div class="form-group">
 								<label for="nama">Jenis Kelamin</label>
-								<input type="text" id="sku_jenis_kelamin" class="form-control">
+								<input type="text" id="sku_jenis_kelamin" class="form-control" readonly>
 							</div>
 						</div>
 						<div class="col-4">
 							<div class="form-group">
 								<label for="nama">Pekerjaan</label>
-								<input type="text" class="form-control" id="sku_pekerjaan" name="pekerjaan">
+								<input type="text" class="form-control" id="sku_pekerjaan" readonly>
 							</div>
 						</div>
 						<div class="col-4">
 							<div class="form-group">
 								<label for="nama">Status Perkawinan</label>
-								<input type="text" class="form-control" id="sku_status_perkawinan"
-									name="status_perkawinan">
+								<input type="text" class="form-control" id="sku_status_perkawinan" readonly>
 							</div>
 						</div>
 					</div>
@@ -74,21 +73,19 @@
 						<div class="col-4">
 							<div class="form-group">
 								<label for="nama">Agama</label>
-								<input type="text" id="sku_agama" class="form-control">
+								<input type="text" id="sku_agama" class="form-control" readonly>
 							</div>
 						</div>
 						<div class="col-4">
 							<div class="form-group">
 								<label for="nama">Kecamatan</label>
-								<input type="text" class="form-control" id="sku_kecamatan" name="kecamatan"
-									placeholder="Masukkan kecamatan">
+								<input type="text" class="form-control" id="sku_kecamatan" readonly>
 							</div>
 						</div>
 						<div class="col-4">
 							<div class="form-group">
 								<label for="nama">Kelurahan</label>
-								<input type="text" class="form-control" id="sku_kelurahan" name="kelurahan"
-									placeholder="Masukkan kelurahan">
+								<input type="text" class="form-control" id="sku_kelurahan" readonly>
 							</div>
 						</div>
 					</div>
@@ -97,15 +94,13 @@
 						<div class="col-6">
 							<div class="form-group">
 								<label for="nama">RT / RW</label>
-								<input type="text" class="form-control" id="sku_rt_rw" name="rt_rw"
-									placeholder="Masukkan RT/RW">
+								<input type="text" class="form-control" id="sku_rt_rw" readonly>
 							</div>
 						</div>
 						<div class="col-6">
 							<div class="form-group">
 								<label for="alamat">Alamat</label>
-								<input type="text" class="form-control" id="sku_alamat" name="alamat"
-									placeholder="Masukkan alamat">
+								<input type="text" class="form-control" id="sku_alamat" readonly>
 							</div>
 						</div>
 					</div>

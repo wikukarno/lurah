@@ -120,23 +120,28 @@ Surat Izin Keramaian
             },
                 success: (data) => {
                     console.log(data);
-                    $('#ski_no_nik').val(data.no_nik);
-                    $('#ski_nama').val(data.nama);
-                    $('#ski_nama_usaha').val(data.nama_usaha);
-                    $('#ski_tempat_lahir').val(data.tempat_lahir);
-                    $('#ski_tanggal_lahir').val(data.tanggal_lahir);
-                    $('#ski_jenis_kelamin').val(data.jenis_kelamin);
-                    $('#ski_pekerjaan').val(data.pekerjaan);
-                    $('#ski_status_perkawinan').val(data.status_perkawinan);
-                    $('#ski_agama').val(data.agama);
-                    $('#ski_kecamatan').val(data.kecamatan);
-                    $('#ski_kelurahan').val(data.kelurahan);
-                    $('#ski_rt_rw').val(data.rt_rw);
-                    $('#ski_alamat').val(data.alamat);
+                    $('#no_nik').val(data.no_nik);
+                    $('#nama').val(data.nama);
+                    $('#nama_izin').val(data.nama_izin);
+                    $('#tempat_lahir').val(data.tempat_lahir);
+                    $('#tanggal_lahir').val(data.tanggal_lahir);
+                    $('#jenis_kelamin').val(data.jenis_kelamin);
+                    $('#pekerjaan').val(data.pekerjaan);
+                    $('#status_perkawinan').val(data.status_perkawinan);
+                    $('#agama').val(data.agama);
+                    $('#kecamatan').val(data.kecamatan);
+                    $('#kelurahan').val(data.kelurahan);
+                    $('#rt_rw').val(data.rt_rw);
+                    $('#alamat').val(data.alamat);
+                    $('#tanggal_pelaksanaan_izin').val(data.tanggal_pelaksanaan_izin);
+                    $('#waktu_pelaksanaan_izin').val(data.waktu_pelaksanaan_izin);
+                    $('#tempat_pelaksanaan_izin').val(data.tempat_pelaksanaan_izin);
+                    $('#jumlah_undangan').val(data.jumlah_undangan);
+                    $('#hiburan').val(data.hiburan);
                     
-                    $('#ktp').attr('src', '{{ asset('storage') }}/'+data.foto_ktp);
-                    $('#kk').attr('src', '{{ asset('storage') }}/'+data.foto_kk);
-                    $('#skt_rt_rw').attr('src', '{{ asset('storage') }}/'+data.foto_surat_rt_rw);
+                    $('#ktp').attr('src', '{{ asset('storage') }}/'+data.ktp);
+                    $('#kk').attr('src', '{{ asset('storage') }}/'+data.kk);
+                    $('#surat_rt_rw').attr('src', '{{ asset('storage') }}/'+data.surat_rt_rw);
                 }
             });
         }

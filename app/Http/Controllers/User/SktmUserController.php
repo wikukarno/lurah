@@ -68,18 +68,10 @@ class SktmUserController extends Controller
         $data = $request->all();
         $data['users_id'] = Auth::user()->id;
         $data['jenis_surat'] = 'SKTM';
-        $sku = Letter::create($data);
-
-        if ($request->hasFile('lampiran')) {
-            foreach ($request->file('lampiran') as $file) {
-                $path = $file->store('assets/sktm', 'public');
-
-                $lampiran = new Lampiran();
-                $lampiran->letters_id = $sku['id'];
-                $lampiran->lampiran = $path;
-                $lampiran->save();
-            }
-        }
+        $data['ktp'] = $request->file('ktp')->store('assets/sktm', 'public');
+        $data['kk'] = $request->file('kk')->store('assets/sktm', 'public');
+        $data['surat_rt_rw'] = $request->file('surat_rt_rw')->store('assets/sktm', 'public');
+        Letter::create($data);
 
         return redirect()->route('sktm-user.index')->with('success', 'Surat SKU berhasil dibuat');
     }

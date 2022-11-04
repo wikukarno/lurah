@@ -68,18 +68,10 @@ class SkpUserController extends Controller
         $data = $request->all();
         $data['users_id'] = Auth::user()->id;
         $data['jenis_surat'] = 'SKP';
-        $sku = Letter::create($data);
-
-        if ($request->hasFile('lampiran')) {
-            foreach ($request->file('lampiran') as $file) {
-                $path = $file->store('assets/skp', 'public');
-
-                $lampiran = new Lampiran();
-                $lampiran->letters_id = $sku['id'];
-                $lampiran->lampiran = $path;
-                $lampiran->save();
-            }
-        }
+        $data['ktp'] = $request->file('ktp')->store('assets/skp', 'public');
+        $data['kk'] = $request->file('kk')->store('assets/skp', 'public');
+        $data['surat_rt_rw'] = $request->file('surat_rt_rw')->store('assets/skp', 'public');
+        Letter::create($data);
 
         return redirect()->route('skp-user.index')->with('success', 'Surat SKP berhasil dibuat');
     }

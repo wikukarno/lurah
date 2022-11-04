@@ -13,59 +13,52 @@
 				<div class="container">
 
 					<div class="row">
-						<div class="col-4">
+						<div class="col-6">
 							<div class="form-group">
 								<label for="nama">NIK</label>
-								<input type="number" class="form-control" id="sku_no_nik" name="no_nik">
+								<input type="number" class="form-control" id="no_nik" readonly>
 							</div>
 						</div>
-						<div class="col-4">
+						<div class="col-6">
 							<div class="form-group">
 								<label for="nama">Nama</label>
-								<input type="text" class="form-control" id="sku_nama" name="nama">
+								<input type="text" class="form-control" id="nama" readonly>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-4">
+							<div class="form-group">
+								<label for="nama">Tempat Lahir</label>
+								<input type="text" class="form-control" id="tempat_lahir" readonly>
 							</div>
 						</div>
 						<div class="col-4">
 							<div class="form-group">
-								<label for="nama">Nama Usaha</label>
-								<input type="text" class="form-control" id="sku_nama_usaha" name="nama_usaha">
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-6">
-							<div class="form-group">
-								<label for="nama">Tempat Lahir</label>
-								<input type="text" class="form-control" id="sku_tempat_lahir" name="tempat_lahir">
-							</div>
-						</div>
-						<div class="col-6">
-							<div class="form-group">
 								<label for="tanggal_lahir">Tanggal Lahir</label>
-								<input type="text" class="form-control" id="sku_tanggal_lahir" name="tanggal_lahir">
+								<input type="text" class="form-control" id="tanggal_lahir" readonly>
 							</div>
 						</div>
-					</div>
-
-					<div class="row">
 						<div class="col-4">
 							<div class="form-group">
 								<label for="nama">Jenis Kelamin</label>
-								<input type="text" id="sku_jenis_kelamin" class="form-control">
+								<input type="text" class="form-control" id="jenis_kelamin" readonly>
 							</div>
 						</div>
-						<div class="col-4">
+					</div>
+
+					<div class="row">
+						<div class="col-6">
 							<div class="form-group">
 								<label for="nama">Pekerjaan</label>
-								<input type="text" class="form-control" id="sku_pekerjaan" name="pekerjaan">
+								<input type="text" class="form-control" id="pekerjaan" readonly>
 							</div>
 						</div>
-						<div class="col-4">
+						<div class="col-6">
 							<div class="form-group">
-								<label for="nama">Status Perkawinan</label>
-								<input type="text" class="form-control" id="sku_status_perkawinan"
-									name="status_perkawinan">
+								<label for="nama">Agama</label>
+								<input type="text" class="form-control" id="agama" readonly>
 							</div>
 						</div>
 					</div>
@@ -73,39 +66,37 @@
 					<div class="row">
 						<div class="col-4">
 							<div class="form-group">
-								<label for="nama">Agama</label>
-								<input type="text" id="sku_agama" class="form-control">
-							</div>
-						</div>
-						<div class="col-4">
-							<div class="form-group">
 								<label for="nama">Kecamatan</label>
-								<input type="text" class="form-control" id="sku_kecamatan" name="kecamatan"
-									placeholder="Masukkan kecamatan">
+								<input type="text" class="form-control" id="kecamatan" readonly>
 							</div>
 						</div>
 						<div class="col-4">
 							<div class="form-group">
 								<label for="nama">Kelurahan</label>
-								<input type="text" class="form-control" id="sku_kelurahan" name="kelurahan"
-									placeholder="Masukkan kelurahan">
+								<input type="text" class="form-control" id="kelurahan" readonly>
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-group">
+								<label for="nama">RT / RW</label>
+								<input type="text" class="form-control" id="rt_rw" readonly>
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
-						<div class="col-6">
-							<div class="form-group">
-								<label for="nama">RT / RW</label>
-								<input type="text" class="form-control" id="sku_rt_rw" name="rt_rw"
-									placeholder="Masukkan RT/RW">
-							</div>
-						</div>
+
 						<div class="col-6">
 							<div class="form-group">
 								<label for="alamat">Alamat</label>
-								<input type="text" class="form-control" id="sku_alamat" name="alamat"
-									placeholder="Masukkan alamat">
+								<input type="text" class="form-control" id="alamat" readonly>
+							</div>
+						</div>
+
+						<div class="col-6">
+							<div class="form-group">
+								<label for="tujuan_surat_tidak_mampu">Keperluan Surat</label>
+								<input type="text" class="form-control" id="tujuan_surat_tidak_mampu" readonly>
 							</div>
 						</div>
 					</div>
@@ -125,7 +116,7 @@
 					<div class="row mt-3 text-center">
 						<div class="col-12">
 							<div class="rt_rw">
-								<img alt="foto surat rt/rw" class="img-fluid" id="skt_rt_rw">
+								<img alt="foto surat rt/rw" class="img-fluid" id="surat_rt_rw">
 							</div>
 						</div>
 					</div>

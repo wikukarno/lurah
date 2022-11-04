@@ -153,7 +153,7 @@ Tambah Surat Izin
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="hiburan">Jumlah Undangan</label>
+                                        <label for="hiburan">Nama Hiburan</label>
                                         <input type="text" class="form-control" id="hiburan" name="hiburan"
                                             placeholder="Keyboard" required
                                             oninvalid="this.setCustomValidity('Masukan hiburan')"
@@ -163,10 +163,22 @@ Tambah Surat Izin
                             </div>
 
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-4">
                                     <div class="form-group">
-                                        <label for="">Lampiran (Ktp, KK, Surat Keterangan Rt/RW)</label>
-                                        <input type="file" class="form-control" id="lampiran" name="lampiran[]" multiple
+                                        <label for="">Foto KTP</label>
+                                        <input type="file" class="form-control" id="ktp" name="ktp" required>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="">Foto KK</label>
+                                        <input type="file" class="form-control" id="kk" name="kk" required>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="">Foto Surat Keterangan RT/RW</label>
+                                        <input type="file" class="form-control" id="surat_rt_rw" name="surat_rt_rw"
                                             required>
                                     </div>
                                 </div>

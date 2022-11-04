@@ -68,18 +68,10 @@ class SkiUserController extends Controller
         $data = $request->all();
         $data['users_id'] = Auth::user()->id;
         $data['jenis_surat'] = 'SKI';
-        $ski = Letter::create($data);
-
-        if ($request->hasFile('lampiran')) {
-            foreach ($request->file('lampiran') as $file) {
-                $path = $file->store('assets/ski', 'public');
-
-                $lampiran = new Lampiran();
-                $lampiran->letters_id = $ski['id'];
-                $lampiran->lampiran = $path;
-                $lampiran->save();
-            }
-        }
+        $data['ktp'] = $request->file('ktp')->store('assets/ski', 'public');
+        $data['kk'] = $request->file('kk')->store('assets/ski', 'public');
+        $data['surat_rt_rw'] = $request->file('surat_rt_rw')->store('assets/ski', 'public');
+        Letter::create($data);
 
         return redirect()->route('ski-user.index')->with('success', 'Surat SKI berhasil dibuat');
     }
