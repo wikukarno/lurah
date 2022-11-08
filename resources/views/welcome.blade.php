@@ -258,8 +258,9 @@
         </div>
         <div class="maps pt-5 pb-1">
             <iframe
-                src="https://maps.google.com/maps?q=Riau,%20jalan%20malin%20kuning,%20RT.5/RW.11,%20Sorek%20Satu,%20Kec.%20Pangkalan%20Kuras,%20Kabupaten%20Pelalawan,%20Riau%2028383&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                style="height: 400px; border: 0; width: 100%" allowfullscreen=""></iframe>
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8085114613705!2d102.0664005!3d0.1270489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5fd5e3a392ac5%3A0x9ed4d5d58bdefd93!2sKANTOR%20LURAH%20SOREK%20SATU!5e0!3m2!1sid!2sid!4v1667880545272!5m2!1sid!2sid"
+                style="height: 400px; border: 0; width: 100%" allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
         </div>
     </section>
     <!-- script -->
