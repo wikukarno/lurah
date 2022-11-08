@@ -71,7 +71,7 @@ Surat Izin Keramaian
         function selesaiProses(id){
             Swal.fire({
                 title: 'Surat Selesai Diproses!',
-                text: "Surat Keterangan Usaha anda telah selesai diproses, silahkan ambil surat anda di kantor desa",
+                text: "Surat Keterangan Izin Anda Telah Selesai Diproses, Silahkan Ambil Surat Anda Dikantor Lurah Sorek Satu Dengan Membawa Fotocopy KK, Fotocopy KTP, dan Surat Pengaturan RT/RW. Terima Kasih",
                 icon: 'success',
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',

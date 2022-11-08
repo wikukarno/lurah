@@ -12,12 +12,16 @@ class DashboardLurahController extends Controller
 {
     public function index()
     {
-        $user = User::count();
-        $skuLurah = Letter::where('jenis_surat', 'SKU')->count();
-        $skpLurah = Letter::where('jenis_surat', 'SKP')->count();
-        $sktmLurah = Letter::where('jenis_surat', 'SKTM')->count();
-        $skiLurah = Letter::where('jenis_surat', 'SKI')->count();
-        return view('pages.lurah.dashboard', compact('user', 'skuLurah', 'skpLurah', 'sktmLurah', 'skiLurah'));
+        $user = User::whereIn('roles', [
+            'user',
+            'staff',
+        ])->count();
+        $skuLurah = Letter::where('jenis_surat', 'SKU')->where('status', 'Sedang Diproses')->count();
+        $skpLurah = Letter::where('jenis_surat', 'SKP')->where('status', 'Sedang Diproses')->count();
+        $sktmLurah = Letter::where('jenis_surat', 'SKTM')->where('status', 'Sedang Diproses')->count();
+        $skiLurah = Letter::where('jenis_surat', 'SKI')->where('status', 'Sedang Diproses')->count();
+        $skDisetujui = Letter::where('status', 'Selesai Diproses')->count();
+        return view('pages.lurah.dashboard', compact('user', 'skuLurah', 'skpLurah', 'sktmLurah', 'skiLurah', 'skDisetujui'));
     }
 
     public function getLaporan(Request $request)

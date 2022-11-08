@@ -14,7 +14,7 @@ class DashboardUserController extends Controller
         $getSurat = Letter::where('users_id', Auth::user()->id)->count();
         $getSuratDiproses = Letter::where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
         $getSuratDitolak = Letter::where('users_id', Auth::user()->id)->where('status', 'Ditolak')->count();
-        $getSuratDisetujui = Letter::where('users_id', Auth::user()->id)->where('status', 'Disetujui')->count();
+        $getSuratDisetujui = Letter::where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
         return view('pages.user.dashboard', compact('getSurat', 'getSuratDitolak', 'getSuratDisetujui', 'getSuratDiproses'));
     }
 

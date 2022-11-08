@@ -37,7 +37,7 @@ class SkuLurahController extends Controller
                 ->editColumn('action', function ($item) {
                     if ($item->posisi == 'lurah') {
                         return '
-                            <a href="#" class="btn btn-sm btn-secondary" onclick="lampiranSkuLurah(' . $item->id . ')">
+                            <a href="#" class="btn btn-sm btn-secondary" onclick="lampiranSku(' . $item->id . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                             <form action="' . route('sku-lurah.update', $item->id) . '" method="POST" class="d-inline">
@@ -103,9 +103,20 @@ class SkuLurahController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        if (request()->ajax()) {
+            $where = array('letters.id' => $request->id);
+            $result = Letter::where($where)->first();
+            if ($result) {
+                return Response()->json($result);
+            } else {
+                return Response()->json(['error' => 'Lampiran tidak ditemukan!']);
+            }
+        } else {
+            $result = (['status' => false, 'message' => 'Maaf, akses ditolak!']);
+        }
+        return Response()->json($result);
     }
 
     /**

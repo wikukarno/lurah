@@ -41,8 +41,10 @@ Route::prefix('/pages/dashboard/lurah')
     ->group(function () {
         Route::get('/', [DashboardLurahController::class, 'index'])->name('lurah.dashboard');
 
+        Route::post('/sku/get-lampiran', [SkuLurahController::class, 'show'])->name('sku-lurah.show');
         Route::post('/skp/get-lampiran', [SkpLurahController::class, 'show'])->name('skp-lurah.show');
         Route::post('/sktm/get-lampiran', [SktmLurahController::class, 'show'])->name('sktm-lurah.show');
+        Route::post('/ski/get-lampiran', [SkiLurahController::class, 'show'])->name('ski-lurah.show');
         Route::get('/laporan', [DashboardLurahController::class, 'getLaporan'])->name('lurah.laporan');
 
         Route::post('/get-akun', [ProfileLurahController::class, 'show'])->name('lurah.get-akun');

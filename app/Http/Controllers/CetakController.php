@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Letter;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -105,14 +106,14 @@ class CetakController extends Controller
         $data = file_get_contents($path);
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $laporan = Letter::with(['user'])->get();
+        $laporan = Letter::get();
         $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.laporan', [
             'pic' => $pic,
             'laporans' => $laporan,
         ]);
 
-        $tgl_cetak = date('d-M-Y');
-        // return $pdf->download('Surat_Keterangan_Usaha_' . $user->name . '_' . $tgl_cetak . '.pdf');
-        return $pdf->stream('Laporan.pdf');
+        $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
+        return $pdf->download('Data_Laporan ' . $tgl_cetak . '.pdf');
+        // return $pdf->stream('Laporan.pdf');
     }
 }

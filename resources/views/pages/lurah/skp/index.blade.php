@@ -67,7 +67,7 @@ Surat Keterangan Pemakaman
         function selesaiProses(id){
             Swal.fire({
                 title: 'Surat Selesai Diproses!',
-                text: "Surat Keterangan Usaha anda telah selesai diproses, silahkan ambil surat anda di kantor desa",
+                text: "Surat Keterangan Pemakaman Anda Telah Selesai Diproses, Silahkan Ambil Surat Anda Dikantor Lurah Sorek Satu Dengan Membawa Fotocopy KK, Fotocopy KTP, dan Surat Pengaturan RT/RW. Terima Kasih",
                 icon: 'success',
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
@@ -85,24 +85,27 @@ Surat Keterangan Pemakaman
         _token: '{{csrf_token()}}'
         },
         success: (data) => {
-        console.log(data);
-        $('#ski_no_nik').val(data.no_nik);
-        $('#ski_nama').val(data.nama);
-        $('#ski_nama_usaha').val(data.nama_usaha);
-        $('#ski_tempat_lahir').val(data.tempat_lahir);
-        $('#ski_tanggal_lahir').val(data.tanggal_lahir);
-        $('#ski_jenis_kelamin').val(data.jenis_kelamin);
-        $('#ski_pekerjaan').val(data.pekerjaan);
-        $('#ski_status_perkawinan').val(data.status_perkawinan);
-        $('#ski_agama').val(data.agama);
-        $('#ski_kecamatan').val(data.kecamatan);
-        $('#ski_kelurahan').val(data.kelurahan);
-        $('#ski_rt_rw').val(data.rt_rw);
-        $('#ski_alamat').val(data.alamat);
+        $('#no_nik').val(data.no_nik);
+        $('#nama').val(data.nama);
+        $('#nama_usaha').val(data.nama_usaha);
+        $('#tempat_lahir').val(data.tempat_lahir);
+        $('#tanggal_lahir').val(data.tanggal_lahir);
+        $('#jenis_kelamin').val(data.jenis_kelamin);
+        $('#pekerjaan').val(data.pekerjaan);
+        $('#status_perkawinan').val(data.status_perkawinan);
+        $('#agama').val(data.agama);
+        $('#kecamatan').val(data.kecamatan);
+        $('#kelurahan').val(data.kelurahan);
+        $('#rt_rw').val(data.rt_rw);
+        $('#alamat').val(data.alamat);
+        $('#hari_meninggal').val(data.hari_meninggal);
+        $('#tanggal_meninggal').val(data.tanggal_meninggal);
+        $('#nama_pemakaman').val(data.nama_pemakaman);
+        $('#tanggal_dimakamkan').val(data.tanggal_dimakamkan);
         
-        $('#ktp').attr('src', '{{ asset('storage') }}/'+data.foto_ktp);
-        $('#kk').attr('src', '{{ asset('storage') }}/'+data.foto_kk);
-        $('#skt_rt_rw').attr('src', '{{ asset('storage') }}/'+data.foto_surat_rt_rw);
+        $('#ktp').attr('src', '{{ asset('storage') }}/'+data.ktp);
+        $('#kk').attr('src', '{{ asset('storage') }}/'+data.kk);
+        $('#surat_rt_rw').attr('src', '{{ asset('storage') }}/'+data.surat_rt_rw);
         }
         });
         }

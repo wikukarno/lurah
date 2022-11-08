@@ -13,19 +13,19 @@
 				<div class="container">
 
 					<div class="row">
-						<div class="col-4">
+						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="nama">NIK</label>
 								<input type="number" class="form-control" id="no_nik" name="no_nik" readonly readonly>
 							</div>
 						</div>
-						<div class="col-4">
+						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="nama">Nama</label>
 								<input type="text" class="form-control" id="nama" name="nama" readonly readonly>
 							</div>
 						</div>
-						<div class="col-4">
+						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="nama">Nama Izin</label>
 								<input type="text" class="form-control" id="nama_izin" name="nama_usaha" readonly
@@ -35,13 +35,13 @@
 					</div>
 
 					<div class="row">
-						<div class="col-6">
+						<div class="col-12 col-lg-6">
 							<div class="form-group">
 								<label for="nama">Tempat Lahir</label>
 								<input type="text" class="form-control" id="tempat_lahir" readonly readonly>
 							</div>
 						</div>
-						<div class="col-6">
+						<div class="col-12 col-lg-6">
 							<div class="form-group">
 								<label for="tanggal_lahir">Tanggal Lahir</label>
 								<input type="text" class="form-control" id="tanggal_lahir" readonly readonly>
@@ -50,19 +50,19 @@
 					</div>
 
 					<div class="row">
-						<div class="col-4">
+						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="nama">Pekerjaan</label>
 								<input type="text" class="form-control" id="pekerjaan" readonly readonly>
 							</div>
 						</div>
-						<div class="col-4">
+						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="nama">Tanggal Pelaksanaan</label>
 								<input type="text" class="form-control" id="tanggal_pelaksanaan_izin" readonly readonly>
 							</div>
 						</div>
-						<div class="col-4">
+						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="nama">Tempat Pelaksanaan</label>
 								<input type="text" class="form-control" id="tempat_pelaksanaan_izin" readonly readonly>
@@ -71,19 +71,19 @@
 					</div>
 
 					<div class="row">
-						<div class="col-4">
+						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="alamat">Waktu Pelaksanaan</label>
 								<input type="text" class="form-control" id="waktu_pelaksanaan_izin" readonly>
 							</div>
 						</div>
-						<div class="col-4">
+						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="alamat">Jumlah Undangan</label>
 								<input type="text" class="form-control" id="jumlah_undangan" readonly>
 							</div>
 						</div>
-						<div class="col-4">
+						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="alamat">Nama Hiburan</label>
 								<input type="text" class="form-control" id="hiburan" readonly>
@@ -101,18 +101,18 @@
 					</div>
 
 					<div class="row">
-						<div class="col-6">
+						<div class="col-12 col-lg-6 mb-3">
 							<div class="ktp">
 								<img alt="foto ktp" class="img-fluid" id="ktp">
 							</div>
 						</div>
-						<div class="col-6">
+						<div class="col-12 col-lg-6 mb-3">
 							<div class="ktp">
 								<img alt="foto kk" class="img-fluid" id="kk">
 							</div>
 						</div>
 					</div>
-					<div class="row mt-3 text-center">
+					<div class="row mt-2 text-center">
 						<div class="col-12">
 							<div class="rt_rw">
 								<img alt="foto surat rt/rw" class="img-fluid" id="surat_rt_rw">

@@ -61,7 +61,7 @@ Tambah Surat Keterangan Pemakaman
                                     <div class="form-group">
                                         <label for="hari_meninggal">Hari Meninggal</label>
                                         <input type="text" class="form-control" id="hari_meninggal"
-                                            name="hari_meninggal" placeholder="Masukkan tanggal lahir" required
+                                            name="hari_meninggal" placeholder="Masukkan hari meninggal" required
                                             oninvalid="this.setCustomValidity('Masukan hari meninggal')"
                                             oninput="setCustomValidity('')">
                                     </div>
@@ -73,7 +73,7 @@ Tambah Surat Keterangan Pemakaman
                                     <div class="form-group">
                                         <label for="tanggal_meninggal">Tanggal Meninggal</label>
                                         <input type="text" class="form-control" id="tanggal_meninggal"
-                                            name="tanggal_meninggal" placeholder="Masukkan tanggal lahir" required
+                                            name="tanggal_meninggal" placeholder="Masukkan tanggal meninggal" required
                                             oninvalid="this.setCustomValidity('Masukan tanggal meninggal')"
                                             oninput="setCustomValidity('')">
                                     </div>
@@ -82,7 +82,7 @@ Tambah Surat Keterangan Pemakaman
                                     <div class="form-group">
                                         <label for="tanggal_dimakamkan">Tanggal Dimakamkan</label>
                                         <input type="text" class="form-control" id="tanggal_dimakamkan"
-                                            name="tanggal_dimakamkan" placeholder="Masukkan tanggal lahir" required
+                                            name="tanggal_dimakamkan" placeholder="Masukkan tanggal dimakamkan" required
                                             oninvalid="this.setCustomValidity('Masukan tanggal dimakamkan')"
                                             oninput="setCustomValidity('')">
                                     </div>

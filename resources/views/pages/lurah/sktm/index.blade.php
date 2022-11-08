@@ -68,7 +68,7 @@ Surat Keterangan Tidak Mampu
         function selesaiProses(id){
             Swal.fire({
                 title: 'Surat Selesai Diproses!',
-                text: "Surat Keterangan Usaha anda telah selesai diproses, silahkan ambil surat anda di kantor desa",
+                text: "Surat Keterangan Tidak Mampu Anda Telah Selesai Diproses, Silahkan Ambil Surat Anda Dikantor Lurah Sorek Satu Dengan Membawa Fotocopy KK, Fotocopy KTP, dan Surat Pengaturan RT/RW. Terima Kasih",
                 icon: 'success',
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
@@ -77,35 +77,36 @@ Surat Keterangan Tidak Mampu
         }
 
         function lampiranSktmLurah(id){
-            $('#lampiranSktmModal').modal('show');
-                $.ajax({
-                type:'POST',
-                url: "{{ url('pages/dashboard/lurah/sktm/get-lampiran') }}",
-                data: {
-                id:id,
-                _token: '{{csrf_token()}}'
-            },
-                success: (data) => {
-                    console.log(data);
-                    $('#sktm_no_nik').val(data.no_nik);
-                    $('#sktm_nama').val(data.nama);
-                    $('#sktm_nama_usaha').val(data.nama_usaha);
-                    $('#sktm_tempat_lahir').val(data.tempat_lahir);
-                    $('#sktm_tanggal_lahir').val(data.tanggal_lahir);
-                    $('#sktm_jenis_kelamin').val(data.jenis_kelamin);
-                    $('#sktm_pekerjaan').val(data.pekerjaan);
-                    $('#sktm_status_perkawinan').val(data.status_perkawinan);
-                    $('#sktm_agama').val(data.agama);
-                    $('#sktm_kecamatan').val(data.kecamatan);
-                    $('#sktm_kelurahan').val(data.kelurahan);
-                    $('#sktm_rt_rw').val(data.rt_rw);
-                    $('#sktm_alamat').val(data.alamat);
-                    
-                    $('#ktp').attr('src', '{{ asset('storage') }}/'+data.foto_ktp);
-                    $('#kk').attr('src', '{{ asset('storage') }}/'+data.foto_kk);
-                    $('#skt_rt_rw').attr('src', '{{ asset('storage') }}/'+data.foto_surat_rt_rw);
-                }
-            });
+        $('#lampiranSktmModal').modal('show');
+        $.ajax({
+        type:'POST',
+        url: "{{ url('pages/dashboard/lurah/sktm/get-lampiran') }}",
+        data: {
+        id:id,
+        _token: '{{csrf_token()}}'
+        },
+        success: (data) => {
+        console.log(data);
+        $('#no_nik').val(data.no_nik);
+        $('#nama').val(data.nama);
+        $('#nama_usaha').val(data.nama_usaha);
+        $('#tempat_lahir').val(data.tempat_lahir);
+        $('#tanggal_lahir').val(data.tanggal_lahir);
+        $('#jenis_kelamin').val(data.jenis_kelamin);
+        $('#pekerjaan').val(data.pekerjaan);
+        $('#status_perkawinan').val(data.status_perkawinan);
+        $('#agama').val(data.agama);
+        $('#kecamatan').val(data.kecamatan);
+        $('#kelurahan').val(data.kelurahan);
+        $('#rt_rw').val(data.rt_rw);
+        $('#alamat').val(data.alamat);
+        $('#tujuan_surat_tidak_mampu').val(data.tujuan_surat_tidak_mampu);
+        
+        $('#ktp').attr('src', '{{ asset('storage') }}/'+data.ktp);
+        $('#kk').attr('src', '{{ asset('storage') }}/'+data.kk);
+        $('#surat_rt_rw').attr('src', '{{ asset('storage') }}/'+data.surat_rt_rw);
+        }
+        });
         }
 
 </script>

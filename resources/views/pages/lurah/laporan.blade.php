@@ -16,7 +16,7 @@ Data Laporan
                                 <h3 class="card-title">Data Laporan</h3>
                             </div>
                             <div class="col-12">
-                                <a href="{{ route('export.laporan') }}" class="btn btn-primary" target="_blank"> <i
+                                <a href="{{ route('export.laporan') }}" class="btn btn-primary"> <i
                                         class="fas fa-download"></i>&nbsp;
                                     Download Laporan</a>
                             </div>

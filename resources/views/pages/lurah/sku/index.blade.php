@@ -38,6 +38,7 @@ Surat Keterangan Usaha
         </div>
     </div>
 </section>
+@include('pages.lurah.sku.modal-lampiran-sku')
 @endsection
 
 @push('after-scripts')
@@ -68,12 +69,42 @@ Surat Keterangan Usaha
         function selesaiProses(id){
             Swal.fire({
                 title: 'Surat Selesai Diproses!',
-                text: "Surat Keterangan Usaha anda telah selesai diproses, silahkan ambil surat anda di kantor desa",
+                text: "Surat Keterangan Usaha Anda Telah Selesai Diproses, Silahkan Ambil Surat Anda Dikantor Lurah Sorek Satu Dengan Membawa Fotocopy KK, Fotocopy KTP, dan Surat Pengaturan RT/RW. Terima Kasih",
                 icon: 'success',
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Oke'
             })
+        }
+
+        function lampiranSku(id){
+        $('#lampiranSkuModal').modal('show');
+        $.ajax({
+        type:'POST',
+        url: "{{ url('pages/dashboard/lurah/sku/get-lampiran') }}",
+        data: {
+        id:id,
+        _token: '{{csrf_token()}}'
+        },
+        success: (data) => {
+        $('#sku_no_nik').val(data.no_nik);
+        $('#sku_nama').val(data.nama);
+        $('#sku_nama_usaha').val(data.nama_usaha);
+        $('#sku_tempat_lahir').val(data.tempat_lahir);
+        $('#sku_tanggal_lahir').val(data.tanggal_lahir);
+        $('#sku_jenis_kelamin').val(data.jenis_kelamin);
+        $('#sku_pekerjaan').val(data.pekerjaan);
+        $('#sku_status_perkawinan').val(data.status_perkawinan);
+        $('#sku_agama').val(data.agama);
+        $('#sku_kecamatan').val(data.kecamatan);
+        $('#sku_kelurahan').val(data.kelurahan);
+        $('#sku_rt_rw').val(data.rt_rw);
+        $('#sku_alamat').val(data.alamat);
+        $('#ktp').attr('src', '{{ asset('storage') }}/'+data.ktp);
+        $('#kk').attr('src', '{{ asset('storage') }}/'+data.kk);
+        $('#surat_rt_rw').attr('src', '{{ asset('storage') }}/'+data.surat_rt_rw);
+        }
+        });
         }
 
 </script>

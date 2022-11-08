@@ -14,8 +14,8 @@ class DashboardStaffController extends Controller
     {
         $dataUser = User::where('roles', 'user')->count();
         $getSurat = Letter::count();
-        $getSuratDiteruskan = Letter::where('status', 'Diteruskan')->count();
-        $getSuratDisetujui = Letter::where('status', 'Disetujui')->count();
+        $getSuratDiteruskan = Letter::where('status', 'Sedang Diproses')->count();
+        $getSuratDisetujui = Letter::where('status', 'Selesai Diproses')->count();
         return view('pages.staff.dashboard', compact('dataUser', 'getSurat', 'getSuratDiteruskan', 'getSuratDisetujui'));
     }
 

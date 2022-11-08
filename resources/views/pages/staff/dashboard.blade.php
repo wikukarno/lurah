@@ -60,7 +60,7 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Surat Disetujui</h4>
+                            <h4>Surat Selesai Diproses</h4>
                         </div>
                         <div class="card-body">
                             {{ $getSuratDisetujui }}

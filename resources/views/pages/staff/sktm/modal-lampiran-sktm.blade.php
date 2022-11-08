@@ -13,13 +13,13 @@
 				<div class="container">
 
 					<div class="row">
-						<div class="col-6">
+						<div class="col-12 col-lg-6">
 							<div class="form-group">
 								<label for="nama">NIK</label>
 								<input type="number" class="form-control" id="no_nik" readonly>
 							</div>
 						</div>
-						<div class="col-6">
+						<div class="col-12 col-lg-6">
 							<div class="form-group">
 								<label for="nama">Nama</label>
 								<input type="text" class="form-control" id="nama" readonly>
@@ -28,19 +28,19 @@
 					</div>
 
 					<div class="row">
-						<div class="col-4">
+						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="nama">Tempat Lahir</label>
 								<input type="text" class="form-control" id="tempat_lahir" readonly>
 							</div>
 						</div>
-						<div class="col-4">
+						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="tanggal_lahir">Tanggal Lahir</label>
 								<input type="text" class="form-control" id="tanggal_lahir" readonly>
 							</div>
 						</div>
-						<div class="col-4">
+						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="nama">Jenis Kelamin</label>
 								<input type="text" class="form-control" id="jenis_kelamin" readonly>
@@ -49,13 +49,13 @@
 					</div>
 
 					<div class="row">
-						<div class="col-6">
+						<div class="col-12 col-lg-6">
 							<div class="form-group">
 								<label for="nama">Pekerjaan</label>
 								<input type="text" class="form-control" id="pekerjaan" readonly>
 							</div>
 						</div>
-						<div class="col-6">
+						<div class="col-12 col-lg-6">
 							<div class="form-group">
 								<label for="nama">Agama</label>
 								<input type="text" class="form-control" id="agama" readonly>
@@ -64,19 +64,19 @@
 					</div>
 
 					<div class="row">
-						<div class="col-4">
+						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="nama">Kecamatan</label>
 								<input type="text" class="form-control" id="kecamatan" readonly>
 							</div>
 						</div>
-						<div class="col-4">
+						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="nama">Kelurahan</label>
 								<input type="text" class="form-control" id="kelurahan" readonly>
 							</div>
 						</div>
-						<div class="col-4">
+						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="nama">RT / RW</label>
 								<input type="text" class="form-control" id="rt_rw" readonly>
@@ -86,14 +86,14 @@
 
 					<div class="row">
 
-						<div class="col-6">
+						<div class="col-12 col-lg-6">
 							<div class="form-group">
 								<label for="alamat">Alamat</label>
 								<input type="text" class="form-control" id="alamat" readonly>
 							</div>
 						</div>
 
-						<div class="col-6">
+						<div class="col-12 col-lg-6">
 							<div class="form-group">
 								<label for="tujuan_surat_tidak_mampu">Keperluan Surat</label>
 								<input type="text" class="form-control" id="tujuan_surat_tidak_mampu" readonly>
@@ -102,18 +102,18 @@
 					</div>
 
 					<div class="row">
-						<div class="col-6">
+						<div class="col-12 col-lg-6 mb-3">
 							<div class="ktp">
 								<img alt="foto ktp" class="img-fluid" id="ktp">
 							</div>
 						</div>
-						<div class="col-6">
+						<div class="col-12 col-lg-6 mb-3">
 							<div class="ktp">
 								<img alt="foto kk" class="img-fluid" id="kk">
 							</div>
 						</div>
 					</div>
-					<div class="row mt-3 text-center">
+					<div class="row mt-2 text-center">
 						<div class="col-12">
 							<div class="rt_rw">
 								<img alt="foto surat rt/rw" class="img-fluid" id="surat_rt_rw">

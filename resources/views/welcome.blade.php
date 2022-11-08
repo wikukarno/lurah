@@ -41,7 +41,8 @@
                                         <a class="nav-link" href="#informasi">Informasi</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#kontak">Kontak</a>
+                                        <a class="nav-link" target="_blank"
+                                            href="https://api.whatsapp.com/send?phone=6282268777140&text=Assalamu'alaikum%20Pak,%20saya%20ingin%20bertanya%20?">Kontak</a>
                                     </li>
                                 </ul>
                             </div>
