@@ -129,7 +129,7 @@
                     :
                 </td>
                 <td>
-                    435/ KS/ 2020 / <span style="padding-left: 20px">.-</span>
+                    435/ KS/ 2020/ <span style="padding-left: 20px">.-</span>
                 </td>
             </tr>
             <tr>
@@ -152,12 +152,16 @@
                     :
                 </td>
                 <td>
-                    Permohonan Surat Izin Keramaian
+                    Permohonan Surat Izin {{ $ski->jenis_surat }} <br>
                 </td>
             </tr>
         </table>
+        <p style="padding-left: 110px; margin-top: -3px">
+            <b><u>a.n. <span style="text-transform: uppercase">{{ $ski->nama }}</span></u></b>
+        </p>
 
-        <table style="padding-top: 30px; padding-left: 100px">
+
+        {{-- <table style="padding-top: 30px; padding-left: 100px">
             <tbody>
                 <tr>
                     <td style="padding-left: 50px">
@@ -170,7 +174,12 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> --}}
+
+        <p style="line-height: 24px">
+            <span style="padding-left: 150px">Berdasarkan permohonan lisan yang disampaikan kepada kami pada,</span>
+            <span style="padding-left: 100px">Tanggal 14 September 2020, oleh saudara :</span>
+        </p>
 
         <table style="padding-left: 100px; margin-top: 20px;">
             @php

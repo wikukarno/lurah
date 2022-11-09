@@ -101,24 +101,13 @@
         <div style="text-align: center;">
             <h1 style="font-size: 20px"><u>SURAT KETERANGAN USAHA</u></h1>
             {{-- <p style="margin-top: -10px">Nomor : <span style="margin-left: 30px">/UM/{{ $year }}</span></p> --}}
-            <p style="margin-top: -10px; font-weight: 500;">Nomor : 503/ UM/ {{ $year }} /<span
+            <p style="margin-top: -10px; font-weight: 500;">Nomor : 503/ UM/ {{ $year }}/<span
                     style="margin-left: 20px">.-</span> </p>
         </div>
-
-        <table>
-            <tbody>
-                <tr>
-                    <td style="padding-left: 50px">
-                        Lurah Sorek Satu Kecamatan Pangkalan Kuras Kabupaten Pelalawan, dengan ini
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        menerangkan :
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <p style="line-height: 24px">
+            <span style="padding-left: 50px">Lurah Sorek Satu Kecamatan Pangkalan Kuras Kabupaten Pelalawan, dengan
+                ini</span> menerangkan :
+        </p>
 
         <table style="padding-left: 50px; margin-top: 20px; line-height: 24px">
             @php
@@ -130,7 +119,7 @@
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td style="text-transform: uppercase"><b>{{ $sku->user->name }}</b></td>
+                    <td style="text-transform: uppercase"><b>{{ $sku->nama }}</b></td>
                 </tr>
                 <tr>
                     <td>Jenis Kelamin</td>
@@ -192,21 +181,10 @@
             di
             Kelurahan Sorek Satu.
         </p>
-
-        <table style="margin-top: 20px; text-align: justify">
-            <tbody>
-                <tr>
-                    <td style="padding-left: 50px;">
-                        Demikianlah Surat Keterangan ini kami berikan pada yang bersangkutan, untuk dapat
-                    </td>
-                </tr>
-                <tr>
-                    <td style="line-height: 24px">
-                        dipergunakan sebagaimana mestinya.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <p style="line-height: 24px">
+            <span style="padding-left: 50px">Demikianlah Surat Keterangan ini kami berikan pada yang bersangkutan, untuk
+                dapat</span> dipergunakan sebagaimana mestinya.
+        </p>
 
         <table style="padding-left: 350px;">
             <tbody>
@@ -230,7 +208,7 @@
             </p>
             <p style="padding-left: 20px; padding-top: 50px">
             </p>
-            <u><b>EDI MARDIANTO. S.Pd</b></u>
+            <u><b>EDI MARDIANTO, S.Pd</b></u>
             <br />
             NIP.19821230200801 1 013.-
             </p>

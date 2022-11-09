@@ -100,12 +100,12 @@
         @endphp
         <div style="text-align: center;">
             <h1 style="font-size: 20px"><u>SURAT KETERANGAN PEMAKAMAN</u></h1>
-            <p style="margin-top: -10px; font-weight: 500;">Nomor : 469.1/ Kesos/<span
+            <p style="margin-top: -10px; font-weight: 500;">Nomor : 469.1/ Kesos/ {{ $year }}/<span
                     style="margin-left: 20px">.-</span>
             </p>
         </div>
 
-        <table>
+        {{-- <table>
             <tbody>
                 <tr>
                     <td style="padding-left: 50px">
@@ -118,18 +118,23 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> --}}
+
+        <p style="line-height: 24px">
+            <span style="padding-left: 50px;">Lurah Sorek Satu Kecamatan Pangkalan Kuras Kabupaten Pelalawan, dengan
+                ini</span> menerangkan :
+        </p>
 
         <table style="padding-left: 50px; margin-top: 20px; line-height: 24px">
             @php
             // $ttl = \Carbon\Carbon::now()->isoFormat('D MMMM Y', strtotime($sku->tanggal_lahir));
-            $ttl = date('d F Y', strtotime($skp->tanggal_lahir));
+            $ttl = \Carbon\Carbon::parse($skp->tanggal_lahir)->isoFormat('D MMMM Y');
             @endphp
             <tbody>
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td style="text-transform: uppercase"><b>{{ $skp->user->name }}</b></td>
+                    <td style="text-transform: uppercase"><b>{{ $skp->nama }}</b></td>
                 </tr>
                 <tr>
                     <td>Jenis Kelamin</td>
@@ -197,7 +202,7 @@
             </tbody>
         </table>
 
-        <table style="margin-top: 20px; text-align: justify">
+        {{-- <table style="margin-top: 20px; text-align: justify">
             <tbody>
                 <tr>
                     <td style="padding-left: 50px;">
@@ -210,7 +215,12 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> --}}
+
+        <p>
+            <span style="padding-left: 50px; text-align: justify">Demikianlah Surat Keterangan ini kami pada ahli waris
+                yang bersangkutan, untuk dapat</span> dipergunakan sebagaimana mestinya.
+        </p>
 
         <table style="padding-left: 350px;">
             <tbody>
@@ -234,9 +244,9 @@
             </p>
             <p style="padding-left: 20px; padding-top: 50px">
             </p>
-            <u><b>RIDWATI ERMA, SH, MSI</b></u>
+            <u><b>EDI MARDIANTO, S.Pd</b></u>
             <br />
-            NIP.19750109 200003 2 002
+            NIP.19821230200801 1 013.-
             </p>
         </div>
 

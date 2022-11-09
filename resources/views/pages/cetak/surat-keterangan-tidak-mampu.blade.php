@@ -100,12 +100,12 @@
         @endphp
         <div style="text-align: center;">
             <h1 style="font-size: 20px"><u>SURAT KETERANGAN TIDAK MAMPU</u></h1>
-            <p style="margin-top: -10px; font-weight: 500;">Nomor : 400/ Kessos/ {{ $year }} /<span
+            <p style="margin-top: -10px; font-weight: 500;">Nomor : 400/ Kessos/ {{ $year }}/<span
                     style="margin-left: 20px">.-</span>
             </p>
         </div>
 
-        <table>
+        {{-- <table>
             <tbody>
                 <tr>
                     <td style="padding-left: 50px">
@@ -118,18 +118,22 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> --}}
+        <p style="line-height: 24px">
+            <span style="padding-left: 50px">Lurah Sorek Satu Kecamatan Pangkalan Kuras Kabupaten Pelalawan, dengan
+                ini</span> menerangkan :
+        </p>
 
-        <table style="padding-left: 50px; margin-top: 20px; line-height: 24px">
+        <table style="padding-left: 50px; margin-top: 15px; line-height: 24px">
             @php
             // $ttl = \Carbon\Carbon::now()->isoFormat('D MMMM Y', strtotime($sktm->tanggal_lahir));
-            $ttl = date('d F Y', strtotime($sktm->tanggal_lahir));
+            $ttl = \Carbon\Carbon::parse($sktm->tanggal_lahir)->isoFormat('D MMMM Y');
             @endphp
             <tbody>
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td style="text-transform: uppercase"><b>{{ $sktm->user->name }}</b></td>
+                    <td style="text-transform: uppercase"><b>{{ $sktm->nama }}</b></td>
                 </tr>
                 <tr>
                     <td>Jenis Kelamin</td>
@@ -184,14 +188,14 @@
             </tbody>
         </table>
 
-        <p>
+        <p style="line-height: 24px">
             <span style="padding-left: 50px; text-align: justify">Bahwa yang namanya tersebut di atas adalah benar
                 penduduk
                 Kelurahan Sorek Satu Kecamatan Pangkalan Kuras dan menurut sepengetahuan kami benar yang bersangkutan
                 penghidupan keluarganya sehari-hari termasuk <b>KELUARGA TIDAK MAMPU / MISKIN.</b></span>
         </p>
 
-        <table style="margin-top: 8px; text-align: justify">
+        <table style="text-align: justify">
             <tbody>
                 <tr>
                     <td style="padding-left: 50px;">
@@ -200,20 +204,11 @@
                 </tr>
             </tbody>
         </table>
-        <table style="margin-top: 8px; text-align: justify">
-            <tbody>
-                <tr>
-                    <td style="padding-left: 50px;">
-                        Demikianlah Surat Keterangan Tidak Mampu ini kami berikan pada yang bersangkutan,
-                    </td>
-                </tr>
-                <tr>
-                    <td style="line-height: 24px">
-                        untuk dapat dipergunakan sebagaimana mestinya.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+        <p style="line-height: 24px">
+            <span style="padding-left: 50px; text-align: justify">Demikianlah Surat Keterangan Tidak Mampu ini kami
+                berikan pada yang bersangkutan, untuk dapat dipergunakan sebagaimana mestinya.</span>
+        </p>
 
         <table style="padding-left: 350px;">
             <tbody>
@@ -235,11 +230,11 @@
             <p>
                 LURAH SOREK SATU
             </p>
-            <p style="padding-left: 20px; padding-top: 50px">
+            <p style="padding-left: 20px; padding-top: 40px">
             </p>
-            <u><b>RIDWATI ERMA. SH, MSI</b></u>
+            <u><b>EDI MARDIANTO, S.Pd</b></u>
             <br />
-            NIP.19750109 200003 2 002
+            NIP.19821230200801 1 013.-
             </p>
         </div>
 
