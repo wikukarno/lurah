@@ -184,7 +184,7 @@
             </tbody>
         </table>
 
-        <table style="margin-top: 20px; text-align: justify">
+        <table style="margin-top: 10px; text-align: justify">
             @php
             $hariMeninggal = \Carbon\Carbon::now()->isoFormat('dddd', strtotime($skp->tanggal_meninggal));
             $tanggalMeninggal = \Carbon\Carbon::now()->isoFormat('D MMMM Y', strtotime($skp->tanggal_meninggal));
