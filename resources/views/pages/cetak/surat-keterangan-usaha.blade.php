@@ -101,8 +101,8 @@
         <div style="text-align: center;">
             <h1 style="font-size: 20px"><u>SURAT KETERANGAN USAHA</u></h1>
             {{-- <p style="margin-top: -10px">Nomor : <span style="margin-left: 30px">/UM/{{ $year }}</span></p> --}}
-            <p style="margin-top: -10px; font-weight: 500;">Nomor : 503/UM/{{ $year }} /<span
-                    style="margin-left: 30px">.-</span> </p>
+            <p style="margin-top: -10px; font-weight: 500;">Nomor : 503/ UM/ {{ $year }} /<span
+                    style="margin-left: 20px">.-</span> </p>
         </div>
 
         <table>
@@ -130,7 +130,7 @@
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td>{{ $sku->user->name }}</td>
+                    <td style="text-transform: uppercase"><b>{{ $sku->user->name }}</b></td>
                 </tr>
                 <tr>
                     <td>Jenis Kelamin</td>
@@ -185,21 +185,13 @@
             </tbody>
         </table>
 
-        <table style="margin-top: 20px; text-align: justify">
-            <tbody>
-                <tr>
-                    <td style="padding-left: 50px;">
-                        Bahwa yang namanya tersebut di atas adalah benar penduduk Kelurahan Sorek Satu
-                    </td>
-                </tr>
-                <tr>
-                    <td style="line-height: 24px">
-                        Kecamatan Pangkalan Kuras dan menurut sepengetahuan kami ianya benar mempunyai Usaha menjahit
-                        pakaian jadi <b>"{{ $sku->nama_usaha }}"</b> di Kelurahan Sorek Satu.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <p style="line-height: 24px">
+            <span style="padding-left: 50px">Bahwa yang namanya tersebut di atas adalah benar penduduk Kelurahan Sorek
+                Satu</span> Kecamatan Pangkalan Kuras dan
+            menurut sepengetahuan kami ianya benar mempunyai Usaha menjahit pakaian jadi <b>"{{ $sku->nama_usaha }}"</b>
+            di
+            Kelurahan Sorek Satu.
+        </p>
 
         <table style="margin-top: 20px; text-align: justify">
             <tbody>
@@ -238,7 +230,7 @@
             </p>
             <p style="padding-left: 20px; padding-top: 50px">
             </p>
-            <u><b>EDI MARDIANTO, S.Pd</b></u>
+            <u><b>EDI MARDIANTO. S.Pd</b></u>
             <br />
             NIP.19821230200801 1 013.-
             </p>

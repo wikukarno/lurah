@@ -16,7 +16,11 @@ class DashboardStaffController extends Controller
         $getSurat = Letter::count();
         $getSuratDiteruskan = Letter::where('status', 'Sedang Diproses')->count();
         $getSuratDisetujui = Letter::where('status', 'Selesai Diproses')->count();
-        return view('pages.staff.dashboard', compact('dataUser', 'getSurat', 'getSuratDiteruskan', 'getSuratDisetujui'));
+        $skuStaff = Letter::where('jenis_surat', 'SKU')->where('status', 'Belum Diproses')->count();
+        $skpStaff = Letter::where('jenis_surat', 'SKP')->where('status', 'Belum Diproses')->count();
+        $sktmStaff = Letter::where('jenis_surat', 'SKTM')->where('status', 'Belum Diproses')->count();
+        $skiStaff = Letter::where('jenis_surat', 'SKI')->where('status', 'Belum Diproses')->count();
+        return view('pages.staff.dashboard', compact('dataUser', 'getSurat', 'getSuratDiteruskan', 'getSuratDisetujui', 'skuStaff', 'skpStaff', 'sktmStaff', 'skiStaff'));
     }
 
     public function getPenduduk()

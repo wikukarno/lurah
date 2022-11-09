@@ -100,8 +100,8 @@
         @endphp
         <div style="text-align: center;">
             <h1 style="font-size: 20px"><u>SURAT KETERANGAN PEMAKAMAN</u></h1>
-            <p style="margin-top: -10px; font-weight: 500;">Nomor : 469.1/Kesos/<span
-                    style="margin-left: 30px">.-</span>
+            <p style="margin-top: -10px; font-weight: 500;">Nomor : 469.1/ Kesos/<span
+                    style="margin-left: 20px">.-</span>
             </p>
         </div>
 
@@ -129,7 +129,7 @@
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td>{{ $skp->user->name }}</td>
+                    <td style="text-transform: uppercase"><b>{{ $skp->user->name }}</b></td>
                 </tr>
                 <tr>
                     <td>Jenis Kelamin</td>
@@ -186,19 +186,14 @@
             $tanggalDimakamakan = \Carbon\Carbon::now()->isoFormat('D MMMM Y', strtotime($skp->tanggal_dimakamkan));
             @endphp
             <tbody>
-                <tr>
-                    <td style="padding-left: 50px;">
-                        Bahwa yang namanya tersebut di atas adalah benar penduduk Kelurahan Sorek Satu
-                    </td>
-                </tr>
-                <tr>
-                    <td style="line-height: 24px">
-                        Kecamatan Pangkalan Kuras dan menurut sepengetahuan kami ianya benar telah meninggal dunia pada
-                        hari {{ $hariMeninggal }} Tanggal {{ $tanggalMeninggal }} dan benar telah dimakamkan di <b>{{
-                            $skp->nama_pemakaman }}</b> Kelurahan Sorek Satu pada Tanggal <b>{{ $tanggalDimakamakan
-                            }}</b>.
-                    </td>
-                </tr>
+                <p style="line-height: 24px">
+                    <span style="padding-left: 50px; text-align: justify">Bahwa yang namanya tersebut di atas adalah
+                        benar penduduk Kelurahan Sorek Satu</span> Kecamatan Pangkalan
+                    Kuras dan menurut sepengetahuan kami ianya benar telah meninggal dunia pada hari {{ $hariMeninggal
+                    }}
+                    Tanggal {{ $tanggalMeninggal }} dan benar telah dimakamkan di <b>{{ $skp->nama_pemakaman }}</b>
+                    Kelurahan Sorek Satu pada Tanggal <b>{{ $tanggalDimakamakan }}</b>.
+                </p>
             </tbody>
         </table>
 

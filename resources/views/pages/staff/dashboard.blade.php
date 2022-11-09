@@ -69,6 +69,69 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-danger">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>SK Usaha</h4>
+                        </div>
+                        <div class="card-body">
+                            {{ $skuStaff }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-secondary">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Sk Pemakaman</h4>
+                        </div>
+                        <div class="card-body">
+                            {{ $skpStaff }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon" style="background: rgb(64, 8, 70)">
+                        <i class="far fa-file"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>SK Tidak Mampu</h4>
+                        </div>
+                        <div class="card-body">
+                            {{ $sktmStaff }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon" style="background: rgb(116, 104, 3)">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>SK Izin</h4>
+                        </div>
+                        <div class="card-body">
+                            {{ $skiStaff }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </div>
 @endsection

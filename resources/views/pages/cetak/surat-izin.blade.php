@@ -129,7 +129,7 @@
                     :
                 </td>
                 <td>
-                    435 / KS / 2020 / .-
+                    435/ KS/ 2020 / <span style="padding-left: 20px">.-</span>
                 </td>
             </tr>
             <tr>
@@ -184,7 +184,7 @@
                         <tr>
                             <td>Nama</td>
                             <td>:</td>
-                            <td>{{ $ski->nama }}</td>
+                            <td style="text-transform: uppercase"><b>{{ $ski->nama }}</b></td>
                         </tr>
                         <tr>
                             <td>Tempat, Tanggal Lahir</td>

@@ -100,8 +100,8 @@
         @endphp
         <div style="text-align: center;">
             <h1 style="font-size: 20px"><u>SURAT KETERANGAN TIDAK MAMPU</u></h1>
-            <p style="margin-top: -10px; font-weight: 500;">Nomor : 400 / Kessos / {{ $year }} /<span
-                    style="margin-left: 30px">.-</span>
+            <p style="margin-top: -10px; font-weight: 500;">Nomor : 400/ Kessos/ {{ $year }} /<span
+                    style="margin-left: 20px">.-</span>
             </p>
         </div>
 
@@ -129,7 +129,7 @@
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td><b>{{ $sktm->user->name }}</b></td>
+                    <td style="text-transform: uppercase"><b>{{ $sktm->user->name }}</b></td>
                 </tr>
                 <tr>
                     <td>Jenis Kelamin</td>
@@ -184,21 +184,12 @@
             </tbody>
         </table>
 
-        <table style="margin-top: 20px; text-align: justify">
-            <tbody>
-                <tr>
-                    <td style="padding-left: 50px;">
-                        Bahwa yang namanya tersebut di atas adalah benar penduduk Kelurahan Sorek Satu
-                    </td>
-                </tr>
-                <tr>
-                    <td style="line-height: 24px">
-                        Kecamatan Pangkalan Kuras dan menurut sepengetahuan kami benar yang bersangkutan penghidupan
-                        keluarganya sehari-hari termasuk <b>KELUARGA TIDAK MAMPU / MISKIN.</b>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <p>
+            <span style="padding-left: 50px; text-align: justify">Bahwa yang namanya tersebut di atas adalah benar
+                penduduk
+                Kelurahan Sorek Satu Kecamatan Pangkalan Kuras dan menurut sepengetahuan kami benar yang bersangkutan
+                penghidupan keluarganya sehari-hari termasuk <b>KELUARGA TIDAK MAMPU / MISKIN.</b></span>
+        </p>
 
         <table style="margin-top: 8px; text-align: justify">
             <tbody>
@@ -246,7 +237,7 @@
             </p>
             <p style="padding-left: 20px; padding-top: 50px">
             </p>
-            <u><b>RIDWATI ERMA, SH, MSI</b></u>
+            <u><b>RIDWATI ERMA. SH, MSI</b></u>
             <br />
             NIP.19750109 200003 2 002
             </p>
