@@ -28,8 +28,8 @@ class CetakController extends Controller
         ]);
 
         $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
-        return $pdf->download('Surat_Keterangan_Usaha_' . $user->name . '_' . $tgl_cetak . '.pdf');
-        // return $pdf->stream('Surat_Keterangan_Usaha_' . $user->name . '_' . $tgl_cetak . '.pdf');
+        // return $pdf->download('Surat_Keterangan_Usaha_' . $user->name . '_' . $tgl_cetak . '.pdf');
+        return $pdf->stream('Surat_Keterangan_Usaha_' . $user->name . '_' . $tgl_cetak . '.pdf');
     }
 
     public function cetak_skp(Request $request)
@@ -50,8 +50,8 @@ class CetakController extends Controller
         ]);
 
         $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
-        return $pdf->download('Surat_Keterangan_Pemakaman_' . $user->name . '_' . $tgl_cetak . '.pdf');
-        // return $pdf->stream('Surat_Keterangan_Pemakaman_' . $user->name . '_' . $tgl_cetak .  '.pdf');
+        // return $pdf->download('Surat_Keterangan_Pemakaman_' . $user->name . '_' . $tgl_cetak . '.pdf');
+        return $pdf->stream('Surat_Keterangan_Pemakaman_' . $user->name . '_' . $tgl_cetak .  '.pdf');
     }
 
     public function cetak_sktm(Request $request)
@@ -72,8 +72,8 @@ class CetakController extends Controller
         ]);
 
         $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
-        return $pdf->download('Surat_Keterangan_Tidak_Mampu_' . $user->name . '_' . $tgl_cetak . '.pdf');
-        // return $pdf->stream('Surat_Keterangan_Tidak_Mampu_' . $user->name . '_' . $tgl_cetak . '.pdf');
+        // return $pdf->download('Surat_Keterangan_Tidak_Mampu_' . $user->name . '_' . $tgl_cetak . '.pdf');
+        return $pdf->stream('Surat_Keterangan_Tidak_Mampu_' . $user->name . '_' . $tgl_cetak . '.pdf');
     }
 
     public function cetak_ski(Request $request)
@@ -93,8 +93,8 @@ class CetakController extends Controller
         ]);
 
         $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
-        return $pdf->download('Surat_Izin_Keramaian_' . $user->name . '_' . $tgl_cetak . '.pdf');
-        // return $pdf->stream('Surat_Izin_keramaian_' . $user->name . '_' . $tgl_cetak .  '.pdf');
+        // return $pdf->download('Surat_Izin_Keramaian_' . $user->name . '_' . $tgl_cetak . '.pdf');
+        return $pdf->stream('Surat_Izin_keramaian_' . $user->name . '_' . $tgl_cetak .  '.pdf');
     }
 
 
