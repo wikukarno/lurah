@@ -127,6 +127,7 @@ Surat Keterangan Tidak Mampu
                     $('#pekerjaan').val(data.pekerjaan);
                     $('#status_perkawinan').val(data.status_perkawinan);
                     $('#agama').val(data.agama);
+                    $('#status_perkawinan').val(data.status_perkawinan);
                     $('#kecamatan').val(data.kecamatan);
                     $('#kelurahan').val(data.kelurahan);
                     $('#rt_rw').val(data.rt_rw);

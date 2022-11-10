@@ -49,16 +49,22 @@
 					</div>
 
 					<div class="row">
-						<div class="col-12 col-lg-6">
+						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="nama">Pekerjaan</label>
 								<input type="text" class="form-control" id="pekerjaan" readonly>
 							</div>
 						</div>
-						<div class="col-12 col-lg-6">
+						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="nama">Agama</label>
 								<input type="text" class="form-control" id="agama" readonly>
+							</div>
+						</div>
+						<div class="col-12 col-lg-4">
+							<div class="form-group">
+								<label for="nama">Status Perkawinan</label>
+								<input type="text" class="form-control" id="status_perkawinan" readonly>
 							</div>
 						</div>
 					</div>
