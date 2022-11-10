@@ -172,9 +172,12 @@
 
         <table style="margin-top: 10px; text-align: justify">
             @php
-            $hariMeninggal = \Carbon\Carbon::now()->isoFormat('dddd', strtotime($skp->tanggal_meninggal));
-            $tanggalMeninggal = \Carbon\Carbon::now()->isoFormat('D MMMM Y', strtotime($skp->tanggal_meninggal));
-            $tanggalDimakamakan = \Carbon\Carbon::now()->isoFormat('D MMMM Y', strtotime($skp->tanggal_dimakamkan));
+            // $hariMeninggal = \Carbon\Carbon::now()->isoFormat('dddd', strtotime($skp->tanggal_meninggal));
+            $hariMeninggal = \Carbon\Carbon::parse($skp->tanggal_meninggal)->isoFormat('dddd');
+            // $tanggalMeninggal = \Carbon\Carbon::now()->isoFormat('D MMMM Y', strtotime($skp->tanggal_meninggal));
+            $tanggalMeninggal = \Carbon\Carbon::parse($skp->tanggal_meninggal)->isoFormat('D MMMM Y');
+            // $tanggalDimakamakan = \Carbon\Carbon::now()->isoFormat('D MMMM Y', strtotime($skp->tanggal_dimakamkan));
+            $tanggalDimakamkan = \Carbon\Carbon::parse($skp->tanggal_dimakamkan)->isoFormat('D MMMM Y');
             @endphp
             <tbody>
                 <p style="line-height: 22px">
