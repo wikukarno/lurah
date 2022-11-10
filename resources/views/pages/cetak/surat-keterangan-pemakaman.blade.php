@@ -100,7 +100,7 @@
         @endphp
         <div style="text-align: center;">
             <h1 style="font-size: 20px"><u>SURAT KETERANGAN PEMAKAMAN</u></h1>
-            <p style="margin-top: -10px; font-weight: 500;">Nomor : 469.1/ Kesos/ {{ $year }}/<span
+            <p style="margin-top: -10px; font-weight: 500;">Nomor : 469.1/ Kesos/<span
                     style="margin-left: 20px">.-</span>
             </p>
         </div>
@@ -181,7 +181,7 @@
             @endphp
             <tbody>
                 <p style="line-height: 22px">
-                    
+
                     <span style="padding-left: 50px; text-align: justify">Bahwa yang namanya tersebut di atas adalah
                         benar penduduk Kelurahan Sorek Satu</span> Kecamatan Pangkalan
                     Kuras dan ianya benar telah meninggal dunia pada hari {{ $hariMeninggal
