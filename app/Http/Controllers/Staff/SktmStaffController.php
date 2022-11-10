@@ -32,6 +32,10 @@ class SktmStaffController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
+                            <a href="#" class="btn btn-sm btn-secondary" onclick="lampiranSktm(' . $item->id . ')">
+                                <i class="fa fa-eye"></i>
+                            </a>
+
                             <a href="' . route('sktm-staff.cetak-sktm', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>

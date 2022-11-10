@@ -81,7 +81,7 @@
         <tr>
             <td>
                 <p class="subtitle">
-                    JL.DATUK LAKSAMANA NO. TELEPON <br>
+                    JL. DATUK LAKSAMANA NO. TELEPON <br>
                     <span class="code-pos">KODE POS 28382</span>
                 </p>
             </td>

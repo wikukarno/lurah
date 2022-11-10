@@ -81,7 +81,7 @@
         <tr>
             <td>
                 <p class="subtitle">
-                    JL.DATUK LAKSAMANA NO. TELEPON <br>
+                    JL. DATUK LAKSAMANA NO. TELEPON <br>
                     <span class="code-pos">KODE POS 28382</span>
                 </p>
             </td>
@@ -105,22 +105,8 @@
             </p>
         </div>
 
-        {{-- <table>
-            <tbody>
-                <tr>
-                    <td style="padding-left: 50px">
-                        Lurah Sorek Satu Kecamatan Pangkalan Kuras Kabupaten Pelalawan, dengan ini
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        menerangkan :
-                    </td>
-                </tr>
-            </tbody>
-        </table> --}}
 
-        <p style="line-height: 24px">
+        <p style="line-height: 20px">
             <span style="padding-left: 50px;">Lurah Sorek Satu Kecamatan Pangkalan Kuras Kabupaten Pelalawan, dengan
                 ini</span> menerangkan :
         </p>
@@ -191,36 +177,23 @@
             $tanggalDimakamakan = \Carbon\Carbon::now()->isoFormat('D MMMM Y', strtotime($skp->tanggal_dimakamkan));
             @endphp
             <tbody>
-                <p style="line-height: 24px">
+                <p style="line-height: 22px">
                     <span style="padding-left: 50px; text-align: justify">Bahwa yang namanya tersebut di atas adalah
                         benar penduduk Kelurahan Sorek Satu</span> Kecamatan Pangkalan
-                    Kuras dan menurut sepengetahuan kami ianya benar telah meninggal dunia pada hari {{ $hariMeninggal
+                    Kuras dan ianya benar telah meninggal dunia pada hari {{ $hariMeninggal
                     }}
                     Tanggal {{ $tanggalMeninggal }} dan benar telah dimakamkan di <b>{{ $skp->nama_pemakaman }}</b>
                     Kelurahan Sorek Satu pada Tanggal <b>{{ $tanggalDimakamakan }}</b>.
                 </p>
+                <p style="line-height: 22px">
+                    <span style="padding-left: 50px; text-align: justify">Demikianlah Surat Keterangan ini kami pada
+                        ahli waris
+                        yang bersangkutan, untuk dapat</span> dipergunakan sebagaimana mestinya.
+                </p>
             </tbody>
         </table>
 
-        {{-- <table style="margin-top: 20px; text-align: justify">
-            <tbody>
-                <tr>
-                    <td style="padding-left: 50px;">
-                        Demikianlah Surat Keterangan ini kami pada ahli waris yang bersangkutan, untuk dapat
-                    </td>
-                </tr>
-                <tr>
-                    <td style="line-height: 24px">
-                        dipergunakan sebagaimana mestinya.
-                    </td>
-                </tr>
-            </tbody>
-        </table> --}}
 
-        <p>
-            <span style="padding-left: 50px; text-align: justify">Demikianlah Surat Keterangan ini kami pada ahli waris
-                yang bersangkutan, untuk dapat</span> dipergunakan sebagaimana mestinya.
-        </p>
 
         <table style="padding-left: 350px;">
             <tbody>

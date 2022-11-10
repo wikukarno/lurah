@@ -81,7 +81,7 @@
         <tr>
             <td>
                 <p class="subtitle">
-                    JL.DATUK LAKSAMANA NO. TELEPON <br>
+                    JL. DATUK LAKSAMANA NO. TELEPON <br>
                     <span class="code-pos">KODE POS 28382</span>
                 </p>
             </td>
@@ -174,14 +174,14 @@
             </tbody>
         </table>
 
-        <p style="line-height: 24px">
+        <p style="line-height: 22px">
             <span style="padding-left: 50px">Bahwa yang namanya tersebut di atas adalah benar penduduk Kelurahan Sorek
                 Satu</span> Kecamatan Pangkalan Kuras dan
-            menurut sepengetahuan kami ianya benar mempunyai Usaha menjahit pakaian jadi <b>"{{ $sku->nama_usaha }}"</b>
+            menurut sepengetahuan kami ianya benar mempunyai Usaha <b>"{{ $sku->nama_usaha }}"</b>
             di
             Kelurahan Sorek Satu.
         </p>
-        <p style="line-height: 24px">
+        <p style="line-height: 22px">
             <span style="padding-left: 50px">Demikianlah Surat Keterangan ini kami berikan pada yang bersangkutan, untuk
                 dapat</span> dipergunakan sebagaimana mestinya.
         </p>

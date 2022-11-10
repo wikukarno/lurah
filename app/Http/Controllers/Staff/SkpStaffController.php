@@ -34,6 +34,10 @@ class SkpStaffController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
+                            <a href="#" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id . ')">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            
                             <a href="' . route('skp-staff.cetak-skp', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>

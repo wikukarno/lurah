@@ -51,6 +51,10 @@ class SkuStaffController extends Controller
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
+                            <a href="#" class="btn btn-sm btn-secondary" onclick="lampiranSku(' . $item->id . ')">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            
                             <a href="javascript:void(0)" class="btn btn-danger disabled">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
