@@ -68,7 +68,7 @@ Tambah Surat Keterangan Tidak Mampu
                             </div>
 
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <div class="form-group">
                                         <label for="nama">Pekerjaan</label>
                                         <input type="text" class="form-control" id="pekerjaan" name="pekerjaan"
@@ -77,7 +77,7 @@ Tambah Surat Keterangan Tidak Mampu
                                             oninput="setCustomValidity('')">
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <div class="form-group">
                                         <label for="nama">Agama</label>
                                         <select class="form-control" id="agama" name="agama">
@@ -88,6 +88,12 @@ Tambah Surat Keterangan Tidak Mampu
                                             <option value="Budha">Budha</option>
                                             <option value="Konghucu">Konghucu</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="nama">Status Perkawinan</label>
+                                        <input type="text" class="form-control" name="status_perkawinan">
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +168,8 @@ Tambah Surat Keterangan Tidak Mampu
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="">Foto Surat Keterangan RT/RW</label>
-                                        <input type="file" class="form-control" id="surat_rt_rw" name="surat_rt_rw" required>
+                                        <input type="file" class="form-control" id="surat_rt_rw" name="surat_rt_rw"
+                                            required>
                                     </div>
                                 </div>
                             </div>
