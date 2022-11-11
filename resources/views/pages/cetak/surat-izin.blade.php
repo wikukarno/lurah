@@ -109,7 +109,8 @@
                             <tr>
                                 <td>
                                     <span style="margin-left: 30px">Kepada</span> <br />
-                                    Yth. Bapak Kapolsek Pangkalan Kuras <br />
+                                    Yth. <span style="text-transform: capitalize">{{ $ski->tujuan_surat_izin }}</span>
+                                    <br />
                                     di. - <br />
                                     <u><span style="margin-left: 30px">Sorek Satu</span></u>
                                 </td>
@@ -140,7 +141,7 @@
                     :
                 </td>
                 <td>
-                    1 (satu) berkas
+                    -
                 </td>
             </tr>
 
@@ -152,33 +153,18 @@
                     :
                 </td>
                 <td>
-                    Permohonan Surat Izin {{ $ski->jenis_surat }} <br>
+                    Rekomendasi {{ $ski->perihal }}
                 </td>
             </tr>
         </table>
-        <p style="padding-left: 110px; margin-top: -3px">
+        <p style="padding-left: 125px; margin-top: -3px">
             <b><u>a.n. <span style="text-transform: uppercase">{{ $ski->nama }}</span></u></b>
         </p>
 
 
-        {{-- <table style="padding-top: 30px; padding-left: 100px">
-            <tbody>
-                <tr>
-                    <td style="padding-left: 50px">
-                        Berdasarkan permohonan lisan yang disampaikan kepada kami pada
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Tanggal 14 September 2020, oleh saudara :
-                    </td>
-                </tr>
-            </tbody>
-        </table> --}}
-
         <p style="line-height: 24px">
-            <span style="padding-left: 150px">Berdasarkan permohonan lisan yang disampaikan kepada kami pada,</span>
-            <span style="padding-left: 100px">Tanggal 14 September 2020, oleh saudara :</span>
+            <span style="padding-left: 150px">Berdasarkan permohonan lisan yang disampaikan kepada kami pada</span>
+            <span style="padding-left: 100px">Tanggal 14 September 2020 oleh saudara :</span>
         </p>
 
         <table style="padding-left: 100px; margin-top: 20px;">
@@ -223,36 +209,42 @@
         <table style="padding-left: 100px; margin-top: 10px;">
             <tbody>
                 <tr>
-                    <td>Adapun maksud dan tujuannya ingin mengadakan acara <b>"PESTA PERNIKAHAN ANAKNYA"</b> yang akan
+                    <td>Adapun maksud dan tujuannya ingin mengadakan acara <b>"{{ $ski->nama_izin }}"</b> yang akan
                         di
                         laksanakan pada :</td>
                 </tr>
+
+                @php
+                $hari = \Carbon\Carbon::parse($ski->tanggal_mulai)->isoFormat('dddd');
+                $tanggalAcara = \Carbon\Carbon::parse($ski->tanggal_pelaksanaan_izin)->isoFormat('D MMMM Y');
+                $jamMulai = \Carbon\Carbon::parse($ski->waktu_pelaksaan_izin)->isoFormat('HH:mm');
+                @endphp
                 <table style="padding-left: 50px; width: 100%; padding-top: 10px">
                     <tbody>
                         <tr>
                             <td>Hari/Tanggal</td>
                             <td>:</td>
-                            <td>Selasa / 15 September 2020</td>
+                            <td>{{ $hari }} / {{ $tanggalAcara }}</td>
                         </tr>
                         <tr>
                             <td>Pukul</td>
                             <td>:</td>
-                            <td>09.00 WIB s/d 23.00</td>
+                            <td>{{ $jamMulai }} WIB s/d 23.00</td>
                         </tr>
                         <tr>
                             <td>Tempat</td>
                             <td>:</td>
-                            <td>RT.001 RW.008 Kelurahan Sorek Satu</td>
+                            <td>{{ $ski->tempat_pelaksanaan_izin }}</td>
                         </tr>
                         <tr>
                             <td>Jumlah Undangan</td>
                             <td>:</td>
-                            <td>500</td>
+                            <td>{{ $ski->jumlah_undangan }}</td>
                         </tr>
                         <tr>
                             <td>Hiburan</td>
                             <td>:</td>
-                            <td>Keyboard</td>
+                            <td>{{ $ski->hiburan }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -307,7 +299,7 @@
             </p>
             <p style="padding-left: 20px; padding-top: 50px">
             </p>
-            <u><b>EDI MARDIANTO, S.Pd</b></u>
+            <u><b>EDI MARDIANTO. S.Pd</b></u>
             <br />
             NIP.19821230200801 1 013.-
             </p>

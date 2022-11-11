@@ -208,7 +208,7 @@
             </p>
             <p style="padding-left: 20px; padding-top: 50px">
             </p>
-            <u><b>EDI MARDIANTO, S.Pd</b></u>
+            <u><b>EDI MARDIANTO. S.Pd</b></u>
             <br />
             NIP.19821230200801 1 013.-
             </p>
