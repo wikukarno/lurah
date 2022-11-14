@@ -98,6 +98,7 @@ Surat Keterangan Tidak Mampu
         $('#agama').val(data.agama);
         $('#kecamatan').val(data.kecamatan);
         $('#kelurahan').val(data.kelurahan);
+        $('#perkawinan').val(data.status_perkawinan);
         $('#rt_rw').val(data.rt_rw);
         $('#alamat').val(data.alamat);
         $('#tujuan_surat_tidak_mampu').val(data.tujuan_surat_tidak_mampu);

@@ -132,6 +132,8 @@ Surat Izin Keramaian
                     $('#kecamatan').val(data.kecamatan);
                     $('#kelurahan').val(data.kelurahan);
                     $('#rt_rw').val(data.rt_rw);
+                    $('#perihal').val(data.perihal);
+                    $('#tujuan').val(data.tujuan_surat_izin);
                     $('#alamat').val(data.alamat);
                     $('#tanggal_pelaksanaan_izin').val(data.tanggal_pelaksanaan_izin);
                     $('#waktu_pelaksanaan_izin').val(data.waktu_pelaksanaan_izin);

@@ -71,22 +71,37 @@
 					</div>
 
 					<div class="row">
-						<div class="col-12 col-lg-4">
+						<div class="col-12 col-lg-6">
 							<div class="form-group">
 								<label for="alamat">Waktu Pelaksanaan</label>
 								<input type="text" class="form-control" id="waktu_pelaksanaan_izin" readonly>
 							</div>
 						</div>
-						<div class="col-12 col-lg-4">
+						<div class="col-12 col-lg-6">
 							<div class="form-group">
 								<label for="alamat">Jumlah Undangan</label>
 								<input type="text" class="form-control" id="jumlah_undangan" readonly>
 							</div>
 						</div>
+					</div>
+
+					<div class="row">
 						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="alamat">Nama Hiburan</label>
 								<input type="text" class="form-control" id="hiburan" readonly>
+							</div>
+						</div>
+						<div class="col-12 col-lg-4">
+							<div class="form-group">
+								<label for="perihal">Perihal</label>
+								<input type="text" class="form-control" id="perihal">
+							</div>
+						</div>
+						<div class="col-12 col-lg-4">
+							<div class="form-group">
+								<label for="tujuan">Tujuan</label>
+								<input type="text" class="form-control" id="tujuan">
 							</div>
 						</div>
 					</div>
