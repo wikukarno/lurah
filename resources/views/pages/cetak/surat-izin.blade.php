@@ -153,7 +153,7 @@
                     :
                 </td>
                 <td>
-                    Rekomendasi {{ $ski->perihal }}
+                    {{ $ski->perihal }}
                 </td>
             </tr>
         </table>

@@ -101,7 +101,7 @@
         <div style="text-align: center;">
             <h1 style="font-size: 20px"><u>SURAT KETERANGAN PEMAKAMAN</u></h1>
             <p style="margin-top: -10px; font-weight: 500;">Nomor : 469.1/ Kesos/<span
-                    style="margin-left: 20px">.-</span>
+                    style="margin-left: 30px">.-</span>
             </p>
         </div>
 
