@@ -137,6 +137,8 @@ Surat Izin Keramaian
         $('#tempat_pelaksanaan_izin').val(data.tempat_pelaksanaan_izin);
         $('#jumlah_undangan').val(data.jumlah_undangan);
         $('#hiburan').val(data.hiburan);
+        $('#perihal').val(data.perihal);
+        $('#tujuan').val(data.tujuan_surat_izin);
         
         $('#ktp').attr('src', '{{ asset('storage') }}/'+data.ktp);
         $('#kk').attr('src', '{{ asset('storage') }}/'+data.kk);

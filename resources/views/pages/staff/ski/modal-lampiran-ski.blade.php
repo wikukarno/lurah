@@ -95,13 +95,13 @@
 						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="perihal">Perihal</label>
-								<input type="text" class="form-control" id="perihal">
+								<input type="text" class="form-control" id="perihal" readonly>
 							</div>
 						</div>
 						<div class="col-12 col-lg-4">
 							<div class="form-group">
 								<label for="tujuan">Tujuan</label>
-								<input type="text" class="form-control" id="tujuan">
+								<input type="text" class="form-control" id="tujuan" readonly>
 							</div>
 						</div>
 					</div>
