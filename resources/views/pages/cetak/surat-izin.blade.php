@@ -208,7 +208,7 @@
                         <p style="margin-top: -10px">
                             <span style="padding-left: 30px">Pukul</span>
                             <span style="padding-left: 93px; padding-right: 10px">:</span>
-                            <span>{{ $jamMulai }}</span>
+                            <span>{{ $ski->waktu_pelaksanaan_izin }}</span>
                         </p>
                         <p style="margin-top: -10px">
                             <span style="padding-left: 30px">Tempat</span>
