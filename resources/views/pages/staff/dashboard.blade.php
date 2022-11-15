@@ -56,7 +56,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-success">
-                        <i class="fas fa-circle"></i>
+                        <i class="fas fa-bolt"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
@@ -89,7 +89,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-secondary">
-                        <i class="fas fa-circle"></i>
+                        <i class="fas fa-gem"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
@@ -119,7 +119,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon" style="background: rgb(116, 104, 3)">
-                        <i class="fas fa-circle"></i>
+                        <i class="fas fa-info"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
