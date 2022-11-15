@@ -93,7 +93,7 @@ class CetakController extends Controller
         ]);
 
         $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
-        return $pdf->download('Surat_Izin_Keramaian_' . $user->name . '_' . $tgl_cetak . '.pdf');
+        return $pdf->download('Surat_Izin_' . $ski->nama_izin . '_' . $user->name . '_' . $tgl_cetak . '.pdf');
         // return $pdf->stream('Surat_Izin_keramaian_' . $user->name . '_' . $tgl_cetak .  '.pdf');
     }
 
