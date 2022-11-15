@@ -120,61 +120,43 @@
                 </tr>
             </tbody>
         </table>
-
-        <table style="margin-top: -70px; width: 60%">
-            <tr>
-                <td rowspan="1">
-                    Nomor
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    435/ KS/ 2020/ <span style="padding-left: 20px">.-</span>
-                </td>
-            </tr>
-            <tr>
-                <td rowspan="1">
-                    Lampiran
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    -
-                </td>
-            </tr>
-
-            <tr>
-                <td rowspan="1">
-                    Perihal
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    {{ $ski->perihal }}
-                </td>
-            </tr>
-        </table>
-        <p style="padding-left: 125px; margin-top: -3px">
+        <div class="header-keterangan" style="margin-top: -170px;">
+            <p>
+                <span>
+                    Nomor <span style="padding-left: 25px">:</span> 435/ KS/ 2020/ <span
+                        style="padding-left: 30px">.-</span>
+                </span>
+            </p>
+            <p style="margin-top: -10px">
+                <span>
+                    Lampiran <span style="padding-left: 8px">:</span> -
+                </span>
+            </p>
+            <p style="margin-top: -10px">
+                <span>
+                    Perihal <span style="padding-left: 25px">:</span> {{ $ski->perihal }}
+                </span>
+            </p>
+        </div>
+        <p style="padding-left: 80px; margin-top: -10px">
             <b><u>a.n. <span style="text-transform: uppercase">{{ $ski->nama }}</span></u></b>
         </p>
 
 
         <p style="line-height: 24px">
-            <span style="padding-left: 150px">Berdasarkan permohonan lisan yang disampaikan kepada kami pada</span>
-            <span style="padding-left: 100px">Tanggal 14 September 2020 oleh saudara :</span>
+            <span style="padding-left: 130px">Berdasarkan permohonan lisan yang disampaikan kepada kami pada</span>
+            <span style="padding-left: 100px">Tanggal {{ $ski->created_at->isoFormat('D MMMM Y') }} oleh saudara
+                :</span>
         </p>
 
-        <table style="padding-left: 100px; margin-top: 20px;">
+        <table style="padding-left: 80px; margin-top: 20px; width: 100%;">
             @php
             // $ttl = \Carbon\Carbon::now()->isoFormat('D MMMM Y', strtotime($ski->tanggal_lahir));
             // $ttl = date('d l Y', strtotime($ski->tanggal_lahir));
             $ttl = \Carbon\Carbon::parse($ski->tanggal_lahir)->isoFormat('D MMMM Y');
             @endphp
             <tbody>
-                <table style="padding-left: 50px; width: 70%">
+                <table style="padding-left: 50px; width: 100%">
                     <tbody>
                         <tr>
                             <td>Nama</td>
@@ -182,7 +164,7 @@
                             <td style="text-transform: uppercase"><b>{{ $ski->nama }}</b></td>
                         </tr>
                         <tr>
-                            <td>Tempat, Tanggal Lahir</td>
+                            <td>Tempat, Tgl Lahir</td>
                             <td>:</td>
                             <td>{{ $ski->tempat_lahir }}, {{ $ttl }}</td>
                         </tr>
@@ -215,11 +197,11 @@
                 </tr>
 
                 @php
-                $hari = \Carbon\Carbon::parse($ski->tanggal_mulai)->isoFormat('dddd');
+                $hari = \Carbon\Carbon::parse($ski->tanggal_pelaksanaan_izin)->isoFormat('dddd');
                 $tanggalAcara = \Carbon\Carbon::parse($ski->tanggal_pelaksanaan_izin)->isoFormat('D MMMM Y');
                 $jamMulai = \Carbon\Carbon::parse($ski->waktu_pelaksaan_izin)->isoFormat('HH:mm');
                 @endphp
-                <table style="padding-left: 50px; width: 100%; padding-top: 10px">
+                <table style="padding-left: 30px; width: 100%; padding-top: 10px">
                     <tbody>
                         <tr>
                             <td>Hari/Tanggal</td>
@@ -229,7 +211,7 @@
                         <tr>
                             <td>Pukul</td>
                             <td>:</td>
-                            <td>{{ $jamMulai }} WIB s/d 23.00</td>
+                            <td>{{ $ski->waktu_pelaksaan_izin }}</td>
                         </tr>
                         <tr>
                             <td>Tempat</td>
@@ -251,7 +233,7 @@
             </tbody>
         </table>
 
-        <table style="padding-left: 100px; text-align: justify; padding-top: 10px">
+        <table style="padding-left: 80px; text-align: justify; padding-top: 10px">
             <tbody>
                 <tr>
                     <td style="padding-left: 50px">
@@ -259,7 +241,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="">
+                    <td style="padding-left: 20px">
                         memberikan izin tempat pada yang bersangkutan, namun untuk proses selanjutnya kami harapkan
                         kehadapan Bapak.
                     </td>
@@ -267,7 +249,7 @@
             </tbody>
         </table>
 
-        <table style="padding-left: 100px; margin-top: 10px; text-align: justify">
+        <table style="padding-left: 80px; margin-top: 10px; text-align: justify">
             <tbody>
                 <tr>
                     <td style="padding-left: 50px;">

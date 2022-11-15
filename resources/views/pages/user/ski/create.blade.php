@@ -92,8 +92,8 @@ Tambah Surat Izin
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="perihal">Perihal</label>
-                                        <input type="text" class="form-control" id="perihal" name="perihal"
-                                            placeholder="Masukkan perihal" required
+                                        <input type="text" class="form-control" maxlength="35" id="perihal"
+                                            name="perihal" placeholder="Masukkan perihal" required
                                             oninvalid="this.setCustomValidity('Masukan perihal')"
                                             oninput="setCustomValidity('')">
                                     </div>

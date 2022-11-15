@@ -135,13 +135,13 @@ class SkiLurahController extends Controller
 
         if ($sktm) {
             // Alert::success('Berhasil', 'Surat Keterangan Usaha berhasil disetujui!');
-            return redirect()->route('sktm-lurah.index');
+            return redirect()->route('ski-lurah.index');
         } else {
             // Alert::error('Gagal', 'Surat Keterangan Usaha gagal disetujui!');
-            return redirect()->route('sktm-lurah.index');
+            return redirect()->route('ski-lurah.index');
         }
 
-        return redirect()->route('sktm-lurah.index');
+        return redirect()->route('ski-lurah.index');
     }
 
     /**
