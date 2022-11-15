@@ -27,7 +27,7 @@
 						</div>
 						<div class="col-12 col-lg-4">
 							<div class="form-group">
-								<label for="nama">Nama Izin</label>
+								<label for="nama">Nama Acara</label>
 								<input type="text" class="form-control" id="nama_izin" name="nama_usaha" readonly
 									readonly>
 							</div>
