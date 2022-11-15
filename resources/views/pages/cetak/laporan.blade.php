@@ -118,7 +118,7 @@
                 <tr>
                     <td style="padding: 10px">{{ $loop->iteration }}</td>
                     <td style="padding: 10px">{{ $item->no_nik }}</td>
-                    <td style="padding: 10px">{{ $item->user->name }}</td>
+                    <td style="padding: 10px">{{ $item->nama }}</td>
                     <td style="padding: 10px">{{ $item->jenis_surat }}</td>
                     <td style="padding: 10px">{{ $item->created_at->isoFormat('D MMMM Y') }}</td>
                     <td style="padding: 10px">{{ $item->updated_at->isoFormat('D MMMM Y') }}</td>
