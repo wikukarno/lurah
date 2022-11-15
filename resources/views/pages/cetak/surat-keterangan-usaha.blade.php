@@ -102,7 +102,7 @@
             <h1 style="font-size: 20px"><u>SURAT KETERANGAN USAHA</u></h1>
             {{-- <p style="margin-top: -10px">Nomor : <span style="margin-left: 30px">/UM/{{ $year }}</span></p> --}}
             <p style="margin-top: -10px; font-weight: 500;">Nomor : 503/ UM/ {{ $year }}/<span
-                    style="margin-left: 20px">.-</span> </p>
+                    style="margin-left: 30px">.-</span> </p>
         </div>
         <p style="line-height: 24px">
             <span style="padding-left: 50px">Lurah Sorek Satu Kecamatan Pangkalan Kuras Kabupaten Pelalawan, dengan
