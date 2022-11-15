@@ -37,9 +37,9 @@ Tambah Surat Izin
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="nama">Nama Izin</label>
+                                        <label for="nama">Nama Acara</label>
                                         <input type="text" class="form-control" id="nama_izin" name="nama_izin"
-                                            placeholder="Masukkan nama izin" required
+                                            placeholder="Masukkan nama acara" required
                                             oninvalid="this.setCustomValidity('Masukan nama izin')"
                                             oninput="setCustomValidity('')">
                                     </div>
