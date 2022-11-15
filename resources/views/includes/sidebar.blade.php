@@ -2,7 +2,11 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="/public">Lurah Sorek Satu</a>
+            <a href="/public">
+                <img alt="image" src="{{ asset('assets/images/logo.jpg') }}" style="max-height: 50px"
+                    class="header-logo" />
+                <span class="logo-name">Lurah Sorek Satu</span>
+            </a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">LSS</a>
@@ -65,7 +69,11 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="/public">Lurah Sorek Satu</a>
+            <a href="/public">
+                <img alt="image" src="{{ asset('assets/images/logo.jpg') }}" style="max-height: 50px"
+                    class="header-logo" />
+                <span class="logo-name">Lurah Sorek Satu</span>
+            </a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">LSS</a>
@@ -121,7 +129,11 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="/public">Lurah Sorek Satu</a>
+            <a href="/public">
+                <img alt="image" src="{{ asset('assets/images/logo.jpg') }}" style="max-height: 50px"
+                    class="header-logo" />
+                <span class="logo-name">Lurah Sorek Satu</span>
+            </a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">LSS</a>

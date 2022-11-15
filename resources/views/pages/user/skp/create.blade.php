@@ -178,13 +178,13 @@ Tambah Surat Keterangan Pemakaman
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="">Foto KTP</label>
+                                        <label for="">Foto KTP Asli</label>
                                         <input type="file" class="form-control" id="ktp" name="ktp" required>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="">Foto KK</label>
+                                        <label for="">Foto KK Asli</label>
                                         <input type="file" class="form-control" id="kk" name="kk" required>
                                     </div>
                                 </div>

@@ -155,13 +155,13 @@ Surat Keterangan Usaha
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="">Foto KTP</label>
+                                        <label for="">Foto KTP Asli</label>
                                         <input type="file" class="form-control" id="ktp" name="ktp" required>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="">Foto KK</label>
+                                        <label for="">Foto KK Asli</label>
                                         <input type="file" class="form-control" id="kk" name="kk" required>
                                     </div>
                                 </div>
@@ -169,7 +169,7 @@ Surat Keterangan Usaha
                                     <div class="form-group">
                                         <label for="">Foto Surat Keterangan RT/RW</label>
                                         <input type="file" class="form-control" id="surat_rt_rw" name="surat_rt_rw"
-                                         required>
+                                            required>
                                     </div>
                                 </div>
                             </div>
