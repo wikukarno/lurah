@@ -211,7 +211,7 @@
                         <tr>
                             <td>Pukul</td>
                             <td>:</td>
-                            <td>{{ $ski->waktu_pelaksaan_izin }}</td>
+                            <td>{{ $ski->waktu_pelaksanaan_izin }}</td>
                         </tr>
                         <tr>
                             <td>Tempat</td>
