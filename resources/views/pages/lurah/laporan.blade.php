@@ -59,7 +59,7 @@ Data Laporan
             columns: [
                 { data: 'DT_RowIndex', name: 'id' },
                 { data: 'no_nik', name: 'no_nik' },
-                { data: 'user.name', name: 'user.name' },
+                { data: 'nama', name: 'nama' },
                 { data: 'jenis_surat', name: 'jenis_surat' },
                 { data: 'created_at', name: 'created_at' },
                 { data: 'updated_at', name: 'updated_at' },
