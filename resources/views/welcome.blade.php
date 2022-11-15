@@ -10,7 +10,9 @@
     <!-- style -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="{{ asset('home/style/main.css') }}" />
+
 </head>
 
 <body>
@@ -156,7 +158,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-6 text-center d-none d-md-block">
-                    <figure class="figure">
+                    <figure class="figure" data-aos="fade-up" data-aos-delay="100">
                         <img src="{{ asset('home/images/schedule.svg') }}" class="w-100" alt="" />
                     </figure>
                 </div>
@@ -176,7 +178,7 @@
             </div>
             <div class="row mt-5">
                 <div class="col-12 col-md-6">
-                    <div class="card">
+                    <div class="card" data-aos="fade-up" data-aos-delay="200">
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="flex-shrink-0">
@@ -192,7 +194,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="card">
+                    <div class="card" data-aos="fade-up" data-aos-delay="300">
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="flex-shrink-0">
@@ -210,7 +212,7 @@
             </div>
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <div class="card">
+                    <div class="card" data-aos="fade-up" data-aos-delay="400">
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="flex-shrink-0">
@@ -226,7 +228,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="card card-four">
+                    <div class="card card-four" data-aos="fade-up" data-aos-delay="500">
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="flex-shrink-0">
@@ -259,13 +261,18 @@
         <div class="maps pt-5 pb-1">
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8085114613705!2d102.0664005!3d0.1270489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5fd5e3a392ac5%3A0x9ed4d5d58bdefd93!2sKANTOR%20LURAH%20SOREK%20SATU!5e0!3m2!1sid!2sid!4v1667880545272!5m2!1sid!2sid"
-                style="height: 400px; border: 0; width: 100%" allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                style="height: 400px; border: 0; width: 100%" allowfullscreen=""
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
 
         </div>
     </section>
     <!-- script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
+    </script>
+    <script src="{{ asset('home/aos/aos.js') }}"></script>
+    <script>
+        AOS.init();
     </script>
 </body>
 
