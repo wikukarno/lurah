@@ -45,7 +45,6 @@ Route::prefix('/pages/dashboard/lurah')
         Route::post('/skp/get-lampiran', [SkpLurahController::class, 'show'])->name('skp-lurah.show');
         Route::post('/sktm/get-lampiran', [SktmLurahController::class, 'show'])->name('sktm-lurah.show');
         Route::post('/ski/get-lampiran', [SkiLurahController::class, 'show'])->name('ski-lurah.show');
-        Route::get('/laporan', [DashboardLurahController::class, 'getLaporan'])->name('lurah.laporan');
 
         Route::post('/get-akun', [ProfileLurahController::class, 'show'])->name('lurah.get-akun');
         Route::post('/akun/update', [ProfileLurahController::class, 'update'])->name('lurah.update-akun');
@@ -53,6 +52,15 @@ Route::prefix('/pages/dashboard/lurah')
 
         Route::get('/penduduk', [DashboardLurahController::class, 'getPenduduk'])->name('lurah.penduduk');
         Route::get('/download-laporan', [CetakController::class, 'downloadLaporan'])->name('export.laporan');
+
+        Route::post('/laporan-bulanan', [DashboardLurahController::class, 'filterLaporanBulanan'])->name('lurah.filter-laporan-bulanan');
+        Route::post('/laporan-tahunan', [DashboardLurahController::class, 'filterLaporanTahunan'])->name('lurah.filter-laporan-tahunan');
+        Route::post('/laporan-bulanan-tahunan', [DashboardLurahController::class, 'filterLaporanbulananTahunan'])->name('lurah.filter-laporan-bulanan-tahunan');
+
+        // cetak laporan
+        Route::get('/laporan', [DashboardLurahController::class, 'getLaporan'])->name('lurah.laporan');
+        Route::get('/cetak-laporan-bulanan/{month}/{year}', [CetakController::class, 'downloadLaporanBulanan'])->name('cetak.laporan-bulanan');
+        Route::get('/cetak-laporan-tahunan/{year}', [CetakController::class, 'downloadLaporanTahunan'])->name('cetak.laporan-tahunan');
 
         Route::resource('sku-lurah', SkuLurahController::class);
         Route::resource('skp-lurah', SkpLurahController::class);

@@ -97,8 +97,7 @@ class CetakController extends Controller
         // return $pdf->stream('Surat_Izin_keramaian_' . $user->name . '_' . $tgl_cetak .  '.pdf');
     }
 
-
-    public function downloadLaporan(Request $request)
+    public function downloadLaporanBulanan(Request $request)
     {
         $path = base_path('public/assets/images/logo.png'); // local
         // $path = asset('assets/images/uir.png'); // production
@@ -106,14 +105,48 @@ class CetakController extends Controller
         $data = file_get_contents($path);
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $laporan = Letter::get();
-        $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.laporan', [
+        $laporan = Letter::whereMonth('created_at', $request->month)->firstOrFail();
+        // if data not found
+        if (!$laporan) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        } else {
+            $items = Letter::whereMonth('created_at', $request->month)->whereYear('created_at', $request->year)->get();
+        }
+        $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.laporan-bulanan', [
             'pic' => $pic,
             'laporans' => $laporan,
+            'items' => $items,
         ]);
 
         $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
-        return $pdf->download('Data_Laporan ' . $tgl_cetak . '.pdf');
+        $getMonth = $request->month;
+        $getYear = $request->year;
+        return $pdf->download('Data_Laporan_Bulan_' . $getMonth . '_Tahun_' . $getYear . '_' . $tgl_cetak . '.pdf');
+        // return $pdf->stream('Laporan.pdf');
+    }
+
+    public function downloadLaporanTahunan(Request $request)
+    {
+        $path = base_path('public/assets/images/logo.png'); // local
+        // $path = asset('assets/images/uir.png'); // production
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        $laporan = Letter::whereYear('created_at', $request->year)->first();
+        $items = Letter::whereYear('created_at', $request->year)->get();
+        $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.laporan-tahunan', [
+            'pic' => $pic,
+            'laporans' => $laporan,
+            'items' => $items,
+        ]);
+
+        $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
+        $getYear = $request->year;
+        return $pdf->download('Data_Laporan_' . $getYear . ' ' . $tgl_cetak . '.pdf');
         // return $pdf->stream('Laporan.pdf');
     }
 }
