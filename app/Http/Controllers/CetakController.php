@@ -105,7 +105,7 @@ class CetakController extends Controller
         $data = file_get_contents($path);
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $laporan = Letter::whereMonth('created_at', $request->month)->firstOrFail();
+        $laporan = Letter::whereMonth('created_at', $request->month)->first();
         // if data not found
         if (!$laporan) {
             return response()->json([
@@ -124,8 +124,8 @@ class CetakController extends Controller
         $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
         $getMonth = $request->month;
         $getYear = $request->year;
-        return $pdf->download('Data_Laporan_Bulan_' . $getMonth . '_Tahun_' . $getYear . '_' . $tgl_cetak . '.pdf');
-        // return $pdf->stream('Laporan.pdf');
+        // return $pdf->download('Data_Laporan_Bulan_' . $getMonth . '_Tahun_' . $getYear . '_' . $tgl_cetak . '.pdf');
+        return $pdf->stream('Laporan.pdf');
     }
 
     public function downloadLaporanTahunan(Request $request)
@@ -138,15 +138,16 @@ class CetakController extends Controller
 
         $laporan = Letter::whereYear('created_at', $request->year)->first();
         $items = Letter::whereYear('created_at', $request->year)->get();
+        $getYear = $request->year;
+        $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
         $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.laporan-tahunan', [
             'pic' => $pic,
             'laporans' => $laporan,
             'items' => $items,
+            'getYear' => $getYear,
         ]);
 
-        $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
-        $getYear = $request->year;
-        return $pdf->download('Data_Laporan_' . $getYear . ' ' . $tgl_cetak . '.pdf');
-        // return $pdf->stream('Laporan.pdf');
+        // return $pdf->download('Data_Laporan_' . $getYear . ' ' . $tgl_cetak . '.pdf');
+        return $pdf->stream('Laporan.pdf');
     }
 }

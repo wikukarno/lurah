@@ -99,7 +99,7 @@
         $year = date('Y');
         @endphp
         <div style="text-align: center;">
-            <h1 style="font-size: 20px"><u>LAPORAN BULAN</u></h1>
+            <h1 style="font-size: 20px"><u>LAPORAN BULANAN </u></h1>
         </div>
 
         <table style="margin-top: 30px" border="1">
