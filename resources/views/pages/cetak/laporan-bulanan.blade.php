@@ -98,30 +98,32 @@
         @php
         $year = date('Y');
         @endphp
-        <div style="text-align: center;">
-            <h1 style="font-size: 20px"><u>LAPORAN BULANAN </u></h1>
+        <div class="title-surat">
+            <h1><u>LAPORAN BULAN {{ getMonth($getMonth) }} TAHUN {{ $getYear }} </u></h1>
         </div>
 
-        <table style="margin-top: 30px" border="1">
+        <table class="table-content" border="1">
             <thead>
                 <tr>
-                    <th>No.</th>
-                    <th>NIK</th>
-                    <th>Nama</th>
-                    <th>Jenis Surat</th>
-                    <th>Tanggal Diajukan</th>
-                    <th>Tanggal Disetujui</th>
+                    <th style="padding: 10px; text-align:center; position: fixed">No.</th>
+                    <th style="padding: 10px; text-align:center; position: fixed">NIK</th>
+                    <th style="padding: 10px; text-align:center; position: fixed">Nama</th>
+                    <th style="padding: 10px; text-align:center; position: fixed">Jenis Surat</th>
+                    <th style="padding: 10px; text-align:center; position: fixed">Tanggal Diajukan</th>
+                    <th style="padding: 10px; text-align:center; position: fixed">Tanggal Disetujui</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($items as $item)
                 <tr>
-                    <td style="padding: 10px">{{ $loop->iteration }}</td>
-                    <td style="padding: 10px">{{ $item->no_nik }}</td>
-                    <td style="padding: 10px">{{ $item->nama }}</td>
-                    <td style="padding: 10px">{{ $item->jenis_surat }}</td>
-                    <td style="padding: 10px">{{ $item->created_at->isoFormat('D MMMM Y') }}</td>
-                    <td style="padding: 10px">{{ $item->updated_at->isoFormat('D MMMM Y') }}</td>
+                    <td style="padding: 10px; text-align:center">{{ $loop->iteration }}</td>
+                    <td style="padding: 10px; text-align:center">{{ $item->no_nik }}</td>
+                    <td style="padding: 10px; text-align:center">{{ $item->nama }}</td>
+                    <td style="padding: 10px; text-align:center">{{ $item->jenis_surat }}</td>
+                    <td style="padding: 10px; text-align:center">{{ $item->created_at->isoFormat('D/' . 'M/' . 'Y') }}
+                    </td>
+                    <td style="padding: 10px; text-align:center">{{ $item->updated_at->isoFormat('D/' . 'M/' . 'Y') }}
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -133,3 +135,20 @@
 </body>
 
 </html>
+
+<style>
+    .title-surat h1 {
+        font-family: sans-serif;
+        font-size: 18px;
+        text-align: center;
+        color: #000;
+        text-transform: uppercase;
+
+    }
+
+    .table-content {
+        font-family: sans-serif;
+        font-size: 12px;
+        margin-top: 30px;
+    }
+</style>
