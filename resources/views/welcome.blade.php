@@ -118,16 +118,31 @@
             <div class="container">
                 <div class="row">
                     <div class="btn-hero d-flex justify-content-center">
-                        <div class="col-3 col-lg-2 mx-3">
-                            <div class="d-grid mb-2">
-                                <a href="#" class="btn btn-masuk btn-primary">Masuk</a>
+                        @guest
+                            <div class="col-3 col-lg-2 mx-3">
+                                <div class="d-grid mb-2">
+                                    <a href="{{ route('login') }}" class="btn btn-masuk btn-primary">Masuk</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-3 col-lg-2 mx-3">
-                            <div class="d-grid mb-2">
-                                <a href="#" class="btn btn-daftar btn-primary">Daftar</a>
+                            <div class="col-3 col-lg-2 mx-3">
+                                <div class="d-grid mb-2">
+                                    <a href="{{ route('register') }}" class="btn btn-daftar btn-primary">Daftar</a>
+                                </div>
                             </div>
-                        </div>
+                        @endguest
+                        @auth
+                            <div class="col-3 col-lg-2 mx-3">
+                                <div class="d-grid mb-2">
+                                    @if (Auth::user()->roles == 'Lurah')
+                                        <a href="{{ route('lurah.dashboard') }}" class="btn btn-masuk btn-primary">Dashboard</a>
+                                    @elseif (Auth::user()->roles == 'Staff')
+                                        <a href="{{ route('staff.dashboard') }}" class="btn btn-masuk btn-primary">Dashboard</a>
+                                    @else
+                                        <a href="{{ route('user.dashboard') }}" class="btn btn-masuk btn-primary">Dashboard</a>
+                                    @endif
+                                </div>
+                            </div>
+                        @endauth
                     </div>
                 </div>
             </div>
