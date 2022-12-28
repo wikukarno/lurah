@@ -37,7 +37,7 @@
                                         d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
                                 </svg>
                             </button>
-                            <div class="offcanvas offcanvas-start d-md-none" data-bs-scroll="true" tabindex="-1"
+                            <div class="offcanvas offcanvas-end d-md-none" data-bs-scroll="true" tabindex="-1"
                                 id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
                                 <div class="offcanvas-header">
                                     <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with
@@ -118,12 +118,12 @@
             <div class="container">
                 <div class="row">
                     <div class="btn-hero d-flex justify-content-center">
-                        <div class="col-2 col-lg-2 mx-3">
+                        <div class="col-3 col-lg-2 mx-3">
                             <div class="d-grid mb-2">
                                 <a href="#" class="btn btn-masuk btn-primary">Masuk</a>
                             </div>
                         </div>
-                        <div class="col-2 col-lg-2 mx-3">
+                        <div class="col-3 col-lg-2 mx-3">
                             <div class="d-grid mb-2">
                                 <a href="#" class="btn btn-daftar btn-primary">Daftar</a>
                             </div>
