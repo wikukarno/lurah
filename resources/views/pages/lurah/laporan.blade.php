@@ -187,7 +187,6 @@ Data Laporan
                         });
                     });
                     console.log('data not found');
-                    
                 }
 
                 $('#tb_laporan').DataTable().destroy();

@@ -36,23 +36,27 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Route Dashboard
 Route::prefix('/pages/dashboard/lurah')
     ->middleware(['auth', 'lurah'])
     ->group(function () {
         Route::get('/', [DashboardLurahController::class, 'index'])->name('lurah.dashboard');
 
+        // Route get lampiran
         Route::post('/sku/get-lampiran', [SkuLurahController::class, 'show'])->name('sku-lurah.show');
         Route::post('/skp/get-lampiran', [SkpLurahController::class, 'show'])->name('skp-lurah.show');
         Route::post('/sktm/get-lampiran', [SktmLurahController::class, 'show'])->name('sktm-lurah.show');
         Route::post('/ski/get-lampiran', [SkiLurahController::class, 'show'])->name('ski-lurah.show');
 
+        // Route get akun, edit akun, ubah foto
         Route::post('/get-akun', [ProfileLurahController::class, 'show'])->name('lurah.get-akun');
         Route::post('/akun/update', [ProfileLurahController::class, 'update'])->name('lurah.update-akun');
         Route::post('/ubah-foto', [ProfileLurahController::class, 'ubahFoto'])->name('lurah.ubah-foto');
 
+        // Route get penduduk
         Route::get('/penduduk', [DashboardLurahController::class, 'getPenduduk'])->name('lurah.penduduk');
-        Route::get('/download-laporan', [CetakController::class, 'downloadLaporan'])->name('export.laporan');
 
+        // filter laporan
         Route::post('/laporan-bulanan', [DashboardLurahController::class, 'filterLaporanBulanan'])->name('lurah.filter-laporan-bulanan');
         Route::post('/laporan-tahunan', [DashboardLurahController::class, 'filterLaporanTahunan'])->name('lurah.filter-laporan-tahunan');
         Route::post('/laporan-bulanan-tahunan', [DashboardLurahController::class, 'filterLaporanbulananTahunan'])->name('lurah.filter-laporan-bulanan-tahunan');
@@ -69,32 +73,41 @@ Route::prefix('/pages/dashboard/lurah')
         Route::resource('akun-lurah', ProfileLurahController::class);
     });
 
+// Route Staff
 Route::prefix('/pages/dashboard/staff')
     ->middleware(['auth', 'staff'])
     ->group(function () {
         Route::get('/', [DashboardStaffController::class, 'index'])->name('staff.dashboard');
+
+        // Route get lampiran sku
         Route::get('/sku/cetak/{id}', [CetakController::class, 'cetak_sku'])->name('sku-staff.cetak-sku');
         Route::post('/sku/get-lampiran', [SkuStaffController::class, 'show'])->name('sku-staff.show');
         Route::post('/sku/tolak-sku', [SkuStaffController::class, 'tolakSku'])->name('sku-staff.tolak');
 
+        // Route get lampiran skp
         Route::get('/skp/cetak/{id}', [CetakController::class, 'cetak_skp'])->name('skp-staff.cetak-skp');
         Route::post('/skp/get-lampiran', [SkpStaffController::class, 'show'])->name('skp-staff.show');
         Route::post('/skp/tolak-skp', [SkpStaffController::class, 'tolakSkp'])->name('skp-staff.tolak');
 
+        // Route get lampiran sktm
         Route::get('/sktm/cetak/{id}', [CetakController::class, 'cetak_sktm'])->name('sktm-staff.cetak-sktm');
         Route::post('/sktm/get-lampiran', [SktmStaffController::class, 'show'])->name('sktm-staff.show');
         Route::post('/sktm/tolak-sktm', [SktmStaffController::class, 'tolakSktm'])->name('sktm-staff.tolak');
 
+        // Route get lampiran ski
         Route::get('/ski/cetak/{id}', [CetakController::class, 'cetak_ski'])->name('ski-staff.cetak-ski');
         Route::post('/ski/get-lampiran', [SkiStaffController::class, 'show'])->name('ski-staff.show');
         Route::post('/ski/tolak-ski', [SkiStaffController::class, 'tolakSki'])->name('ski-staff.tolak');
 
+        // Route get akun, edit akun, ubah foto
         Route::post('/get-akun', [ProfileStaffController::class, 'show'])->name('staff.get-akun');
         Route::post('/akun/update', [ProfileStaffController::class, 'update'])->name('staff.update-akun');
         Route::post('/ubah-foto', [ProfileStaffController::class, 'ubahFoto'])->name('staff.ubah-foto');
 
+        // Route get penduduk
         Route::get('/penduduk', [DashboardStaffController::class, 'getPenduduk'])->name('staff.penduduk');
 
+        // Route Resource
         Route::resource('sku-staff', SkuStaffController::class);
         Route::resource('skp-staff', SkpStaffController::class);
         Route::resource('sktm-staff', SktmStaffController::class);
@@ -102,17 +115,19 @@ Route::prefix('/pages/dashboard/staff')
         Route::resource('akun-staff', ProfileStaffController::class);
     });
 
-// User
+// Route User
 Route::prefix('/pages/dashboard/user')
     ->middleware(['auth', 'user'])
     ->group(function () {
         Route::get('/', [DashboardUserController::class, 'index'])->name('user.dashboard');
 
+        // Route get akun, edit akun, ubah foto dan get penolakan
         Route::post('/get-akun', [ProfileUserController::class, 'show'])->name('user.get-akun');
         Route::post('/akun/update', [ProfileUserController::class, 'update'])->name('user.update-akun');
         Route::post('/ubah-foto', [ProfileUserController::class, 'ubahFoto'])->name('user.ubah-foto');
         Route::post('/get-penolakan', [DashboardUserController::class, 'getPenolakan'])->name('get-penolakan');
 
+        // Route Resource
         Route::resource('sku-user', SkuUserController::class);
         Route::resource('skp-user', SkpUserController::class);
         Route::resource('sktm-user', SktmUserController::class);

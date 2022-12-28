@@ -21,16 +21,51 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <nav class="navbar navbar-expand-lg navbar-ligt">
+                    <nav class="navbar navbar-expand-lg">
                         <div class="container-fluid">
                             <a class="navbar-brand" href="/">
                                 <img src="{{ asset('home/images/logo.png') }}" class="img-fluid" alt="Logo" />
                             </a>
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
+                            <button class="menu d-lg-none" data-bs-toggle="offcanvas" id="btnCanvas"
+                                data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"
+                                aria-label="Main Menu">
+                                <svg width="50" height="50" viewBox="0 0 100 100">
+                                    <path class="line line1"
+                                        d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+                                    <path class="line line2" d="M 20,50 H 80" />
+                                    <path class="line line3"
+                                        d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+                                </svg>
                             </button>
+                            <div class="offcanvas offcanvas-start d-md-none" data-bs-scroll="true" tabindex="-1"
+                                id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                                <div class="offcanvas-header">
+                                    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with
+                                        scrolling</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                        aria-label="Close" id="btnCloseCanvas"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <ul class="navbar-nav navbar-mb ms-auto mb-2 mb-lg-0">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" aria-current="page" href="#">Beranda</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#jadwal">Jadwal</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#informasi">Informasi</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#berita">Berita</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" target="_blank"
+                                                href="https://api.whatsapp.com/send?phone=6282268777140&text=Assalamu'alaikum%20Pak,%20saya%20ingin%20bertanya%20?">Kontak</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                                     <li class="nav-item">
@@ -43,8 +78,10 @@
                                         <a class="nav-link" href="#informasi">Informasi</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" target="_blank"
-                                            href="https://api.whatsapp.com/send?phone=6282268777140&text=Assalamu'alaikum%20Pak,%20saya%20ingin%20bertanya%20?">Kontak</a>
+                                        <a class="nav-link" href="#berita">Berita</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Kontak</a>
                                     </li>
                                 </ul>
                             </div>
@@ -59,41 +96,40 @@
     <!-- Hero -->
     <section class="section-hero-content text-center">
         <div class="overlay">
-            <figure class="figure">
-                <img src="{{ asset('home/images/logo.png') }}" class="img-fluid figure-img w-50 h-50" alt="" />
-            </figure>
-            <h1 class="text-white">
-                SELAMAT DATANG DI!
-                <br />
-                APLIKASI PELAYANAN SURAT MENYURAT <br />
-                KANTOR LURAH SOREK SATU
-            </h1>
-            <p class="mt-3 text-white">
-                Pengurusan surat menjadi mudah
-                <br />
-                tinggal klik surat langsung jadi.
-            </p>
+            <div class="before-title">
+                <p>
+                    Selamat Datang Di,
+                </p>
+            </div>
+            <div class="title">
+                <h1>
+                    APLIKASI PELAYANAN & PENGURUSAN SURAT <br />
+                    KANTOR LURAH TANJUNG SARI
+                </h1>
+            </div>
+            <div class="subtitle">
+                <p class="mt-3">
+                    Pengurusan surat menjadi mudah
+                    <br />
+                    tinggal klik surat langsung jadi.
+                </p>
+            </div>
 
-            <div class="d-flex justify-content-center">
-                @auth
-                @if (Auth::user()->roles == 'Lurah')
-                <a href="{{ route('lurah.dashboard') }}" class="btn btn-success mx-2 mt-4">
-                    Dashboard
-                </a>
-                @elseif (Auth::user()->roles == 'Staff')
-                <a href="{{ route('staff.dashboard') }}" class="btn btn-success mx-2 mt-4">
-                    Dashboard
-                </a>
-                @else
-                <a href="{{ route('user.dashboard') }}" class="btn btn-success mx-2 mt-4">
-                    Dashboard
-                </a>
-                @endif
-                @endauth
-                @guest
-                <a href="{{ route('login') }}" class="btn btn-masuk mx-2 mt-4"> Masuk </a>
-                <a href="{{ route('register') }}" class="btn btn-daftar mx-2 mt-4"> Daftar </a>
-                @endguest
+            <div class="container">
+                <div class="row">
+                    <div class="btn-hero d-flex justify-content-center">
+                        <div class="col-2 col-lg-2 mx-3">
+                            <div class="d-grid mb-2">
+                                <a href="#" class="btn btn-masuk btn-primary">Masuk</a>
+                            </div>
+                        </div>
+                        <div class="col-2 col-lg-2 mx-3">
+                            <div class="d-grid mb-2">
+                                <a href="#" class="btn btn-daftar btn-primary">Daftar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -249,6 +285,87 @@
     </section>
     <!-- End Procedure -->
 
+    <!-- News -->
+    <section class="section-news-content" id="berita">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12">
+                    <h3>BERITA TERBARU</h3>
+                    <div class="line-mf"></div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img src="{{ asset('home/images/news-1.jpg') }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title">Sosialisasi Kepengurusan Desa Tanjung Sari</h5>
+                            </a>
+                            <p class="card-text" id="card-text-1">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard
+                                dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                                scrambled it to make a type specimen
+                                book. It has survived not only five centuries, but also the leap into electronic
+                                typesetting, remaining essentially
+                                unchanged. It was popularised in the 1960s with the release of Letraset sheets
+                                containing Lorem Ipsum passages, and more
+                                recently with desktop publishing software like Aldus PageMaker including versions of
+                                Lorem Ipsum.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img src="{{ asset('home/images/news-2.jpg') }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title">Sosialisasi Kepengurusan Desa Tanjung Sari</h5>
+                            </a>
+                            <p class="card-text" id="card-text-2">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard
+                                dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                                scrambled it to make a type specimen
+                                book. It has survived not only five centuries, but also the leap into electronic
+                                typesetting, remaining essentially
+                                unchanged. It was popularised in the 1960s with the release of Letraset sheets
+                                containing Lorem Ipsum passages, and more
+                                recently with desktop publishing software like Aldus PageMaker including versions of
+                                Lorem Ipsum.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img src="{{ asset('home/images/news-3.jpg') }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title">Sosialisasi Kepengurusan Desa Tanjung Sari</h5>
+                            </a>
+                            <p class="card-text" id="card-text-3">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard
+                                dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                                scrambled it to make a type specimen
+                                book. It has survived not only five centuries, but also the leap into electronic
+                                typesetting, remaining essentially
+                                unchanged. It was popularised in the 1960s with the release of Letraset sheets
+                                containing Lorem Ipsum passages, and more
+                                recently with desktop publishing software like Aldus PageMaker including versions of
+                                Lorem Ipsum.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End News -->
+
     <section class="section-location-content mt-5">
         <div class="container">
             <div class="row text-center">
@@ -267,12 +384,43 @@
         </div>
     </section>
     <!-- script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+        integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
     </script>
     <script src="{{ asset('home/aos/aos.js') }}"></script>
     <script>
         AOS.init();
+        
+                var btnCanvas = document.getElementById('btnCanvas');
+                var btnCloseCanvas = document.getElementById('btnCloseCanvas');
+                var cardText1 = document.getElementById('card-text-1');
+                var cardText2 = document.getElementById('card-text-2');
+                var cardText3 = document.getElementById('card-text-3');
+
+                if(cardText1.innerHTML.length > 100) {
+                    cardText1.innerHTML = cardText1.innerHTML.substring(0, 100) + '...';
+                }
+
+                if(cardText2.innerHTML.length > 100) {
+                    cardText2.innerHTML = cardText2.innerHTML.substring(0, 100) + '...';
+                }
+
+                if(cardText3.innerHTML.length > 100) {
+                    cardText3.innerHTML = cardText3.innerHTML.substring(0, 100) + '...';
+                }
+
+                btnCanvas.addEventListener('click', function() {
+                    btnCanvas.classList.add('opened');
+                });
+
+                btnCloseCanvas.addEventListener('click', function() {
+                    btnCanvas.classList.remove('opened');
+                });
+        
     </script>
 </body>
 

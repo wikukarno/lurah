@@ -76,14 +76,21 @@ class DashboardLurahController extends Controller
                         return '<img src="' . asset('assets/images/user.png') . '" class="img-fluid rounded-circle" width="40px" height="40px">';
                     }
                 })
-                ->editColumn('alamat', function ($item) {
-                    if ($item->alamat == null) {
+                ->editColumn('name', function ($item) {
+                    if ($item->name == null || $item->name == '') {
                         return '-';
                     } else {
-                        return $item->alamat;
+                        return $item->name;
                     }
                 })
-                ->rawColumns(['alamat', 'avatar'])
+                ->editColumn('address', function ($item) {
+                    if ($item->address == null || $item->address == '') {
+                        return '-';
+                    } else {
+                        return $item->address;
+                    }
+                })
+                ->rawColumns(['address', 'avatar'])
                 ->make(true);
         }
         return view('pages.lurah.penduduk');
