@@ -52,7 +52,7 @@ Surat Keterangan Usaha
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'id' },
-                { data: 'nama', name: 'nama' },
+                { data: 'user.name', name: 'user.name' },
                 { data: 'nama_usaha', name: 'nama_usaha' },
                 { data: 'created_at', name: 'created_at' },
                 { data: 'posisi', name: 'posisi' },

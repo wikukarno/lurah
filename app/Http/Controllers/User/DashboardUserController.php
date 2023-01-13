@@ -11,11 +11,12 @@ class DashboardUserController extends Controller
 {
     public function index()
     {
-        $getSurat = Letter::where('users_id', Auth::user()->id)->count();
-        $getSuratDiproses = Letter::where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
-        $getSuratDitolak = Letter::where('users_id', Auth::user()->id)->where('status', 'Ditolak')->count();
-        $getSuratDisetujui = Letter::where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
-        return view('pages.user.dashboard', compact('getSurat', 'getSuratDitolak', 'getSuratDisetujui', 'getSuratDiproses'));
+        // $getSurat = Letter::where('users_id', Auth::user()->id)->count();
+        // $getSuratDiproses = Letter::where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
+        // $getSuratDitolak = Letter::where('users_id', Auth::user()->id)->where('status', 'Ditolak')->count();
+        // $getSuratDisetujui = Letter::where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
+        // cek semua field detail user kosong atau tidak
+        return view('pages.user.dashboard');
     }
 
     public function getPenolakan(Request $request)

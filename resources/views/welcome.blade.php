@@ -23,7 +23,7 @@
                 <div class="col-12">
                     <nav class="navbar navbar-expand-lg">
                         <div class="container-fluid">
-                            <a class="navbar-brand" href="/">
+                            <a class="navbar-brand" href="#">
                                 <img src="{{ asset('home/images/logo.png') }}" class="img-fluid" alt="Logo" />
                             </a>
                             <button class="menu d-lg-none" data-bs-toggle="offcanvas" id="btnCanvas"
@@ -37,11 +37,10 @@
                                         d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
                                 </svg>
                             </button>
-                            <div class="offcanvas offcanvas-end d-md-none" data-bs-scroll="true" tabindex="-1"
-                                id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                            <div class="offcanvas offcanvas-start d-md-none" data-bs-scroll="true" tabindex="-1"
+                                id="offcanvasWithBothOptions" data-bs-backdrop="static" data-bs-keyboard="false"
+                                aria-labelledby="offcanvasWithBothOptionsLabel">
                                 <div class="offcanvas-header">
-                                    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with
-                                        scrolling</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
                                         aria-label="Close" id="btnCloseCanvas"></button>
                                 </div>
@@ -60,8 +59,7 @@
                                             <a class="nav-link" href="#berita">Berita</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" target="_blank"
-                                                href="https://api.whatsapp.com/send?phone=6282268777140&text=Assalamu'alaikum%20Pak,%20saya%20ingin%20bertanya%20?">Kontak</a>
+                                            <a class="nav-link" href="#">Kontak</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -119,29 +117,29 @@
                 <div class="row">
                     <div class="btn-hero d-flex justify-content-center">
                         @guest
-                            <div class="col-3 col-lg-2 mx-3">
-                                <div class="d-grid mb-2">
-                                    <a href="{{ route('login') }}" class="btn btn-masuk btn-primary">Masuk</a>
-                                </div>
+                        <div class="col-3 col-lg-2 mx-3">
+                            <div class="d-grid mb-2">
+                                <a href="{{ route('login') }}" class="btn btn-masuk btn-primary">Masuk</a>
                             </div>
-                            <div class="col-3 col-lg-2 mx-3">
-                                <div class="d-grid mb-2">
-                                    <a href="{{ route('register') }}" class="btn btn-daftar btn-primary">Daftar</a>
-                                </div>
+                        </div>
+                        <div class="col-3 col-lg-2 mx-3">
+                            <div class="d-grid mb-2">
+                                <a href="{{ route('register') }}" class="btn btn-daftar btn-primary">Daftar</a>
                             </div>
+                        </div>
                         @endguest
                         @auth
-                            <div class="col-3 col-lg-2 mx-3">
-                                <div class="d-grid mb-2">
-                                    @if (Auth::user()->roles == 'Lurah')
-                                        <a href="{{ route('lurah.dashboard') }}" class="btn btn-masuk btn-primary">Dashboard</a>
-                                    @elseif (Auth::user()->roles == 'Staff')
-                                        <a href="{{ route('staff.dashboard') }}" class="btn btn-masuk btn-primary">Dashboard</a>
-                                    @else
-                                        <a href="{{ route('user.dashboard') }}" class="btn btn-masuk btn-primary">Dashboard</a>
-                                    @endif
-                                </div>
+                        <div class="col-3 col-lg-2 mx-3">
+                            <div class="d-grid mb-2">
+                                @if (Auth::user()->roles == 'Lurah')
+                                <a href="{{ route('lurah.dashboard') }}" class="btn btn-masuk btn-primary">Dashboard</a>
+                                @elseif (Auth::user()->roles == 'Staff')
+                                <a href="{{ route('staff.dashboard') }}" class="btn btn-masuk btn-primary">Dashboard</a>
+                                @else
+                                <a href="{{ route('user.dashboard') }}" class="btn btn-masuk btn-primary">Dashboard</a>
+                                @endif
                             </div>
+                        </div>
                         @endauth
                     </div>
                 </div>

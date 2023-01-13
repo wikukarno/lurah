@@ -16,31 +16,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // buat akun admin
-        User::create([
-            'name' => 'Lurah',
-            'email' => 'lurah@gmail.com',
-            'password' => bcrypt('123456'),
-            'roles' => 'Lurah',
-            'phone' => '087823432323',
-        ]);
-
-        // buat akun staff
-        User::create([
-            'name' => 'Staff',
-            'email' => 'staff@gmail.com',
-            'password' => bcrypt('123456'),
-            'roles' => 'Staff',
-            'phone' => '087823432323',
-        ]);
-
-        // buat akun user
-        User::create([
-            'name' => 'Normansyah',
-            'email' => 'norman@gmail.com',
-            'password' => bcrypt('123456'),
-            'roles' => 'User',
-            'phone' => '087823432323',
+        $this->call([
+            LetterSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

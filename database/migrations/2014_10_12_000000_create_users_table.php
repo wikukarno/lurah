@@ -18,13 +18,19 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('roles')->default('User');
-            $table->string('phone')->nullable();
-            $table->string('address')->nullable();
-            $table->string('avatar')->nullable();
+            $table->bigInteger('tele_id')->nullable();
+            $table->string('tele_name')->nullable();
+            $table->string('tele_notif')->nullable();
+            $table->string('login_with')->nullable();
+            $table->string('login_ip')->nullable();
+            $table->string('auth_status')->nullable();
+            $table->enum('status_account', ['none', 'pending', 'ditolak', 'blokir', 'verifikasi'])->default('none');
+            $table->string('alasan_penolakan')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BusinessCertifications;
 use App\Models\Letter;
 use App\Models\User;
 use Carbon\Carbon;
@@ -18,18 +19,17 @@ class CetakController extends Controller
         $data = file_get_contents($path);
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $sku = Letter::with(['user'])->where('id', $request->id)->first();
-        $user = User::where('id', $sku->users_id)->first();
+        $sku = BusinessCertifications::with(['user'])->where('id', $request->id)->first();
+        $user = User::with(['userDetails'])->where('id', $request->id)->first();
         $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.surat-keterangan-usaha', [
-            'title' => 'Surat Tugas',
             'pic' => $pic,
             'sku' => $sku,
             'user' => $user
         ]);
 
         $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
-        return $pdf->download('Surat_Keterangan_Usaha_' . $user->name . '_' . $tgl_cetak . '.pdf');
-        // return $pdf->stream('Surat_Keterangan_Usaha_' . $user->name . '_' . $tgl_cetak . '.pdf');
+        // return $pdf->download('Surat_Keterangan_Usaha_' . $user->name . '_' . $tgl_cetak . '.pdf');
+        return $pdf->stream('Surat_Keterangan_Usaha_' . $user->name . '_' . $tgl_cetak . '.pdf');
     }
 
     public function cetak_skp(Request $request)
@@ -43,7 +43,6 @@ class CetakController extends Controller
         $skp = Letter::with(['user'])->where('id', $request->id)->first();
         $user = User::where('id', $skp->users_id)->first();
         $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.surat-keterangan-pemakaman', [
-            'title' => 'Surat Tugas',
             'pic' => $pic,
             'skp' => $skp,
             'user' => $user
@@ -65,7 +64,6 @@ class CetakController extends Controller
         $sktm = Letter::with(['user'])->where('id', $request->id)->first();
         $user = User::where('id', $sktm->users_id)->first();
         $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.surat-keterangan-tidak-mampu', [
-            'title' => 'Surat Tugas',
             'pic' => $pic,
             'sktm' => $sktm,
             'user' => $user

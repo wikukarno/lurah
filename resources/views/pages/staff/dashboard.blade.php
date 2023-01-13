@@ -33,7 +33,7 @@
                             <h4>Semua Surat</h4>
                         </div>
                         <div class="card-body">
-                            {{ $getSurat }}
+                            {{-- {{ $getSurat }} --}}
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                             <h4>Surat Diteruskan</h4>
                         </div>
                         <div class="card-body">
-                            {{ $getSuratDiteruskan }}
+                            {{-- {{ $getSuratDiteruskan }} --}}
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                             <h4>Surat Selesai Diproses</h4>
                         </div>
                         <div class="card-body">
-                            {{ $getSuratDisetujui }}
+                            {{-- {{ $getSuratDisetujui }} --}}
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                             <h4>SK Usaha</h4>
                         </div>
                         <div class="card-body">
-                            {{ $skuStaff }}
+                            {{ $sku }}
                         </div>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                             <h4>Sk Pemakaman</h4>
                         </div>
                         <div class="card-body">
-                            {{ $skpStaff }}
+                            {{-- {{ $skpStaff }} --}}
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                             <h4>SK Tidak Mampu</h4>
                         </div>
                         <div class="card-body">
-                            {{ $sktmStaff }}
+                            {{-- {{ $sktmStaff }} --}}
                         </div>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
                             <h4>SK Izin</h4>
                         </div>
                         <div class="card-body">
-                            {{ $skiStaff }}
+                            {{-- {{ $skiStaff }} --}}
                         </div>
                     </div>
                 </div>

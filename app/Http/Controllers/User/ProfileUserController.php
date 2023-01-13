@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserDetailRequest;
 use App\Models\User;
+use App\Models\UserDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileUserController extends Controller
 {
@@ -15,7 +18,8 @@ class ProfileUserController extends Controller
      */
     public function index()
     {
-        return view('pages.user.profile');
+        $users = User::with('userDetails')->where('id', Auth::user()->id)->first();
+        return view('pages.user.profile', compact('users'));
     }
 
     /**
@@ -36,7 +40,41 @@ class ProfileUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = UserDetails::Create(
+            [
+                'users_id' => Auth::user()->id,
+                'nik' => $request->nik,
+                'phone' => $request->phone,
+                'jenis_kelamin' => $request->jenis_kelamin,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'pekerjaan' => $request->pekerjaan,
+                'rtrw' => $request->rtrw,
+                'kelurahan' => $request->kelurahan,
+                'kecamatan' => $request->kecamatan,
+                'agama' => $request->agama,
+                'status_perkawinan' => $request->status_perkawinan,
+                'address' => $request->address,
+                'avatar' => $request->file('avatar')->storePubliclyAs('assets/avatar', $request->file('avatar')->getClientOriginalName(), 'public'),
+                'ktp' => $request->file('ktp')->storePubliclyAs('assets/ktp', $request->file('ktp')->getClientOriginalName(), 'public'),
+                'kk' => $request->file('kk')->storePubliclyAs('assets/kk', $request->file('kk')->getClientOriginalName(), 'public'),
+            ]
+        );
+
+        $user = new User();
+        $user->status_account = 'pending';
+        $user->save();
+
+        if($data){
+            return redirect()->route('akun-user.index')->with('success', 'Data berhasil disimpan!');
+        } else {
+            return redirect()->route('akun-user.index')->with('error', 'Data gagal disimpan!');
+        }
+    }
+
+    public function completeProfile(Request $request)
+    {
+        return view('pages.user.complete-profile');
     }
 
     /**
@@ -69,7 +107,8 @@ class ProfileUserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $users = User::with('userDetails')->findOrFail($id);
+        return view('pages.user.update-profile', compact('users'));
     }
 
     /**

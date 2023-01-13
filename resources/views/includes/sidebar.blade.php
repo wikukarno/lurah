@@ -86,6 +86,10 @@
                 <a href="{{ route('sku-staff.index') }}" class="nav-link"><i class="fas fa-store"></i>
                     <span>SK Usaha</span></a>
             </li>
+            <li class="{{ (request()->is('pages/dashboard/staff/verifikasi-penduduk') ? 'active' : '') }}">
+                <a href="{{ route('staff.verifikasi-penduduk') }}" class="nav-link"><i class="fas fa-user-check"></i>
+                    <span>Verifikasi Pengguna</span></a>
+            </li>
             <li class="{{ (request()->is('pages/dashboard/staff/skp-staff') ? 'active' : '') }}">
                 <a href="{{ route('skp-staff.index') }}" class="nav-link"><i class="fas fa-file"></i>
                     <span>SK Pemakaman</span></a>
@@ -165,7 +169,7 @@
             </li>
 
             <li
-                class="{{ (request()->is('pages/dashboard/user/akun-user') ? 'active' : '') }} {{ (request()->is('pages/dashboard/user/ski-user/create') ? 'active' : '') }}">
+                class="{{ (request()->is('pages/dashboard/user/akun-user') ? 'active' : '') }} {{ (request()->is('pages/dashboard/user/akun-user/{id}/edit') ? 'active' : '') }}">
                 <a href="{{ route('akun-user.index') }}" class="nav-link"><i class="fas fa-user"></i>
                     <span>Akun</span></a>
             </li>

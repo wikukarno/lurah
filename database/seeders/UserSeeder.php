@@ -1,0 +1,50 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class UserSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $user = [
+            [
+                'id' => 1,
+                'name' => 'Lurah',
+                'email' => 'lurah@gmail.com',
+                'password' => bcrypt('123456'),
+                'roles' => 'Lurah',
+                'created_at' => now(),
+                'updated_at'=> now()
+            ],
+            [
+                'id' => 2,
+                'name' => 'Staff',
+                'email' => 'staff@gmail.com',
+                'password' => bcrypt('123456'),
+                'roles' => 'Staff',
+                'created_at' => now(),
+                'updated_at'=> now()
+            ],
+            [
+                'id' => 3,
+                'name' => 'Normansyah',
+                'email' => 'norman@gmail.com',
+                'password' => bcrypt('123456'),
+                'roles' => 'User',
+                'created_at' => now(),
+                'updated_at'=> now()
+            ]
+        ];
+
+        User::insert($user);
+    }
+}

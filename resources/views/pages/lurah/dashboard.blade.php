@@ -18,7 +18,7 @@
                             <h4>Total Pengguna</h4>
                         </div>
                         <div class="card-body">
-                            {{ $user }}
+                            {{-- {{ $user }} --}}
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                             <h4>Surat Selesai Diproses</h4>
                         </div>
                         <div class="card-body">
-                            {{ $skDisetujui }}
+                            {{-- {{ $skDisetujui }} --}}
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                             <h4>SK Usaha</h4>
                         </div>
                         <div class="card-body">
-                            {{ $skuLurah }}
+                            {{ $sku }}
                         </div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                             <h4>SK Pemakaman</h4>
                         </div>
                         <div class="card-body">
-                            {{ $skpLurah }}
+                            {{-- {{ $skpLurah }} --}}
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                             <h4>SK Tidak Mampu</h4>
                         </div>
                         <div class="card-body">
-                            {{ $sktmLurah }}
+                            {{-- {{ $sktmLurah }} --}}
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                             <h4>Surat Keterangan Izin</h4>
                         </div>
                         <div class="card-body">
-                            {{ $skiLurah }}
+                            {{-- {{ $skiLurah }} --}}
                         </div>
                     </div>
                 </div>

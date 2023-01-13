@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Lampiran;
 use App\Models\Letter;
+use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +19,7 @@ class SkuUserController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Letter::where('jenis_surat', 'SKU')->where('users_id', Auth::user()->id);
+            $query = Letter::where('users_id', Auth::user()->id)->orderBy('created_at', 'DESC');
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -44,7 +45,8 @@ class SkuUserController extends Controller
                 ->rawColumns(['created_at', 'status'])
                 ->make(true);
         }
-        return view('pages.user.sku.index');
+        $userDetails = UserDetails::with('user')->where('users_id', Auth::user()->id)->get();
+        return view('pages.user.sku.index', compact('userDetails'));
     }
 
     /**

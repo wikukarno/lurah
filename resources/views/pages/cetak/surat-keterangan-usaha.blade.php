@@ -119,57 +119,57 @@
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td style="text-transform: uppercase"><b>{{ $sku->nama }}</b></td>
+                    <td style="text-transform: uppercase"><b>{{ $sku->user->name }}</b></td>
                 </tr>
                 <tr>
                     <td>Jenis Kelamin</td>
                     <td>:</td>
-                    <td>{{ $sku->jenis_kelamin }}</td>
+                    <td>{{ $sku->user->userDetails->jenis_kelamin }}</td>
                 </tr>
                 <tr>
                     <td>Tempat/ Tgl.Lahir</td>
                     <td>:</td>
-                    <td>{{ $sku->tempat_lahir }}, {{ $ttl }}</td>
+                    <td>{{ $sku->user->userDetails->tempat_lahir }}, {{ $ttl }}</td>
                 </tr>
                 <tr>
                     <td>Pekerjaan</td>
                     <td>:</td>
-                    <td>{{ $sku->pekerjaan }}</td>
+                    <td>{{ $sku->user->userDetails->pekerjaan }}</td>
                 </tr>
                 <tr>
                     <td>Alamat</td>
                     <td>:</td>
-                    <td>{{ $sku->alamat }}</td>
+                    <td>{{ $sku->user->userDetails->address }}</td>
                 </tr>
                 <tr>
                     <td>RT/RW</td>
                     <td>:</td>
-                    <td>{{ $sku->rt_rw }}</td>
+                    <td>{{ $sku->user->userDetails->rtrw }}</td>
                 </tr>
                 <tr>
                     <td>Kelurahan</td>
                     <td>:</td>
-                    <td>{{ $sku->kelurahan }}</td>
+                    <td>{{ $sku->user->userDetails->kelurahan }}</td>
                 </tr>
                 <tr>
                     <td>Kecamatan</td>
                     <td>:</td>
-                    <td>{{ $sku->kecamatan }}</td>
+                    <td>{{ $sku->user->userDetails->kecamatan }}</td>
                 </tr>
                 <tr>
                     <td>Agama</td>
                     <td>:</td>
-                    <td>{{ $sku->agama }}</td>
+                    <td>{{ $sku->user->userDetails->agama }}</td>
                 </tr>
                 <tr>
                     <td>Status Perkawinan</td>
                     <td>:</td>
-                    <td>{{ $sku->status_perkawinan }}</td>
+                    <td>{{ $sku->user->userDetails->status_perkawinan }}</td>
                 </tr>
                 <tr>
                     <td>NIK</td>
                     <td>:</td>
-                    <td>{{ $sku->no_nik }}</td>
+                    <td>{{ $sku->user->userDetails->nik }}</td>
                 </tr>
             </tbody>
         </table>

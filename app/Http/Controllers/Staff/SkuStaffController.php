@@ -177,21 +177,4 @@ class SkuStaffController extends Controller
         //
     }
 
-    public function tolakSku(Request $request)
-    {
-        // dd($request->all());
-        $sku = Letter::findOrFail($request->id);
-        $sku->status = 'Ditolak';
-        $sku->posisi = 'staff';
-        $sku->alasan_penolakan = $request->alasan_penolakan;
-        $sku->save();
-
-        if ($sku) {
-            // Alert::success('Berhasil', 'Surat Keterangan Usaha berhasil diteruskan!');
-            return redirect()->route('sku-staff.index');
-        } else {
-            // Alert::error('Gagal', 'SKU gagal diteruskan!');
-            return redirect()->route('sku-staff.index');
-        }
-    }
 }

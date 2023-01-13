@@ -18,7 +18,7 @@
                             <h4>Semua Surat</h4>
                         </div>
                         <div class="card-body">
-                            {{ $getSurat }}
+                            {{-- {{ $getSurat }} --}}
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                             <h4>Surat Ditolak</h4>
                         </div>
                         <div class="card-body">
-                            {{ $getSuratDitolak }}
+                            {{-- {{ $getSuratDitolak }} --}}
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                             <h4>Surat Sedang Diproses</h4>
                         </div>
                         <div class="card-body">
-                            {{ $getSuratDiproses }}
+                            {{-- {{ $getSuratDiproses }} --}}
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                             <h4>Surat Selesai Diproses</h4>
                         </div>
                         <div class="card-body">
-                            {{ $getSuratDisetujui }}
+                            {{-- {{ $getSuratDisetujui }} --}}
                         </div>
                     </div>
                 </div>

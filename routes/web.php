@@ -3,6 +3,7 @@
 use App\Http\Controllers\CetakController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Lurah\DashboardLurahController;
+use App\Http\Controllers\Lurah\LurahBusinessCertificationController;
 use App\Http\Controllers\Lurah\ProfileLurahController;
 use App\Http\Controllers\Lurah\SkiLurahController;
 use App\Http\Controllers\Lurah\SkpLurahController;
@@ -14,14 +15,21 @@ use App\Http\Controllers\Staff\SkiStaffController;
 use App\Http\Controllers\Staff\SkpStaffController;
 use App\Http\Controllers\Staff\SktmStaffController;
 use App\Http\Controllers\Staff\SkuStaffController;
+use App\Http\Controllers\Staff\StaffBusinessCertificationController;
 use App\Http\Controllers\User\DashboardUserController;
 use App\Http\Controllers\User\ProfileUserController;
 use App\Http\Controllers\User\SkiUserController;
 use App\Http\Controllers\User\SkpUserController;
 use App\Http\Controllers\User\SktmUserController;
 use App\Http\Controllers\User\SkuUserController;
+use App\Http\Controllers\User\UserBusinessCertificationController;
+use App\Http\Controllers\User\UserFuneralCertificationController;
+use App\Http\Controllers\User\UserIncapacityCertificationController;
+use App\Http\Controllers\User\UserPermitsController;
+use App\Models\BusinessCertifications;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,7 +74,7 @@ Route::prefix('/pages/dashboard/lurah')
         Route::get('/cetak-laporan-bulanan/{month}/{year}', [CetakController::class, 'downloadLaporanBulanan'])->name('cetak.laporan-bulanan');
         Route::get('/cetak-laporan-tahunan/{year}', [CetakController::class, 'downloadLaporanTahunan'])->name('cetak.laporan-tahunan');
 
-        Route::resource('sku-lurah', SkuLurahController::class);
+        Route::resource('sku-lurah', LurahBusinessCertificationController::class);
         Route::resource('skp-lurah', SkpLurahController::class);
         Route::resource('sktm-lurah', SktmLurahController::class);
         Route::resource('ski-lurah', SkiLurahController::class);
@@ -81,8 +89,13 @@ Route::prefix('/pages/dashboard/staff')
 
         // Route get lampiran sku
         Route::get('/sku/cetak/{id}', [CetakController::class, 'cetak_sku'])->name('sku-staff.cetak-sku');
-        Route::post('/sku/get-lampiran', [SkuStaffController::class, 'show'])->name('sku-staff.show');
-        Route::post('/sku/tolak-sku', [SkuStaffController::class, 'tolakSku'])->name('sku-staff.tolak');
+        Route::post('/sku/get-lampiran', [StaffBusinessCertificationController::class, 'show'])->name('sku-staff.show');
+        Route::post('/sku/get-detail-users', [StaffBusinessCertificationController::class, 'showDetails'])->name('sku-staff.showDetails');
+        Route::post('/sku/tolak-sku', [StaffBusinessCertificationController::class, 'tolakSku'])->name('sku-staff.tolak');
+        Route::post('/sku/show/tolak-sku', [StaffBusinessCertificationController::class, 'showTolakSku'])->name('sku-staff.show-tolak-sku');
+        Route::get('/sku-staff/diproses', [StaffBusinessCertificationController::class, 'onProgress'])->name('sku-staff.onProgress');
+        Route::get('/sku-staff/selesai', [StaffBusinessCertificationController::class, 'success'])->name('sku-staff.success');
+        Route::get('/sku-staff/ditolak', [StaffBusinessCertificationController::class, 'rejected'])->name('sku-staff.rejected');
 
         // Route get lampiran skp
         Route::get('/skp/cetak/{id}', [CetakController::class, 'cetak_skp'])->name('skp-staff.cetak-skp');
@@ -104,11 +117,16 @@ Route::prefix('/pages/dashboard/staff')
         Route::post('/akun/update', [ProfileStaffController::class, 'update'])->name('staff.update-akun');
         Route::post('/ubah-foto', [ProfileStaffController::class, 'ubahFoto'])->name('staff.ubah-foto');
 
+
         // Route get penduduk
         Route::get('/penduduk', [DashboardStaffController::class, 'getPenduduk'])->name('staff.penduduk');
+        Route::get('/verifikasi-penduduk', [DashboardStaffController::class, 'verifikasiPenduduk'])->name('staff.verifikasi-penduduk');
+        Route::get('/verifikasi-penduduk/detail/{id}', [DashboardStaffController::class, 'detailVerifikasi'])->name('staff.detail-verifikasi');
+        Route::post('/verifikasi-penduduk/verifikasi', [DashboardStaffController::class, 'verifikasi'])->name('staff.verifikasi');
+        Route::post('/verifikasi-penduduk/tolak', [DashboardStaffController::class, 'tolakVerifikasi'])->name('staff.tolak-verifikasi');
 
         // Route Resource
-        Route::resource('sku-staff', SkuStaffController::class);
+        Route::resource('sku-staff', StaffBusinessCertificationController::class);
         Route::resource('skp-staff', SkpStaffController::class);
         Route::resource('sktm-staff', SktmStaffController::class);
         Route::resource('ski-staff', SkiStaffController::class);
@@ -120,18 +138,20 @@ Route::prefix('/pages/dashboard/user')
     ->middleware(['auth', 'user'])
     ->group(function () {
         Route::get('/', [DashboardUserController::class, 'index'])->name('user.dashboard');
+        Route::get('/lengkapi-data', [ProfileUserController::class, 'completeProfile'])->name('complete-profile');
 
         // Route get akun, edit akun, ubah foto dan get penolakan
         Route::post('/get-akun', [ProfileUserController::class, 'show'])->name('user.get-akun');
         Route::post('/akun/update', [ProfileUserController::class, 'update'])->name('user.update-akun');
         Route::post('/ubah-foto', [ProfileUserController::class, 'ubahFoto'])->name('user.ubah-foto');
         Route::post('/get-penolakan', [DashboardUserController::class, 'getPenolakan'])->name('get-penolakan');
+        Route::post('/sku/show/tolak-sku', [UserBusinessCertificationController::class, 'showTolakSku'])->name('sku-user.show-tolak-sku');
 
         // Route Resource
-        Route::resource('sku-user', SkuUserController::class);
-        Route::resource('skp-user', SkpUserController::class);
-        Route::resource('sktm-user', SktmUserController::class);
-        Route::resource('ski-user', SkiUserController::class);
+        Route::resource('sku-user', UserBusinessCertificationController::class);
+        Route::resource('skp-user', UserFuneralCertificationController::class);
+        Route::resource('sktm-user', UserIncapacityCertificationController::class);
+        Route::resource('ski-user', UserPermitsController::class);
         Route::resource('akun-user', ProfileUserController::class);
     });
 

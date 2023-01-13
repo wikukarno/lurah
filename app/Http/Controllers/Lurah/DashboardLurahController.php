@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Lurah;
 
 use App\Http\Controllers\Controller;
+use App\Models\BusinessCertifications;
 use App\Models\Letter;
 use App\Models\User;
 use Carbon\Carbon;
@@ -13,22 +14,14 @@ class DashboardLurahController extends Controller
 {
     public function index()
     {
-        $user = User::whereIn('roles', [
-            'user',
-            'staff',
-        ])->count();
-        $skuLurah = Letter::where('jenis_surat', 'SKU')->where('status', 'Sedang Diproses')->count();
-        $skpLurah = Letter::where('jenis_surat', 'SKP')->where('status', 'Sedang Diproses')->count();
-        $sktmLurah = Letter::where('jenis_surat', 'SKTM')->where('status', 'Sedang Diproses')->count();
-        $skiLurah = Letter::where('jenis_surat', 'SKI')->where('status', 'Sedang Diproses')->count();
-        $skDisetujui = Letter::where('status', 'Selesai Diproses')->count();
-        return view('pages.lurah.dashboard', compact('user', 'skuLurah', 'skpLurah', 'sktmLurah', 'skiLurah', 'skDisetujui'));
+        $sku = BusinessCertifications::count();
+        return view('pages.lurah.dashboard', compact('sku'));
     }
 
     public function getLaporan(Request $request)
     {
         if (request()->ajax()) {
-            $query = Letter::with(['user'])->get();
+            $query = Letter::with(['business', 'permits', 'incapacity', 'funeral'])->get();
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('jenis_surat', function ($item) {
