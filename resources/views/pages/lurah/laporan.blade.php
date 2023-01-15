@@ -7,6 +7,21 @@ Data Laporan
 @section('content')
 <section class="main-content">
     <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-12">
+                        <img src="{{ asset('assets/images/maintenance.svg') }}" alt="maintenance" class="img-fluid">
+                        <h1 class="mt-5">Mohon Maaf!</h1>
+                        <p>Fitur ini sedang dalam perbaikan</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{{-- <section class="main-content">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -14,40 +29,85 @@ Data Laporan
                         <h3 class="card-title">Data Laporan</h3>
                     </div>
                     <div class="container">
-                        {{-- <div class="row">
-                            <div class="col-12 col-lg-6">
-                                <label for="checkYear" class="text-dark">Cetak Laporan Tahunan</label>
-                                <div class="form-group d-flex align-items-center">
-                                    <select class="form-control" id="checkYear">
-                                        <option value="Pilih Tahun">Pilih Tahun</option>
-                                        @foreach ($years as $year)
-                                        <option value="{{ $year->year }}">{{ $year->year }}</option>
-                                        @endforeach
-                                    </select>
-                                    <a href="javascript:void(0)" onclick="downloadLaporanTahunan()"
-                                        class="btn btn-primary ml-3">
-                                        <i class="fas fa-print"></i>
-                                    </a>
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a href="#" class="nav-link active" id="pills-belum-diproses-tab" data-toggle="pill"
+                                    data-target="#pills-belum-diproses" type="button" role="tab"
+                                    aria-controls="pills-belum-diproses" aria-selected="true">Belum Diproses</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a href="#" class="nav-link" id="pills-selesai-diproses-tab" data-toggle="pill"
+                                    data-target="#pills-selesai-diproses" type="button" role="tab"
+                                    aria-controls="pills-selesai-diproses" aria-selected="false">Selesai Diproses</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a href="#" class="nav-link" id="pills-ditolak-tab" data-toggle="pill"
+                                    data-target="#pills-ditolak" type="button" role="tab" aria-controls="pills-ditolak"
+                                    aria-selected="false">Ditolak</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-belum-diproses" role="tabpanel"
+                                aria-labelledby="pills-belum-diproses-tab">
+                                <div class="table-responsive">
+                                    <table id="tb_sku_lurah_belum_diproses"
+                                        class="table table-hover scroll-horizontal-vertical w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Nama</th>
+                                                <th>Nama Usaha</th>
+                                                <th>Tanggal Pengajuan</th>
+                                                <th>Posisi</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-6">
-                                <label for="checkMonth" class="text-dark">Cetak Laporan Bulanan</label>
-                                <div class="form-group d-flex align-items-center">
-                                    <select class="form-control" id="checkMonth">
-                                        <option value="Pilih Bulan">Pilih Bulan</option>
-                                        @foreach ($months as $month)
-                                        <option value="{{ $month->month }}">
-                                            {{ getMonth($month->month) }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                    <a href="javascript:void(0)" onclick="downloadLaporanBulanan()"
-                                        id="download-laporan-bulanan" class="btn btn-primary ml-3">
-                                        <i class="fas fa-print"></i>
-                                    </a>
+                            <div class="tab-pane fade" id="pills-selesai-diproses" role="tabpanel"
+                                aria-labelledby="pills-selesai-diproses-tab">
+                                <div class="table-responsive">
+                                    <table id="tb_sku_lurah_selesai_diproses"
+                                        class="table table-hover scroll-horizontal-vertical w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Nama</th>
+                                                <th>Nama Usaha</th>
+                                                <th>Tanggal Pengajuan</th>
+                                                <th>Posisi</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                        </div> --}}
+                            <div class="tab-pane fade" id="pills-ditolak" role="tabpanel"
+                                aria-labelledby="pills-ditolak-tab">
+                                <div class="table-responsive">
+                                    <table id="tb_sku_lurah_ditolak"
+                                        class="table table-hover scroll-horizontal-vertical w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Nama</th>
+                                                <th>Nama Usaha</th>
+                                                <th>Tanggal Pengajuan</th>
+                                                <th>Posisi</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row d-flex align-items-center">
                             <div class="col-12 col-lg-6">
                                 <form id="form-by-month">
@@ -111,7 +171,7 @@ Data Laporan
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 @endsection
 
 @push('after-scripts')
@@ -152,7 +212,7 @@ Data Laporan
                     data: data.data,
                     columns: [
                         { data: 'DT_RowIndex', name: 'id' },
-                        { data: 'no_nik', name: 'no_nik' },
+                        { data: 'nik', name: 'nik' },
                         { data: 'nama', name: 'nama' },
                         { data: 'jenis_surat', name: 'jenis_surat' },
                         { data: 'created_at',
@@ -202,7 +262,7 @@ Data Laporan
                     data: data.data,
                     columns: [
                         { data: 'DT_RowIndex', name: 'id' },
-                        { data: 'no_nik', name: 'no_nik' },
+                        { data: 'nik', name: 'nik' },
                         { data: 'nama', name: 'nama' },
                         { data: 'jenis_surat', name: 'jenis_surat' },
                         { data: 'created_at',
@@ -239,7 +299,7 @@ Data Laporan
                     data: data.data,
                     columns: [
                         { data: 'DT_RowIndex', name: 'id' },
-                        { data: 'no_nik', name: 'no_nik' },
+                        { data: 'nik', name: 'nik' },
                         { data: 'nama', name: 'nama' },
                         { data: 'jenis_surat', name: 'jenis_surat' },
                         { data: 'created_at', name: 'created_at'},
@@ -260,7 +320,7 @@ Data Laporan
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'id' },
-                { data: 'no_nik', name: 'no_nik' },
+                { data: 'nik', name: 'nik' },
                 { data: 'nama', name: 'nama' },
                 { data: 'jenis_surat', name: 'jenis_surat' },
                 { data: 'created_at', name: 'created_at' },

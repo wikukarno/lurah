@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Lurah;
+namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Models\BusinessCertifications;
+use App\Models\FuneralCertifications;
 use Illuminate\Http\Request;
 
-class LurahBusinessCertificationController extends Controller
+class StaffFuneralCertificationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,59 +16,70 @@ class LurahBusinessCertificationController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = BusinessCertifications::with([
+            $query = FuneralCertifications::with([
                 'user.userDetails',
                 'letter',
-            ])->where('posisi', 'lurah')->get();
+            ])->where('status', 'Belum Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('created_at', function ($item) {
-                    return $item->created_at->format('d F Y');
+                    return $item->created_at->isoFormat('D MMMM Y');
                 })
                 ->editColumn('status', function ($item) {
                     if ($item->status == 'Belum Diproses') {
                         return '<span class="badge badge-pill badge-warning">' . $item->status . '</span>';
                     } elseif ($item->status == 'Sedang Diproses') {
                         return '<span class="badge badge-pill badge-info">' . $item->status . '</span>';
+                    } elseif ($item->status == 'Ditolak') {
+                        return '<span class="badge badge-pill badge-danger">' . $item->status . '</span>';
                     } else {
-                        return '
-                            <span class="badge badge-pill badge-success">' . $item->status . '</span>
-                        ';
+                        return '<span class="badge badge-pill badge-success">' . $item->status . '</span>';
                     }
                 })
                 ->editColumn('action', function ($item) {
                     if ($item->posisi == 'lurah') {
                         return '
-                            <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                            <form action="' . route('sku-lurah.update', $item->id) . '" method="POST" class="d-inline">
-                            ' . method_field('PUT') . '        
-                            ' . csrf_field() . '
-                                <button class="btn btn-sm btn-success">
-                                    Setujui
-                                </button>
-                            </form>
-                        ';
-                    } elseif ($item->status == 'Selesai') {
-                        return '
-                            <a href="#" class="btn btn-sm btn-outline-success">
-                                Cetak
+                            <a href="#" class="btn btn-sm btn-warning disabled">
+                                Diteruskan
                             </a>
                         ';
-                    } else {
+                    } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="#" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('sku-lurah.update', $item->id) . '" method="POST" class="d-inline">
-                                ' . csrf_field() . '
-                                <button class="btn btn-sm btn-warning">
+                            <a href="' . route('skp-staff.cetak-skp', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
+                                Cetak
+                            </a>
+                        ';
+                    } elseif ($item->status == 'Ditolak') {
+                        return '
+                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id . ')">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSkp(' . $item->id . ')">' . $item->status . '</a>
+                        ';
+                    } elseif ($item->status == 'Belum Diproses') {
+                        return '
+                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                                <i class="fa fa-eye"></i>
+                            </a>
+
+                            <form action="' . route('skp-staff.update', $item->id) . '" method="POST" class="d-inline">
+                            ' . method_field('PUT') . '    
+                            ' . csrf_field() . '
+                                <button type="submit" class="btn btn-sm btn-warning">
                                     Teruskan
                                 </button>
                             </form>
+
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKP(' . $item->id . ')">
+                                Tolak
+                            </a>
+
                         ';
                     }
                 })
@@ -76,13 +87,13 @@ class LurahBusinessCertificationController extends Controller
                 ->rawColumns(['created_at', 'status', 'action'])
                 ->make(true);
         }
-        return view('pages.lurah.sku.index');
+        return view('pages.staff.skp.index');
     }
 
     public function onProgress()
     {
         if (request()->ajax()) {
-            $query = BusinessCertifications::with([
+            $query = FuneralCertifications::with([
                 'user.userDetails',
                 'letter',
             ])->where('status', 'Sedang Diproses')->get();
@@ -90,7 +101,7 @@ class LurahBusinessCertificationController extends Controller
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('created_at', function ($item) {
-                    return $item->created_at->format('d F Y');
+                    return $item->created_at->isoFormat('D MMMM Y');
                 })
                 ->editColumn('status', function ($item) {
                     if ($item->status == 'Belum Diproses') {
@@ -112,29 +123,29 @@ class LurahBusinessCertificationController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('sku-lurah.cetak-sku', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('skp-staff.cetak-skp', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSku(' . $item->id . ')">
+                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSku(' . $item->id . ')">' . $item->status . '</a>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSkp(' . $item->id . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('sku-lurah.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('skp-staff.update', $item->id) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -142,7 +153,7 @@ class LurahBusinessCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKU(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKP(' . $item->id . ')">
                                 Tolak
                             </a>
 
@@ -153,12 +164,12 @@ class LurahBusinessCertificationController extends Controller
                 ->rawColumns(['created_at', 'status', 'action'])
                 ->make(true);
         }
-        return view('pages.lurah.sku.index');
+        return view('pages.staff.skp.index');
     }
     public function success()
     {
         if (request()->ajax()) {
-            $query = BusinessCertifications::with([
+            $query = FuneralCertifications::with([
                 'user.userDetails',
                 'letter',
             ])->where('status', 'Selesai Diproses')->get();
@@ -166,7 +177,7 @@ class LurahBusinessCertificationController extends Controller
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('created_at', function ($item) {
-                    return $item->created_at->format('d F Y');
+                    return $item->created_at->isoFormat('D MMMM Y');
                 })
                 ->editColumn('status', function ($item) {
                     if ($item->status == 'Belum Diproses') {
@@ -188,29 +199,29 @@ class LurahBusinessCertificationController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('sku-lurah.cetak-sku', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('skp-staff.cetak-skp', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSku(' . $item->id . ')">
+                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSku(' . $item->id . ')">' . $item->status . '</a>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSkp(' . $item->id . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('sku-lurah.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('skp-staff.update', $item->id) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -218,7 +229,7 @@ class LurahBusinessCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKU(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKP(' . $item->id . ')">
                                 Tolak
                             </a>
 
@@ -229,12 +240,12 @@ class LurahBusinessCertificationController extends Controller
                 ->rawColumns(['created_at', 'status', 'action'])
                 ->make(true);
         }
-        return view('pages.lurah.sku.index');
+        return view('pages.staff.skp.index');
     }
     public function rejected()
     {
         if (request()->ajax()) {
-            $query = BusinessCertifications::with([
+            $query = FuneralCertifications::with([
                 'user.userDetails',
                 'letter',
             ])->where('status', 'Ditolak')->get();
@@ -242,7 +253,7 @@ class LurahBusinessCertificationController extends Controller
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('created_at', function ($item) {
-                    return $item->created_at->format('d F Y');
+                    return $item->created_at->isoFormat('D MMMM Y');
                 })
                 ->editColumn('status', function ($item) {
                     if ($item->status == 'Belum Diproses') {
@@ -264,29 +275,29 @@ class LurahBusinessCertificationController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('sku-lurah.cetak-sku', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('skp-staff.cetak-skp', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSku(' . $item->id . ')">
+                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSku(' . $item->id . ')">' . $item->status . '</a>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSkp(' . $item->id . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('sku-lurah.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('skp-staff.update', $item->id) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -294,7 +305,7 @@ class LurahBusinessCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKU(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKP(' . $item->id . ')">
                                 Tolak
                             </a>
 
@@ -305,7 +316,7 @@ class LurahBusinessCertificationController extends Controller
                 ->rawColumns(['created_at', 'status', 'action'])
                 ->make(true);
         }
-        return view('pages.lurah.sku.index');
+        return view('pages.staff.skp.index');
     }
 
     /**
@@ -337,9 +348,9 @@ class LurahBusinessCertificationController extends Controller
      */
     public function show($id)
     {
-        $item = BusinessCertifications::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+        $item = FuneralCertifications::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
 
-        return view('pages.lurah.sku.show', [
+        return view('pages.staff.skp.show', [
             'item' => $item,
         ]);
     }
@@ -364,14 +375,14 @@ class LurahBusinessCertificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $item = BusinessCertifications::findOrFail($id);
+        $item = FuneralCertifications::findOrFail($id);
 
         $item->update([
-            'status' => 'Selesai Diproses',
+            'status' => 'Sedang Diproses',
             'posisi' => 'lurah',
         ]);
 
-        return redirect()->route('sku-lurah.index');
+        return redirect()->route('skp-staff.index');
     }
 
     /**

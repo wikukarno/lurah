@@ -21,25 +21,32 @@ class DashboardStaffController extends Controller
     public function getPenduduk()
     {
         if (request()->ajax()) {
-            $query = User::where('roles', 'User')->get();
+            $query = User::with(['userDetails'])->where('roles', 'User')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('avatar', function ($item) {
-                    if ($item->avatar != null) {
-                        return '<img src="' . Storage::url($item->avatar) . '" class="img-fluid rounded-circle" width="40px" height="40px">';
+                    if ($item->userDetails->avatar != null) {
+                        return '<img src="' . Storage::url($item->userDetails->avatar) . '" class="img-fluid rounded-circle" width="40px" height="40px">';
                     } else {
                         return '<img src="' . asset('assets/images/user.png') . '" class="img-fluid rounded-circle" width="40px" height="40px">';
                     }
                 })
-                ->editColumn('alamat', function ($item) {
-                    if ($item->alamat == null) {
+                ->editColumn('phone', function($item) {
+                    if ($item->userDetails->phone == null) {
                         return '-';
                     } else {
-                        return $item->alamat;
+                        return $item->userDetails->phone;
                     }
                 })
-                ->rawColumns(['alamat', 'avatar'])
+                ->editColumn('address', function ($item) {
+                    if ($item->userDetails->address == null) {
+                        return '-';
+                    } else {
+                        return $item->userDetails->address;
+                    }
+                })
+                ->rawColumns(['address', 'avatar'])
                 ->make(true);
         }
         return view('pages.staff.penduduk');
@@ -53,7 +60,7 @@ class DashboardStaffController extends Controller
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('avatar', function ($item) {
-                    if ($item->avatar != null) {
+                    if ($item->userDetails->avatar != null) {
                         return '<img src="' . Storage::url($item->userDetails->avatar) . '" class="img-fluid rounded-circle" width="40px" height="40px">';
                     } else {
                         return '<img src="' . asset('assets/images/user.png') . '" class="img-fluid rounded-circle" width="40px" height="40px">';
@@ -65,9 +72,9 @@ class DashboardStaffController extends Controller
                 ->editColumn('action', function ($item) {
                     return '
                         <div class="form-group">
-                            <a href="'. route('staff.detail-verifikasi', $item->id) .'" class="btn btn-sm btn-primary">Detail</a>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="verifikasiPengguna('. $item->id .')">Verifikasi</a>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakVerifikasi('. $item->id .')">Tolak</a>
+                            <a href="' . route('staff.detail-verifikasi', $item->id) . '" class="btn btn-sm btn-primary">Detail</a>
+                            <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="verifikasiPengguna(' . $item->id . ')">Verifikasi</a>
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakVerifikasi(' . $item->id . ')">Tolak</a>
                         </div>
                     ';
                 })
@@ -83,12 +90,12 @@ class DashboardStaffController extends Controller
         $data->status_account = 'verifikasi';
         $data->save();
 
-        if($data){
+        if ($data) {
             return response()->json([
                 'status' => 'success',
                 'message' => 'Berhasil verifikasi pengguna'
             ]);
-        }else{
+        } else {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Gagal verifikasi pengguna'
@@ -110,12 +117,12 @@ class DashboardStaffController extends Controller
         $data->alasan_penolakan = $request->alasan_penolakan;
         $data->save();
 
-        if($data){
+        if ($data) {
             return response()->json([
                 'status' => 'success',
                 'message' => 'Berhasil tolak verifikasi pengguna'
             ]);
-        }else{
+        } else {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Gagal tolak verifikasi pengguna'

@@ -61,11 +61,11 @@ class ProfileUserController extends Controller
             ]
         );
 
-        $user = new User();
+        $user = User::find(Auth::user()->id);
         $user->status_account = 'pending';
         $user->save();
 
-        if($data){
+        if ($data) {
             return redirect()->route('akun-user.index')->with('success', 'Data berhasil disimpan!');
         } else {
             return redirect()->route('akun-user.index')->with('error', 'Data gagal disimpan!');

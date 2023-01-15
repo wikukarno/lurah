@@ -168,7 +168,6 @@ class StaffBusinessCertificationController extends Controller
         }
         return view('pages.staff.sku.index');
     }
-
     public function success()
     {
         if (request()->ajax()) {

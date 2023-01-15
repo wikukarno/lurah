@@ -21,27 +21,29 @@ class DashboardLurahController extends Controller
     public function getLaporan(Request $request)
     {
         if (request()->ajax()) {
-            $query = Letter::with(['business', 'permits', 'incapacity', 'funeral'])->get();
+            // $query = Letter::with(['business', 'permits', 'incapacity', 'funeral'])->get();
+            // $query = Letter::with(['business', 'permits', 'incapacity', 'funeral', 'user'])->get();
+            // get all letters with their related data and user data
+            $query = Letter::with(['business', 'permits', 'incapacity', 'funeral', 'user'])
+                ->whereHas('business', function ($query) {
+                    $query->where('status', 'Selesai Diproses');
+                })
+                ->whereHas('user', function ($query) {
+                    $query->whereNot(function ($query) {
+                        $query->where('roles', 'Lurah')->orWhere('roles', 'Staff');
+                    });
+                })->get();
+            dd($query);
             return datatables()->of($query)
                 ->addIndexColumn()
-                ->editColumn('jenis_surat', function ($item) {
-                    if (
-                        $item->jenis_surat == 'SKU'
-                    ) {
-                        return 'Surat Keterangan Usaha';
-                    } elseif ($item->jenis_surat == 'SKTM') {
-                        return 'Surat Keterangan Tidak Mampu';
-                    } elseif ($item->jenis_surat == 'SKP') {
-                        return 'Surat Keterangan Pemakaman';
-                    } elseif ($item->jenis_surat == 'SKI') {
-                        return 'Surat Izin';
-                    }
+                ->editColumn('nama', function ($item) {
+                    return $item->user->name;
                 })
                 ->editColumn('created_at', function ($item) {
-                    return $item->created_at->format('d F Y');
+                    return $item->created_at->isoFormat('D MMMM Y');
                 })
                 ->editColumn('updated_at', function ($item) {
-                    return $item->updated_at->format('d F Y');
+                    return $item->updated_at->isoFormat('D MMMM Y');
                 })
                 ->rawColumns(['created_at', 'updated_at'])
                 ->make(true);

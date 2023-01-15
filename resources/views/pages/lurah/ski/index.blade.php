@@ -16,21 +16,81 @@ Surat Izin Keramaian
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="tb_ski_lurah" class="table table-hover scroll-horizontal-vertical w-100">
-                                <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Nama</th>
-                                        <th>Nama Izin</th>
-                                        <th>Tanggal Pengajuan</th>
-                                        <th>Posisi</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a href="#" class="nav-link active" id="pills-belum-diproses-tab" data-toggle="pill"
+                                    data-target="#pills-belum-diproses" type="button" role="tab"
+                                    aria-controls="pills-belum-diproses" aria-selected="true">Belum Diproses</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a href="#" class="nav-link" id="pills-selesai-diproses-tab" data-toggle="pill"
+                                    data-target="#pills-selesai-diproses" type="button" role="tab"
+                                    aria-controls="pills-selesai-diproses" aria-selected="false">Selesai Diproses</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a href="#" class="nav-link" id="pills-ditolak-tab" data-toggle="pill"
+                                    data-target="#pills-ditolak" type="button" role="tab" aria-controls="pills-ditolak"
+                                    aria-selected="false">Ditolak</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-belum-diproses" role="tabpanel"
+                                aria-labelledby="pills-belum-diproses-tab">
+                                <div class="table-responsive">
+                                    <table id="tb_ski_lurah_belum_diproses"
+                                        class="table table-hover scroll-horizontal-vertical w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Nama</th>
+                                                <th>Tanggal Pengajuan</th>
+                                                <th>Posisi</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-selesai-diproses" role="tabpanel"
+                                aria-labelledby="pills-selesai-diproses-tab">
+                                <div class="table-responsive">
+                                    <table id="tb_ski_lurah_selesai_diproses"
+                                        class="table table-hover scroll-horizontal-vertical w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Nama</th>
+                                                <th>Tanggal Pengajuan</th>
+                                                <th>Posisi</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-ditolak" role="tabpanel"
+                                aria-labelledby="pills-ditolak-tab">
+                                <div class="table-responsive">
+                                    <table id="tb_ski_lurah_ditolak"
+                                        class="table table-hover scroll-horizontal-vertical w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Nama</th>
+                                                <th>Tanggal Pengajuan</th>
+                                                <th>Posisi</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -44,28 +104,90 @@ Surat Izin Keramaian
 
 @push('after-scripts')
 <script>
-    $('#tb_ski_lurah').DataTable({
-            processing: true,
-            serverSide: true,
-            ordering: [[1, 'asc']],
-            ajax: {
-                url: "{{ route('ski-lurah.index') }}",
-            },
-            columns: [
-                { data: 'DT_RowIndex', name: 'id' },
-                { data: 'nama', name: 'nama' },
-                { data: 'nama_izin', name: 'nama_izin' },
-                { data: 'created_at', name: 'created_at' },
-                { data: 'posisi', name: 'posisi' },
-                { 
-                    data: 'action', 
-                    name: 'action', 
-                    orderable: false, 
-                    searchable: false 
-                },
-            ],
-
-        });
+    $('#tb_ski_lurah_belum_diproses').DataTable({
+    processing: true,
+    serverSide: true,
+    ordering: [[1, 'asc']],
+    ajax: {
+    url: "{{ route('ski-lurah.index') }}",
+    },
+    columns: [
+    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'user.name', name: 'user.name' },
+    { data: 'created_at', name: 'created_at' },
+    { data: 'posisi', name: 'posisi' },
+    {
+    data: 'action',
+    name: 'action',
+    orderable: false,
+    searchable: false
+    },
+    ],
+    
+    });
+    $('#tb_ski_lurah_sedang_diproses').DataTable({
+    processing: true,
+    serverSide: true,
+    ordering: [[1, 'asc']],
+    ajax: {
+    url: "{{ route('ski-lurah.onProgress') }}",
+    },
+    columns: [
+    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'user.name', name: 'user.name' },
+    { data: 'created_at', name: 'created_at' },
+    { data: 'posisi', name: 'posisi' },
+    {
+    data: 'action',
+    name: 'action',
+    orderable: false,
+    searchable: false
+    },
+    ],
+    
+    });
+    $('#tb_ski_lurah_selesai_diproses').DataTable({
+    processing: true,
+    serverSide: true,
+    ordering: [[1, 'asc']],
+    ajax: {
+    url: "{{ route('ski-lurah.success') }}",
+    },
+    columns: [
+    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'user.name', name: 'user.name' },
+    { data: 'created_at', name: 'created_at' },
+    { data: 'posisi', name: 'posisi' },
+    {
+    data: 'action',
+    name: 'action',
+    orderable: false,
+    searchable: false
+    },
+    ],
+    
+    });
+    $('#tb_ski_lurah_ditolak').DataTable({
+    processing: true,
+    serverSide: true,
+    ordering: [[1, 'asc']],
+    ajax: {
+    url: "{{ route('ski-lurah.rejected') }}",
+    },
+    columns: [
+    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'user.name', name: 'user.name' },
+    { data: 'created_at', name: 'created_at' },
+    { data: 'posisi', name: 'posisi' },
+    {
+    data: 'action',
+    name: 'action',
+    orderable: false,
+    searchable: false
+    },
+    ],
+    
+    });
 
         function selesaiProses(id){
             Swal.fire({
@@ -88,14 +210,14 @@ Surat Izin Keramaian
         var formData = new FormData(this);
         $.ajax({
         type:'POST',
-        url: "{{ url('pages/dashboard/staff/ski/tolak-ski') }}",
+        url: "{{ url('pages/dashboard/lurah/ski/tolak-ski') }}",
         data: formData,
         cache:false,
         contentType: false,
         processData: false,
         success: (data) => {
         $('#tolakSkiModal').modal('hide');
-        $('#tb_ski_staff').DataTable().ajax.reload();
+        $('#tb_ski_lurah').DataTable().ajax.reload();
         Swal.fire({
         title: 'Surat Berhasil Ditolak!',
         text: "Surat Keterangan Usaha telah ditolak",

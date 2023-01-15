@@ -13,6 +13,11 @@ class Letter extends Model
         'jenis_surat',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id', 'id');
+    }
+
     public function business()
     {
         return $this->hasMany(BusinessCertifications::class, 'letters_id', 'id');

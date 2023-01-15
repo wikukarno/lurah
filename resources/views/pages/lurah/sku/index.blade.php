@@ -16,21 +16,84 @@ Surat Keterangan Usaha
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="tb_sku_staff" class="table table-hover scroll-horizontal-vertical w-100">
-                                <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Nama</th>
-                                        <th>Nama Usaha</th>
-                                        <th>Tanggal Pengajuan</th>
-                                        <th>Posisi</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a href="#" class="nav-link active" id="pills-belum-diproses-tab" data-toggle="pill"
+                                    data-target="#pills-belum-diproses" type="button" role="tab"
+                                    aria-controls="pills-belum-diproses" aria-selected="true">Belum Diproses</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a href="#" class="nav-link" id="pills-selesai-diproses-tab" data-toggle="pill"
+                                    data-target="#pills-selesai-diproses" type="button" role="tab"
+                                    aria-controls="pills-selesai-diproses" aria-selected="false">Selesai Diproses</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a href="#" class="nav-link" id="pills-ditolak-tab" data-toggle="pill"
+                                    data-target="#pills-ditolak" type="button" role="tab" aria-controls="pills-ditolak"
+                                    aria-selected="false">Ditolak</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-belum-diproses" role="tabpanel"
+                                aria-labelledby="pills-belum-diproses-tab">
+                                <div class="table-responsive">
+                                    <table id="tb_sku_lurah_belum_diproses"
+                                        class="table table-hover scroll-horizontal-vertical w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Nama</th>
+                                                <th>Nama Usaha</th>
+                                                <th>Tanggal Pengajuan</th>
+                                                <th>Posisi</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-selesai-diproses" role="tabpanel"
+                                aria-labelledby="pills-selesai-diproses-tab">
+                                <div class="table-responsive">
+                                    <table id="tb_sku_lurah_selesai_diproses"
+                                        class="table table-hover scroll-horizontal-vertical w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Nama</th>
+                                                <th>Nama Usaha</th>
+                                                <th>Tanggal Pengajuan</th>
+                                                <th>Posisi</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-ditolak" role="tabpanel"
+                                aria-labelledby="pills-ditolak-tab">
+                                <div class="table-responsive">
+                                    <table id="tb_sku_lurah_ditolak"
+                                        class="table table-hover scroll-horizontal-vertical w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Nama</th>
+                                                <th>Nama Usaha</th>
+                                                <th>Tanggal Pengajuan</th>
+                                                <th>Posisi</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -43,28 +106,71 @@ Surat Keterangan Usaha
 
 @push('after-scripts')
 <script>
-    $('#tb_sku_staff').DataTable({
-            processing: true,
-            serverSide: true,
-            ordering: [[1, 'asc']],
-            ajax: {
-                url: "{{ route('sku-lurah.index') }}",
-            },
-            columns: [
-                { data: 'DT_RowIndex', name: 'id' },
-                { data: 'user.name', name: 'user.name' },
-                { data: 'nama_usaha', name: 'nama_usaha' },
-                { data: 'created_at', name: 'created_at' },
-                { data: 'posisi', name: 'posisi' },
-                { 
-                    data: 'action', 
-                    name: 'action', 
-                    orderable: false, 
-                    searchable: false 
-                },
-            ],
-
-        });
+    $('#tb_sku_lurah_belum_diproses').DataTable({
+    processing: true,
+    serverSide: true,
+    ordering: [[1, 'asc']],
+    ajax: {
+    url: "{{ route('sku-lurah.index') }}",
+    },
+    columns: [
+    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'user.name', name: 'user.name' },
+    { data: 'nama_usaha', name: 'nama_usaha' },
+    { data: 'created_at', name: 'created_at' },
+    { data: 'posisi', name: 'posisi' },
+    {
+    data: 'action',
+    name: 'action',
+    orderable: false,
+    searchable: false
+    },
+    ],
+    });
+    
+    $('#tb_sku_lurah_selesai_diproses').DataTable({
+    processing: true,
+    serverSide: true,
+    ordering: [[1, 'asc']],
+    ajax: {
+    url: "{{ route('sku-lurah.success') }}",
+    },
+    columns: [
+    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'user.name', name: 'user.name' },
+    { data: 'nama_usaha', name: 'nama_usaha' },
+    { data: 'created_at', name: 'created_at' },
+    { data: 'posisi', name: 'posisi' },
+    {
+    data: 'action',
+    name: 'action',
+    orderable: false,
+    searchable: false
+    },
+    ],
+    });
+    
+    $('#tb_sku_lurah_ditolak').DataTable({
+    processing: true,
+    serverSide: true,
+    ordering: [[1, 'asc']],
+    ajax: {
+    url: "{{ route('sku-lurah.rejected') }}",
+    },
+    columns: [
+    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'user.name', name: 'user.name' },
+    { data: 'nama_usaha', name: 'nama_usaha' },
+    { data: 'created_at', name: 'created_at' },
+    { data: 'posisi', name: 'posisi' },
+    {
+    data: 'action',
+    name: 'action',
+    orderable: false,
+    searchable: false
+    },
+    ],
+    });
 
         function selesaiProses(id){
             Swal.fire({

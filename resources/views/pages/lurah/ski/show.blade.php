@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-Surat Keterangan Usaha
+Surat Keterangan Izin
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@ Surat Keterangan Usaha
                 <div class="card">
                     <div class="card-header">
                         <div class="header-title d-lg-flex">
-                            <h3 class="card-title">Detail Data Surat Keterangan Usaha</h3>
+                            <h3 class="card-title">Detail Data Surat Keterangan Izin</h3>
                             <span class="mt-1 ml-lg-3"><b>{{ $item->user->name }}</b></span>
                         </div>
                     </div>
@@ -33,8 +33,8 @@ Surat Keterangan Usaha
                             </div>
                             <div class="col-12 col-lg-4">
                                 <div class="form-group">
-                                    <label for="nama">Nama Usaha</label>
-                                    <input type="text" class="form-control" value="{{ $item->nama_usaha }}" readonly>
+                                    <label for="nama">Nama Izin</label>
+                                    <input type="text" class="form-control" value="{{ $item->nama_izin }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -42,22 +42,21 @@ Surat Keterangan Usaha
                         <div class="row">
                             <div class="col-12 col-lg-4">
                                 <div class="form-group">
-                                    <label for="jenis_usaha">Jenis Usaha</label>
-                                    <input type="text" class="form-control" value="{{ $item->jenis_usaha }}" readonly>
+                                    <label for="">Nama Perihal</label>
+                                    <input type="text" class="form-control" value="{{ $item->perihal }}" readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4">
                                 <div class="form-group">
-                                    <label for="tempat_lahir">Tempat Lahir</label>
-                                    <input type="text" class="form-control"
-                                        value="{{ $item->user->userDetails->tempat_lahir }}" readonly>
+                                    <label for="">Tujuan Surat</label>
+                                    <input type="text" class="form-control" value="{{ $item->tujuan_surat }}" readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4">
                                 <div class="form-group">
-                                    <label for="tanggal_lahir">Tanggal Lahir</label>
+                                    <label for="">Tanggal Acara</label>
                                     <input type="text" class="form-control"
-                                        value="{{ \Carbon\Carbon::parse($item->user->userDetails->tanggal_lahir)->isoFormat('D MMMM Y') }}"
+                                        value="{{ \Carbon\Carbon::parse($item->tanggal_izin)->isoFormat('D MMMM Y') }}"
                                         readonly>
                                 </div>
                             </div>
@@ -66,40 +65,32 @@ Surat Keterangan Usaha
                         <div class="row">
                             <div class="col-12 col-lg-6">
                                 <div class="form-group">
-                                    <label for="jenis_kelamin">Jenis Kelamin</label>
-                                    <input type="text" class="form-control"
-                                        value="{{ $item->user->userDetails->jenis_kelamin }}" readonly>
+                                    <label for="tempat_lahir">Tempat Acara</label>
+                                    <input type="text" class="form-control" value="{{ $item->tempat_izin }}" readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6">
                                 <div class="form-group">
-                                    <label for="nama">Pekerjaan</label>
-                                    <input type="text" class="form-control"
-                                        value="{{ $item->user->userDetails->pekerjaan }}" readonly>
+                                    <label for="tanggal_lahir">Jam</label>
+                                    <input type="text" class="form-control" value="{{ 
+                                            \Carbon\Carbon::parse($item->jam_mulai)->isoFormat('HH:mm')}}" readonly>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-12 col-lg-4">
+                            <div class="col-12 col-lg-6">
                                 <div class="form-group">
-                                    <label for="nama">Status Perkawinan</label>
+                                    <label for="jenis_kelamin">Jumlah Peserta</label>
                                     <input type="text" class="form-control"
-                                        value="{{ $item->user->userDetails->status_perkawinan }}" readonly>
+                                        value="{{ $item->jumlah_peserta }}" readonly>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-4">
+                            <div class="col-12 col-lg-6">
                                 <div class="form-group">
-                                    <label for="nama">Agama</label>
+                                    <label for="nama">Hiburan</label>
                                     <input type="text" class="form-control"
-                                        value="{{ $item->user->userDetails->agama }}" readonly>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-4">
-                                <div class="form-group">
-                                    <label for="nama">Kecamatan</label>
-                                    <input type="text" class="form-control"
-                                        value="{{ $item->user->userDetails->kecamatan }}" readonly>
+                                        value="{{ $item->hiburan }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -157,7 +148,7 @@ Surat Keterangan Usaha
 
                         <div class="row mt-3">
                             <div class="col-12 col-lg-12">
-                                <a href="{{ route('sku-lurah.index') }}" class="btn btn-danger btn-block">Kembali</a>
+                                <a href="{{ route('ski-lurah.index') }}" class="btn btn-danger btn-block">Kembali</a>
                             </div>
                         </div>
                     </div>

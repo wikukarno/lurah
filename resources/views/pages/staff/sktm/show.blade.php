@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-Surat Keterangan Usaha
+Surat Keterangan Tidak Mampu
 @endsection
 
 @section('content')
@@ -12,48 +12,46 @@ Surat Keterangan Usaha
                 <div class="card">
                     <div class="card-header">
                         <div class="header-title d-lg-flex">
-                            <h3 class="card-title">Detail Data Surat Keterangan Usaha</h3>
+                            <h3 class="card-title">Detail Data Surat Keterangan Tidak Mampu</h3>
                             <span class="mt-1 ml-lg-3"><b>{{ $item->user->name }}</b></span>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-12 col-lg-4">
+                            <div class="col-12 col-lg-6">
                                 <div class="form-group">
                                     <label for="nik">NIK</label>
                                     <input type="number" class="form-control"
                                         value="{{ $item->user->userDetails->nik }}" readonly>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-4">
+                            <div class="col-12 col-lg-6">
                                 <div class="form-group">
-                                    <label for="nama">Nama</label>
+                                    <label for="name">Nama</label>
                                     <input type="text" class="form-control" value="{{ $item->user->name }}" readonly>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-4">
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-lg-12">
                                 <div class="form-group">
-                                    <label for="nama">Nama Usaha</label>
-                                    <input type="text" class="form-control" value="{{ $item->nama_usaha }}" readonly>
+                                    <label for="">Tujuan Surat</label>
+                                    <input type="text" class="form-control" value="{{ $item->tujuan }}" readonly>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-12 col-lg-4">
-                                <div class="form-group">
-                                    <label for="jenis_usaha">Jenis Usaha</label>
-                                    <input type="text" class="form-control" value="{{ $item->jenis_usaha }}" readonly>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-4">
+                            <div class="col-12 col-lg-6">
                                 <div class="form-group">
                                     <label for="tempat_lahir">Tempat Lahir</label>
                                     <input type="text" class="form-control"
                                         value="{{ $item->user->userDetails->tempat_lahir }}" readonly>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-4">
+                            <div class="col-12 col-lg-6">
                                 <div class="form-group">
                                     <label for="tanggal_lahir">Tanggal Lahir</label>
                                     <input type="text" class="form-control"
@@ -157,7 +155,7 @@ Surat Keterangan Usaha
 
                         <div class="row mt-3">
                             <div class="col-12 col-lg-12">
-                                <a href="{{ route('sku-lurah.index') }}" class="btn btn-danger btn-block">Kembali</a>
+                                <a href="{{ route('sktm-staff.index') }}" class="btn btn-danger btn-block">Kembali</a>
                             </div>
                         </div>
                     </div>
