@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\BusinessCertifications;
+use App\Models\FuneralCertifications;
+use App\Models\IncapacityCertifications;
 use App\Models\Letter;
+use App\Models\Permits;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,12 +15,61 @@ class DashboardUserController extends Controller
 {
     public function index()
     {
-        // $getSurat = Letter::where('users_id', Auth::user()->id)->count();
-        // $getSuratDiproses = Letter::where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
-        // $getSuratDitolak = Letter::where('users_id', Auth::user()->id)->where('status', 'Ditolak')->count();
-        // $getSuratDisetujui = Letter::where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
-        // cek semua field detail user kosong atau tidak
-        return view('pages.user.dashboard');
+        $getBusiness = BusinessCertifications::where('users_id', Auth::user()->id)->count();
+        $getFunerals = FuneralCertifications::where('users_id', Auth::user()->id)->count();
+        $getIncapacity = IncapacityCertifications::where('users_id', Auth::user()->id)->count();
+        $getPermits = Permits::where('users_id', Auth::user()->id)->count();
+
+        $letterRejected = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+            ->whereHas('business', function ($query) {
+                $query->where('users_id', Auth::user()->id)->where('status', 'Ditolak');
+            })
+            ->orWhereHas('funeral', function ($query) {
+                $query->where('users_id', Auth::user()->id)->where('status', 'Ditolak');
+            })
+            ->orWhereHas('incapacity', function ($query) {
+                $query->where('users_id', Auth::user()->id)->where('status', 'Ditolak');
+            })
+            ->orWhereHas('permits', function ($query) {
+                $query->where('users_id', Auth::user()->id)->where('status', 'Ditolak');
+            });
+
+        $letterOnProgress = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+            ->whereHas('business', function ($query) {
+                $query->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses');
+            })
+            ->orWhereHas('funeral', function ($query) {
+                $query->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses');
+            })
+            ->orWhereHas('incapacity', function ($query) {
+                $query->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses');
+            })
+            ->orWhereHas('permits', function ($query) {
+                $query->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses');
+            });
+
+        $letterComplete = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+            ->whereHas('business', function ($query) {
+                $query->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses');
+            })
+            ->orWhereHas('funeral', function ($query) {
+                $query->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses');
+            })
+            ->orWhereHas('incapacity', function ($query) {
+                $query->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses');
+            })
+            ->orWhereHas('permits', function ($query) {
+                $query->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses');
+            });
+
+
+        $getSuratDitolak = $letterRejected->count();
+        $getSuratDiproses = $letterOnProgress->count();
+        $getSuratSelesai = $letterComplete->count();
+
+        $totalSurat = $getBusiness + $getFunerals + $getIncapacity + $getPermits;
+
+        return view('pages.user.dashboard', compact('totalSurat', 'getSuratDitolak', 'getSuratDiproses', 'getSuratSelesai'));
     }
 
     public function getPenolakan(Request $request)
