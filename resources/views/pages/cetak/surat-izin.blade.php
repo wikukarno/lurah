@@ -109,7 +109,7 @@
                             <tr>
                                 <td>
                                     <span style="margin-left: 30px">Kepada</span> <br />
-                                    Yth. <span style="text-transform: capitalize">{{ $ski->tujuan_surat_izin }}</span>
+                                    Yth. <span style="text-transform: capitalize">{{ $ski->tujuan_surat }}</span>
                                     <br />
                                     di. - <br />
                                     <u><span style="margin-left: 30px">Sorek Satu</span></u>
@@ -139,7 +139,7 @@
             </p>
         </div>
         <p style="padding-left: 80px; margin-top: -10px">
-            <b><u>a.n. <span style="text-transform: uppercase">{{ $ski->nama }}</span></u></b>
+            <b><u>a.n. <span style="text-transform: uppercase">{{ $ski->user->name }}</span></u></b>
         </p>
 
 
@@ -153,33 +153,33 @@
             @php
             // $ttl = \Carbon\Carbon::now()->isoFormat('D MMMM Y', strtotime($ski->tanggal_lahir));
             // $ttl = date('d l Y', strtotime($ski->tanggal_lahir));
-            $ttl = \Carbon\Carbon::parse($ski->tanggal_lahir)->isoFormat('D MMMM Y');
+            $ttl = \Carbon\Carbon::parse($ski->user->userDetails->tanggal_lahir)->isoFormat('D MMMM Y');
             @endphp
             <tbody>
                 <p>
                     <span style="padding-left: 50px">Nama</span>
                     <span style="padding-left: 90px; padding-right: 10px">:</span>
-                    <span style="text-transform: uppercase;"><b>{{ $ski->nama }}</b></span>
+                    <span style="text-transform: uppercase;"><b>{{ $ski->user->name }}</b></span>
                 </p>
                 <p style="margin-top: -10px">
                     <span style="padding-left: 50px">Tempat, Tgl Lahir</span>
                     <span style="padding-left: 10px; padding-right: 10px">:</span>
-                    <span>{{ $ski->tempat_lahir }}, {{ $ttl }}</span>
+                    <span>{{ $ski->user->userDetails->tempat_lahir }}, {{ $ttl }}</span>
                 </p>
                 <p style="margin-top: -10px">
                     <span style="padding-left: 50px">Pekerjaan</span>
                     <span style="padding-left: 65px; padding-right: 10px">:</span>
-                    <span>{{ $ski->pekerjaan }}</span>
+                    <span>{{ $ski->user->userDetails->pekerjaan }}</span>
                 </p>
                 <p style="margin-top: -10px">
                     <span style="padding-left: 50px">Alamat</span>
                     <span style="padding-left: 81px; padding-right: 10px">:</span>
-                    <span>{{ $ski->alamat }}</span>
+                    <span>{{ $ski->user->userDetails->address }}</span>
                 </p>
                 <p style="margin-top: -10px">
                     <span style="padding-left: 50px">NIK</span>
                     <span style="padding-left: 100px; padding-right: 10px">:</span>
-                    <span>{{ $ski->no_nik }}</span>
+                    <span>{{ $ski->user->userDetails->nik }}</span>
                 </p>
 
             </tbody>
@@ -194,9 +194,9 @@
                 </tr>
 
                 @php
-                $hari = \Carbon\Carbon::parse($ski->tanggal_pelaksanaan_izin)->isoFormat('dddd');
-                $tanggalAcara = \Carbon\Carbon::parse($ski->tanggal_pelaksanaan_izin)->isoFormat('D MMMM Y');
-                $jamMulai = \Carbon\Carbon::parse($ski->waktu_pelaksaan_izin)->isoFormat('HH:mm');
+                $hari = \Carbon\Carbon::parse($ski->tanggal_izin)->isoFormat('dddd');
+                $tanggalAcara = \Carbon\Carbon::parse($ski->tanggal_izin)->isoFormat('D MMMM Y');
+                $jamMulai = \Carbon\Carbon::parse($ski->waktu_izin)->isoFormat('HH:mm');
                 @endphp
                 <table>
                     <tbody>
@@ -208,17 +208,18 @@
                         <p style="margin-top: -10px">
                             <span style="padding-left: 30px">Pukul</span>
                             <span style="padding-left: 93px; padding-right: 10px">:</span>
-                            <span>{{ $ski->waktu_pelaksanaan_izin }}</span>
+                            <span>{{ 
+                                \Carbon\Carbon::parse($ski->waktu_izin)->isoFormat('HH:mm') }} WIB</span>
                         </p>
                         <p style="margin-top: -10px">
                             <span style="padding-left: 30px">Tempat</span>
                             <span style="padding-left: 82px; padding-right: 10px">:</span>
-                            <span>{{ $ski->tempat_pelaksanaan_izin }}</span>
+                            <span>{{ $ski->tempat_izin }}</span>
                         </p>
                         <p style="margin-top: -10px">
                             <span style="padding-left: 30px">Jumlah Undangan</span>
                             <span style="padding-left: 15px; padding-right: 10px">:</span>
-                            <span>{{ $ski->jumlah_undangan }}</span>
+                            <span>{{ $ski->jumlah_peserta }}</span>
                         </p>
                         <p style="margin-top: -10px">
                             <span style="padding-left: 30px">Hiburan</span>

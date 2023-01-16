@@ -145,7 +145,7 @@
                 <tr>
                     <td>RT/RW</td>
                     <td>:</td>
-                    <td>{{ $skp->rt_rw }}</td>
+                    <td>{{ $skp->rtrw }}</td>
                 </tr>
                 <tr>
                     <td>Kelurahan</td>
@@ -165,7 +165,7 @@
                 <tr>
                     <td>NIK</td>
                     <td>:</td>
-                    <td>{{ $skp->no_nik }}</td>
+                    <td>{{ $skp->nik }}</td>
                 </tr>
             </tbody>
         </table>

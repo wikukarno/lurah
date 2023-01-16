@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\BusinessCertifications;
+use App\Models\FuneralCertifications;
+use App\Models\IncapacityCertifications;
 use App\Models\Letter;
+use App\Models\Permits;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +18,58 @@ class DashboardStaffController extends Controller
     {
         $dataUser = User::where('roles', 'user')->count();
         $sku = BusinessCertifications::count();
-        return view('pages.staff.dashboard', compact('dataUser', 'sku'));
+        $skp = FuneralCertifications::count();
+        $sktm = IncapacityCertifications::count();
+        $ski = Permits::count();
+
+        $suratProgress = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+            ->whereHas('business', function ($query) {
+                $query->where('status', 'Sedang Diproses');
+            })
+            ->orWhereHas('funeral', function ($query) {
+                $query->where('status', 'Sedang Diproses');
+            })
+            ->orWhereHas('incapacity', function ($query) {
+                $query->where('status', 'Sedang Diproses');
+            })
+            ->orWhereHas('permits', function ($query) {
+                $query->where('status', 'Sedang Diproses');
+            });
+
+        $suratDitolak = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+            ->whereHas('business', function ($query) {
+                $query->where('status', 'Ditolak');
+            })
+            ->orWhereHas('funeral', function ($query) {
+                $query->where('status', 'Ditolak');
+            })
+            ->orWhereHas('incapacity', function ($query) {
+                $query->where('status', 'Ditolak');
+            })
+            ->orWhereHas('permits', function ($query) {
+                $query->where('status', 'Ditolak');
+            });
+
+        $suratSelesai = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+            ->whereHas('business', function ($query) {
+                $query->where('status', 'Selesai Diproses');
+            })
+            ->orWhereHas('funeral', function ($query) {
+                $query->where('status', 'Selesai Diproses');
+            })
+            ->orWhereHas('incapacity', function ($query) {
+                $query->where('status', 'Selesai Diproses');
+            })
+            ->orWhereHas('permits', function ($query) {
+                $query->where('status', 'Selesai Diproses');
+            });
+
+        $getSuratDiteruskan = $suratProgress->count();
+        $getSuratDitolak = $suratDitolak->count();
+        $getSuratSelesai = $suratSelesai->count();
+
+        $totalSurat = $sku + $skp + $sktm + $ski;
+        return view('pages.staff.dashboard', compact('dataUser', 'totalSurat', 'getSuratDiteruskan', 'getSuratDitolak', 'getSuratSelesai', 'sku', 'skp', 'sktm', 'ski'));
     }
 
     public function getPenduduk()
@@ -32,7 +86,7 @@ class DashboardStaffController extends Controller
                         return '<img src="' . asset('assets/images/user.png') . '" class="img-fluid rounded-circle" width="40px" height="40px">';
                     }
                 })
-                ->editColumn('phone', function($item) {
+                ->editColumn('phone', function ($item) {
                     if ($item->userDetails->phone == null) {
                         return '-';
                     } else {

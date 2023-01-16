@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\BusinessCertifications;
+use App\Models\FuneralCertifications;
+use App\Models\IncapacityCertifications;
 use App\Models\Letter;
+use App\Models\Permits;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -40,8 +43,8 @@ class CetakController extends Controller
         $data = file_get_contents($path);
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $skp = Letter::with(['user'])->where('id', $request->id)->first();
-        $user = User::where('id', $skp->users_id)->first();
+        $skp = FuneralCertifications::with(['user'])->where('id', $request->id)->first();
+        $user = User::where('id', $skp->id)->first();
         $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.surat-keterangan-pemakaman', [
             'pic' => $pic,
             'skp' => $skp,
@@ -49,8 +52,8 @@ class CetakController extends Controller
         ]);
 
         $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
-        return $pdf->download('Surat_Keterangan_Pemakaman_' . $user->name . '_' . $tgl_cetak . '.pdf');
-        // return $pdf->stream('Surat_Keterangan_Pemakaman_' . $user->name . '_' . $tgl_cetak .  '.pdf');
+        // return $pdf->download('Surat_Keterangan_Pemakaman_' . $user->name . '_' . $tgl_cetak . '.pdf');
+        return $pdf->stream('Surat_Keterangan_Pemakaman_' . $user->name . '_' . $tgl_cetak .  '.pdf');
     }
 
     public function cetak_sktm(Request $request)
@@ -61,8 +64,8 @@ class CetakController extends Controller
         $data = file_get_contents($path);
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $sktm = Letter::with(['user'])->where('id', $request->id)->first();
-        $user = User::where('id', $sktm->users_id)->first();
+        $sktm = IncapacityCertifications::with(['user.userDetails'])->where('id', $request->id)->first();
+        $user = User::where('id', $sktm->id)->first();
         $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.surat-keterangan-tidak-mampu', [
             'pic' => $pic,
             'sktm' => $sktm,
@@ -70,8 +73,8 @@ class CetakController extends Controller
         ]);
 
         $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
-        return $pdf->download('Surat_Keterangan_Tidak_Mampu_' . $user->name . '_' . $tgl_cetak . '.pdf');
-        // return $pdf->stream('Surat_Keterangan_Tidak_Mampu_' . $user->name . '_' . $tgl_cetak . '.pdf');
+        // return $pdf->download('Surat_Keterangan_Tidak_Mampu_' . $user->name . '_' . $tgl_cetak . '.pdf');
+        return $pdf->stream('Surat_Keterangan_Tidak_Mampu_' . $user->name . '_' . $tgl_cetak . '.pdf');
     }
 
     public function cetak_ski(Request $request)
@@ -82,8 +85,8 @@ class CetakController extends Controller
         $data = file_get_contents($path);
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $ski = Letter::with(['user'])->where('id', $request->id)->first();
-        $user = User::where('id', $ski->users_id)->first();
+        $ski = Permits::with(['user.userDetails'])->where('id', $request->id)->first();
+        $user = User::where('id', $ski->id)->first();
         $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.surat-izin', [
             'pic' => $pic,
             'ski' => $ski,
@@ -91,8 +94,8 @@ class CetakController extends Controller
         ]);
 
         $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
-        return $pdf->download('Surat_Izin_' . $ski->nama_izin . '_' . $user->name . '_' . $tgl_cetak . '.pdf');
-        // return $pdf->stream('Surat_Izin_keramaian_' . $user->name . '_' . $tgl_cetak .  '.pdf');
+        // return $pdf->download('Surat_Izin_' . $ski->nama_izin . '_' . $user->name . '_' . $tgl_cetak . '.pdf');
+        return $pdf->stream('Surat_Izin_keramaian_' . $user->name . '_' . $tgl_cetak .  '.pdf');
     }
 
     public function downloadLaporanBulanan(Request $request)
@@ -114,8 +117,8 @@ class CetakController extends Controller
             'getMonth' => $getMonth,
             'getYear' => $getYear,
         ]);
-        return $pdf->download('Data_Laporan_Bulan_' . $getMonth . '_Tahun_' . $getYear . '_' . $tgl_cetak . '.pdf');
-        // return $pdf->stream('Laporan.pdf');
+        // return $pdf->download('Data_Laporan_Bulan_' . $getMonth . '_Tahun_' . $getYear . '_' . $tgl_cetak . '.pdf');
+        return $pdf->stream('Laporan.pdf');
     }
 
     public function downloadLaporanTahunan(Request $request)
@@ -136,7 +139,7 @@ class CetakController extends Controller
             'getYear' => $getYear,
         ]);
 
-        return $pdf->download('Data_Laporan_' . $getYear . ' ' . $tgl_cetak . '.pdf');
-        // return $pdf->stream('Laporan.pdf');
+        // return $pdf->download('Data_Laporan_' . $getYear . ' ' . $tgl_cetak . '.pdf');
+        return $pdf->stream('Laporan.pdf');
     }
 }

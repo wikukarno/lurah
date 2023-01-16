@@ -113,7 +113,7 @@
             @php
             // $ttl = \Carbon\Carbon::now()->isoFormat('D MMMM Y', strtotime($sku->tanggal_lahir));
             // $ttl = date('d l Y', strtotime($sku->tanggal_lahir));
-            $ttl = \Carbon\Carbon::parse($sku->tanggal_lahir)->isoFormat('D MMMM Y');
+            $ttl = \Carbon\Carbon::parse($sku->user->userDetails->tanggal_lahir)->isoFormat('D MMMM Y');
             @endphp
             <tbody>
                 <tr>

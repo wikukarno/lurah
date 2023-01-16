@@ -133,57 +133,57 @@
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td style="text-transform: uppercase"><b>{{ $sktm->nama ?? '-' }}</b></td>
+                    <td style="text-transform: uppercase"><b>{{ $sktm->user->name ?? '-' }}</b></td>
                 </tr>
                 <tr>
                     <td>Jenis Kelamin</td>
                     <td>:</td>
-                    <td>{{ $sktm->jenis_kelamin ?? '-' }}</td>
+                    <td>{{ $sktm->user->userDetails->jenis_kelamin ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Tempat/ Tgl.Lahir</td>
                     <td>:</td>
-                    <td>{{ $sktm->tempat_lahir ?? '-' }}, {{ $ttl ?? '-' }}</td>
+                    <td>{{ $sktm->user->userDetails->tempat_lahir ?? '-' }}, {{ $ttl ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Pekerjaan</td>
                     <td>:</td>
-                    <td>{{ $sktm->pekerjaan ?? '-' }}</td>
+                    <td>{{ $sktm->user->userDetails->pekerjaan ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Alamat</td>
                     <td>:</td>
-                    <td>{{ $sktm->alamat ?? '-' }}</td>
+                    <td>{{ $sktm->user->userDetails->address ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>RT/RW</td>
                     <td>:</td>
-                    <td>{{ $sktm->rt_rw ?? '-' }}</td>
+                    <td>{{ $sktm->user->userDetails->rtrw ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Kelurahan</td>
                     <td>:</td>
-                    <td>{{ $sktm->kelurahan ?? '-' }}</td>
+                    <td>{{ $sktm->user->userDetails->kelurahan ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Kecamatan</td>
                     <td>:</td>
-                    <td>{{ $sktm->kecamatan ?? '-' }}</td>
+                    <td>{{ $sktm->user->userDetails->kecamatan ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Agama</td>
                     <td>:</td>
-                    <td>{{ $sktm->agama ?? '-' }}</td>
+                    <td>{{ $sktm->user->userDetails->agama ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Status Perkawinan</td>
                     <td>:</td>
-                    <td>{{ $sktm->status_perkawinan ?? '-' }}</td>
+                    <td>{{ $sktm->user->userDetails->status_perkawinan ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>NIK</td>
                     <td>:</td>
-                    <td>{{ $sktm->no_nik ?? '-' }}</td>
+                    <td>{{ $sktm->user->userDetails->nik ?? '-' }}</td>
                 </tr>
             </tbody>
         </table>
@@ -199,7 +199,7 @@
             <tbody>
                 <tr>
                     <td style="padding-left: 50px;">
-                        Surat keterangan ini dipergunakan untuk <b>{{ $sktm->tujuan_surat_tidak_mampu }}.</b>
+                        Surat keterangan ini dipergunakan untuk <b>{{ $sktm->tujuan }}.</b>
                     </td>
                 </tr>
             </tbody>
