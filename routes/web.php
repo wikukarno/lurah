@@ -176,6 +176,27 @@ Route::prefix('/pages/dashboard/user')
         Route::get('/', [DashboardUserController::class, 'index'])->name('user.dashboard');
         Route::get('/lengkapi-data', [ProfileUserController::class, 'completeProfile'])->name('complete-profile');
 
+        Route::get('/sku-user/diproses', [UserBusinessCertificationController::class, 'onProgress'])->name('sku-user.onProgress');
+        Route::get('/sku-user/selesai', [UserBusinessCertificationController::class, 'success'])->name('sku-user.success');
+        Route::get('/sku-user/ditolak', [UserBusinessCertificationController::class, 'rejected'])->name('sku-user.rejected');
+
+        Route::get('/skp-user/diproses', [UserFuneralCertificationController::class, 'onProgress'])->name('skp-user.onProgress');
+        Route::get('/skp-user/selesai', [UserFuneralCertificationController::class, 'success'])->name('skp-user.success');
+        Route::get('/skp-user/ditolak', [UserFuneralCertificationController::class, 'rejected'])->name('skp-user.rejected');
+
+        Route::get('/sktm-user/diproses', [UserIncapacityCertificationController::class, 'onProgress'])->name('sktm-user.onProgress');
+        Route::get('/sktm-user/selesai', [UserIncapacityCertificationController::class, 'success'])->name('sktm-user.success');
+        Route::get('/sktm-user/ditolak', [UserIncapacityCertificationController::class, 'rejected'])->name('sktm-user.rejected');
+
+        Route::get('/ski-user/diproses', [UserPermitsController::class, 'onProgress'])->name('ski-user.onProgress');
+        Route::get('/ski-user/selesai', [UserPermitsController::class, 'success'])->name('ski-user.success');
+        Route::get('/ski-user/ditolak', [UserPermitsController::class, 'rejected'])->name('ski-user.rejected');
+
+    Route::get('/sku/cetak/{id}', [CetakController::class, 'cetak_sku'])->name('sku-user.cetak-sku');
+    Route::get('/skp/cetak/{id}', [CetakController::class, 'cetak_skp'])->name('skp-user.cetak-skp');
+    Route::get('/sktm/cetak/{id}', [CetakController::class, 'cetak_sktm'])->name('sktm-user.cetak-sktm');
+    Route::get('/ski/cetak/{id}', [CetakController::class, 'cetak_ski'])->name('ski-user.cetak-ski');
+
         // Route get akun, edit akun, ubah foto dan get penolakan
         Route::post('/get-akun', [ProfileUserController::class, 'show'])->name('user.get-akun');
         Route::post('/akun/update', [ProfileUserController::class, 'update'])->name('user.update-akun');

@@ -21,12 +21,12 @@ class UserBusinessCertificationController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = BusinessCertifications::with(['letter', 'userDetails'])->where('users_id', Auth::user()->id)->get();
+            $query = BusinessCertifications::with(['letter', 'user.userDetails'])->where('status', 'Belum Diproses')->where('users_id', Auth::user()->id)->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('created_at', function ($item) {
-                    return $item->created_at->format('d F Y');
+                    return $item->created_at->isoFormat('D MMMM Y');
                 })
                 ->editColumn('surat_rtrw', function ($item) {
                     return '
@@ -35,28 +35,121 @@ class UserBusinessCertificationController extends Controller
                         </a>
                     ';
                 })
-                ->editColumn('status', function ($item) {
-                    if ($item->status == 'Belum Diproses') {
-                        return '<span class="badge badge-pill badge-secondary">' . $item->status . '</span>';
-                    } elseif ($item->status == 'Sedang Diproses') {
-                        return '<span class="badge badge-pill badge-info">' . $item->status . '</span>';
-                    } elseif ($item->status == 'Ditolak') {
-                        return '
-                            <a href="#" class="badge badge-pill badge-danger" onclick="penolakan(' . $item->id . ')">' . $item->status . '</a>
-                        ';
-                    } else {
-                        return '
-                            <a href="#" class="badge badge-pill badge-success" onclick="selesaiProses(' . $item->id . ')">' . $item->status . '</a>
-                        ';
-                    }
+                
+                ->editColumn('action', function ($item) {
+                    return '
+                        <a href="' . route('sku-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    ';
                 })
 
-                ->rawColumns(['created_at', 'status', 'surat_rtrw'])
+                ->rawColumns(['created_at', 'status', 'surat_rtrw', 'action'])
                 ->make(true);
         }
         $userDetails = UserDetails::with('user')->where('users_id', Auth::user()->id)->get();
         $user = User::where('id', Auth::user()->id)->first();
         return view('pages.user.sku.index', compact('userDetails', 'user'));
+    }
+    public function onProgress()
+    {
+        if (request()->ajax()) {
+            $query = BusinessCertifications::with([
+                'user.userDetails',
+                'letter',
+            ])->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->get();
+
+            return datatables()->of($query)
+                ->addIndexColumn()
+                ->editColumn('created_at', function ($item) {
+                    return $item->created_at->format('d F Y');
+                })
+                ->editColumn('action', function ($item) {
+                    return '
+                        <a href="' . route('sku-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    ';
+                })
+
+                ->rawColumns(['created_at', 'status', 'action'])
+                ->make(true);
+        }
+        return view('pages.user.sku.index');
+    }
+    public function success()
+    {
+        if (request()->ajax()) {
+            $query = BusinessCertifications::with([
+                'user.userDetails',
+                'letter',
+            ])->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->get();
+
+            return datatables()->of($query)
+                ->addIndexColumn()
+                ->editColumn('created_at', function ($item) {
+                    return $item->created_at->format('d F Y');
+                })
+                ->editColumn('action', function ($item) {
+                    return '
+                        <div class="form-group">
+                            <a href="' . route('sku-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                                <i class="fa fa-eye"></i>
+                            </a>
+
+                            <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="selesaiProses(' . $item->id . ')">
+                                Selesai Diproses
+                            </a>
+                        </div>
+                    ';
+                })
+
+                ->rawColumns(['created_at', 'status', 'action'])
+                ->make(true);
+        }
+        return view('pages.user.sku.index');
+    }
+    public function rejected()
+    {
+        if (request()->ajax()) {
+            $query = BusinessCertifications::with([
+                'user.userDetails',
+                'letter',
+            ])->where('status', 'Ditolak')->get();
+
+            return datatables()->of($query)
+                ->addIndexColumn()
+                ->editColumn('created_at', function ($item) {
+                    return $item->created_at->format('d F Y');
+                })
+                ->editColumn('status', function ($item) {
+                    if ($item->status == 'Belum Diproses') {
+                        return '<span class="badge badge-pill badge-warning">' . $item->status . '</span>';
+                    } elseif ($item->status == 'Sedang Diproses') {
+                        return '<span class="badge badge-pill badge-info">' . $item->status . '</span>';
+                    } elseif ($item->status == 'Ditolak') {
+                        return '<span class="badge badge-pill badge-danger">' . $item->status . '</span>';
+                    } else {
+                        return '<span class="badge badge-pill badge-success">' . $item->status . '</span>';
+                    }
+                })
+                ->editColumn('action', function ($item) {
+                    return '
+                        <div class="form-group">
+                            <a href="' . route('sku-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="penolakan(' . $item->id . ')">
+                                Ditolak
+                            </a>
+                        </div>
+                    ';
+                })
+
+                ->rawColumns(['created_at', 'status', 'action'])
+                ->make(true);
+        }
+        return view('pages.user.sku.index');
     }
 
     /**
@@ -102,7 +195,11 @@ class UserBusinessCertificationController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = BusinessCertifications::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+
+        return view('pages.user.sku.show', [
+            'item' => $item,
+        ]);
     }
 
     /**

@@ -19,37 +19,116 @@ class UserIncapacityCertificationController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = IncapacityCertifications::with(['letter', 'userDetails'])->where('users_id', Auth::user()->id)->get();
+            $query = IncapacityCertifications::with(['letter', 'userDetails'])->where('users_id', Auth::user()->id)->where('status', 'Belum Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('created_at', function ($item) {
                     return $item->created_at->isoFormat('D MMMM Y');
                 })
-                ->editColumn('name', function ($item) {
-                    return $item->userDetails->name;
-                })
-                ->editColumn('status', function ($item) {
-                    if ($item->status == 'Belum Diproses') {
-                        return '<span class="badge badge-pill badge-warning">' . $item->status . '</span>';
-                    } elseif ($item->status == 'Sedang Diproses') {
-                        return '<span class="badge badge-pill badge-info">' . $item->status . '</span>';
-                    } elseif ($item->status == 'Ditolak') {
-                        return '
-                            <a href="#" class="badge badge-pill badge-danger" onclick="penolakan(' . $item->id . ')">' . $item->status . '</a>
-                        ';
-                    } else {
-                        return '
-                            <a href="#" class="badge badge-pill badge-success" onclick="selesaiProses(' . $item->id . ')">' . $item->status . '</a>
-                        ';
-                    }
+                ->editColumn('action', function ($item) {
+                    return '
+                        <a href="' . route('sktm-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    ';
                 })
 
-                ->rawColumns(['created_at', 'status'])
+                ->rawColumns(['created_at', 'action'])
                 ->make(true);
         }
         $userDetails = UserDetails::with('user')->where('users_id', Auth::user()->id)->get();
         return view('pages.user.sktm.index', compact('userDetails'));
+    }
+
+    public function onProgress()
+    {
+        if (request()->ajax()) {
+            $query = IncapacityCertifications::with([
+                'user.userDetails',
+                'letter',
+            ])->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->get();
+
+            return datatables()->of($query)
+                ->addIndexColumn()
+                ->editColumn('created_at', function ($item) {
+                    return $item->created_at->isoFormat('D MMMM Y');
+                })
+                ->editColumn('action', function ($item) {
+                    return '
+                        <a href="' . route('sktm-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    ';
+                })
+
+                ->rawColumns(['created_at', 'action'])
+                ->make(true);
+        }
+        return view('pages.user.sktm.index');
+    }
+    public function success()
+    {
+        if (request()->ajax()) {
+            $query = IncapacityCertifications::with([
+                'user.userDetails',
+                'letter',
+            ])->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->get();
+
+            return datatables()->of($query)
+                ->addIndexColumn()
+                ->editColumn('created_at', function ($item) {
+                    return $item->created_at->isoFormat('D MMMM Y');
+                })
+                ->editColumn('action', function ($item) {
+                    return '
+                        <div class="form-group">
+                            <a href="' . route('sktm-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                                <i class="fa fa-eye"></i>
+                            </a>
+
+                            <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="selesaiProses(' . $item->id . ')">
+                                Selesai Diproses
+                            </a>
+                        </div>
+                    ';
+                })
+
+                ->rawColumns(['created_at', 'status', 'action'])
+                ->make(true);
+        }
+        return view('pages.user.sktm.index');
+    }
+    public function rejected()
+    {
+        if (request()->ajax()) {
+            $query = IncapacityCertifications::with([
+                'user.userDetails',
+                'letter',
+            ])->where('users_id', Auth::user()->id)->where('status', 'Ditolak')->get();
+
+            return datatables()->of($query)
+                ->addIndexColumn()
+                ->editColumn('created_at', function ($item) {
+                    return $item->created_at->isoFormat('D MMMM Y');
+                })
+                ->editColumn('action', function ($item) {
+                    return '
+                        <div class="form-group">
+                            <a href="' . route('sktm-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="penolakan(' . $item->id . ')">
+                                Ditolak
+                            </a>
+                        </div>
+                    ';
+                })
+
+                ->rawColumns(['created_at', 'action'])
+                ->make(true);
+        }
+        return view('pages.user.sktm.index');
     }
 
     /**
@@ -75,7 +154,7 @@ class UserIncapacityCertificationController extends Controller
             'letters_id' => 4,
             'tujuan' => $request->tujuan,
             'surat_rtrw' => $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public'),
-            'posisi' => 'staff',
+            'posisi' => 'user',
             'status' => 'Belum Diproses',
         ]);
 
@@ -94,7 +173,11 @@ class UserIncapacityCertificationController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = IncapacityCertifications::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+
+        return view('pages.user.sktm.show', [
+            'item' => $item,
+        ]);
     }
 
     /**

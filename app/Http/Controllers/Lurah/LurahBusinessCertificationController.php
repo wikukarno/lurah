@@ -368,7 +368,7 @@ class LurahBusinessCertificationController extends Controller
 
         $item->update([
             'status' => 'Selesai Diproses',
-            'posisi' => 'lurah',
+            'posisi' => 'staff',
         ]);
 
         return redirect()->route('sku-lurah.index');
