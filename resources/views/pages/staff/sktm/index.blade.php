@@ -242,7 +242,7 @@ Surat Keterangan Tidak Mampu
         processData: false,
         success: (data) => {
         $('#tolakSktmModal').modal('hide');
-        $('#tb_sktm_staff').DataTable().ajax.reload();
+        $('#tb_sktm_staff_ditolak').DataTable().ajax.reload();
         Swal.fire({
         title: 'Surat Berhasil Ditolak!',
         text: "Surat Keterangan Usaha telah ditolak",

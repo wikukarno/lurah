@@ -402,7 +402,6 @@ class StaffBusinessCertificationController extends Controller
     {
         $sku = BusinessCertifications::findOrFail($request->id);
         $sku->status = 'Ditolak';
-        $sku->posisi = 'user';
         $sku->alasan_penolakan = $request->alasan_penolakan;
         $sku->save();
 

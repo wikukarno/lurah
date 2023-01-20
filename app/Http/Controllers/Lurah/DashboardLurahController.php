@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Lurah;
 
 use App\Http\Controllers\Controller;
 use App\Models\BusinessCertifications;
+use App\Models\FuneralCertifications;
+use App\Models\IncapacityCertifications;
 use App\Models\Letter;
+use App\Models\Permits;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -14,8 +17,60 @@ class DashboardLurahController extends Controller
 {
     public function index()
     {
+        $dataUser = User::where('roles', 'user')->count();
         $sku = BusinessCertifications::count();
-        return view('pages.lurah.dashboard', compact('sku'));
+        $skp = FuneralCertifications::count();
+        $sktm = IncapacityCertifications::count();
+        $ski = Permits::count();
+
+        $suratProgress = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+            ->whereHas('business', function ($query) {
+                $query->where('status', 'Sedang Diproses');
+            })
+            ->orWhereHas('funeral', function ($query) {
+                $query->where('status', 'Sedang Diproses');
+            })
+            ->orWhereHas('incapacity', function ($query) {
+                $query->where('status', 'Sedang Diproses');
+            })
+            ->orWhereHas('permits', function ($query) {
+                $query->where('status', 'Sedang Diproses');
+            });
+
+        $suratDitolak = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+            ->whereHas('business', function ($query) {
+                $query->where('status', 'Ditolak');
+            })
+            ->orWhereHas('funeral', function ($query) {
+                $query->where('status', 'Ditolak');
+            })
+            ->orWhereHas('incapacity', function ($query) {
+                $query->where('status', 'Ditolak');
+            })
+            ->orWhereHas('permits', function ($query) {
+                $query->where('status', 'Ditolak');
+            });
+
+        $suratSelesai = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+        ->whereHas('business', function ($query) {
+                $query->where('status', 'Selesai Diproses');
+            })
+            ->orWhereHas('funeral', function ($query) {
+                $query->where('status', 'Selesai Diproses');
+            })
+            ->orWhereHas('incapacity', function ($query) {
+                $query->where('status', 'Selesai Diproses');
+            })
+            ->orWhereHas('permits', function ($query) {
+                $query->where('status', 'Selesai Diproses');
+            });
+
+        $getSuratDiteruskan = $suratProgress->count();
+        $getSuratDitolak = $suratDitolak->count();
+        $getSuratSelesai = $suratSelesai->count();
+
+        $totalSurat = $sku + $skp + $sktm + $ski;
+        return view('pages.lurah.dashboard', compact('dataUser', 'sku', 'skp', 'sktm', 'ski', 'totalSurat', 'getSuratDiteruskan', 'getSuratDitolak', 'getSuratSelesai'));
     }
 
     public function getLaporan(Request $request)
@@ -60,7 +115,7 @@ class DashboardLurahController extends Controller
     public function getPenduduk()
     {
         if (request()->ajax()) {
-            $query = User::query()->whereNot('roles', 'Lurah')->get();
+            $query = User::with('userDetails')->where('roles', 'user')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -71,18 +126,18 @@ class DashboardLurahController extends Controller
                         return '<img src="' . asset('assets/images/user.png') . '" class="img-fluid rounded-circle" width="40px" height="40px">';
                     }
                 })
-                ->editColumn('name', function ($item) {
-                    if ($item->name == null || $item->name == '') {
+                ->editColumn('phone', function($item){
+                    if($item->userDetails->phone == null || $item->userDetails->phone == ''){
                         return '-';
-                    } else {
-                        return $item->name;
+                    }else{
+                        return $item->userDetails->phone;
                     }
                 })
                 ->editColumn('address', function ($item) {
-                    if ($item->address == null || $item->address == '') {
+                    if ($item->userDetails->address == null || $item->userDetails->address == '') {
                         return '-';
                     } else {
-                        return $item->address;
+                        return $item->userDetails->address;
                     }
                 })
                 ->rawColumns(['address', 'avatar'])

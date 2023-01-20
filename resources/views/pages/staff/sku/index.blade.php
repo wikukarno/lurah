@@ -269,7 +269,7 @@ Surat Keterangan Usaha
             processData: false,
             success: (data) => {
                 $('#tolakSkuModal').modal('hide');
-                $('#tb_sku_staff').DataTable().ajax.reload();
+                $('#tb_sku_staff_belum_diproses').DataTable().ajax.reload();
                 Swal.fire({
                     title: 'Surat Berhasil Ditolak!',
                     text: "Surat Keterangan Usaha telah ditolak",

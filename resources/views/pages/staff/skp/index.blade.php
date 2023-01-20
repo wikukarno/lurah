@@ -242,7 +242,7 @@ Surat Keterangan Pemakaman
                 processData: false,
                 success: (data) => {
                     $('#tolakSkpModal').modal('hide');
-                    $('#tb_skp_staff').DataTable().ajax.reload();
+                    $('#tb_skp_staff_ditolak').DataTable().ajax.reload();
                     Swal.fire({
                         title: 'Surat Berhasil Ditolak!',
                         text: "Surat Keterangan Usaha telah ditolak",

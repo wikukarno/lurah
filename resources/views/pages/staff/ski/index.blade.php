@@ -242,7 +242,7 @@ Surat Izin Keramaian
         processData: false,
         success: (data) => {
         $('#tolakSkiModal').modal('hide');
-        $('#tb_ski_staff').DataTable().ajax.reload();
+        $('#tb_ski_staff_ditolak').DataTable().ajax.reload();
         Swal.fire({
         title: 'Surat Berhasil Ditolak!',
         text: "Surat Keterangan Usaha telah ditolak",
