@@ -244,13 +244,17 @@ Surat Keterangan Tidak Mampu
         $('#tolakSktmModal').modal('hide');
         $('#tb_sktm_staff_ditolak').DataTable().ajax.reload();
         Swal.fire({
-        title: 'Surat Berhasil Ditolak!',
-        text: "Surat Keterangan Usaha telah ditolak",
-        icon: 'success',
+        title: 'Surat Ditolak!',
+        text: "Surat Keterangan Tidak Mampu Berhasil Ditolak",
+        icon: 'error',
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Oke'
-        })
+        }).then((result) => {
+        if (result.isConfirmed) {
+        window.location.reload();
+        }
+        });
         }
         });
         });

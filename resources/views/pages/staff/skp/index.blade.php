@@ -244,13 +244,17 @@ Surat Keterangan Pemakaman
                     $('#tolakSkpModal').modal('hide');
                     $('#tb_skp_staff_ditolak').DataTable().ajax.reload();
                     Swal.fire({
-                        title: 'Surat Berhasil Ditolak!',
-                        text: "Surat Keterangan Usaha telah ditolak",
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Oke'
-                    })
+                    title: 'Surat Ditolak!',
+                    text: "Surat Keterangan Usaha Berhasil Ditolak",
+                    icon: 'error',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oke'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                    window.location.reload();
+                    }
+                    });
                 }
             });
         });

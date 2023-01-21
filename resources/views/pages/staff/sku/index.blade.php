@@ -271,13 +271,17 @@ Surat Keterangan Usaha
                 $('#tolakSkuModal').modal('hide');
                 $('#tb_sku_staff_belum_diproses').DataTable().ajax.reload();
                 Swal.fire({
-                    title: 'Surat Berhasil Ditolak!',
-                    text: "Surat Keterangan Usaha telah ditolak",
-                    icon: 'success',
+                    title: 'Surat Ditolak!',
+                    text: "Surat Keterangan Usaha Berhasil Ditolak",
+                    icon: 'error',
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Oke'
-                })
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.reload();
+                    }
+                });
             }
         });
     });
