@@ -8,6 +8,7 @@ use App\Models\Letter;
 use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserIncapacityCertificationController extends Controller
 {
@@ -19,10 +20,13 @@ class UserIncapacityCertificationController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = IncapacityCertifications::with(['letter', 'userDetails'])->where('users_id', Auth::user()->id)->where('status', 'Belum Diproses')->get();
+            $query = IncapacityCertifications::with(['letter', 'user.userDetails'])->where('users_id', Auth::user()->id)->where('status', 'Belum Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
+                ->editColumn('nama', function ($item) {
+                    return $item->user->name;
+                })
                 ->editColumn('created_at', function ($item) {
                     return $item->created_at->isoFormat('D MMMM Y');
                 })
@@ -158,9 +162,16 @@ class UserIncapacityCertificationController extends Controller
             'status' => 'Belum Diproses',
         ]);
 
+        $item = new Letter();
+        $item->users_id = Auth::user()->id;
+        $item->jenis_surat = 'Surat Keterangan Tidak Mampu';
+        $item->save();
+
         if ($data) {
+            Alert::success('Berhasil', 'Permohonan berhasil dikirim');
             return redirect()->route('sktm-user.index')->with('success', 'Surat Keterangan Tidak Mampu Berhasil Dibuat');
         } else {
+            Alert::error('Gagal', 'Permohonan gagal dikirim');
             return redirect()->route('sktm-user.index')->with('error', 'Surat Keterangan Tidak Mampu Gagal Dibuat');
         }
     }

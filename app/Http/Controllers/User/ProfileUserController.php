@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileUserController extends Controller
 {
@@ -66,8 +67,10 @@ class ProfileUserController extends Controller
         $user->save();
 
         if ($data) {
+            Alert::success('Berhasil', 'Data Berhasil Disimpan');
             return redirect()->route('akun-user.index')->with('success', 'Data berhasil disimpan!');
         } else {
+            Alert::error('Gagal', 'Data Gagal Disimpan');
             return redirect()->route('akun-user.index')->with('error', 'Data gagal disimpan!');
         }
     }
@@ -126,6 +129,14 @@ class ProfileUserController extends Controller
         $user->phone = $request->phone;
         $user->address = $request->address;
         $user->save();
+
+        if ($user) {
+            Alert::success('Berhasil', 'Data Berhasil Diubah');
+            return redirect()->route('akun-user.index')->with('success', 'Data berhasil diubah!');
+        } else {
+            Alert::error('Gagal', 'Data Gagal Diubah');
+            return redirect()->route('akun-user.index')->with('error', 'Data gagal diubah!');
+        }
     }
 
     public function ubahFoto(Request $request)
@@ -134,8 +145,13 @@ class ProfileUserController extends Controller
         $user->avatar = $request->file('avatar')->store('assets/profile', 'public');
         $user->save();
 
-        // Alert::success('Berhasil', 'Foto Profile Berhasil Diubah');
-        return redirect()->back();
+        if ($user) {
+            Alert::success('Berhasil', 'Foto Berhasil Diubah');
+            return redirect()->route('akun-user.index')->with('success', 'Foto berhasil diubah!');
+        } else {
+            Alert::error('Gagal', 'Foto Gagal Diubah');
+            return redirect()->route('akun-user.index')->with('error', 'Foto gagal diubah!');
+        }
     }
 
     /**

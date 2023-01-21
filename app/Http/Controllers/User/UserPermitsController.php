@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Permits;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserPermitsController extends Controller
 {
@@ -19,7 +20,7 @@ class UserPermitsController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Permits::with(['letter', 'userDetails'])->where('users_id', Auth::user()->id)->where('status', 'Belum Diproses')->get();
+            $query = Permits::with(['letter', 'user.userDetails'])->where('users_id', Auth::user()->id)->where('status', 'Belum Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -165,9 +166,16 @@ class UserPermitsController extends Controller
             'status' => 'Belum Diproses',
         ]);
 
+        $item = new Letter();
+        $item->users_id = Auth::user()->id;
+        $item->jenis_surat = 'Surat Keterangan Tidak Mampu';
+        $item->save();
+
         if ($data) {
+            Alert::success('Berhasil', 'Permohonan berhasil dikirim');
             return redirect()->route('ski-user.index')->with('success', 'Data berhasil ditambahkan');
         } else {
+            Alert::error('Gagal', 'Permohonan gagal dikirim');
             return redirect()->route('ski-user.index')->with('error', 'Data gagal ditambahkan');
         }
     }

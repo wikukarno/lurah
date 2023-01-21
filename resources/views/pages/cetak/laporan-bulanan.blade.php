@@ -117,8 +117,8 @@
                 @foreach ($items as $item)
                 <tr>
                     <td style="padding: 10px; text-align:center">{{ $loop->iteration }}</td>
-                    <td style="padding: 10px; text-align:center">{{ $item->no_nik }}</td>
-                    <td style="padding: 10px; text-align:center">{{ $item->nama }}</td>
+                    <td style="padding: 10px; text-align:center">{{ $item->user->userDetails->nik }}</td>
+                    <td style="padding: 10px; text-align:center">{{ $item->user->name }}</td>
                     <td style="padding: 10px; text-align:center">{{ $item->jenis_surat }}</td>
                     <td style="padding: 10px; text-align:center">{{ $item->created_at->isoFormat('D/' . 'M/' . 'Y') }}
                     </td>

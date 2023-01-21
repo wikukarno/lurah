@@ -52,7 +52,7 @@ class DashboardLurahController extends Controller
             });
 
         $suratSelesai = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
-        ->whereHas('business', function ($query) {
+            ->whereHas('business', function ($query) {
                 $query->where('status', 'Selesai Diproses');
             })
             ->orWhereHas('funeral', function ($query) {
@@ -76,21 +76,12 @@ class DashboardLurahController extends Controller
     public function getLaporan(Request $request)
     {
         if (request()->ajax()) {
-            // $query = Letter::with(['business', 'permits', 'incapacity', 'funeral'])->get();
-            // $query = Letter::with(['business', 'permits', 'incapacity', 'funeral', 'user'])->get();
-            // get all letters with their related data and user data
-            $query = Letter::with(['business', 'permits', 'incapacity', 'funeral', 'user'])
-                ->whereHas('business', function ($query) {
-                    $query->where('status', 'Selesai Diproses');
-                })
-                ->whereHas('user', function ($query) {
-                    $query->whereNot(function ($query) {
-                        $query->where('roles', 'Lurah')->orWhere('roles', 'Staff');
-                    });
-                })->get();
-            dd($query);
+            $query = Letter::with('user.userDetails')->get();
             return datatables()->of($query)
                 ->addIndexColumn()
+                ->editColumn('nik', function ($item) {
+                    return $item->user->userDetails->nik;
+                })
                 ->editColumn('nama', function ($item) {
                     return $item->user->name;
                 })
@@ -100,12 +91,14 @@ class DashboardLurahController extends Controller
                 ->editColumn('updated_at', function ($item) {
                     return $item->updated_at->isoFormat('D MMMM Y');
                 })
-                ->rawColumns(['created_at', 'updated_at'])
+                ->rawColumns(['created_at', 'updated_at', 'nik', 'nama'])
                 ->make(true);
         }
 
-        $year = Letter::selectRaw('YEAR(created_at) year')->groupBy('year')->get();
-        $month = Letter::selectRaw('MONTH(created_at) month')->groupBy('month')->get();
+        $year = Letter::with('user.userDetails')->whereHas('user', function ($query) {
+            $query->where('roles', 'user');
+        })->selectRaw('YEAR(created_at) year')->groupBy('year')->get();
+        $month = Letter::with('user.userDetails')->selectRaw('MONTH(created_at) month')->groupBy('month')->get();
         return view('pages.lurah.laporan', [
             'years' => $year,
             'months' => $month,
@@ -126,10 +119,10 @@ class DashboardLurahController extends Controller
                         return '<img src="' . asset('assets/images/user.png') . '" class="img-fluid rounded-circle" width="40px" height="40px">';
                     }
                 })
-                ->editColumn('phone', function($item){
-                    if($item->userDetails->phone == null || $item->userDetails->phone == ''){
+                ->editColumn('phone', function ($item) {
+                    if ($item->userDetails->phone == null || $item->userDetails->phone == '') {
                         return '-';
-                    }else{
+                    } else {
                         return $item->userDetails->phone;
                     }
                 })
@@ -150,23 +143,16 @@ class DashboardLurahController extends Controller
     {
 
         if (request()->ajax()) {
-            // get bulan
-            $months = Letter::whereMonth('created_at', $request->month)->get();
+
+            $months = Letter::with(['business', 'permits', 'incapacity', 'funeral', 'user.userDetails'])->whereMonth('created_at', $request->month)->get();
 
             return datatables()->of($months)
                 ->addIndexColumn()
-                ->editColumn('jenis_surat', function ($item) {
-                    if (
-                        $item['jenis_surat'] == 'SKU'
-                    ) {
-                        return 'Surat Keterangan Usaha';
-                    } elseif ($item['jenis_surat'] == 'SKTM') {
-                        return 'Surat Keterangan Tidak Mampu';
-                    } elseif ($item['jenis_surat'] == 'SKP') {
-                        return 'Surat Keterangan Pemakaman';
-                    } elseif ($item['jenis_surat'] == 'SKI') {
-                        return 'Surat Izin';
-                    }
+                ->editColumn('nik', function ($item) {
+                    return $item->user->userDetails->nik;
+                })
+                ->editColumn('nama', function ($item) {
+                    return $item->user->name;
                 })
                 ->editColumn('created_at', function ($item) {
                     return $item->created_at->isoFormat('D MMMM Y');
@@ -174,7 +160,7 @@ class DashboardLurahController extends Controller
                 ->editColumn('updated_at', function ($item) {
                     return $item->updated_at->isoFormat('D MMMM Y');
                 })
-                ->rawColumns(['created_at', 'updated_at', 'jenis_surat'])
+                ->rawColumns(['created_at', 'updated_at'])
                 ->make(true);
         }
     }
@@ -183,22 +169,15 @@ class DashboardLurahController extends Controller
     {
         if (request()->ajax()) {
 
-            $years = Letter::whereYear('created_at', $request->year)->get();
+            $years = Letter::with(['business', 'permits', 'incapacity', 'funeral', 'user.userDetails'])->whereYear('created_at', $request->year)->get();
 
             return datatables()->of($years)
                 ->addIndexColumn()
-                ->editColumn('jenis_surat', function ($item) {
-                    if (
-                        $item['jenis_surat'] == 'SKU'
-                    ) {
-                        return 'Surat Keterangan Usaha';
-                    } elseif ($item['jenis_surat'] == 'SKTM') {
-                        return 'Surat Keterangan Tidak Mampu';
-                    } elseif ($item['jenis_surat'] == 'SKP') {
-                        return 'Surat Keterangan Pemakaman';
-                    } elseif ($item['jenis_surat'] == 'SKI') {
-                        return 'Surat Izin';
-                    }
+                ->editColumn('nik', function ($item) {
+                    return $item->user->userDetails->nik;
+                })
+                ->editColumn('nama', function ($item) {
+                    return $item->user->name;
                 })
                 ->editColumn('created_at', function ($item) {
                     return $item->created_at->isoFormat('D MMMM Y');
@@ -206,7 +185,7 @@ class DashboardLurahController extends Controller
                 ->editColumn('updated_at', function ($item) {
                     return $item->updated_at->isoFormat('D MMMM Y');
                 })
-                ->rawColumns(['created_at', 'updated_at', 'jenis_surat'])
+                ->rawColumns(['created_at', 'updated_at'])
                 ->make(true);
         }
     }
@@ -215,22 +194,15 @@ class DashboardLurahController extends Controller
     {
         if (request()->ajax()) {
 
-            $getMonthYear = Letter::whereMonth('created_at', $request->month)->whereYear('created_at', $request->year)->get();
+            $getMonthYear = Letter::with(['business', 'permits', 'incapacity', 'funeral', 'user.userDetails'])->whereMonth('created_at', $request->month)->whereYear('created_at', $request->year)->get();
 
             return datatables()->of($getMonthYear)
                 ->addIndexColumn()
-                ->editColumn('jenis_surat', function ($item) {
-                    if (
-                        $item['jenis_surat'] == 'SKU'
-                    ) {
-                        return 'Surat Keterangan Usaha';
-                    } elseif ($item['jenis_surat'] == 'SKTM') {
-                        return 'Surat Keterangan Tidak Mampu';
-                    } elseif ($item['jenis_surat'] == 'SKP') {
-                        return 'Surat Keterangan Pemakaman';
-                    } elseif ($item['jenis_surat'] == 'SKI') {
-                        return 'Surat Izin';
-                    }
+                ->editColumn('nik', function ($item) {
+                    return $item->user->userDetails->nik;
+                })
+                ->editColumn('nama', function ($item) {
+                    return $item->user->name;
                 })
                 ->editColumn('created_at', function ($item) {
                     return $item->created_at->isoFormat('D MMMM Y');
@@ -238,7 +210,7 @@ class DashboardLurahController extends Controller
                 ->editColumn('updated_at', function ($item) {
                     return $item->updated_at->isoFormat('D MMMM Y');
                 })
-                ->rawColumns(['created_at', 'updated_at', 'jenis_surat'])
+                ->rawColumns(['created_at', 'updated_at'])
                 ->make(true);
         }
     }

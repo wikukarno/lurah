@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('letters', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('users_id')->constrained('users');
             $table->string('jenis_surat');
             $table->timestamps();
             $table->softDeletes();

@@ -10,12 +10,14 @@ class Letter extends Model
     use HasFactory;
 
     protected $fillable = [
+        'users_id',
         'jenis_surat',
+
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id', 'id');
+        return $this->belongsTo(User::class, 'users_id', 'id');
     }
 
     public function business()

@@ -8,6 +8,7 @@ use App\Models\Letter;
 use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserFuneralCertificationController extends Controller
 {
@@ -171,9 +172,16 @@ class UserFuneralCertificationController extends Controller
             'tanggal_dimakamkan' => $request->tanggal_dimakamkan,
         ]);
 
+        $item = new Letter();
+        $item->users_id = Auth::user()->id;
+        $item->jenis_surat = 'Surat Keterangan Pemakaman';
+        $item->save();
+
         if ($data) {
+            Alert::success('Berhasil', 'Permohonan berhasil dikirim');
             return redirect()->route('skp-user.index')->with('success', 'Data berhasil disimpan');
         } else {
+            Alert::error('Gagal', 'Permohonan gagal dikirim');
             return redirect()->route('skp-user.index')->with('error', 'Data gagal disimpan');
         }
     }

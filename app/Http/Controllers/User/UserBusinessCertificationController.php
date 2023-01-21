@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserBusinessCertificationController extends Controller
 {
@@ -35,7 +36,7 @@ class UserBusinessCertificationController extends Controller
                         </a>
                     ';
                 })
-                
+
                 ->editColumn('action', function ($item) {
                     return '
                         <a href="' . route('sku-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
@@ -180,9 +181,16 @@ class UserBusinessCertificationController extends Controller
             'status' => 'Belum Diproses',
         ]);
 
+        $item = new Letter();
+        $item->users_id = Auth::user()->id;
+        $item->jenis_surat = 'Surat Keterangan Usaha';
+        $item->save();
+
         if ($data) {
-            return redirect()->route('sku-user.index')->with('success', 'Permohonan berhasil dikirim');
+            Alert::success('Berhasil', 'Permohonan berhasil dikirim');
+            return redirect()->route('sku-user.index');
         } else {
+            Alert::error('Gagal', 'Permohonan gagal dikirim');
             return redirect()->route('sku-user.index')->with('error', 'Permohonan gagal dikirim');
         }
     }
