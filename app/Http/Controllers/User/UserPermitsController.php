@@ -7,6 +7,7 @@ use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Permits;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -39,7 +40,8 @@ class UserPermitsController extends Controller
                 ->make(true);
         }
         $userDetails = UserDetails::with('user')->where('users_id', Auth::user()->id)->get();
-        return view('pages.user.ski.index', compact('userDetails'));
+        $user = User::where('id', Auth::user()->id)->first();
+        return view('pages.user.ski.index', compact('userDetails', 'user'));
     }
 
     public function onProgress()

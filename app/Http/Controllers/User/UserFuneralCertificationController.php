@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\FuneralCertifications;
 use App\Models\Letter;
+use App\Models\User;
 use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +40,8 @@ class UserFuneralCertificationController extends Controller
                 ->make(true);
         }
         $userDetails = UserDetails::with('user')->where('users_id', Auth::user()->id)->get();
-        return view('pages.user.skp.index', compact('userDetails'));
+        $user = User::where('id', Auth::user()->id)->first();
+        return view('pages.user.skp.index', compact('userDetails', 'user'));
     }
 
     public function onProgress()

@@ -5,7 +5,29 @@ Surat Keterangan Tidak Mampu
 @endsection
 
 @section('content')
-@if(count($userDetails) > 0)
+@if ($user->status_account == 'pending')
+<section class="main-content">
+    <div class="container-fluid">
+        <div class="row text-center">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <figure class="figure">
+                            <img src="{{ asset('assets/img/verifikasi.svg') }}" class="figure-img img-fluid" alt="">
+                            <figcaption class="figure-caption mt-5">
+                                <h3 class="text-center">Mohon Maaf!</h3>
+                                <p class="text-center">Akun anda saat ini sedang diverifikasi oleh admin <br /> mohon
+                                    untuk menunggu,
+                                    Terimakasih</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@elseif(count($userDetails) > 0)
 <section class="main-content">
     <div class="container-fluid">
         <div class="row">

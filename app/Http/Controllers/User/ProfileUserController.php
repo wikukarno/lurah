@@ -19,8 +19,9 @@ class ProfileUserController extends Controller
      */
     public function index()
     {
+        $userDetails = UserDetails::with('user')->where('users_id', Auth::user()->id)->get();
         $users = User::with('userDetails')->where('id', Auth::user()->id)->first();
-        return view('pages.user.profile', compact('users'));
+        return view('pages.user.profile', compact('users', 'userDetails'));
     }
 
     /**

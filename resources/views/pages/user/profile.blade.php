@@ -5,6 +5,7 @@ Profile {{ Auth::user()->name }}
 @endsection
 
 @section('content')
+@if (count($userDetails) > 0)
 <section class="main-content">
     <div class="container-fluid">
         <div class="row">
@@ -156,6 +157,30 @@ Profile {{ Auth::user()->name }}
         </div>
     </div>
 </section>
+@else
+<section class="main-content">
+    <div class="container-fluid">
+        <div class="row text-center">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <figure class="figure">
+                            <img src="{{ asset('assets/img/data.svg') }}" class="figure-img img-fluid" alt="">
+                            <figcaption class="figure-caption mt-5">
+                                <h3 class="text-center">Data Anda Belum Lengkap</h3>
+                                <p class="text-center">Silahkan Lengkapi Profile Anda Terlebih Dahulu</p>
+                                <a href="{{ route('complete-profile') }}" class="btn btn-primary"> <i
+                                        class="fas fa-plus"></i>&nbsp;
+                                    Lengkapi Data</a>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@endif
 @include('pages.user.modal-ubah-profile')
 @endsection
 
