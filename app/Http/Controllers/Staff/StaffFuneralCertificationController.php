@@ -100,9 +100,6 @@ class StaffFuneralCertificationController extends Controller
 
             return datatables()->of($query)
                 ->addIndexColumn()
-                ->editColumn('nama', function ($item) {
-                    return $item->user->userDetails->nama ?? $item->user->name;
-                })
                 ->editColumn('created_at', function ($item) {
                     return $item->created_at->isoFormat('D MMMM Y');
                 })
@@ -179,9 +176,6 @@ class StaffFuneralCertificationController extends Controller
 
             return datatables()->of($query)
                 ->addIndexColumn()
-                ->editColumn('nama', function ($item) {
-                    return $item->user->userDetails->nama ?? $item->user->name;
-                })
                 ->editColumn('created_at', function ($item) {
                     return $item->created_at->isoFormat('D MMMM Y');
                 })
@@ -258,9 +252,6 @@ class StaffFuneralCertificationController extends Controller
 
             return datatables()->of($query)
                 ->addIndexColumn()
-                ->editColumn('nama', function ($item) {
-                    return $item->user->userDetails->nama ?? $item->user->name;
-                })
                 ->editColumn('created_at', function ($item) {
                     return $item->created_at->isoFormat('D MMMM Y');
                 })
