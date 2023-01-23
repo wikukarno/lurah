@@ -120,11 +120,7 @@ class DashboardLurahController extends Controller
                     }
                 })
                 ->editColumn('phone', function ($item) {
-                    if ($item->userDetails->phone == null || $item->userDetails->phone == '') {
-                        return '-';
-                    } else {
-                        return $item->userDetails->phone;
-                    }
+                    return $item->userDetails->phone;
                 })
                 ->editColumn('address', function ($item) {
                     if ($item->userDetails->address == null || $item->userDetails->address == '') {
