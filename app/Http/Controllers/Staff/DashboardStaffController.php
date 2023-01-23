@@ -75,7 +75,7 @@ class DashboardStaffController extends Controller
     public function getPenduduk()
     {
         if (request()->ajax()) {
-            $query = User::with(['userDetails'])->where('roles', 'User')->get();
+            $query = User::with(['userDetails'])->where('roles', 'User')->where('status_account', 'verifikasi')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -87,20 +87,12 @@ class DashboardStaffController extends Controller
                     }
                 })
                 ->editColumn('phone', function ($item) {
-                    if ($item->userDetails->phone == null) {
-                        return '-';
-                    } else {
-                        return $item->userDetails->phone;
-                    }
+                    return $item->userDetails->phone ?? '-';
                 })
                 ->editColumn('address', function ($item) {
-                    if ($item->userDetails->address == null) {
-                        return '-';
-                    } else {
-                        return $item->userDetails->address;
-                    }
+                    return $item->userDetails->address ?? '-';
                 })
-                ->rawColumns(['address', 'avatar'])
+                ->rawColumns(['address', 'avatar', 'phone', 'action', 'address'])
                 ->make(true);
         }
         return view('pages.staff.penduduk');
