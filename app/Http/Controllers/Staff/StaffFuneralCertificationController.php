@@ -164,7 +164,7 @@ class StaffFuneralCertificationController extends Controller
                     }
                 })
 
-                ->rawColumns(['created_at', 'status', 'action'])
+                ->rawColumns(['created_at', 'status', 'action', 'nama'])
                 ->make(true);
         }
         return view('pages.staff.skp.index');
@@ -179,6 +179,9 @@ class StaffFuneralCertificationController extends Controller
 
             return datatables()->of($query)
                 ->addIndexColumn()
+                ->editColumn('nama', function ($item) {
+                    return $item->user->userDetails->nama ?? $item->user->name;
+                })
                 ->editColumn('created_at', function ($item) {
                     return $item->created_at->isoFormat('D MMMM Y');
                 })
@@ -240,7 +243,7 @@ class StaffFuneralCertificationController extends Controller
                     }
                 })
 
-                ->rawColumns(['created_at', 'status', 'action'])
+                ->rawColumns(['created_at', 'status', 'action', 'nama'])
                 ->make(true);
         }
         return view('pages.staff.skp.index');
@@ -255,6 +258,9 @@ class StaffFuneralCertificationController extends Controller
 
             return datatables()->of($query)
                 ->addIndexColumn()
+                ->editColumn('nama', function ($item) {
+                    return $item->user->userDetails->nama ?? $item->user->name;
+                })
                 ->editColumn('created_at', function ($item) {
                     return $item->created_at->isoFormat('D MMMM Y');
                 })
@@ -316,7 +322,7 @@ class StaffFuneralCertificationController extends Controller
                     }
                 })
 
-                ->rawColumns(['created_at', 'status', 'action'])
+                ->rawColumns(['created_at', 'status', 'action', 'nama'])
                 ->make(true);
         }
         return view('pages.staff.skp.index');
