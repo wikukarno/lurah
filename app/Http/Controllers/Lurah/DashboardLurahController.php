@@ -113,8 +113,8 @@ class DashboardLurahController extends Controller
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('avatar', function ($item) {
-                    if ($item->avatar != null) {
-                        return '<img src="' . Storage::url($item->avatar) . '" class="img-fluid rounded-circle" width="40px" height="40px">';
+                    if ($item->userDetails->avatar != null) {
+                        return '<img src="' . Storage::url($item->userDetails->avatar) . '" class="img-fluid rounded-circle" width="40px" height="40px">';
                     } else {
                         return '<img src="' . asset('assets/images/user.png') . '" class="img-fluid rounded-circle" width="40px" height="40px">';
                     }
