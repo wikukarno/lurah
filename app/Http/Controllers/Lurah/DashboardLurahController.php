@@ -119,9 +119,6 @@ class DashboardLurahController extends Controller
                         return '<img src="' . asset('assets/images/user.png') . '" class="img-fluid rounded-circle" width="40px" height="40px">';
                     }
                 })
-                ->editColumn('phone', function ($item) {
-                    return $item->userDetails->phone;
-                })
                 ->editColumn('address', function ($item) {
                     if ($item->userDetails->address == null || $item->userDetails->address == '') {
                         return '-';
@@ -129,7 +126,7 @@ class DashboardLurahController extends Controller
                         return $item->userDetails->address;
                     }
                 })
-                ->rawColumns(['address', 'avatar', 'phone'])
+                ->rawColumns(['address', 'avatar'])
                 ->make(true);
         }
         return view('pages.lurah.penduduk');
