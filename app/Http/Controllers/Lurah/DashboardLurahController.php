@@ -133,7 +133,7 @@ class DashboardLurahController extends Controller
                         return $item->userDetails->address;
                     }
                 })
-                ->rawColumns(['address', 'avatar'])
+                ->rawColumns(['address', 'avatar', 'phone'])
                 ->make(true);
         }
         return view('pages.lurah.penduduk');
