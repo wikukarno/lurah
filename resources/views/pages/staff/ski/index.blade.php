@@ -226,8 +226,8 @@ Surat Izin Keramaian
         }
 
         function tolakSki(id){
-        $('#tolakSkiModal').modal('show');
-        $('#id-ski').val(id);
+            $('#tolakSkiModal').modal('show');
+            $('#id-ski').val(id);
         }
 
         $('#form-tolak-ski').submit(function(e){
@@ -245,7 +245,7 @@ Surat Izin Keramaian
         $('#tb_ski_staff_ditolak').DataTable().ajax.reload();
         Swal.fire({
         title: 'Surat Ditolak!',
-        text: "Surat Keterangan Usaha Berhasil Ditolak",
+        text: "Surat Keterangan Izin Berhasil Ditolak",
         icon: 'error',
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',

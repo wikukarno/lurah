@@ -259,39 +259,39 @@ Surat Keterangan Tidak Mampu
         });
         });
 
-        function lampiranSktm(id){
-            $('#lampiranSktmModal').modal('show');
-                $.ajax({
-                type:'POST',
-                url: "{{ url('pages/dashboard/staff/sktm/get-lampiran') }}",
-                data: {
-                id:id,
-                _token: '{{csrf_token()}}'
-            },
-                success: (data) => {
-                    console.log(data);
-                    $('#no_nik').val(data.no_nik);
-                    $('#nama').val(data.nama);
-                    $('#nama_usaha').val(data.nama_usaha);
-                    $('#tempat_lahir').val(data.tempat_lahir);
-                    $('#tanggal_lahir').val(data.tanggal_lahir);
-                    $('#jenis_kelamin').val(data.jenis_kelamin);
-                    $('#pekerjaan').val(data.pekerjaan);
-                    $('#status_perkawinan').val(data.status_perkawinan);
-                    $('#agama').val(data.agama);
-                    $('#status_perkawinan').val(data.status_perkawinan);
-                    $('#kecamatan').val(data.kecamatan);
-                    $('#kelurahan').val(data.kelurahan);
-                    $('#rt_rw').val(data.rt_rw);
-                    $('#alamat').val(data.alamat);
-                    $('#tujuan_surat_tidak_mampu').val(data.tujuan_surat_tidak_mampu);
-                    
-                    $('#ktp').attr('src', '{{ asset('storage') }}/'+data.ktp);
-                    $('#kk').attr('src', '{{ asset('storage') }}/'+data.kk);
-                    $('#surat_rt_rw').attr('src', '{{ asset('storage') }}/'+data.surat_rt_rw);
-                }
-            });
+        function tolakSktm(id){
+        $('#tolakSktmModal').modal('show');
+        $('#id-sktm').val(id);
         }
+        
+        $('#form-tolak-sktm').submit(function(e){
+        e.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+        type:'POST',
+        url: "{{ url('pages/dashboard/staff/sktm/tolak-sktm') }}",
+        data: formData,
+        cache:false,
+        contentType: false,
+        processData: false,
+        success: (data) => {
+        $('#tolakSkpModal').modal('hide');
+        $('#tb_sktm_staff_ditolak').DataTable().ajax.reload();
+        Swal.fire({
+        title: 'Surat Ditolak!',
+        text: "Surat Keterangan Tidak Mampu Berhasil Ditolak",
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oke'
+        }).then((result) => {
+        if (result.isConfirmed) {
+        window.location.reload();
+        }
+        });
+        }
+        });
+        });
 
 </script>
 @endpush

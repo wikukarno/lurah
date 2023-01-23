@@ -18,10 +18,10 @@ class DashboardLurahController extends Controller
     public function index()
     {
         $dataUser = User::where('roles', 'user')->count();
-        $sku = BusinessCertifications::count();
-        $skp = FuneralCertifications::count();
-        $sktm = IncapacityCertifications::count();
-        $ski = Permits::count();
+        $sku = BusinessCertifications::where('posisi', 'lurah')->count();
+        $skp = FuneralCertifications::where('posisi', 'lurah')->count();
+        $sktm = IncapacityCertifications::where('posisi', 'lurah')->count();
+        $ski = Permits::where('posisi', 'lurah')->count();
 
         $suratProgress = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
             ->whereHas('business', function ($query) {

@@ -127,15 +127,15 @@ Route::prefix('/pages/dashboard/staff')
         // Route get lampiran skp
         Route::get('/skp/cetak/{id}', [CetakController::class, 'cetak_skp'])->name('skp-staff.cetak-skp');
         Route::post('/skp/get-lampiran', [SkpStaffController::class, 'show'])->name('skp-staff.show');
-        Route::post('/skp/tolak-skp', [SkpStaffController::class, 'tolakSkp'])->name('skp-staff.tolak');
+        Route::post('/skp/tolak-skp', [StaffFuneralCertificationController::class, 'tolakSkp'])->name('skp-staff.tolak');
         Route::get('/skp-staff/diproses', [StaffFuneralCertificationController::class, 'onProgress'])->name('skp-staff.onProgress');
         Route::get('/skp-staff/selesai', [StaffFuneralCertificationController::class, 'success'])->name('skp-staff.success');
         Route::get('/skp-staff/ditolak', [StaffFuneralCertificationController::class, 'rejected'])->name('skp-staff.rejected');
 
         // Route get lampiran sktm
         Route::get('/sktm/cetak/{id}', [CetakController::class, 'cetak_sktm'])->name('sktm-staff.cetak-sktm');
-        Route::post('/sktm/get-lampiran', [SktmStaffController::class, 'show'])->name('sktm-staff.show');
-        Route::post('/sktm/tolak-sktm', [SktmStaffController::class, 'tolakSktm'])->name('sktm-staff.tolak');
+        Route::post('/sktm/get-lampiran', [StaffIncapacityCertificationController::class, 'show'])->name('sktm-staff.show');
+        Route::post('/sktm/tolak-sktm', [StaffIncapacityCertificationController::class, 'tolakSktm'])->name('sktm-staff.tolak');
         Route::get('/sktm-staff/diproses', [StaffIncapacityCertificationController::class, 'onProgress'])->name('sktm-staff.onProgress');
         Route::get('/sktm-staff/selesai', [StaffIncapacityCertificationController::class, 'success'])->name('sktm-staff.success');
         Route::get('/sktm-staff/ditolak', [StaffIncapacityCertificationController::class, 'rejected'])->name('sktm-staff.rejected');
@@ -143,7 +143,7 @@ Route::prefix('/pages/dashboard/staff')
         // Route get lampiran ski
         Route::get('/ski/cetak/{id}', [CetakController::class, 'cetak_ski'])->name('ski-staff.cetak-ski');
         Route::post('/ski/get-lampiran', [SkiStaffController::class, 'show'])->name('ski-staff.show');
-        Route::post('/ski/tolak-ski', [SkiStaffController::class, 'tolakSki'])->name('ski-staff.tolak');
+        Route::post('/ski/tolak-ski', [StaffPermitsController::class, 'tolakSki'])->name('ski-staff.tolak');
         Route::get('/ski-staff/diproses', [StaffPermitsController::class, 'onProgress'])->name('ski-staff.onProgress');
         Route::get('/ski-staff/selesai', [StaffPermitsController::class, 'success'])->name('ski-staff.success');
         Route::get('/ski-staff/ditolak', [StaffPermitsController::class, 'rejected'])->name('ski-staff.rejected');
@@ -192,10 +192,10 @@ Route::prefix('/pages/dashboard/user')
         Route::get('/ski-user/selesai', [UserPermitsController::class, 'success'])->name('ski-user.success');
         Route::get('/ski-user/ditolak', [UserPermitsController::class, 'rejected'])->name('ski-user.rejected');
 
-    Route::get('/sku/cetak/{id}', [CetakController::class, 'cetak_sku'])->name('sku-user.cetak-sku');
-    Route::get('/skp/cetak/{id}', [CetakController::class, 'cetak_skp'])->name('skp-user.cetak-skp');
-    Route::get('/sktm/cetak/{id}', [CetakController::class, 'cetak_sktm'])->name('sktm-user.cetak-sktm');
-    Route::get('/ski/cetak/{id}', [CetakController::class, 'cetak_ski'])->name('ski-user.cetak-ski');
+        Route::get('/sku/cetak/{id}', [CetakController::class, 'cetak_sku'])->name('sku-user.cetak-sku');
+        Route::get('/skp/cetak/{id}', [CetakController::class, 'cetak_skp'])->name('skp-user.cetak-skp');
+        Route::get('/sktm/cetak/{id}', [CetakController::class, 'cetak_sktm'])->name('sktm-user.cetak-sktm');
+        Route::get('/ski/cetak/{id}', [CetakController::class, 'cetak_ski'])->name('ski-user.cetak-ski');
 
         // Route get akun, edit akun, ubah foto dan get penolakan
         Route::post('/get-akun', [ProfileUserController::class, 'show'])->name('user.get-akun');

@@ -293,5 +293,39 @@ Surat Keterangan Pemakaman
         });
         }
 
+        function tolakSkp(id){
+        $('#tolakSkpModal').modal('show');
+        $('#id-skp').val(id);
+        }
+        
+        $('#form-tolak-ski').submit(function(e){
+        e.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+        type:'POST',
+        url: "{{ url('pages/dashboard/staff/skp/tolak-skp') }}",
+        data: formData,
+        cache:false,
+        contentType: false,
+        processData: false,
+        success: (data) => {
+        $('#tolakSkiModal').modal('hide');
+        $('#tb_skp_staff_ditolak').DataTable().ajax.reload();
+        Swal.fire({
+        title: 'Surat Ditolak!',
+        text: "Surat Keterangan Pemakaman Berhasil Ditolak",
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oke'
+        }).then((result) => {
+        if (result.isConfirmed) {
+        window.location.reload();
+        }
+        });
+        }
+        });
+        });
+
 </script>
 @endpush

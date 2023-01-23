@@ -245,7 +245,7 @@ Surat Keterangan Pemakaman
                     $('#tb_skp_staff_ditolak').DataTable().ajax.reload();
                     Swal.fire({
                     title: 'Surat Ditolak!',
-                    text: "Surat Keterangan Usaha Berhasil Ditolak",
+                    text: "Surat Keterangan Pemakaman Berhasil Ditolak",
                     icon: 'error',
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
@@ -259,40 +259,6 @@ Surat Keterangan Pemakaman
             });
         });
         
-        function lampiranSkp(id){
-            $('#lampiranSkpModal').modal('show');
-            $.ajax({
-                type:'POST',
-                url: "{{ url('pages/dashboard/staff/skp/get-lampiran') }}",
-                data: {
-                    id:id,
-                    _token: '{{csrf_token()}}'
-                },
-                success: (data) => {
-                    $('#no_nik').val(data.no_nik);
-                    $('#nama').val(data.nama);
-                    $('#nama_usaha').val(data.nama_usaha);
-                    $('#tempat_lahir').val(data.tempat_lahir);
-                    $('#tanggal_lahir').val(data.tanggal_lahir);
-                    $('#jenis_kelamin').val(data.jenis_kelamin);
-                    $('#pekerjaan').val(data.pekerjaan);
-                    $('#status_perkawinan').val(data.status_perkawinan);
-                    $('#agama').val(data.agama);
-                    $('#kecamatan').val(data.kecamatan);
-                    $('#kelurahan').val(data.kelurahan);
-                    $('#rt_rw').val(data.rt_rw);
-                    $('#alamat').val(data.alamat);
-                    $('#hari_meninggal').val(data.hari_meninggal);
-                    $('#tanggal_meninggal').val(data.tanggal_meninggal);
-                    $('#nama_pemakaman').val(data.nama_pemakaman);
-                    $('#tanggal_dimakamkan').val(data.tanggal_dimakamkan);
-                    
-                    $('#ktp').attr('src', '{{ asset('storage') }}/'+data.ktp);
-                    $('#kk').attr('src', '{{ asset('storage') }}/'+data.kk);
-                    $('#surat_rt_rw').attr('src', '{{ asset('storage') }}/'+data.surat_rt_rw);
-                }
-            });
-        }
 
 </script>
 @endpush

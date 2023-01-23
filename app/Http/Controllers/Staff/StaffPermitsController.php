@@ -395,4 +395,24 @@ class StaffPermitsController extends Controller
     {
         //
     }
+
+    public function tolakSki(Request $request)
+    {
+        $sku = Permits::findOrFail($request->id);
+        $sku->status = 'Ditolak';
+        $sku->alasan_penolakan = $request->alasan_penolakan;
+        $sku->save();
+
+        if ($sku) {
+            return redirect()->route('sku-staff.index');
+        } else {
+            return redirect()->route('sku-staff.index');
+        }
+    }
+
+    public function showTolakSku(Request $request)
+    {
+        $data = Permits::findOrFail($request->id);
+        return response()->json($data);
+    }
 }

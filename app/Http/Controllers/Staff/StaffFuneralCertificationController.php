@@ -100,6 +100,9 @@ class StaffFuneralCertificationController extends Controller
 
             return datatables()->of($query)
                 ->addIndexColumn()
+                ->editColumn('nama', function ($item) {
+                    return $item->user->userDetails->nama ?? $item->user->name;
+                })
                 ->editColumn('created_at', function ($item) {
                     return $item->created_at->isoFormat('D MMMM Y');
                 })
@@ -394,5 +397,25 @@ class StaffFuneralCertificationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function tolakSkp(Request $request)
+    {
+        $skp = FuneralCertifications::findOrFail($request->id);
+        $skp->status = 'Ditolak';
+        $skp->alasan_penolakan = $request->alasan_penolakan;
+        $skp->save();
+
+        if ($skp) {
+            return redirect()->route('skp-staff.index');
+        } else {
+            return redirect()->route('skp-staff.index');
+        }
+    }
+
+    public function showTolakSkp(Request $request)
+    {
+        $data = FuneralCertifications::findOrFail($request->id);
+        return response()->json($data);
     }
 }

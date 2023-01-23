@@ -76,7 +76,7 @@ class StaffIncapacityCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKtm(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSktm(' . $item->id . ')">
                                 Tolak
                             </a>
 
@@ -394,5 +394,25 @@ class StaffIncapacityCertificationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function tolakSktm(Request $request)
+    {
+        $sku = IncapacityCertifications::findOrFail($request->id);
+        $sku->status = 'Ditolak';
+        $sku->alasan_penolakan = $request->alasan_penolakan;
+        $sku->save();
+
+        if ($sku) {
+            return redirect()->route('sku-staff.index');
+        } else {
+            return redirect()->route('sku-staff.index');
+        }
+    }
+
+    public function showTolakSktm(Request $request)
+    {
+        $data = IncapacityCertifications::findOrFail($request->id);
+        return response()->json($data);
     }
 }
