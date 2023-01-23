@@ -123,13 +123,9 @@ class DashboardLurahController extends Controller
                     return $item->userDetails->phone ?? '-';
                 })
                 ->editColumn('address', function ($item) {
-                    if ($item->userDetails->address == null || $item->userDetails->address == '') {
-                        return '-';
-                    } else {
-                        return $item->userDetails->address;
-                    }
+                    return $item->userDetails->address ?? '-';
                 })
-                ->rawColumns(['address', 'avatar', 'phone'])
+                ->rawColumns(['address', 'avatar', 'phone', 'address'])
                 ->make(true);
         }
         return view('pages.lurah.penduduk');
