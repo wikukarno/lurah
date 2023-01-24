@@ -76,7 +76,7 @@ class DashboardLurahController extends Controller
     public function getLaporan(Request $request)
     {
         if (request()->ajax()) {
-            $query = Letter::with(['user.userDetails', 'business', 'funeral', 'incapacity', 'permits'])
+            $query = Letter::with('user.userDetails', 'business', 'funeral', 'incapacity', 'permits')
                 ->whereHas('business', function ($query) {
                     $query->where('status', 'Selesai Diproses');
                 })
