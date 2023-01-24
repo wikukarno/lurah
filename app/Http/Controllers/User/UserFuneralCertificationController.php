@@ -172,6 +172,8 @@ class UserFuneralCertificationController extends Controller
             'tanggal_meninggal' => $request->tanggal_meninggal,
             'tempat_pemakaman'  => $request->tempat_pemakaman,
             'tanggal_dimakamkan' => $request->tanggal_dimakamkan,
+            'posisi' => 'staff',
+            'status' => 'Belum Diproses',
         ]);
 
         $item = new Letter();

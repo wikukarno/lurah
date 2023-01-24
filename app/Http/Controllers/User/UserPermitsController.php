@@ -164,7 +164,7 @@ class UserPermitsController extends Controller
             'jumlah_peserta' => $request->jumlah_peserta,
             'hiburan' => $request->hiburan,
             'surat_rtrw' => $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public'),
-            'posisi' => 'user',
+            'posisi' => 'staff',
             'status' => 'Belum Diproses',
         ]);
 

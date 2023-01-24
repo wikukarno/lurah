@@ -36,7 +36,7 @@ return new class extends Migration
             $table->string('surat_rtrw');
 
             $table->string('alasan_penolakan')->nullable();
-            $table->enum('posisi', ['user', 'staff', 'lurah'])->default('staff')->nullable();
+            $table->enum('posisi', ['staff', 'lurah'])->default('staff')->nullable();
             $table->enum('status', ['Belum Diproses', 'Sedang Diproses', 'Selesai Diproses', 'Ditolak'])->default('Belum Diproses')->nullable();
             $table->timestamps();
             $table->softDeletes();

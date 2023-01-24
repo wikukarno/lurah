@@ -160,7 +160,7 @@ class UserIncapacityCertificationController extends Controller
             'letters_id' => 4,
             'tujuan' => $request->tujuan,
             'surat_rtrw' => $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public'),
-            'posisi' => 'user',
+            'posisi' => 'staff',
             'status' => 'Belum Diproses',
         ]);
 
