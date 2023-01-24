@@ -96,7 +96,7 @@
                             <h4>SK Usaha</h4>
                         </div>
                         <div class="card-body">
-                            {{ $sku }}
+                            {{ $skuMasuk }}
                         </div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                             <h4>Sk Pemakaman</h4>
                         </div>
                         <div class="card-body">
-                            {{ $skp }}
+                            {{ $skpMasuk }}
                         </div>
                     </div>
                 </div>
@@ -129,7 +129,7 @@
                             <h4>SK Tidak Mampu</h4>
                         </div>
                         <div class="card-body">
-                            {{ $sktm }}
+                            {{ $sktmMasuk }}
                         </div>
                     </div>
                 </div>
@@ -144,7 +144,7 @@
                             <h4>SK Izin</h4>
                         </div>
                         <div class="card-body">
-                            {{ $ski }}
+                            {{ $skiMasuk }}
                         </div>
                     </div>
                 </div>

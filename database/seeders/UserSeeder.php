@@ -22,8 +22,9 @@ class UserSeeder extends Seeder
                 'email' => 'lurah@gmail.com',
                 'password' => bcrypt('123456'),
                 'roles' => 'Lurah',
+                'status_account' => 'verifikasi',
                 'created_at' => now(),
-                'updated_at'=> now()
+                'updated_at' => now()
             ],
             [
                 'id' => 2,
@@ -31,8 +32,9 @@ class UserSeeder extends Seeder
                 'email' => 'staff@gmail.com',
                 'password' => bcrypt('123456'),
                 'roles' => 'Staff',
+                'status_account' => 'verifikasi',
                 'created_at' => now(),
-                'updated_at'=> now()
+                'updated_at' => now()
             ],
             [
                 'id' => 3,
@@ -40,8 +42,9 @@ class UserSeeder extends Seeder
                 'email' => 'norman@gmail.com',
                 'password' => bcrypt('123456'),
                 'roles' => 'User',
+                'status_account' => 'verifikasi',
                 'created_at' => now(),
-                'updated_at'=> now()
+                'updated_at' => now()
             ]
         ];
 

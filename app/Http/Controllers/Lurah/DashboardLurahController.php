@@ -17,7 +17,7 @@ class DashboardLurahController extends Controller
 {
     public function index()
     {
-        $dataUser = User::where('roles', 'user')->count();
+        $dataUser = User::where('roles', 'User')->orWhere('roles', 'Staff')->count();
         $sku = BusinessCertifications::where('posisi', 'lurah')->count();
         $skp = FuneralCertifications::where('posisi', 'lurah')->count();
         $sktm = IncapacityCertifications::where('posisi', 'lurah')->count();
@@ -76,7 +76,20 @@ class DashboardLurahController extends Controller
     public function getLaporan(Request $request)
     {
         if (request()->ajax()) {
-            $query = Letter::with('user.userDetails')->get();
+            $query = Letter::with(['user.userDetails', 'business', 'funeral', 'incapacity', 'permits'])
+                ->whereHas('business', function ($query) {
+                    $query->where('status', 'Selesai Diproses');
+                })
+                ->orWhereHas('funeral', function ($query) {
+                    $query->where('status', 'Selesai Diproses');
+                })
+                ->orWhereHas('incapacity', function ($query) {
+                    $query->where('status', 'Selesai Diproses');
+                })
+                ->orWhereHas('permits', function ($query) {
+                    $query->where('status', 'Selesai Diproses');
+                })
+                ->get();
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('nik', function ($item) {
@@ -86,10 +99,26 @@ class DashboardLurahController extends Controller
                     return $item->user->name;
                 })
                 ->editColumn('created_at', function ($item) {
-                    return $item->created_at->isoFormat('D MMMM Y');
+                    if ($item->business->created_at != null) {
+                        return $item->business->created_at->isoFormat('D MMMM Y');
+                    } elseif ($item->funeral->created_at != null) {
+                        return $item->funeral->created_at->isoFormat('D MMMM Y');
+                    } elseif ($item->incapacity->created_at != null) {
+                        return $item->incapacity->created_at->isoFormat('D MMMM Y');
+                    } elseif ($item->permits->created_at != null) {
+                        return $item->permits->created_at->isoFormat('D MMMM Y');
+                    }
                 })
                 ->editColumn('updated_at', function ($item) {
-                    return $item->updated_at->isoFormat('D MMMM Y');
+                    if ($item->business->updated_at != null) {
+                        return $item->business->updated_at->isoFormat('D MMMM Y');
+                    } elseif ($item->funeral->updated_at != null) {
+                        return $item->funeral->updated_at->isoFormat('D MMMM Y');
+                    } elseif ($item->incapacity->updated_at != null) {
+                        return $item->incapacity->updated_at->isoFormat('D MMMM Y');
+                    } elseif ($item->permits->updated_at != null) {
+                        return $item->permits->updated_at->isoFormat('D MMMM Y');
+                    }
                 })
                 ->rawColumns(['created_at', 'updated_at', 'nik', 'nama'])
                 ->make(true);
@@ -108,12 +137,12 @@ class DashboardLurahController extends Controller
     public function getPenduduk()
     {
         if (request()->ajax()) {
-            $query = User::with('userDetails')->where('roles', 'User')->where('status_account', 'verifikasi')->get();
+            $query = User::with('userDetails')->where('roles', 'User')->orWhere('roles', 'Staff')->where('status_account', 'verifikasi')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('avatar', function ($item) {
-                    if ($item->userDetails->avatar != null) {
+                    if ($item->userDetails->avatar != null || $item->userDetails->avatar != '') {
                         return '<img src="' . Storage::url($item->userDetails->avatar) . '" class="img-fluid rounded-circle" width="40px" height="40px">';
                     } else {
                         return '<img src="' . asset('assets/images/user.png') . '" class="img-fluid rounded-circle" width="40px" height="40px">';

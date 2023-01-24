@@ -22,6 +22,11 @@ class DashboardStaffController extends Controller
         $sktm = IncapacityCertifications::count();
         $ski = Permits::count();
 
+        $skuMasuk = BusinessCertifications::where('status', 'Belum Diproses')->count();
+        $skpMasuk = FuneralCertifications::where('status', 'Belum Diproses')->count();
+        $sktmMasuk = IncapacityCertifications::where('status', 'Belum Diproses')->count();
+        $skiMasuk = Permits::where('status', 'Belum Diproses')->count();
+
         $suratProgress = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
             ->whereHas('business', function ($query) {
                 $query->where('status', 'Sedang Diproses');
@@ -69,7 +74,7 @@ class DashboardStaffController extends Controller
         $getSuratSelesai = $suratSelesai->count();
 
         $totalSurat = $sku + $skp + $sktm + $ski;
-        return view('pages.staff.dashboard', compact('dataUser', 'totalSurat', 'getSuratDiteruskan', 'getSuratDitolak', 'getSuratSelesai', 'sku', 'skp', 'sktm', 'ski'));
+        return view('pages.staff.dashboard', compact('dataUser', 'totalSurat', 'getSuratDiteruskan', 'getSuratDitolak', 'getSuratSelesai', 'sku', 'skp', 'sktm', 'ski', 'skuMasuk', 'skpMasuk', 'sktmMasuk', 'skiMasuk'));
     }
 
     public function getPenduduk()
