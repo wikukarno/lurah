@@ -191,10 +191,6 @@ class LurahBusinessCertificationController extends Controller
                             <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
-
-                            <a href="' . route('sku-lurah.cetak-sku', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
-                                Cetak
-                            </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '

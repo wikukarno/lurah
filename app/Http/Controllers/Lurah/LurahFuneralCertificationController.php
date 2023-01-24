@@ -191,10 +191,6 @@ class LurahFuneralCertificationController extends Controller
                             <a href="' . route('skp-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
-
-                            <a href="' . route('skp-lurah.cetak-skp', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
-                                Cetak
-                            </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '

@@ -268,9 +268,6 @@ class LurahIncapacityCertificationController extends Controller
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('sktm-lurah.cetak-sktm', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
-                                Cetak
-                            </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
