@@ -159,7 +159,7 @@ Surat Keterangan Tidak Mampu
     },
     columns: [
     { data: 'DT_RowIndex', name: 'id' },
-    { data: 'name', name: 'name' },
+    { data: 'nama', name: 'nama' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
     {
