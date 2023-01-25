@@ -157,7 +157,7 @@ class UserIncapacityCertificationController extends Controller
     {
         $data = IncapacityCertifications::create([
             'users_id' => Auth::user()->id,
-            'letters_id' => 4,
+            'letters_id' => 3,
             'tujuan' => $request->tujuan,
             'surat_rtrw' => $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public'),
             'posisi' => 'staff',

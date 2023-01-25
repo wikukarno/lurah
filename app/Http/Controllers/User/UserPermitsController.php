@@ -154,7 +154,7 @@ class UserPermitsController extends Controller
     {
         $data = Permits::create([
             'users_id' => Auth::user()->id,
-            'letters_id' => 2,
+            'letters_id' => 4,
             'perihal' => $request->perihal,
             'tujuan_surat' => $request->tujuan_surat,
             'nama_izin' => $request->nama_izin,

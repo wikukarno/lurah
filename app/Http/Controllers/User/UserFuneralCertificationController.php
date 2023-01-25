@@ -156,7 +156,7 @@ class UserFuneralCertificationController extends Controller
         // dd($request->all());
         $data = FuneralCertifications::create([
             'users_id' => Auth::user()->id,
-            'letters_id' => 3,
+            'letters_id' => 2,
             'nik' => $request->nik,
             'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,

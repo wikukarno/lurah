@@ -26,7 +26,7 @@ Data Laporan
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Data Laporan</h3>
+                        <h3 class="card-title">Data Laporan </h3>
                     </div>
                     <div class="container">
                         <div class="row d-flex align-items-center">
@@ -37,9 +37,9 @@ Data Laporan
                                     <div class="form-group d-flex align-items-center">
                                         <select class="form-control form-control-lg" id="month">
                                             <option value="Pilih Bulan">Pilih bulan</option>
-                                            @foreach ($months as $month)
-                                            <option value="{{ $month->month }}">
-                                                {{ getMonth($month->month) }}
+                                            @foreach ($months as $item)
+                                            <option value="{{ $item->month }}">
+                                                {{ getMonth($item->month) }}
                                             </option>
                                             @endforeach
                                         </select>
@@ -54,7 +54,7 @@ Data Laporan
                                 <form id="form-by-year">
                                     @csrf
                                     <label for="year">Filter Berdasarkan Tahun</label>
-                                    <div class="form-group d-flex align-items-center">
+                                    <div class="form-group d-flex almonths-center">
                                         <select class="form-control form-control-lg" id="year">
                                             <option value="Pilih Tahun">Pilih Tahun</option>
                                             @foreach ($years as $item)
@@ -197,39 +197,39 @@ Data Laporan
     }));
 
     // filter by month and year
-    if($('#month' && '#year' || '#year' && '#month').change(function(){
-        var month = $('#month').val();
-        var year = $('#year').val();
-        var _token = $('input[name="_token"]').val();
+    // if($('#month' && '#year' || '#year' && '#month').change(function(){
+    //     var month = $('#month').val();
+    //     var year = $('#year').val();
+    //     var _token = $('input[name="_token"]').val();
         
-        $.ajax({
-            url: "{{ route('lurah.filter-laporan-bulanan-tahunan') }}",
-            method: "POST",
-            data: {month:month, year:year, _token:_token},
-            success:function(data){
-                $('#tb_laporan').DataTable().destroy();
-                $('#tb_laporan tbody').html(data.data);
-                $('#tb_laporan').DataTable({
-                    "scrollX": true,
-                    "scrollY": "300px",
-                    "scrollCollapse": true,
-                    "paging": true,
-                    "searching": true,
-                    "info": true,
-                    "order": [[ 0, "asc" ]],
-                    data: data.data,
-                    columns: [
-                        { data: 'DT_RowIndex', name: 'id' },
-                        { data: 'nik', name: 'nik' },
-                        { data: 'nama', name: 'nama' },
-                        { data: 'jenis_surat', name: 'jenis_surat' },
-                        { data: 'created_at', name: 'created_at'},
-                        { data: 'updated_at', name: 'updated_at' },
-                    ]
-                });
-            }
-        });
-    }));
+    //     $.ajax({
+    //         url: "{{ route('lurah.filter-laporan-bulanan-tahunan') }}",
+    //         method: "POST",
+    //         data: {month:month, year:year, _token:_token},
+    //         success:function(data){
+    //             $('#tb_laporan').DataTable().destroy();
+    //             $('#tb_laporan tbody').html(data.data);
+    //             $('#tb_laporan').DataTable({
+    //                 "scrollX": true,
+    //                 "scrollY": "300px",
+    //                 "scrollCollapse": true,
+    //                 "paging": true,
+    //                 "searching": true,
+    //                 "info": true,
+    //                 "order": [[ 0, "asc" ]],
+    //                 data: data.data,
+    //                 columns: [
+    //                     { data: 'DT_RowIndex', name: 'id' },
+    //                     { data: 'nik', name: 'nik' },
+    //                     { data: 'nama', name: 'nama' },
+    //                     { data: 'jenis_surat', name: 'jenis_surat' },
+    //                     { data: 'created_at', name: 'created_at'},
+    //                     { data: 'updated_at', name: 'updated_at' },
+    //                 ]
+    //             });
+    //         }
+    //     });
+    // }));
 
     if ($('#month').val() == 'Pilih Bulan' && $('#year').val() == 'Pilih Tahun') {
         $('#tb_laporan').DataTable({

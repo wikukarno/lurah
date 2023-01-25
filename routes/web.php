@@ -101,6 +101,9 @@ Route::prefix('/pages/dashboard/lurah')
         Route::get('/cetak-laporan-bulanan/{month}/{year}', [CetakController::class, 'downloadLaporanBulanan'])->name('cetak.laporan-bulanan');
         Route::get('/cetak-laporan-tahunan/{year}', [CetakController::class, 'downloadLaporanTahunan'])->name('cetak.laporan-tahunan');
 
+        // Route get month
+        Route::post('/month', [DashboardLurahController::class, 'showMonth'])->name('lurah.get-month');
+
         Route::resource('sku-lurah', LurahBusinessCertificationController::class);
         Route::resource('skp-lurah', LurahFuneralCertificationController::class);
         Route::resource('sktm-lurah', LurahIncapacityCertificationController::class);
