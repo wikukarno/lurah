@@ -16,7 +16,7 @@
                         <p class="text-center">{{ Auth::user()->roles }} Desa Sorek</p>
 
                         <section class="section-profile-content">
-                            <form action="{{ route('akun-user.update', $users->id) }}" method="POST"
+                            <form action="{{ route('akun-lurah.update', $users->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -180,7 +180,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
-                                        <a href="{{ route('akun-user.index') }}"
+                                        <a href="{{ route('akun-lurah.index') }}"
                                             class="btn btn-danger btn-block mb-3">Batal</a>
                                     </div>
                                     <div class="col-12 col-lg-6">

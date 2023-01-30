@@ -19,9 +19,9 @@ Profile {{ Auth::user()->name }}
                             @csrf
                             <input type="hidden" name="id" value="{{ Auth::user()->id }}">
                             <div class="text-center">
-                                @if (Auth::user()->avatar != null)
+                                @if (Auth::user()->userDetails->avatar != null)
 
-                                <img src="{{ Storage::url(Auth::user()->avatar) }}"
+                                <img src="{{ Storage::url(Auth::user()->userdetails->avatar) }}"
                                     class="figure-img img-fluid rounded-circle thumbnail-image" alt="foto profile"
                                     id="foto-profile" />
 

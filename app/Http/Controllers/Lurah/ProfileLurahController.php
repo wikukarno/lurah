@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Lurah;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Console\View\Components\Alert;
+use App\Models\UserDetails;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileLurahController extends Controller
 {
@@ -16,7 +19,8 @@ class ProfileLurahController extends Controller
      */
     public function index()
     {
-        return view('pages.lurah.profile');
+        $users = User::with('userDetails')->where('id', Auth::user()->id)->first();
+        return view('pages.lurah.profile', compact('users'));
     }
 
     /**
@@ -70,7 +74,8 @@ class ProfileLurahController extends Controller
      */
     public function edit($id)
     {
-        //
+        $users = User::with('userDetails')->findOrFail($id);
+        return view('pages.lurah.update-profile', compact('users'));
     }
 
     /**
@@ -82,12 +87,54 @@ class ProfileLurahController extends Controller
      */
     public function update(Request $request)
     {
-        $user = User::find($request->id);
-        $user->name = $request->name;
-        $user->email = $request->email;
+        $user = UserDetails::where('users_id', Auth::user()->id)->first();
+        $user->nik = $request->nik;
         $user->phone = $request->phone;
+        $user->jenis_kelamin = $request->jenis_kelamin;
+        $user->tempat_lahir = $request->tempat_lahir;
+        $user->tanggal_lahir = $request->tanggal_lahir;
+        $user->pekerjaan = $request->pekerjaan;
+        $user->kecamatan = $request->kecamatan;
+        $user->kelurahan = $request->kelurahan;
+        $user->rtrw = $request->rtrw;
+        $user->agama = $request->agama;
+        $user->status_perkawinan = $request->status_perkawinan;
         $user->address = $request->address;
+
+        $fileLama = $user->avatar;
+        $fileLamaKtp = $user->ktp;
+        $fileLamaKk = $user->kk;
+
+        if ($request->avatar != null) {
+            $user->avatar = $request->file('avatar')->storePubliclyAs('assets/avatar', $request->file('avatar')->getClientOriginalName(), 'public');
+            if ($fileLama != null) {
+                Storage::disk('public')->delete($fileLama);
+            }
+        }
+
+        if ($request->ktp != null) {
+            $user->ktp = $request->file('ktp')->storePubliclyAs('assets/ktp', $request->file('ktp')->getClientOriginalName(), 'public');
+            if ($fileLamaKtp != null) {
+                Storage::disk('public')->delete($fileLamaKtp);
+            }
+        }
+
+        if ($request->kk != null) {
+            $user->kk = $request->file('kk')->storePubliclyAs('assets/kk', $request->file('kk')->getClientOriginalName(), 'public');
+            if ($fileLamaKk != null) {
+                Storage::disk('public')->delete($fileLamaKk);
+            }
+        }
+
         $user->save();
+
+        if ($user) {
+            Alert::success('Berhasil', 'Data Berhasil Diubah');
+            return redirect()->route('akun-lurah.index')->with('success', 'Data berhasil diubah!');
+        } else {
+            Alert::error('Gagal', 'Data Gagal Diubah');
+            return redirect()->route('akun-lurah.index')->with('error', 'Data gagal diubah!');
+        }
     }
 
     public function ubahFoto(Request $request)

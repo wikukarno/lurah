@@ -15,7 +15,7 @@ Data Penduduk
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="tb_penduduk" class="table table-hover scroll-horizontal-vertical w-100">
+                            <table id="tb_pengguna" class="table table-hover scroll-horizontal-vertical w-100">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
