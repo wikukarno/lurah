@@ -9,7 +9,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Update Profile Profile</h3>
+                        <h3 class="card-title">Update Profile</h3>
                     </div>
                     <div class="card-body">
                         <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
@@ -173,7 +173,7 @@
                                     <div class="col-12 col-lg-12">
                                         <div class="form-group">
                                             <label for="address">Alamat</label>
-                                            <input type="text" class="form-control"
+                                            <input type="text" class="form-control" name="address" id="address"
                                                 value="{{ $users->userDetails->address }}">
                                         </div>
                                     </div>
