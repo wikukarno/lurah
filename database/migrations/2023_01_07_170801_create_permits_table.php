@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->date('tanggal_izin');
             $table->string('tempat_izin');
-            $table->time('waktu_izin');
+            $table->string('waktu_izin');
             $table->string('jumlah_peserta');
             $table->string('hiburan');
             $table->string('surat_rtrw');

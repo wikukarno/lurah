@@ -19,7 +19,6 @@ Data Penduduk
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Profile</th>
                                         <th>Email</th>
                                         <th>Nama</th>
                                         <th>Nomor HP</th>
@@ -49,7 +48,6 @@ Data Penduduk
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'id' },
-                { data: 'avatar', name: 'avatar' },
                 { data: 'email', name: 'email' },
                 { data: 'name', name: 'name' },
                 { data: 'phone', name: 'phone' },

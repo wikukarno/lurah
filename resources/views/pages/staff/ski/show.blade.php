@@ -72,8 +72,7 @@ Surat Keterangan Izin
                             <div class="col-12 col-lg-6">
                                 <div class="form-group">
                                     <label for="tanggal_lahir">Jam</label>
-                                    <input type="text" class="form-control" value="{{ 
-                                            \Carbon\Carbon::parse($item->jam_mulai)->isoFormat('HH:mm')}}" readonly>
+                                    <input type="text" class="form-control" value="{{ $item->waktu_izin }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -82,15 +81,14 @@ Surat Keterangan Izin
                             <div class="col-12 col-lg-6">
                                 <div class="form-group">
                                     <label for="jenis_kelamin">Jumlah Peserta</label>
-                                    <input type="text" class="form-control"
-                                        value="{{ $item->jumlah_peserta }}" readonly>
+                                    <input type="text" class="form-control" value="{{ $item->jumlah_peserta }}"
+                                        readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6">
                                 <div class="form-group">
                                     <label for="nama">Hiburan</label>
-                                    <input type="text" class="form-control"
-                                        value="{{ $item->hiburan }}" readonly>
+                                    <input type="text" class="form-control" value="{{ $item->hiburan }}" readonly>
                                 </div>
                             </div>
                         </div>

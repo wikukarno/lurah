@@ -72,11 +72,56 @@ class DashboardUserController extends Controller
         return view('pages.user.dashboard', compact('totalSurat', 'getSuratDitolak', 'getSuratDiproses', 'getSuratSelesai'));
     }
 
-    public function getPenolakan(Request $request)
+    public function getPenolakanSktm(Request $request)
     {
         if (request()->ajax()) {
-            $where = array('letters.id' => $request->id);
-            $result = Letter::where($where)->first();
+            $where = array('incapacity_certifications.id' => $request->id);
+            $result = IncapacityCertifications::where($where)->first();
+            if ($result) {
+                return Response()->json($result);
+            } else {
+                return Response()->json(['error' => 'Data tidak ditemukan!']);
+            }
+        } else {
+            $result = (['status' => false, 'message' => 'Maaf, akses ditolak!']);
+        }
+        return Response()->json($result);
+    }
+    public function getPenolakanSku(Request $request)
+    {
+        if (request()->ajax()) {
+            $where = array('business_certifications.id' => $request->id);
+            $result = BusinessCertifications::where($where)->first();
+            if ($result) {
+                return Response()->json($result);
+            } else {
+                return Response()->json(['error' => 'Data tidak ditemukan!']);
+            }
+        } else {
+            $result = (['status' => false, 'message' => 'Maaf, akses ditolak!']);
+        }
+        return Response()->json($result);
+    }
+    public function getPenolakanSki(Request $request)
+    {
+        if (request()->ajax()) {
+            $where = array('permits.id' => $request->id);
+            $result = Permits::where($where)->first();
+            if ($result) {
+                return Response()->json($result);
+            } else {
+                return Response()->json(['error' => 'Data tidak ditemukan!']);
+            }
+        } else {
+            $result = (['status' => false, 'message' => 'Maaf, akses ditolak!']);
+        }
+        return Response()->json($result);
+    }
+    public function getPenolakanSkp(Request $request)
+    {
+        if (request()->ajax()) {
+            $where = array('incapacity_certifications.id' => $request->id);
+            $result = IncapacityCertifications::where($where)->first();
             if ($result) {
                 return Response()->json($result);
             } else {

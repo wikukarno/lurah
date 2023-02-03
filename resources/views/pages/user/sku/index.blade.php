@@ -273,7 +273,7 @@ Surat Keterangan Usaha
         function penolakan(id){
         $.ajax({
         type: "POST",
-        url: "{{ route('sku-user.show-tolak-sku') }}",
+        url: "{{ route('get-penolakan-sku') }}",
         data: {
         id: id,
         _token: "{{ csrf_token() }}"

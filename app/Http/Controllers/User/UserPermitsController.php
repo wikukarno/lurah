@@ -192,6 +192,8 @@ class UserPermitsController extends Controller
     {
         $item = Permits::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
 
+        // return Response()->json($item);
+        // dd($item->waktu_izin);
         return view('pages.user.ski.show', [
             'item' => $item,
         ]);

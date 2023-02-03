@@ -274,7 +274,7 @@ Surat Keterangan Pemakaman
         function penolakan(id){
         $.ajax({
         type: "POST",
-        url: "{{ route('get-penolakan') }}",
+        url: "{{ route('get-penolakan-skp') }}",
         data: {
         id: id,
         _token: "{{ csrf_token() }}"

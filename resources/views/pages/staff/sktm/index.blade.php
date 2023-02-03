@@ -85,7 +85,7 @@ Surat Keterangan Tidak Mampu
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Nama Alm/Almh</th>
+                                                <th>Nama</th>
                                                 <th>Tanggal Pengajuan</th>
                                                 <th>Posisi</th>
                                                 <th>Aksi</th>

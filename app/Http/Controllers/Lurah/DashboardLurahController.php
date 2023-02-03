@@ -146,20 +146,13 @@ class DashboardLurahController extends Controller
 
             return datatables()->of($query)
                 ->addIndexColumn()
-                ->editColumn('avatar', function ($item) {
-                    if ($item->userDetails->avatar != null || $item->userDetails->avatar != '') {
-                        return '<img src="' . Storage::url($item->userDetails->avatar) . '" class="img-fluid rounded-circle" width="40px" height="40px">';
-                    } else {
-                        return '<img src="' . asset('assets/images/user.png') . '" class="img-fluid rounded-circle" width="40px" height="40px">';
-                    }
-                })
                 ->editColumn('phone', function ($item) {
                     return $item->userDetails->phone ?? '-';
                 })
                 ->editColumn('address', function ($item) {
                     return $item->userDetails->address ?? '-';
                 })
-                ->rawColumns(['address', 'avatar', 'phone', 'address'])
+                ->rawColumns(['address', 'phone', 'address'])
                 ->make(true);
         }
         return view('pages.lurah.penduduk');

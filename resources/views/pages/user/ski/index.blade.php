@@ -275,7 +275,7 @@ Surat Izin
 function penolakan(id){
 $.ajax({
 type: "POST",
-url: "{{ route('get-penolakan') }}",
+url: "{{ route('get-penolakan-ski') }}",
 data: {
 id: id,
 _token: "{{ csrf_token() }}"

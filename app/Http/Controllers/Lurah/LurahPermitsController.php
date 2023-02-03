@@ -191,10 +191,6 @@ class LurahPermitsController extends Controller
                             <a href="' . route('ski-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
-
-                            <a href="' . route('ski-lurah.cetak-ski', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
-                                Cetak
-                            </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
@@ -266,10 +262,6 @@ class LurahPermitsController extends Controller
                         return '
                             <a href="' . route('ski-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
-                            </a>
-
-                            <a href="' . route('ski-lurah.cetak-ski', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
-                                Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {

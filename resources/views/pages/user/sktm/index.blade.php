@@ -248,7 +248,7 @@ Surat Keterangan Tidak Mampu
     },
     columns: [
     { data: 'DT_RowIndex', name: 'id' },
-    { data: 'nama', name: 'nama' },
+    { data: 'user.name', name: 'user.name' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
     {
@@ -261,37 +261,38 @@ Surat Keterangan Tidak Mampu
     
     });
 
-        function selesaiProses(id){
-            Swal.fire({
-                title: 'Surat Selesai Diproses!',
-                text: "Surat Keterangan Tidak Mampu Anda Telah Selesai Diproses, Silahkan Ambil Surat Anda Dikantor Lurah Sorek Satu Dengan Membawa Fotocopy KK, Fotocopy KTP, dan Surat Pengaturan RT/RW. Terima Kasih",
-                icon: 'success',
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Oke'
-            })
-        }
-        function penolakan(id){
+    function selesaiProses(id){
+        Swal.fire({
+            title: 'Surat Selesai Diproses!',
+            text: "Surat Keterangan Tidak Mampu Anda Telah Selesai Diproses, Silahkan Ambil Surat Anda Dikantor Lurah Sorek Satu Dengan Membawa Fotocopy KK, Fotocopy KTP, dan Surat Pengaturan RT/RW. Terima Kasih",
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Oke'
+        })
+    }
+    function penolakan(id){
         $.ajax({
         type: "POST",
-        url: "{{ route('get-penolakan') }}",
+        url: "{{ route('get-penolakan-sktm') }}",
         data: {
         id: id,
         _token: "{{ csrf_token() }}"
         },
         dataType: "JSON",
         success: function (response) {
-        Swal.fire({
-        title: 'Surat Ditolak!',
-        text: "Keterangan Penolakan : " +response.alasan_penolakan,
-        icon: 'error',
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Oke'
-        });
+            console.log(response);
+            Swal.fire({
+                title: 'Surat Ditolak!',
+                text: "Keterangan Penolakan : " +response.alasan_penolakan,
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oke'
+            });
         }
         });
-        }
+    }
 
 </script>
 @endpush

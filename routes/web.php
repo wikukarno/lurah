@@ -204,7 +204,10 @@ Route::prefix('/pages/dashboard/user')
         Route::post('/get-akun', [ProfileUserController::class, 'show'])->name('user.get-akun');
         Route::post('/akun/update', [ProfileUserController::class, 'update'])->name('user.update-akun');
         Route::post('/ubah-foto', [ProfileUserController::class, 'ubahFoto'])->name('user.ubah-foto');
-        Route::post('/get-penolakan', [DashboardUserController::class, 'getPenolakan'])->name('get-penolakan');
+        Route::post('/penolakan/sktm', [DashboardUserController::class, 'getPenolakanSktm'])->name('get-penolakan-sktm');
+        Route::post('/penolakan/sku', [DashboardUserController::class, 'getPenolakanSku'])->name('get-penolakan-sku');
+        Route::post('/penolakan/ski', [DashboardUserController::class, 'getPenolakanSki'])->name('get-penolakan-ski');
+        Route::post('/penolakan/skp', [DashboardUserController::class, 'getPenolakanSkp'])->name('get-penolakan-skp');
         Route::post('/sku/show/tolak-sku', [UserBusinessCertificationController::class, 'showTolakSku'])->name('sku-user.show-tolak-sku');
 
         // Route Resource
