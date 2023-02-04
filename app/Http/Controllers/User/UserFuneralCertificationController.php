@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserFuneralCertificationController extends Controller
@@ -33,6 +34,11 @@ class UserFuneralCertificationController extends Controller
                         <a href="' . route('skp-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
                             <i class="fa fa-eye"></i>
                         </a>
+
+                        <a href="' . route('skp-user.edit', $item->id) . '" class="btn btn-sm btn-info">
+                            <i class="fa fa-pencil-alt"></i>
+                        </a>
+
                     ';
                 })
 
@@ -213,7 +219,10 @@ class UserFuneralCertificationController extends Controller
      */
     public function edit($id)
     {
-        // 
+        $item = FuneralCertifications::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+        return view('pages.user.skp.edit', [
+            'item' => $item,
+        ]);
     }
 
     /**
@@ -225,7 +234,41 @@ class UserFuneralCertificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = FuneralCertifications::findOrFail($id);
+        $fileLama = $data->surat_rtrw;
+        if ($request->surat_rtrw != null) {
+            $data->surat_rtrw = $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public');
+            if ($fileLama != null) {
+                Storage::disk('public')->delete($fileLama);
+            }
+        }
+
+        $data->update([
+            'nik' => $request->nik,
+            'nama' => $request->nama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'pekerjaan' => $request->pekerjaan,
+            'alamat' => $request->alamat,
+            'rtrw' => $request->rtrw,
+            'kelurahan' => $request->kelurahan,
+            'kecamatan' => $request->kecamatan,
+            'agama' => $request->agama,
+            'tanggal_meninggal' => $request->tanggal_meninggal,
+            'tempat_pemakaman' => $request->tempat_pemakaman,
+            'tanggal_dimakamkan' => $request->tanggal_dimakamkan,
+            'surat_rtrw' => $data->surat_rtrw,
+        ]);
+
+        if ($data) {
+            Alert::success('Berhasil', 'Permohonan berhasil diubah');
+            return redirect()->route('skp-user.index')->with('success', 'Data berhasil disimpan');
+        } else {
+            Alert::error('Gagal', 'Permohonan gagal diubah');
+            return redirect()->route('skp-user.index')->with('error', 'Data gagal disimpan');
+        }
+        
     }
 
     /**

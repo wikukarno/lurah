@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserBusinessCertificationController extends Controller
@@ -42,6 +43,10 @@ class UserBusinessCertificationController extends Controller
                         <a href="' . route('sku-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
                             <i class="fa fa-eye"></i>
                         </a>
+
+                        <a href="' . route('sku-user.edit', $item->id) . '" class="btn btn-sm btn-info">
+                            <i class="fa fa-pencil-alt"></i>
+                        </a>
                     ';
                 })
 
@@ -63,7 +68,7 @@ class UserBusinessCertificationController extends Controller
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('created_at', function ($item) {
-                    return $item->created_at->format('d F Y');
+                    return $item->created_at->isoFormat('D MMMM Y');
                 })
                 ->editColumn('action', function ($item) {
                     return '
@@ -89,7 +94,7 @@ class UserBusinessCertificationController extends Controller
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('created_at', function ($item) {
-                    return $item->created_at->format('d F Y');
+                    return $item->created_at->isoFormat('D MMMM Y');
                 })
                 ->editColumn('action', function ($item) {
                     return '
@@ -121,7 +126,7 @@ class UserBusinessCertificationController extends Controller
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('created_at', function ($item) {
-                    return $item->created_at->format('d F Y');
+                    return $item->created_at->isoFormat('D MMMM Y');
                 })
                 ->editColumn('status', function ($item) {
                     if ($item->status == 'Belum Diproses') {
@@ -218,7 +223,10 @@ class UserBusinessCertificationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = BusinessCertifications::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+        return view('pages.user.sku.edit', [
+            'item' => $item,
+        ]);
     }
 
     /**
@@ -230,7 +238,27 @@ class UserBusinessCertificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = BusinessCertifications::findOrFail($id);
+        $fileLama = $data->surat_rtrw;
+        if ($request->surat_rtrw != null) {
+            $data->surat_rtrw = $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public');
+            if ($fileLama != null) {
+                Storage::disk('public')->delete($fileLama);
+            }
+        }
+        $data->update([
+            'nama_usaha' => $request->nama_usaha,
+            'jenis_usaha' => $request->jenis_usaha,
+            'surat_rtrw' => $data->surat_rtrw,
+        ]);
+
+        if ($data) {
+            Alert::success('Berhasil', 'Permohonan berhasil diubah');
+            return redirect()->route('sku-user.index');
+        } else {
+            Alert::error('Gagal', 'Permohonan gagal diubah');
+            return redirect()->route('sku-user.index')->with('error', 'Permohonan gagal diubah');
+        }
     }
 
     /**

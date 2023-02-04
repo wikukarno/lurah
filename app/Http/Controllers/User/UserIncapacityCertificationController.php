@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserIncapacityCertificationController extends Controller
@@ -35,6 +36,9 @@ class UserIncapacityCertificationController extends Controller
                     return '
                         <a href="' . route('sktm-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
                             <i class="fa fa-eye"></i>
+                        </a>
+                        <a href="' . route('sktm-user.edit', $item->id) . '" class="btn btn-sm btn-info">
+                            <i class="fa fa-pencil-alt"></i>
                         </a>
                     ';
                 })
@@ -201,7 +205,10 @@ class UserIncapacityCertificationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = IncapacityCertifications::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+        return view('pages.user.sktm.edit', [
+            'item' => $item,
+        ]);
     }
 
     /**
@@ -213,7 +220,26 @@ class UserIncapacityCertificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = IncapacityCertifications::findOrFail($id);
+        $fileLama = $data->surat_rtrw;
+        if ($request->surat_rtrw != null) {
+            $data->surat_rtrw = $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public');
+            if ($fileLama != null) {
+                Storage::disk('public')->delete($fileLama);
+            }
+        }
+        $data->update([
+            'tujuan' => $request->tujuan,
+            'surat_rtrw' => $data->surat_rtrw,
+        ]);
+
+        if ($data) {
+            Alert::success('Berhasil', 'Permohonan berhasil diubah');
+            return redirect()->route('sktm-user.index')->with('success', 'Surat Keterangan Tidak Mampu Berhasil Diubah');
+        } else {
+            Alert::error('Gagal', 'Permohonan gagal diubah');
+            return redirect()->route('sktm-user.index')->with('error', 'Surat Keterangan Tidak Mampu Gagal Diubah');
+        }
     }
 
     /**

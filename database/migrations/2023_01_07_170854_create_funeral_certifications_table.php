@@ -22,7 +22,7 @@ return new class extends Migration
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
             $table->string('tempat_lahir');
 
-            $table->dateTime('tanggal_lahir');
+            $table->string('tanggal_lahir');
             $table->string('pekerjaan');
             $table->string('alamat');
             $table->string('rtrw');
@@ -30,9 +30,9 @@ return new class extends Migration
 
             $table->string('kecamatan');
             $table->string('agama');
-            $table->dateTime('tanggal_meninggal');
+            $table->string('tanggal_meninggal');
             $table->string('tempat_pemakaman');
-            $table->dateTime('tanggal_dimakamkan');
+            $table->string('tanggal_dimakamkan');
             $table->string('surat_rtrw');
 
             $table->string('alasan_penolakan')->nullable();

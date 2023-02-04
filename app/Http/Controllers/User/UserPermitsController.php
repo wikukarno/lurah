@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Permits;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserPermitsController extends Controller
@@ -26,12 +27,16 @@ class UserPermitsController extends Controller
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('created_at', function ($item) {
-                    return $item->created_at->format('d F Y');
+                    return $item->created_at->isoFormat('D MMMM Y');
                 })
                 ->editColumn('action', function ($item) {
                     return '
                         <a href="' . route('ski-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
                             <i class="fa fa-eye"></i>
+                        </a>
+
+                        <a href="' . route('ski-user.edit', $item->id) . '" class="btn btn-sm btn-info">
+                            <i class="fa fa-pencil-alt"></i>
                         </a>
                     ';
                 })
@@ -207,7 +212,10 @@ class UserPermitsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Permits::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+        return view('pages.user.ski.edit', [
+            'item' => $item,
+        ]);
     }
 
     /**
@@ -219,7 +227,33 @@ class UserPermitsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = Permits::findOrFail($id);
+        $fileLama = $data->surat_rtrw;
+        if ($request->surat_rtrw != null) {
+            $data->surat_rtrw = $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public');
+            if ($fileLama != null) {
+                Storage::disk('public')->delete($fileLama);
+            }
+        }
+        $data->update([
+            'perihal' => $request->perihal,
+            'tujuan_surat' => $request->tujuan_surat,
+            'nama_izin' => $request->nama_izin,
+            'tanggal_izin' => $request->tanggal_izin,
+            'tempat_izin' => $request->tempat_izin,
+            'waktu_izin' => $request->waktu_izin,
+            'jumlah_peserta' => $request->jumlah_peserta,
+            'hiburan' => $request->hiburan,
+            'surat_rtrw' => $data->surat_rtrw,
+        ]);
+
+        if ($data) {
+            Alert::success('Berhasil', 'Permohonan berhasil diubah');
+            return redirect()->route('ski-user.index')->with('success', 'Data berhasil diubah');
+        } else {
+            Alert::error('Gagal', 'Permohonan gagal diubah');
+            return redirect()->route('ski-user.index')->with('error', 'Data gagal diubah');
+        }
     }
 
     /**
