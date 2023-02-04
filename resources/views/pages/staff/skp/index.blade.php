@@ -259,6 +259,26 @@ Surat Keterangan Pemakaman
             });
         });
         
+        function showRejectSkp(id){
+        $.ajax({
+        type:'POST',
+        url: "{{ url('/pages/dashboard/staff/sktp/show/tolak-skp') }}",
+        data: {
+        id: id,
+        _token: "{{ csrf_token() }}"
+        },
+        dataType: 'json',
+        success: (res) => {
+        Swal.fire({
+        title: 'Alasan Penolakan Surat',
+        text: res.alasan_penolakan,
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        });
+        }
+        });
+        }
 
 </script>
 @endpush

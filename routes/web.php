@@ -130,6 +130,7 @@ Route::prefix('/pages/dashboard/staff')
         // Route get lampiran skp
         Route::get('/skp/cetak/{id}', [CetakController::class, 'cetak_skp'])->name('skp-staff.cetak-skp');
         Route::post('/skp/get-lampiran', [SkpStaffController::class, 'show'])->name('skp-staff.show');
+        Route::post('/skp/show/tolak-skp', [StaffFuneralCertificationController::class, 'showTolakSkp'])->name('skp-staff.show-tolak-skp');
         Route::post('/skp/tolak-skp', [StaffFuneralCertificationController::class, 'tolakSkp'])->name('skp-staff.tolak');
         Route::get('/skp-staff/diproses', [StaffFuneralCertificationController::class, 'onProgress'])->name('skp-staff.onProgress');
         Route::get('/skp-staff/selesai', [StaffFuneralCertificationController::class, 'success'])->name('skp-staff.success');
@@ -138,6 +139,7 @@ Route::prefix('/pages/dashboard/staff')
         // Route get lampiran sktm
         Route::get('/sktm/cetak/{id}', [CetakController::class, 'cetak_sktm'])->name('sktm-staff.cetak-sktm');
         Route::post('/sktm/get-lampiran', [StaffIncapacityCertificationController::class, 'show'])->name('sktm-staff.show');
+        Route::post('/sktm/show/tolak-sktm', [StaffIncapacityCertificationController::class, 'showTolakSktm'])->name('sktm-staff.show-tolak-sktm');
         Route::post('/sktm/tolak-sktm', [StaffIncapacityCertificationController::class, 'tolakSktm'])->name('sktm-staff.tolak');
         Route::get('/sktm-staff/diproses', [StaffIncapacityCertificationController::class, 'onProgress'])->name('sktm-staff.onProgress');
         Route::get('/sktm-staff/selesai', [StaffIncapacityCertificationController::class, 'success'])->name('sktm-staff.success');
@@ -146,6 +148,7 @@ Route::prefix('/pages/dashboard/staff')
         // Route get lampiran ski
         Route::get('/ski/cetak/{id}', [CetakController::class, 'cetak_ski'])->name('ski-staff.cetak-ski');
         Route::post('/ski/get-lampiran', [SkiStaffController::class, 'show'])->name('ski-staff.show');
+        Route::post('/ski/show/tolak-ski', [StaffPermitsController::class, 'showTolakSki'])->name('ski-staff.show-tolak-ski');
         Route::post('/ski/tolak-ski', [StaffPermitsController::class, 'tolakSki'])->name('ski-staff.tolak');
         Route::get('/ski-staff/diproses', [StaffPermitsController::class, 'onProgress'])->name('ski-staff.onProgress');
         Route::get('/ski-staff/selesai', [StaffPermitsController::class, 'success'])->name('ski-staff.success');
