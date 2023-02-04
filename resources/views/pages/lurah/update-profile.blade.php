@@ -150,19 +150,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-12 col-lg-4">
-                                        <div class="form-group">
-                                            <label for="ktp">Upload KTP</label>
-                                            <input type="file" class="form-control" id="ktp" name="ktp">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-4">
-                                        <div class="form-group">
-                                            <label for="kk">Upload KK</label>
-                                            <input type="file" class="form-control" id="kk" name="kk">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-4">
+                                    <div class="col-12 col-lg-12">
                                         <div class="form-group">
                                             <label for="kk">Upload Foto Profile</label>
                                             <input type="file" class="form-control" id="avatar" name="avatar">
