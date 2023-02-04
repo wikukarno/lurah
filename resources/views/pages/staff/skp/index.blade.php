@@ -262,7 +262,7 @@ Surat Keterangan Pemakaman
         function showRejectSkp(id){
         $.ajax({
         type:'POST',
-        url: "{{ url('/pages/dashboard/staff/sktp/show/tolak-skp') }}",
+        url: "{{ url('/pages/dashboard/staff/skp/show/tolak-skp') }}",
         data: {
         id: id,
         _token: "{{ csrf_token() }}"
