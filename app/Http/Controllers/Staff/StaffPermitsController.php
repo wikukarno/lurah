@@ -410,7 +410,7 @@ class StaffPermitsController extends Controller
         }
     }
 
-    public function showTolakSku(Request $request)
+    public function showTolakSki(Request $request)
     {
         $data = Permits::findOrFail($request->id);
         return response()->json($data);
