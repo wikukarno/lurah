@@ -15,11 +15,10 @@ Data Penduduk
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="tb_pengguna" class="table table-hover scroll-horizontal-vertical w-100">
+                            <table id="tb_penduduk" class="table table-hover scroll-horizontal-vertical w-100">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Profile</th>
                                         <th>Email</th>
                                         <th>Nama</th>
                                         <th>Nomor HP</th>
@@ -49,7 +48,6 @@ Data Penduduk
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'id' },
-                { data: 'avatar', name: 'avatar' },
                 { data: 'email', name: 'email' },
                 { data: 'name', name: 'name' },
                 { data: 'phone', name: 'phone' },

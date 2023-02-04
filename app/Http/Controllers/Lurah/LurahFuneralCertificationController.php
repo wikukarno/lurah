@@ -380,4 +380,10 @@ class LurahFuneralCertificationController extends Controller
     {
         //
     }
+
+    public function showTolakSkp(Request $request)
+    {
+        $data = FuneralCertifications::findOrFail($request->id);
+        return response()->json($data);
+    }
 }

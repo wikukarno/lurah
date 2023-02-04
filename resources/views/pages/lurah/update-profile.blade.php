@@ -173,7 +173,7 @@
                                     <div class="col-12 col-lg-12">
                                         <div class="form-group">
                                             <label for="address">Alamat</label>
-                                            <input type="text" class="form-control"
+                                            <input type="text" class="form-control" id="address" name="address"
                                                 value="{{ $users->userDetails->address }}">
                                         </div>
                                     </div>

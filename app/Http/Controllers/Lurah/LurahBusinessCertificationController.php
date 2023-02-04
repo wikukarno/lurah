@@ -380,4 +380,10 @@ class LurahBusinessCertificationController extends Controller
     {
         //
     }
+
+    public function showTolakSku(Request $request)
+    {
+        $data = BusinessCertifications::findOrFail($request->id);
+        return response()->json($data);
+    }
 }

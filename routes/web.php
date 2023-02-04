@@ -104,6 +104,11 @@ Route::prefix('/pages/dashboard/lurah')
         // Route get month
         Route::post('/month', [DashboardLurahController::class, 'showMonth'])->name('lurah.get-month');
 
+        Route::post('/sku/show/tolak-sku', [LurahBusinessCertificationController::class, 'showTolakSku'])->name('sku-lurah.show-tolak-sku');
+        Route::post('/skp/show/tolak-skp', [LurahFuneralCertificationController::class, 'showTolakSkp'])->name('skp-lurah.show-tolak-skp');
+        Route::post('/sktm/show/tolak-sktm', [LurahIncapacityCertificationController::class, 'showTolakSktm'])->name('sktm-lurah.show-tolak-sktm');
+        Route::post('/ski/show/tolak-ski', [LurahPermitsController::class, 'showTolakSki'])->name('ski-staff.show-tolak-ski');
+
         Route::resource('sku-lurah', LurahBusinessCertificationController::class);
         Route::resource('skp-lurah', LurahFuneralCertificationController::class);
         Route::resource('sktm-lurah', LurahIncapacityCertificationController::class);

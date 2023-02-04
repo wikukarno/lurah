@@ -213,5 +213,26 @@ Surat Keterangan Usaha
         });
         }
 
+        function showRejectSku(id){
+        $.ajax({
+        type:'POST',
+        url: "{{ url('/pages/dashboard/lurah/sku/show/tolak-sku') }}",
+        data: {
+        id: id,
+        _token: "{{ csrf_token() }}"
+        },
+        dataType: 'json',
+        success: (res) => {
+        Swal.fire({
+        title: 'Alasan Penolakan Surat',
+        text: res.alasan_penolakan,
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        });
+        }
+        });
+        }
+
 </script>
 @endpush

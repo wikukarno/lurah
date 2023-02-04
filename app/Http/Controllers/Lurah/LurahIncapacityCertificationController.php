@@ -377,4 +377,10 @@ class LurahIncapacityCertificationController extends Controller
     {
         //
     }
+
+    public function showTolakSktm(Request $request)
+    {
+        $data = IncapacityCertifications::findOrFail($request->id);
+        return response()->json($data);
+    }
 }

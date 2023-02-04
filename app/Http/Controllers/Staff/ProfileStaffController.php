@@ -105,21 +105,31 @@ class ProfileStaffController extends Controller
         $fileLamaKk = $user->kk;
 
         if ($request->avatar != null) {
-            $user->avatar = $request->file('avatar')->storePubliclyAs('assets/avatar', $request->file('avatar')->getClientOriginalName(), 'public');
+            $user->avatar = $request->file('avatar')->storeAs('assets/avatar', '' . Auth::user()->name . '_' 
+            . $request->file('avatar')->getClientOriginalName(),
+            'public');
             if ($fileLama != null) {
                 Storage::disk('public')->delete($fileLama);
             }
         }
 
         if ($request->ktp != null) {
-            $user->ktp = $request->file('ktp')->storePubliclyAs('assets/ktp', $request->file('ktp')->getClientOriginalName(), 'public');
+            $user->ktp = $request->file('ktp')->storeAs('assets/ktp',
+                '' . Auth::user()->name . '_'
+                . $request->file('avatar')->getClientOriginalName(),
+                'public'
+            );
             if ($fileLamaKtp != null) {
                 Storage::disk('public')->delete($fileLamaKtp);
             }
         }
 
         if ($request->kk != null) {
-            $user->kk = $request->file('kk')->storePubliclyAs('assets/kk', $request->file('kk')->getClientOriginalName(), 'public');
+            $user->kk = $request->file('kk')->storeAs('assets/kk',
+                '' . Auth::user()->name . '_'
+                . $request->file('avatar')->getClientOriginalName(),
+                'public'
+            );
             if ($fileLamaKk != null) {
                 Storage::disk('public')->delete($fileLamaKk);
             }
