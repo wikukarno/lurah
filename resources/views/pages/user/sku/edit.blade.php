@@ -45,8 +45,7 @@ Update Surat Keterangan Usaha
 
                             <div class="row mt-3 mb-4">
                                 <div class="col-6">
-                                    <button type="button" class="btn btn-danger btn-block"
-                                        data-dismiss="modal">Batal</button>
+                                    <a href="{{ route('sku-user.index') }}" class="btn btn-danger btn-block">Batal</a>
                                 </div>
                                 <div class="col-6">
                                     <button type="submit" class="btn btn-success btn-block">Simpan</button>

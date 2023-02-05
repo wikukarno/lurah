@@ -142,7 +142,7 @@ class DashboardLurahController extends Controller
     public function getPenduduk()
     {
         if (request()->ajax()) {
-            $query = User::with('userDetails')->where('roles', 'User')->orWhere('roles', 'Staff')->where('status_account', 'verifikasi')->get();
+            $query = User::with('userDetails')->whereIn('roles', ['User', 'Staff'])->where('status_account', 'verifikasi')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()

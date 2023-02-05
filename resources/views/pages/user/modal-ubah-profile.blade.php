@@ -156,7 +156,7 @@
                                 <div class="form-group">
                                     <label for="address">Alamat</label>
                                     <textarea class="form-control" id="address" name="address">
-                                        {{ $users->userDetails->address }}
+                                        {{ $users->userDetails->address ?? '' }}
                                     </textarea>
                                 </div>
                             </div>

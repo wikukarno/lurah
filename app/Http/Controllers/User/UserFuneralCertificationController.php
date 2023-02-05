@@ -39,6 +39,10 @@ class UserFuneralCertificationController extends Controller
                             <i class="fa fa-pencil-alt"></i>
                         </a>
 
+                        <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="deleteData(' . $item->id . ')">
+                            <i class="fa fa-trash"></i>
+                        </a>
+
                     ';
                 })
 
@@ -122,7 +126,7 @@ class UserFuneralCertificationController extends Controller
                 ->editColumn('created_at', function ($item) {
                     return $item->created_at->isoFormat('D MMMM Y');
                 })
-                ->editColumn('action', function($item){
+                ->editColumn('action', function ($item) {
                     return '
                         <div class="form-group">
                             <a href="' . route('skp-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
@@ -268,7 +272,6 @@ class UserFuneralCertificationController extends Controller
             Alert::error('Gagal', 'Permohonan gagal diubah');
             return redirect()->route('skp-user.index')->with('error', 'Data gagal disimpan');
         }
-        
     }
 
     /**
@@ -277,8 +280,16 @@ class UserFuneralCertificationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $data = FuneralCertifications::findOrFail($request->id);
+        $item = Letter::findOrFail($data->letters_id);
+        // if ($data->surat_rtrw != null) {
+        //     Storage::disk('public')->delete($data->surat_rtrw);
+        // }
+        $data->delete();
+        $item->delete();
+
+        return response()->json($data);
     }
 }

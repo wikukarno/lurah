@@ -37,8 +37,13 @@ class UserIncapacityCertificationController extends Controller
                         <a href="' . route('sktm-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
                             <i class="fa fa-eye"></i>
                         </a>
+
                         <a href="' . route('sktm-user.edit', $item->id) . '" class="btn btn-sm btn-info">
                             <i class="fa fa-pencil-alt"></i>
+                        </a>
+
+                        <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="deleteData(' . $item->id . ')">
+                            <i class="fa fa-trash"></i>
                         </a>
                     ';
                 })
@@ -248,8 +253,16 @@ class UserIncapacityCertificationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $data = IncapacityCertifications::findOrFail($request->id);
+        $item = Letter::findOrFail($data->letters_id);
+        // if ($data->surat_rtrw != null) {
+        //     Storage::disk('public')->delete($data->surat_rtrw);
+        // }
+        $data->delete();
+        $item->delete();
+
+        return response()->json($data);
     }
 }

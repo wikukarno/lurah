@@ -190,6 +190,11 @@ Route::prefix('/pages/dashboard/user')
         Route::get('/sku-user/diproses', [UserBusinessCertificationController::class, 'onProgress'])->name('sku-user.onProgress');
         Route::get('/sku-user/selesai', [UserBusinessCertificationController::class, 'success'])->name('sku-user.success');
         Route::get('/sku-user/ditolak', [UserBusinessCertificationController::class, 'rejected'])->name('sku-user.rejected');
+        
+        Route::post('/sku-user/delete', [UserBusinessCertificationController::class, 'destroy'])->name('sku-user.hapus');
+        Route::post('/ski-user/delete', [UserPermitsController::class, 'destroy'])->name('ski-user.hapus');
+        Route::post('/skp-user/delete', [UserFuneralCertificationController::class, 'destroy'])->name('skp-user.hapus');
+        Route::post('/sktm-user/delete', [UserIncapacityCertificationController::class, 'destroy'])->name('sktm-user.hapus');
 
         Route::get('/skp-user/diproses', [UserFuneralCertificationController::class, 'onProgress'])->name('skp-user.onProgress');
         Route::get('/skp-user/selesai', [UserFuneralCertificationController::class, 'success'])->name('skp-user.success');

@@ -327,5 +327,40 @@ Surat Keterangan Pemakaman
         });
         });
 
+        function deleteData(id){
+        Swal.fire({
+        title: 'Apakah Anda Yakin?',
+        text: "Data Akan Dihapus Secara Permanen",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Hapus!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+        $.ajax({
+        type: "POST",
+        url: "{{ route('skp-user.hapus') }}",
+        data: {
+        id: id,
+        _token: "{{ csrf_token() }}"
+        },
+        dataType: "JSON",
+        success: function (response) {
+        Swal.fire(
+        'Terhapus!',
+        'Data Berhasil Dihapus.',
+        'success'
+        )
+        $('#tb_skp_user_belum_diproses').DataTable().ajax.reload();
+        $('#tb_skp_user_sedang_diproses').DataTable().ajax.reload();
+        $('#tb_skp_user_selesai_diproses').DataTable().ajax.reload();
+        $('#tb_skp_user_ditolak').DataTable().ajax.reload();
+        }
+        });
+        }
+        });
+        }
+
 </script>
 @endpush
