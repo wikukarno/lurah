@@ -1,5 +1,8 @@
 @extends('layouts.dashboard')
 
+@section('title', 'Dashboard User')
+    
+
 @section('content')
 <!-- Main Content -->
 <div class="main-content">
