@@ -27,6 +27,29 @@ Surat Keterangan Tidak Mampu
         </div>
     </div>
 </section>
+
+@elseif ($user->status_account == 'ditolak')
+<section class="main-content">
+    <div class="container-fluid">
+        <div class="row text-center">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <figure class="figure">
+                            <img src="{{ asset('assets/images/ditolak.svg') }}" class="figure-img img-fluid" alt="">
+                            <figcaption class="figure-caption">
+                                <h3 class="text-center">Mohon Maaf!</h3>
+                                <p class="text-center">Permohonan akun anda ditolak, karena anda bukan warga dari
+                                    kelurahan sorek satu
+                                    Terimakasih</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 @elseif(count($userDetails) > 0)
 <section class="main-content">
     <div class="container-fluid">

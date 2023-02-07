@@ -116,7 +116,7 @@ Verifikasi Pengguna
                 $('#tolakVerifikasiModal').modal('hide');
                 $('#tb_verifikasi_penduduk').DataTable().ajax.reload();
                 Swal.fire({
-                    title: 'Verifikasi Berhasil Ditolak!',
+                    title: 'Akun Berhasil Ditolak!',
                     text: "Pengguna Telah Ditolak",
                     icon: 'success',
                     confirmButtonColor: '#3085d6',
