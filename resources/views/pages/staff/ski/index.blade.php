@@ -48,6 +48,7 @@ Surat Izin Keramaian
                                             <tr>
                                                 <th>No.</th>
                                                 <th>Nama</th>
+                                                <th>Nama Izin</th>
                                                 <th>Tanggal Pengajuan</th>
                                                 <th>Posisi</th>
                                                 <th>Aksi</th>
