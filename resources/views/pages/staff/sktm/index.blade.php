@@ -105,6 +105,7 @@ Surat Keterangan Tidak Mampu
                                             <tr>
                                                 <th>No.</th>
                                                 <th>Nama</th>
+                                                <th>Tujuan</th>
                                                 <th>Tanggal Pengajuan</th>
                                                 <th>Posisi</th>
                                                 <th>Aksi</th>
@@ -160,6 +161,7 @@ Surat Keterangan Tidak Mampu
     columns: [
     { data: 'DT_RowIndex', name: 'id' },
     { data: 'user.name', name: 'user.name' },
+    { data: 'tujuan', name: 'tujuan' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
     {
@@ -181,6 +183,7 @@ Surat Keterangan Tidak Mampu
     columns: [
     { data: 'DT_RowIndex', name: 'id' },
     { data: 'user.name', name: 'user.name' },
+    { data: 'tujuan', name: 'tujuan' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
     {
@@ -202,6 +205,7 @@ Surat Keterangan Tidak Mampu
     columns: [
     { data: 'DT_RowIndex', name: 'id' },
     { data: 'user.name', name: 'user.name' },
+    { data: 'tujuan', name: 'tujuan' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
     {
