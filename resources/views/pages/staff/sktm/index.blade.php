@@ -48,6 +48,7 @@ Surat Keterangan Tidak Mampu
                                             <tr>
                                                 <th>No.</th>
                                                 <th>Nama</th>
+                                                <th>Tujuan</th>
                                                 <th>Tanggal Pengajuan</th>
                                                 <th>Posisi</th>
                                                 <th>Aksi</th>
@@ -67,6 +68,7 @@ Surat Keterangan Tidak Mampu
                                             <tr>
                                                 <th>No.</th>
                                                 <th>Nama</th>
+                                                <th>Tujuan</th>
                                                 <th>Tanggal Pengajuan</th>
                                                 <th>Posisi</th>
                                                 <th>Aksi</th>
@@ -86,6 +88,7 @@ Surat Keterangan Tidak Mampu
                                             <tr>
                                                 <th>No.</th>
                                                 <th>Nama</th>
+                                                <th>Tujuan</th>
                                                 <th>Tanggal Pengajuan</th>
                                                 <th>Posisi</th>
                                                 <th>Aksi</th>
