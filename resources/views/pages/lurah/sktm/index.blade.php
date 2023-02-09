@@ -117,6 +117,7 @@ Surat Keterangan Tidak Mampu
     columns: [
     { data: 'DT_RowIndex', name: 'id' },
     { data: 'user.name', name: 'user.name' },
+    { data: 'tujuan', name: 'tujuan' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
     {
