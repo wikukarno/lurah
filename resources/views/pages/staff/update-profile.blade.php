@@ -24,15 +24,15 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="nik">Nik</label>
+                                            <label for="nik">Nik <span id="cekNik"></span></label>
                                             <input type="number" class="form-control" id="nik" name="nik"
-                                                value="{{ $users->userDetails->nik }}">
+                                                value="{{ $users->userDetails->nik }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="phone">Nomor Telepon</label>
-                                            <input type="text" class="form-control" id="phone" name="phone"
+                                            <input type="number" class="form-control" id="phone" name="phone"
                                                 value="{{ $users->userDetails->phone }}">
                                         </div>
                                     </div>
@@ -172,7 +172,7 @@
                                             class="btn btn-danger btn-block mb-3">Batal</a>
                                     </div>
                                     <div class="col-12 col-lg-6">
-                                        <button type="submit" class="btn btn-success btn-block">Simpan</button>
+                                        <button type="submit" id="btnUpdateProfile" class="btn btn-success btn-block">Simpan</button>
                                     </div>
                                 </div>
                             </form>
