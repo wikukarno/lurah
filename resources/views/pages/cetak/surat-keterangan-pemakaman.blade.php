@@ -186,7 +186,7 @@
                         benar penduduk Kelurahan Sorek Satu</span> Kecamatan Pangkalan
                     Kuras dan ianya benar telah meninggal dunia pada hari {{ $hariMeninggal
                     }}
-                    Tanggal {{ $tanggalMeninggal }} dan benar telah dimakamkan di <b>{{ $skp->nama_pemakaman }}</b>
+                    Tanggal {{ $tanggalMeninggal }} dan benar telah dimakamkan di <b>{{ $skp->tempat_pemakaman }}</b>
                     Kelurahan Sorek Satu pada Tanggal <b>{{ $tanggalDimakamkan }}</b>.
                 </p>
                 <p style="line-height: 22px">

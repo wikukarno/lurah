@@ -50,7 +50,7 @@
                             <h4>Surat Diteruskan</h4>
                         </div>
                         <div class="card-body">
-                            {{ $getSuratDiteruskan }}
+                            {{ $totalSuratProses }}
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                             <h4>Surat Ditolak</h4>
                         </div>
                         <div class="card-body">
-                            {{ $getSuratDitolak }}
+                            {{ $totalSuratDitolak }}
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                             <h4>Surat Selesai Diproses</h4>
                         </div>
                         <div class="card-body">
-                            {{ $getSuratSelesai }}
+                            {{ $totalSuratSelesai }}
                         </div>
                     </div>
                 </div>

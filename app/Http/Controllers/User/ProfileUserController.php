@@ -123,7 +123,7 @@ class ProfileUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UserDetailRequest $request)
     {
         $user = UserDetails::where('users_id', Auth::user()->id)->first();
         $user->nik = $request->nik;
@@ -199,5 +199,10 @@ class ProfileUserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function cekNik(Request $request)
+    {
+       return UserDetails::where('nik', $request->nik)->count() > 0 ? 'false' : 'true';
     }
 }

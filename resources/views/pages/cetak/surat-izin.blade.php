@@ -5,7 +5,7 @@
     <title>Surat Izin</title>
 </head>
 
-<body style="margin-top: 30px;margin-bottom: 20px;margin-right: 20px;margin-left: 30px;">
+<body style="margin-top: 30px;margin-bottom: 20px; margin-right: 20px;margin-left: 30px;">
     <style>
         .title h1 {
             font-family: 'Times New Roman', sans-serif;

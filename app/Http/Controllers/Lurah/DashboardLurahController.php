@@ -17,57 +17,78 @@ class DashboardLurahController extends Controller
 {
     public function index()
     {
-        $dataUser = User::where('roles', 'User')->orWhere('roles', 'Staff')->count();
+        $dataUser = User::whereNot('roles', 'lurah')->Where('status_account', 'verifikasi')->count();
         $sku = BusinessCertifications::where('posisi', 'lurah')->count();
         $skp = FuneralCertifications::where('posisi', 'lurah')->count();
         $sktm = IncapacityCertifications::where('posisi', 'lurah')->count();
         $ski = Permits::where('posisi', 'lurah')->count();
 
-        $suratProgress = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
-            ->whereHas('business', function ($query) {
-                $query->where('status', 'Sedang Diproses');
-            })
-            ->orWhereHas('funeral', function ($query) {
-                $query->where('status', 'Sedang Diproses');
-            })
-            ->orWhereHas('incapacity', function ($query) {
-                $query->where('status', 'Sedang Diproses');
-            })
-            ->orWhereHas('permits', function ($query) {
-                $query->where('status', 'Sedang Diproses');
-            });
+        // $suratProgress = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+        //     ->whereHas('business', function ($query) {
+        //         $query->where('status', 'Sedang Diproses');
+        //     })
+        //     ->orWhereHas('funeral', function ($query) {
+        //         $query->where('status', 'Sedang Diproses');
+        //     })
+        //     ->orWhereHas('incapacity', function ($query) {
+        //         $query->where('status', 'Sedang Diproses');
+        //     })
+        //     ->orWhereHas('permits', function ($query) {
+        //         $query->where('status', 'Sedang Diproses');
+        //     });
 
-        $suratDitolak = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
-            ->whereHas('business', function ($query) {
-                $query->where('status', 'Ditolak');
-            })
-            ->orWhereHas('funeral', function ($query) {
-                $query->where('status', 'Ditolak');
-            })
-            ->orWhereHas('incapacity', function ($query) {
-                $query->where('status', 'Ditolak');
-            })
-            ->orWhereHas('permits', function ($query) {
-                $query->where('status', 'Ditolak');
-            });
+        // $suratDitolak = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+        //     ->whereHas('business', function ($query) {
+        //         $query->where('status', 'Ditolak');
+        //     })
+        //     ->orWhereHas('funeral', function ($query) {
+        //         $query->where('status', 'Ditolak');
+        //     })
+        //     ->orWhereHas('incapacity', function ($query) {
+        //         $query->where('status', 'Ditolak');
+        //     })
+        //     ->orWhereHas('permits', function ($query) {
+        //         $query->where('status', 'Ditolak');
+        //     });
 
-        $suratSelesai = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
-            ->whereHas('business', function ($query) {
-                $query->where('status', 'Selesai Diproses');
-            })
-            ->orWhereHas('funeral', function ($query) {
-                $query->where('status', 'Selesai Diproses');
-            })
-            ->orWhereHas('incapacity', function ($query) {
-                $query->where('status', 'Selesai Diproses');
-            })
-            ->orWhereHas('permits', function ($query) {
-                $query->where('status', 'Selesai Diproses');
-            });
+        // $suratSelesai = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+        //     ->whereHas('business', function ($query) {
+        //         $query->where('status', 'Selesai Diproses');
+        //     })
+        //     ->orWhereHas('funeral', function ($query) {
+        //         $query->where('status', 'Selesai Diproses');
+        //     })
+        //     ->orWhereHas('incapacity', function ($query) {
+        //         $query->where('status', 'Selesai Diproses');
+        //     })
+        //     ->orWhereHas('permits', function ($query) {
+        //         $query->where('status', 'Selesai Diproses');
+        //     });
 
-        $getSuratDiteruskan = $suratProgress->count();
-        $getSuratDitolak = $suratDitolak->count();
-        $getSuratSelesai = $suratSelesai->count();
+        // $getSuratDiteruskan = $suratProgress->count();
+        // $getSuratDitolak = $suratDitolak->count();
+        // $getSuratSelesai = $suratSelesai->count();
+
+        $skuProgress = BusinessCertifications::where('status', 'Sedang Diproses')->count();
+        $skpProgress = FuneralCertifications::where('status', 'Sedang Diproses')->count();
+        $sktmProgress = IncapacityCertifications::where('status', 'Sedang Diproses')->count();
+        $skiProgress = Permits::where('status', 'Sedang Diproses')->count();
+
+        $getSuratDiteruskan = $skuProgress + $skpProgress + $sktmProgress + $skiProgress;
+
+        $skuDitolak = BusinessCertifications::where('status', 'Ditolak')->count();
+        $skpDitolak = FuneralCertifications::where('status', 'Ditolak')->count();
+        $sktmDitolak = IncapacityCertifications::where('status', 'Ditolak')->count();
+        $skiDitolak = Permits::where('status', 'Ditolak')->count();
+
+        $getSuratDitolak = $skuDitolak + $skpDitolak + $sktmDitolak + $skiDitolak;
+
+        $skuSelesai = BusinessCertifications::where('status', 'Selesai Diproses')->count();
+        $skpSelesai = FuneralCertifications::where('status', 'Selesai Diproses')->count();
+        $sktmSelesai = IncapacityCertifications::where('status', 'Selesai Diproses')->count();
+        $skiSelesai = Permits::where('status', 'Selesai Diproses')->count();
+
+        $getSuratSelesai = $skuSelesai + $skpSelesai + $sktmSelesai + $skiSelesai;
 
         $totalSurat = $sku + $skp + $sktm + $ski;
         return view('pages.lurah.dashboard', compact('dataUser', 'sku', 'skp', 'sktm', 'ski', 'totalSurat', 'getSuratDiteruskan', 'getSuratDitolak', 'getSuratSelesai'));

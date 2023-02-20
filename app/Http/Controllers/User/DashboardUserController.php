@@ -20,52 +20,75 @@ class DashboardUserController extends Controller
         $getIncapacity = IncapacityCertifications::where('users_id', Auth::user()->id)->count();
         $getPermits = Permits::where('users_id', Auth::user()->id)->count();
 
-        $letterRejected = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
-            ->whereHas('business', function ($query) {
-                $query->where('users_id', Auth::user()->id)->where('status', 'Ditolak');
-            })
-            ->orWhereHas('funeral', function ($query) {
-                $query->where('users_id', Auth::user()->id)->where('status', 'Ditolak');
-            })
-            ->orWhereHas('incapacity', function ($query) {
-                $query->where('users_id', Auth::user()->id)->where('status', 'Ditolak');
-            })
-            ->orWhereHas('permits', function ($query) {
-                $query->where('users_id', Auth::user()->id)->where('status', 'Ditolak');
-            });
+        // $letterRejected = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+        //     ->whereHas('business', function ($query) {
+        //         $query->where('users_id', Auth::user()->id)->where('status', 'Ditolak');
+        //     })
+        //     ->orWhereHas('funeral', function ($query) {
+        //         $query->where('users_id', Auth::user()->id)->where('status', 'Ditolak');
+        //     })
+        //     ->orWhereHas('incapacity', function ($query) {
+        //         $query->where('users_id', Auth::user()->id)->where('status', 'Ditolak');
+        //     })
+        //     ->orWhereHas('permits', function ($query) {
+        //         $query->where('users_id', Auth::user()->id)->where('status', 'Ditolak');
+        //     });
 
-        $letterOnProgress = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
-            ->whereHas('business', function ($query) {
-                $query->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses');
-            })
-            ->orWhereHas('funeral', function ($query) {
-                $query->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses');
-            })
-            ->orWhereHas('incapacity', function ($query) {
-                $query->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses');
-            })
-            ->orWhereHas('permits', function ($query) {
-                $query->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses');
-            });
+        // $letterOnProgress = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+        //     ->whereHas('business', function ($query) {
+        //         $query->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses');
+        //     })
+        //     ->orWhereHas('funeral', function ($query) {
+        //         $query->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses');
+        //     })
+        //     ->orWhereHas('incapacity', function ($query) {
+        //         $query->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses');
+        //     })
+        //     ->orWhereHas('permits', function ($query) {
+        //         $query->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses');
+        //     });
 
-        $letterComplete = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
-            ->whereHas('business', function ($query) {
-                $query->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses');
-            })
-            ->orWhereHas('funeral', function ($query) {
-                $query->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses');
-            })
-            ->orWhereHas('incapacity', function ($query) {
-                $query->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses');
-            })
-            ->orWhereHas('permits', function ($query) {
-                $query->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses');
-            });
+        // $letterComplete = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+        //     ->whereHas('business', function ($query) {
+        //         $query->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses');
+        //     })
+        //     ->orWhereHas('funeral', function ($query) {
+        //         $query->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses');
+        //     })
+        //     ->orWhereHas('incapacity', function ($query) {
+        //         $query->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses');
+        //     })
+        //     ->orWhereHas('permits', function ($query) {
+        //         $query->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses');
+        //     });
 
 
-        $getSuratDitolak = $letterRejected->count();
-        $getSuratDiproses = $letterOnProgress->count();
-        $getSuratSelesai = $letterComplete->count();
+        
+        //     $getSuratDitolak = $letterRejected->count();
+        // $getSuratDiproses = $letterOnProgress->count();
+        // $getSuratSelesai = $letterComplete->count();
+
+        $skuProgress = BusinessCertifications::where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
+        $skuSelesai = BusinessCertifications::where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
+        $skuDitolak = BusinessCertifications::where('users_id', Auth::user()->id)->where('status', 'Ditolak')->count();
+        
+        $skiProgress = Permits::where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
+        $skiSelesai = Permits::where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
+        $skiDitolak = Permits::where('users_id', Auth::user()->id)->where('status', 'Ditolak')->count();
+
+        $sktmProgress = IncapacityCertifications::where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
+        $sktmSelesai = IncapacityCertifications::where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
+        $sktmDitolak = IncapacityCertifications::where('users_id', Auth::user()->id)->where('status', 'Ditolak')->count();
+
+        $skpProgress = FuneralCertifications::where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
+        $skpSelesai = FuneralCertifications::where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
+        $skpDitolak = FuneralCertifications::where('users_id', Auth::user()->id)->where('status', 'Ditolak')->count();
+
+        $getSuratDitolak = $skuDitolak + $skiDitolak + $sktmDitolak + $skpDitolak;
+        $getSuratDiproses = $skuProgress + $skiProgress + $sktmProgress + $skpProgress;
+        $getSuratSelesai = $skuSelesai + $skiSelesai + $sktmSelesai + $skpSelesai;
+
+
 
         $totalSurat = $getBusiness + $getFunerals + $getIncapacity + $getPermits;
 

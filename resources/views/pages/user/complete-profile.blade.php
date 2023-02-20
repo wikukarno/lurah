@@ -19,8 +19,19 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="nik">Nik</label>
-                                            <input type="number" class="form-control" id="nik" name="nik" required>
+                                            <label for="nik">Nik <span id="cekNik"></span></label>
+                                            <input 
+                                            id="nik" 
+                                            type="nik" 
+                                            class="form-control @error('nik') is-invalid @enderror" 
+                                            name="nik" 
+                                            value="{{ old('nik') }}" 
+                                            required>
+                                            @error('nik')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">
@@ -149,7 +160,7 @@
                                             class="btn btn-danger btn-block mb-3">Batal</a>
                                     </div>
                                     <div class="col-12 col-lg-6">
-                                        <button type="submit" class="btn btn-success btn-block">Simpan</button>
+                                        <button type="submit" id="btnSubmitCompleteProfile" class="btn btn-success btn-block">Simpan</button>
                                     </div>
                                 </div>
                             </form>
@@ -162,3 +173,28 @@
     </div>
 </section>
 @endsection
+
+@push('after-scripts')
+    <script>
+        $('#nik').on('keyup', function() {
+            var nik = $(this).val();
+            $.ajax({
+                url: "{{ route('cek-nik') }}",
+                type: "GET",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    nik: nik
+                },
+                success: function(res) {
+                    if(res == 'false'){
+                        $('#cekNik').html('<span class="text-danger">NIK sudah terdaftar!</span>');
+                        $('#btnSubmitCompleteProfile').attr('disabled', true);
+                    }else{
+                        $('#cekNik').html('<span class="text-success">NIK tersedia</span>');
+                        $('#btnSubmitCompleteProfile').attr('disabled', false);
+                    }
+                }
+            });
+        });
+    </script>
+@endpush

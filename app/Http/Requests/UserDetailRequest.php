@@ -25,7 +25,7 @@ class UserDetailRequest extends FormRequest
     {
         return [
             'users_id' => 'integer',
-            'nik' => 'required|integer',
+            'nik' => 'required|integer|unique:user_details',
             'phone' => 'required|integer|max:13',
             'jenis_kelamin' => 'required|string',
             'tempat_lahir' => 'required|string',

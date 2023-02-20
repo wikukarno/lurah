@@ -16,7 +16,7 @@ class DashboardStaffController extends Controller
 {
     public function index()
     {
-        $dataUser = User::where('roles', 'user')->count();
+        $dataUser = User::where('roles', 'user')->where('status_account', 'verifikasi')->count();
         $sku = BusinessCertifications::count();
         $skp = FuneralCertifications::count();
         $sktm = IncapacityCertifications::count();
@@ -27,54 +27,77 @@ class DashboardStaffController extends Controller
         $sktmMasuk = IncapacityCertifications::where('status', 'Belum Diproses')->count();
         $skiMasuk = Permits::where('status', 'Belum Diproses')->count();
 
-        $suratProgress = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
-            ->whereHas('business', function ($query) {
-                $query->where('status', 'Sedang Diproses');
-            })
-            ->orWhereHas('funeral', function ($query) {
-                $query->where('status', 'Sedang Diproses');
-            })
-            ->orWhereHas('incapacity', function ($query) {
-                $query->where('status', 'Sedang Diproses');
-            })
-            ->orWhereHas('permits', function ($query) {
-                $query->where('status', 'Sedang Diproses');
-            });
+        $skuProses = BusinessCertifications::where('status', 'Sedang Diproses')->count();
+        $skpProses = FuneralCertifications::where('status', 'Sedang Diproses')->count();
+        $sktmProses = IncapacityCertifications::where('status', 'Sedang Diproses')->count();
+        $skiProses = Permits::where('status', 'Sedang Diproses')->count();
 
-        $suratDitolak = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
-            ->whereHas('business', function ($query) {
-                $query->where('status', 'Ditolak');
-            })
-            ->orWhereHas('funeral', function ($query) {
-                $query->where('status', 'Ditolak');
-            })
-            ->orWhereHas('incapacity', function ($query) {
-                $query->where('status', 'Ditolak');
-            })
-            ->orWhereHas('permits', function ($query) {
-                $query->where('status', 'Ditolak');
-            });
+        $skuSelesai = BusinessCertifications::where('status', 'Selesai Diproses')->count();
+        $skpSelesai = FuneralCertifications::where('status', 'Selesai Diproses')->count();
+        $sktmSelesai = IncapacityCertifications::where('status', 'Selesai Diproses')->count();
+        $skiSelesai = Permits::where('status', 'Selesai Diproses')->count();
 
-        $suratSelesai = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
-            ->whereHas('business', function ($query) {
-                $query->where('status', 'Selesai Diproses');
-            })
-            ->orWhereHas('funeral', function ($query) {
-                $query->where('status', 'Selesai Diproses');
-            })
-            ->orWhereHas('incapacity', function ($query) {
-                $query->where('status', 'Selesai Diproses');
-            })
-            ->orWhereHas('permits', function ($query) {
-                $query->where('status', 'Selesai Diproses');
-            });
+        $skuDitolak = BusinessCertifications::where('status', 'Ditolak')->count();
+        $skpDitolak = FuneralCertifications::where('status', 'Ditolak')->count();
+        $sktmDitolak = IncapacityCertifications::where('status', 'Ditolak')->count();
+        $skiDitolak = Permits::where('status', 'Ditolak')->count();
 
-        $getSuratDiteruskan = $suratProgress->count();
-        $getSuratDitolak = $suratDitolak->count();
-        $getSuratSelesai = $suratSelesai->count();
+
+        // $suratProgress = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+        //     ->whereHas('business', function ($query) {
+        //         $query->where('status', 'Sedang Diproses');
+        //     })
+        //     ->orWhereHas('funeral', function ($query) {
+        //         $query->where('status', 'Sedang Diproses');
+        //     })
+        //     ->orWhereHas('incapacity', function ($query) {
+        //         $query->where('status', 'Sedang Diproses');
+        //     })
+        //     ->orWhereHas('permits', function ($query) {
+        //         $query->where('status', 'Sedang Diproses');
+        //     });
+
+        // $suratDitolak = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+        //     ->whereHas('business', function ($query) {
+        //         $query->where('status', 'Ditolak');
+        //     })
+        //     ->orWhereHas('funeral', function ($query) {
+        //         $query->where('status', 'Ditolak');
+        //     })
+        //     ->orWhereHas('incapacity', function ($query) {
+        //         $query->where('status', 'Ditolak');
+        //     })
+        //     ->orWhereHas('permits', function ($query) {
+        //         $query->where('status', 'Ditolak');
+        //     });
+
+        // $suratSelesai = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+        //     ->whereHas('business', function ($query) {
+        //         $query->where('status', 'Selesai Diproses');
+        //     })
+        //     ->orWhereHas('funeral', function ($query) {
+        //         $query->where('status', 'Selesai Diproses');
+        //     })
+        //     ->orWhereHas('incapacity', function ($query) {
+        //         $query->where('status', 'Selesai Diproses');
+        //     })
+        //     ->orWhereHas('permits', function ($query) {
+        //         $query->where('status', 'Selesai Diproses');
+        //     });
+
+        // $getSuratDiteruskan = $suratProgress->count();
+        // $getSuratDitolak = $suratDitolak->count();
+        // $getSuratSelesai = $suratSelesai->count();
+
 
         $totalSurat = $sku + $skp + $sktm + $ski;
-        return view('pages.staff.dashboard', compact('dataUser', 'totalSurat', 'getSuratDiteruskan', 'getSuratDitolak', 'getSuratSelesai', 'sku', 'skp', 'sktm', 'ski', 'skuMasuk', 'skpMasuk', 'sktmMasuk', 'skiMasuk'));
+
+        $totalSuratProses = $skuProses + $skpProses + $sktmProses + $skiProses;
+        $totalSuratSelesai = $skuSelesai + $skpSelesai + $sktmSelesai + $skiSelesai;
+        $totalSuratDitolak = $skuDitolak + $skpDitolak + $sktmDitolak + $skiDitolak;
+        
+
+        return view('pages.staff.dashboard', compact('dataUser', 'totalSurat', 'sku', 'skp', 'sktm', 'ski', 'skuMasuk', 'skpMasuk', 'sktmMasuk', 'skiMasuk', 'skuProses', 'skpProses', 'sktmProses', 'skiProses', 'skuSelesai', 'skpSelesai', 'sktmSelesai', 'skiSelesai', 'skuDitolak', 'skpDitolak', 'sktmDitolak', 'skiDitolak', 'totalSuratProses', 'totalSuratSelesai', 'totalSuratDitolak'));
     }
 
     public function getPenduduk()
