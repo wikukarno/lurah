@@ -37,7 +37,7 @@
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="phone">Nomor Telepon</label>
-                                            <input type="text" class="form-control" id="phone" name="phone" required>
+                                            <input type="number" class="form-control" id="phone" name="phone" required>
                                         </div>
                                     </div>
                                 </div>
