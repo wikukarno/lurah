@@ -26,7 +26,7 @@
                                         <div class="form-group">
                                             <label for="nik">Nik <span id="cekNik"></span></label>
                                             <input type="number" class="form-control" id="nik" name="nik"
-                                                value="{{ $users->userDetails->nik }}" disabled>
+                                                value="{{ $users->userDetails->nik }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">
