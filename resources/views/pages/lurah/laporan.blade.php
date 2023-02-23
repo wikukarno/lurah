@@ -39,6 +39,7 @@ Data Laporan
                                         <th>Jenis Surat</th>
                                         <th>Tanggal Diajukan</th>
                                         <th>Tanggal Disetujui</th>
+                                        <th>Tahun</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,6 +52,7 @@ Data Laporan
                                         <th>Jenis Surat</th>
                                         <th>Tanggal Diajukan</th>
                                         <th>Tanggal Disetujui</th>
+                                        <th>Tahun</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -122,6 +124,7 @@ Data Laporan
             { data: 'jenis_surat', name: 'jenis_surat' },
             { data: 'created_at', name: 'created_at' },
             { data: 'updated_at', name: 'updated_at' },
+            { data: 'tahun', name: 'tahun' },
         ],
     });
 

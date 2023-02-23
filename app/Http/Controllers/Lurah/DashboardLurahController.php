@@ -112,6 +112,20 @@ class DashboardLurahController extends Controller
                 })->get();
             return datatables()->of($query)
                 ->addIndexColumn()
+                ->editColumn('tahun', function ($item) {
+                    foreach ($item->business as $business) {
+                        return $business->created_at->isoFormat('Y');
+                    }
+                    foreach ($item->funeral as $funeral) {
+                        return $funeral->created_at->isoFormat('Y');
+                    }
+                    foreach ($item->incapacity as $incapacity) {
+                        return $incapacity->created_at->isoFormat('Y');
+                    }
+                    foreach ($item->permits as $permits) {
+                        return $permits->created_at->isoFormat('Y');
+                    }
+                })
                 ->editColumn('nik', function ($item) {
                     return $item->user->userDetails->nik;
                 })
@@ -146,7 +160,7 @@ class DashboardLurahController extends Controller
                         return $permits->updated_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
                     }
                 })
-                ->rawColumns(['created_at', 'updated_at', 'nik', 'nama'])
+                ->rawColumns(['created_at', 'updated_at', 'nik', 'nama', 'tahun'])
                 ->make(true);
         }
 
