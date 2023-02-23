@@ -124,7 +124,6 @@
                     <td style="padding: 10px; text-align:center">{{ $item->created_at->isoFormat('D/' . 'M/' . 'Y') }}
                     </td>
                     <td style="padding: 10px; text-align:center">{{ $item->updated_at->isoFormat('D/' . 'M/' . 'Y') }}
-                    </td>
                 </tr>
                 @endforeach
             </tbody>

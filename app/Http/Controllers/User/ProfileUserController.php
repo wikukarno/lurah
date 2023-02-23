@@ -58,9 +58,9 @@ class ProfileUserController extends Controller
                 'agama' => $request->agama,
                 'status_perkawinan' => $request->status_perkawinan,
                 'address' => $request->address,
-                'avatar' => $request->file('avatar')->storePubliclyAs('assets/avatar', $request->file('avatar')->getClientOriginalName(), 'public'),
-                'ktp' => $request->file('ktp')->storePubliclyAs('assets/ktp', $request->file('ktp')->getClientOriginalName(), 'public'),
-                'kk' => $request->file('kk')->storePubliclyAs('assets/kk', $request->file('kk')->getClientOriginalName(), 'public'),
+                'avatar' => $request->file('avatar')->store('assets/avatar', 'public'),
+                'ktp' => $request->file('ktp')->store('assets/ktp', 'public'),
+                'kk' => $request->file('kk')->store('assets/kk', 'public'),
             ]
         );
 
@@ -123,7 +123,7 @@ class ProfileUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserDetailRequest $request)
+    public function update(Request $request)
     {
         $user = UserDetails::where('users_id', Auth::user()->id)->first();
         $user->nik = $request->nik;
@@ -144,21 +144,21 @@ class ProfileUserController extends Controller
         $fileLamaKk = $user->kk;
 
         if ($request->avatar != null) {
-            $user->avatar = $request->file('avatar')->storePubliclyAs('assets/avatar', $request->file('avatar')->getClientOriginalName(), 'public');
+            $user->avatar = $request->file('avatar')->store('assets/avatar', 'public');
             if ($fileLama != null) {
                 Storage::disk('public')->delete($fileLama);
             }
         }
 
         if ($request->ktp != null) {
-            $user->ktp = $request->file('ktp')->storePubliclyAs('assets/ktp', $request->file('ktp')->getClientOriginalName(), 'public');
+            $user->ktp = $request->file('ktp')->store('assets/ktp', 'public');
             if ($fileLamaKtp != null) {
                 Storage::disk('public')->delete($fileLamaKtp);
             }
         }
 
         if ($request->kk != null) {
-            $user->kk = $request->file('kk')->storePubliclyAs('assets/kk', $request->file('kk')->getClientOriginalName(), 'public');
+            $user->kk = $request->file('kk')->store('assets/kk', 'public');
             if ($fileLamaKk != null) {
                 Storage::disk('public')->delete($fileLamaKk);
             }

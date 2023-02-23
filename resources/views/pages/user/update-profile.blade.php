@@ -24,9 +24,9 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="nik">Nik</label>
+                                            <label for="nik">Nik <span id="cekNik"></span></label>
                                             <input type="number" class="form-control" id="nik" name="nik"
-                                                value="{{ $users->userDetails->nik }}" disabled>
+                                                value="{{ $users->userDetails->nik }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">
@@ -184,7 +184,7 @@
                                             class="btn btn-danger btn-block mb-3">Batal</a>
                                     </div>
                                     <div class="col-12 col-lg-6">
-                                        <button type="submit" class="btn btn-success btn-block">Simpan</button>
+                                        <button type="submit" id="btnUpdateProfile" class="btn btn-success btn-block">Simpan</button>
                                     </div>
                                 </div>
                             </form>
@@ -197,3 +197,28 @@
     </div>
 </section>
 @endsection
+
+@push('after-scripts')
+<script>
+    $('#nik').on('keyup', function() {
+            var nik = $(this).val();
+            $.ajax({
+                url: "{{ route('cek-nik') }}",
+                type: "GET",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    nik: nik
+                },
+                success: function(res) {
+                    if(res == 'false'){
+                        $('#cekNik').html('<span class="text-danger">NIK sudah terdaftar!</span>');
+                        $('#btnUpdateProfile').attr('disabled', true);
+                    }else{
+                        $('#cekNik').html('<span class="text-success">NIK tersedia</span>');
+                        $('#btnUpdateProfile').attr('disabled', false);
+                    }
+                }
+            });
+        });
+</script>
+@endpush

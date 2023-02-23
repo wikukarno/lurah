@@ -26,3 +26,8 @@
 {{--
 <link rel="stylesheet" href="{{ asset('build/assets/app.5380b351.css') }}"> --}}
 <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.4/css/buttons.dataTables.min.css">
+

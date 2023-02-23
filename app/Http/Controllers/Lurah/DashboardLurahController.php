@@ -150,13 +150,32 @@ class DashboardLurahController extends Controller
                 ->make(true);
         }
 
-        $month = Letter::with('user.userDetails')->selectRaw('MONTH(created_at) month')->groupBy('month')->get();
-        $year = Letter::with('user.userDetails')->selectRaw('YEAR(created_at) year')->groupBy('year')->get();
+        // $month = Letter::with('user.userDetails')->selectRaw('MONTH(created_at) month')->groupBy('month')->get();
+        // $year = Letter::with('user.userDetails')->selectRaw('YEAR(created_at) year')->groupBy('year')->get();
 
-        return view('pages.lurah.laporan', [
-            'months' => $month,
-            'years' => $year
-        ]);
+        // make sure to use the right syntax for your query builder and model relationships (if you have any) and make sure you have the right table names in your database.
+        $months = Letter::whereHas('business', function ($query) {
+            $query->where('status', 'Selesai Diproses');
+            })
+            ->orWhereHas('funeral', function ($query) {
+                $query->where('status', 'Selesai Diproses');
+            })
+            ->orWhereHas('incapacity', function ($query) {
+                $query->where('status', 'Selesai Diproses');
+            })
+            ->orWhereHas('permits', function ($query) {
+                $query->where('status', 'Selesai Diproses');
+            })
+            ->selectRaw('MONTH(created_at) month')
+            ->groupBy('month')
+            ->get();
+        // ->get();
+
+
+
+        // dd($months->toArray());
+
+        return view('pages.lurah.laporan', compact('months'));
     }
 
 
@@ -184,7 +203,22 @@ class DashboardLurahController extends Controller
 
         if (request()->ajax()) {
 
-            $months = Letter::with(['business', 'permits', 'incapacity', 'funeral', 'user.userDetails'])->whereMonth('created_at', $request->month)->get();
+            // $months = Letter::with(['business', 'permits', 'incapacity', 'funeral', 'user.userDetails'])->whereMonth('created_at', $request->month)->get();
+
+
+            $months = Letter::with(['business', 'permits', 'incapacity', 'funeral', 'user.userDetails'])
+                ->whereHas('business', function ($query) use ($request) {
+                    $query->whereMonth('created_at', $request->month);
+                })
+                ->orWhereHas('funeral', function ($query) use ($request) {
+                    $query->whereMonth('created_at', $request->month);
+                })
+                ->orWhereHas('incapacity', function ($query) use ($request) {
+                    $query->whereMonth('created_at', $request->month);
+                })
+                ->orWhereHas('permits', function ($query) use ($request) {
+                    $query->whereMonth('created_at', $request->month);
+                })->get();
 
             return datatables()->of($months)
                 ->addIndexColumn()
@@ -205,11 +239,31 @@ class DashboardLurahController extends Controller
         }
     }
 
+    public function showMonth(Request $request)
+    {
+        $month = Letter::with('user.userDetails')->selectRaw('MONTH(created_at) month')->groupBy('month')->get();
+        $year = Letter::with('user.userDetails')->selectRaw('YEAR(created_at) year')->groupBy('year')->get();
+
+        return view('pages.lurah.laporan', [
+            'months' => $month,
+            'years' => $year
+        ]);
+    }
+
     public function filterLaporanTahunan(Request $request)
     {
         if (request()->ajax()) {
 
-            $years = Letter::with(['business', 'permits', 'incapacity', 'funeral', 'user.userDetails'])->whereYear('created_at', $request->year)->get();
+            // $years = Letter::with(['business', 'permits', 'incapacity', 'funeral', 'user.userDetails'])->whereYear('created_at', $request->year)->get();
+            $years = Letter::whereHas('business', function ($query) use ($request) {
+                $query->whereYear('created_at', Carbon::parse($request->year))->orWhere('status', 'Selesai Diproses');
+            })->orWhereHas('funeral', function ($query) use ($request) {
+                $query->whereYear('created_at', Carbon::parse($request->year))->orWhere('status', 'Selesai Diproses');
+            })->orWhereHas('incapacity', function ($query) use ($request) {
+                $query->whereYear('created_at', Carbon::parse($request->year))->orWhere('status', 'Selesai Diproses');
+            })->orWhereHas('permits', function ($query) use ($request) {
+                $query->whereYear('created_at', Carbon::parse($request->year))->orWhere('status', 'Selesai Diproses');
+            })->get();
 
             return datatables()->of($years)
                 ->addIndexColumn()

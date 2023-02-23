@@ -166,17 +166,12 @@ class UserIncapacityCertificationController extends Controller
     {
         $data = IncapacityCertifications::create([
             'users_id' => Auth::user()->id,
-            'letters_id' => 3,
+            'letters_id' => 4,
             'tujuan' => $request->tujuan,
             'surat_rtrw' => $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public'),
             'posisi' => 'staff',
             'status' => 'Belum Diproses',
         ]);
-
-        $item = new Letter();
-        $item->users_id = Auth::user()->id;
-        $item->jenis_surat = 'Surat Keterangan Tidak Mampu';
-        $item->save();
 
         if ($data) {
             Alert::success('Berhasil', 'Permohonan berhasil dikirim');

@@ -163,7 +163,7 @@ class UserPermitsController extends Controller
     {
         $data = Permits::create([
             'users_id' => Auth::user()->id,
-            'letters_id' => 4,
+            'letters_id' => 1,
             'perihal' => $request->perihal,
             'tujuan_surat' => $request->tujuan_surat,
             'nama_izin' => $request->nama_izin,
@@ -176,11 +176,6 @@ class UserPermitsController extends Controller
             'posisi' => 'staff',
             'status' => 'Belum Diproses',
         ]);
-
-        $item = new Letter();
-        $item->users_id = Auth::user()->id;
-        $item->jenis_surat = 'Surat Keterangan Tidak Mampu';
-        $item->save();
 
         if ($data) {
             Alert::success('Berhasil', 'Permohonan berhasil dikirim');

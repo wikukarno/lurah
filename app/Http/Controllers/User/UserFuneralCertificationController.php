@@ -166,7 +166,7 @@ class UserFuneralCertificationController extends Controller
         // dd($request->all());
         $data = FuneralCertifications::create([
             'users_id' => Auth::user()->id,
-            'letters_id' => 2,
+            'letters_id' => 3,
             'nik' => $request->nik,
             'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,
@@ -185,11 +185,6 @@ class UserFuneralCertificationController extends Controller
             'posisi' => 'staff',
             'status' => 'Belum Diproses',
         ]);
-
-        $item = new Letter();
-        $item->users_id = Auth::user()->id;
-        $item->jenis_surat = 'Surat Keterangan Pemakaman';
-        $item->save();
 
         if ($data) {
             Alert::success('Berhasil', 'Permohonan berhasil dikirim');

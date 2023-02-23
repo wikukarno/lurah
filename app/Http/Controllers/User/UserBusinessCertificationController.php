@@ -181,7 +181,7 @@ class UserBusinessCertificationController extends Controller
     public function store(BusinessCertificationRequest $request)
     {
         $data = BusinessCertifications::create([
-            'letters_id' => 1,
+            'letters_id' => 2,
             'users_id' => Auth::user()->id,
             'nama_usaha' => $request->nama_usaha,
             'jenis_usaha' => $request->jenis_usaha,
@@ -189,11 +189,6 @@ class UserBusinessCertificationController extends Controller
             'posisi' => 'staff',
             'status' => 'Belum Diproses',
         ]);
-
-        $item = new Letter();
-        $item->users_id = Auth::user()->id;
-        $item->jenis_surat = 'Surat Keterangan Usaha';
-        $item->save();
 
         if ($data) {
             Alert::success('Berhasil', 'Permohonan berhasil dikirim');

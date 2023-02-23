@@ -129,7 +129,20 @@ class CetakController extends Controller
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
         $laporan = Letter::whereYear('created_at', $request->year)->first();
-        $items = Letter::whereYear('created_at', $request->year)->get();
+        // $items = Letter::whereYear('created_at', $request->year)->get();
+        $items = Letter::whereHas('business', function ($query) use ($request) {
+            $query->whereYear('created_at', $request->year)->where('status', 'Selesai Diproses');
+        })
+        ->orWhereHas('incapacity', function ($query) use ($request) {
+            $query->whereYear('created_at', $request->year)->where('status', 'Selesai Diproses');
+        })
+        ->orWhereHas('permits', function ($query) use ($request) {
+            $query->whereYear('created_at', $request->year)->where('status', 'Selesai Diproses');
+        })
+        ->orWhereHas('funeral', function ($query) use ($request) {
+            $query->whereYear('created_at', $request->year)->where('status', 'Selesai Diproses');
+        })->get();
+
         $getYear = $request->year;
         $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
         $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.laporan-tahunan', [
@@ -139,7 +152,7 @@ class CetakController extends Controller
             'getYear' => $getYear,
         ]);
 
-        return $pdf->download('Data_Laporan_' . $getYear . ' ' . $tgl_cetak . '.pdf');
-        // return $pdf->stream('Laporan.pdf');
+        // return $pdf->download('Data_Laporan_' . $getYear . ' ' . $tgl_cetak . '.pdf');
+        return $pdf->stream('Laporan.pdf');
     }
 }
