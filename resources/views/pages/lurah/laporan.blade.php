@@ -39,6 +39,7 @@ Data Laporan
                                         <th>Jenis Surat</th>
                                         <th>Tanggal Diajukan</th>
                                         <th>Tanggal Disetujui</th>
+                                        <th>Bulan</th>
                                         <th>Tahun</th>
                                     </tr>
                                 </thead>
@@ -52,6 +53,7 @@ Data Laporan
                                         <th>Jenis Surat</th>
                                         <th>Tanggal Diajukan</th>
                                         <th>Tanggal Disetujui</th>
+                                        <th>Bulan</th>
                                         <th>Tahun</th>
                                     </tr>
                                 </tfoot>
