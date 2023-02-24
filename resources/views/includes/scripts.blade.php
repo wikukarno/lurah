@@ -1,6 +1,6 @@
 <!-- General JS Scripts -->
-{{-- <script src="{{ asset('assets/modules/jquery.min.js') }}"></script> --}}
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="{{ asset('assets/modules/jquery.min.js') }}"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"
     integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>

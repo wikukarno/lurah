@@ -109,7 +109,7 @@ class DashboardLurahController extends Controller
                 })
                 ->orWhereHas('permits', function ($query) {
                     $query->where('status', 'Selesai Diproses');
-            });
+                })->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -175,7 +175,7 @@ class DashboardLurahController extends Controller
                         return $permits->updated_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
                     }
                 })
-                ->rawColumns(['created_at', 'updated_at', 'nik', 'nama', 'tahun', 'bulan'])
+                ->rawColumns(['created_at', 'updated_at', 'nik', 'nama', 'tahun'])
                 ->make(true);
         }
 
