@@ -124,6 +124,7 @@ Data Laporan
             { data: 'jenis_surat', name: 'jenis_surat' },
             { data: 'created_at', name: 'created_at' },
             { data: 'updated_at', name: 'updated_at' },
+            { data: 'bulan', name: 'bulan' },
             { data: 'tahun', name: 'tahun' },
         ],
     });

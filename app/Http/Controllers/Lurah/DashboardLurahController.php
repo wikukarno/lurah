@@ -109,7 +109,8 @@ class DashboardLurahController extends Controller
                 })
                 ->orWhereHas('permits', function ($query) {
                     $query->where('status', 'Selesai Diproses');
-                })->get();
+            });
+
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('tahun', function ($item) {
@@ -124,6 +125,20 @@ class DashboardLurahController extends Controller
                     }
                     foreach ($item->permits as $permits) {
                         return $permits->created_at->isoFormat('Y');
+                    }
+                })
+                ->editColumn('bulan', function ($item) {
+                    foreach ($item->business as $business) {
+                        return $business->created_at->isoFormat('MMMM');
+                    }
+                    foreach ($item->funeral as $funeral) {
+                        return $funeral->created_at->isoFormat('MMMM');
+                    }
+                    foreach ($item->incapacity as $incapacity) {
+                        return $incapacity->created_at->isoFormat('MMMM');
+                    }
+                    foreach ($item->permits as $permits) {
+                        return $permits->created_at->isoFormat('MMMM');
                     }
                 })
                 ->editColumn('nik', function ($item) {
@@ -160,7 +175,7 @@ class DashboardLurahController extends Controller
                         return $permits->updated_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
                     }
                 })
-                ->rawColumns(['created_at', 'updated_at', 'nik', 'nama', 'tahun'])
+                ->rawColumns(['created_at', 'updated_at', 'nik', 'nama', 'tahun', 'bulan'])
                 ->make(true);
         }
 
@@ -251,17 +266,6 @@ class DashboardLurahController extends Controller
                 ->rawColumns(['created_at', 'updated_at'])
                 ->make(true);
         }
-    }
-
-    public function showMonth(Request $request)
-    {
-        $month = Letter::with('user.userDetails')->selectRaw('MONTH(created_at) month')->groupBy('month')->get();
-        $year = Letter::with('user.userDetails')->selectRaw('YEAR(created_at) year')->groupBy('year')->get();
-
-        return view('pages.lurah.laporan', [
-            'months' => $month,
-            'years' => $year
-        ]);
     }
 
     public function filterLaporanTahunan(Request $request)
