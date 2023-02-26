@@ -119,8 +119,12 @@
                 <tr>
                     <td style="padding: 10px; text-align:center">{{ $loop->iteration }}</td>
                     <td style="padding: 10px; text-align:center">{{ $item->user->userDetails->nik }}</td>
-                    <td style="padding: 10px; text-align:center">{{ $item->user->name }}</td>
-                    <td style="padding: 10px; text-align:center">{{ $item->jenis_surat }}</td>
+                    @if ($item->categories_id == 4)
+                        <td style="padding: 10px; text-align:center">{{ $item->nama }}</td>
+                    @else
+                        <td style="padding: 10px; text-align:center">{{ $item->user->name }}</td>
+                    @endif
+                    <td style="padding: 10px; text-align:center">{{ $item->category->name }}</td>
                     <td style="padding: 10px; text-align:center">{{ $item->created_at->isoFormat('D/' . 'M/' . 'Y') }}
                     </td>
                     <td style="padding: 10px; text-align:center">{{ $item->updated_at->isoFormat('D/' . 'M/' . 'Y') }}

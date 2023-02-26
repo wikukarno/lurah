@@ -22,7 +22,8 @@ class UserFuneralCertificationController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = FuneralCertifications::with(['letter', 'userDetails'])->where('users_id', Auth::user()->id)->where('status', 'Belum Diproses')->get();
+            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('categories_id', 4)->where('status', 'Belum Diproses')->get();
+            $query = FuneralCertifications::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Belum Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -57,10 +58,8 @@ class UserFuneralCertificationController extends Controller
     public function onProgress()
     {
         if (request()->ajax()) {
-            $query = FuneralCertifications::with([
-                'user.userDetails',
-                'letter',
-            ])->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->get();
+            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('categories_id', 4)->where('status', 'Sedang Diproses')->get();
+            $query = FuneralCertifications::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -84,10 +83,8 @@ class UserFuneralCertificationController extends Controller
     public function success()
     {
         if (request()->ajax()) {
-            $query = FuneralCertifications::with([
-                'user.userDetails',
-                'letter',
-            ])->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->get();
+            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('categories_id', 4)->where('status', 'Selesai Diproses')->get();
+            $query = FuneralCertifications::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -116,10 +113,8 @@ class UserFuneralCertificationController extends Controller
     public function rejected()
     {
         if (request()->ajax()) {
-            $query = FuneralCertifications::with([
-                'user.userDetails',
-                'letter',
-            ])->where('users_id', Auth::user()->id)->where('status', 'Ditolak')->get();
+            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('categories_id', 4)->where('status', 'Ditolak')->get();
+            $query = FuneralCertifications::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Ditolak')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -164,9 +159,17 @@ class UserFuneralCertificationController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        $item = new Letter();
+        $item->users_id = Auth::user()->id;
+        $item->categories_id = 4;
+        $item->status = 'Belum Diproses';
+        $item->posisi = 'Staff';
+        $item->nama = $request->nama;
+        $item->save();
+
         $data = FuneralCertifications::create([
             'users_id' => Auth::user()->id,
-            'letters_id' => 3,
+            'letters_id' => $item->id,
             'nik' => $request->nik,
             'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,
@@ -178,12 +181,12 @@ class UserFuneralCertificationController extends Controller
             'kelurahan' => $request->kelurahan,
             'kecamatan' => $request->kecamatan,
             'agama' => $request->agama,
+            'status' => 'Belum Diproses',
+            'posisi' => 'Staff',
             'surat_rtrw' => $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public'),
             'tanggal_meninggal' => $request->tanggal_meninggal,
             'tempat_pemakaman'  => $request->tempat_pemakaman,
             'tanggal_dimakamkan' => $request->tanggal_dimakamkan,
-            'posisi' => 'staff',
-            'status' => 'Belum Diproses',
         ]);
 
         if ($data) {
@@ -241,6 +244,10 @@ class UserFuneralCertificationController extends Controller
                 Storage::disk('public')->delete($fileLama);
             }
         }
+
+        $item = Letter::findOrFail($data->letters_id);
+        $item->nama = $request->nama;
+        $item->save();
 
         $data->update([
             'nik' => $request->nik,

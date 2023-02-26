@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\FuneralCertifications;
+use App\Models\Letter;
 use Illuminate\Http\Request;
 
 class StaffFuneralCertificationController extends Controller
@@ -376,7 +377,11 @@ class StaffFuneralCertificationController extends Controller
     public function update(Request $request, $id)
     {
         $item = FuneralCertifications::findOrFail($id);
-
+        $data = Letter::findOrFail($item->letters_id);
+        $data->update([
+            'status' => 'Sedang Diproses',
+            'posisi' => 'lurah',
+        ]);
         $item->update([
             'status' => 'Sedang Diproses',
             'posisi' => 'lurah',
@@ -399,9 +404,14 @@ class StaffFuneralCertificationController extends Controller
     public function tolakSkp(Request $request)
     {
         $skp = FuneralCertifications::findOrFail($request->id);
+        $data = Letter::findOrFail($skp->letters_id);
+        $data->update([
+            'status' => 'Ditolak',
+        ]);
         $skp->status = 'Ditolak';
         $skp->alasan_penolakan = $request->alasan_penolakan;
         $skp->save();
+
 
         if ($skp) {
             return redirect()->route('skp-staff.index');

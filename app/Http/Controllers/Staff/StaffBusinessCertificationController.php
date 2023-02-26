@@ -379,7 +379,11 @@ class StaffBusinessCertificationController extends Controller
     public function update(Request $request, $id)
     {
         $item = BusinessCertifications::findOrFail($id);
-
+        $data = Letter::findOrFail($item->letters_id);
+        $data->update([
+            'status' => 'Sedang Diproses',
+            'posisi' => 'lurah',
+        ]);
         $item->update([
             'status' => 'Sedang Diproses',
             'posisi' => 'lurah',
@@ -402,6 +406,10 @@ class StaffBusinessCertificationController extends Controller
     public function tolakSku(Request $request)
     {
         $sku = BusinessCertifications::findOrFail($request->id);
+        $data = Letter::findOrFail($sku->letters_id);
+        $data->update([
+            'status' => 'Ditolak',
+        ]);
         $sku->status = 'Ditolak';
         $sku->alasan_penolakan = $request->alasan_penolakan;
         $sku->save();

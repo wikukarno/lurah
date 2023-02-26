@@ -57,8 +57,4 @@ class User extends Authenticatable
         return $this->hasOne(UserDetails::class, 'users_id', 'id');
     }
 
-    public function buss()
-    {
-        return $this->hasMany(BusinessCertifications::class, 'users_id', 'id');
-    }
 }

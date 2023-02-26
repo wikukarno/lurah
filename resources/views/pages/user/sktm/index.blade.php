@@ -225,72 +225,72 @@ Surat Keterangan Tidak Mampu
     ],
     
     });
-    $('#tb_sktm_user_sedang_diproses').DataTable({
-    processing: true,
-    serverSide: true,
-    ordering: [[1, 'asc']],
-    ajax: {
-    url: "{{ route('sktm-user.onProgress') }}",
-    },
-    columns: [
-    { data: 'DT_RowIndex', name: 'id' },
-    { data: 'user.name', name: 'user.name' },
-    { data: 'tujuan', name: 'tujuan' },
-    { data: 'created_at', name: 'created_at' },
-    { data: 'posisi', name: 'posisi' },
-    {
-    data: 'action',
-    name: 'action',
-    orderable: false,
-    searchable: false
-    },
-    ],
+    // $('#tb_sktm_user_sedang_diproses').DataTable({
+    // processing: true,
+    // serverSide: true,
+    // ordering: [[1, 'asc']],
+    // ajax: {
+    // url: "{{ route('sktm-user.onProgress') }}",
+    // },
+    // columns: [
+    // { data: 'DT_RowIndex', name: 'id' },
+    // { data: 'user.name', name: 'user.name' },
+    // { data: 'tujuan', name: 'tujuan' },
+    // { data: 'created_at', name: 'created_at' },
+    // { data: 'posisi', name: 'posisi' },
+    // {
+    // data: 'action',
+    // name: 'action',
+    // orderable: false,
+    // searchable: false
+    // },
+    // ],
     
-    });
-    $('#tb_sktm_user_selesai_diproses').DataTable({
-    processing: true,
-    serverSide: true,
-    ordering: [[1, 'asc']],
-    ajax: {
-    url: "{{ route('sktm-user.success') }}",
-    },
-    columns: [
-    { data: 'DT_RowIndex', name: 'id' },
-    { data: 'user.name', name: 'user.name' },
-    { data: 'tujuan', name: 'tujuan' },
-    { data: 'created_at', name: 'created_at' },
-    { data: 'posisi', name: 'posisi' },
-    {
-    data: 'action',
-    name: 'action',
-    orderable: false,
-    searchable: false
-    },
-    ],
+    // });
+    // $('#tb_sktm_user_selesai_diproses').DataTable({
+    // processing: true,
+    // serverSide: true,
+    // ordering: [[1, 'asc']],
+    // ajax: {
+    // url: "{{ route('sktm-user.success') }}",
+    // },
+    // columns: [
+    // { data: 'DT_RowIndex', name: 'id' },
+    // { data: 'user.name', name: 'user.name' },
+    // { data: 'tujuan', name: 'tujuan' },
+    // { data: 'created_at', name: 'created_at' },
+    // { data: 'posisi', name: 'posisi' },
+    // {
+    // data: 'action',
+    // name: 'action',
+    // orderable: false,
+    // searchable: false
+    // },
+    // ],
     
-    });
-    $('#tb_sktm_user_ditolak').DataTable({
-    processing: true,
-    serverSide: true,
-    ordering: [[1, 'asc']],
-    ajax: {
-    url: "{{ route('sktm-user.rejected') }}",
-    },
-    columns: [
-    { data: 'DT_RowIndex', name: 'id' },
-    { data: 'user.name', name: 'user.name' },
-    { data: 'tujuan', name: 'tujuan' },
-    { data: 'created_at', name: 'created_at' },
-    { data: 'posisi', name: 'posisi' },
-    {
-    data: 'action',
-    name: 'action',
-    orderable: false,
-    searchable: false
-    },
-    ],
+    // });
+    // $('#tb_sktm_user_ditolak').DataTable({
+    // processing: true,
+    // serverSide: true,
+    // ordering: [[1, 'asc']],
+    // ajax: {
+    // url: "{{ route('sktm-user.rejected') }}",
+    // },
+    // columns: [
+    // { data: 'DT_RowIndex', name: 'id' },
+    // { data: 'user.name', name: 'user.name' },
+    // { data: 'tujuan', name: 'tujuan' },
+    // { data: 'created_at', name: 'created_at' },
+    // { data: 'posisi', name: 'posisi' },
+    // {
+    // data: 'action',
+    // name: 'action',
+    // orderable: false,
+    // searchable: false
+    // },
+    // ],
     
-    });
+    // });
 
     function selesaiProses(id){
         Swal.fire({

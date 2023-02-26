@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Lurah;
 
 use App\Http\Controllers\Controller;
 use App\Models\FuneralCertifications;
+use App\Models\Letter;
 use Illuminate\Http\Request;
 
 class LurahFuneralCertificationController extends Controller
@@ -361,7 +362,11 @@ class LurahFuneralCertificationController extends Controller
     public function update(Request $request, $id)
     {
         $item = FuneralCertifications::findOrFail($id);
-
+        $data = Letter::findOrFail($item->letters_id);
+        $data->update([
+            'status' => 'Selesai Diproses',
+            'posisi' => 'Staff',
+        ]);
         $item->update([
             'status' => 'Selesai Diproses',
             'posisi' => 'staff',

@@ -16,7 +16,13 @@ return new class extends Migration
         Schema::create('letters', function (Blueprint $table) {
             $table->id();
             $table->foreignId('users_id')->constrained('users');
-            $table->string('jenis_surat');
+            $table->string('categories_id');
+            $table->enum('status', ['Belum Diproses', 'Sedang Diproses', 'Selesai Diproses', 'Ditolak'])->default('Belum Diproses')->nullable();
+            $table->enum('posisi', ['staff', 'lurah'])->default('staff')->nullable();
+            $table->string('nama')->nullable();
+            $table->string('nama_usaha')->nullable();
+            $table->string('nama_izin')->nullable();
+            $table->string('tujuan')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

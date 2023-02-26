@@ -22,13 +22,11 @@ class UserIncapacityCertificationController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = IncapacityCertifications::with(['letter', 'user.userDetails'])->where('users_id', Auth::user()->id)->where('status', 'Belum Diproses')->get();
+            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('categories_id', 3)->where('status', 'Belum Diproses')->get();
+            $query = IncapacityCertifications::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Belum Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
-                ->editColumn('nama', function ($item) {
-                    return $item->user->name;
-                })
                 ->editColumn('created_at', function ($item) {
                     return $item->created_at->isoFormat('D MMMM Y');
                 })
@@ -59,10 +57,8 @@ class UserIncapacityCertificationController extends Controller
     public function onProgress()
     {
         if (request()->ajax()) {
-            $query = IncapacityCertifications::with([
-                'user.userDetails',
-                'letter',
-            ])->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->get();
+            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('categories_id', 3)->where('status', 'Sedang Diproses')->get();
+            $query = IncapacityCertifications::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -85,10 +81,8 @@ class UserIncapacityCertificationController extends Controller
     public function success()
     {
         if (request()->ajax()) {
-            $query = IncapacityCertifications::with([
-                'user.userDetails',
-                'letter',
-            ])->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->get();
+            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('categories_id', 3)->where('status', 'Selesai Diproses')->get();
+            $query = IncapacityCertifications::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -117,10 +111,8 @@ class UserIncapacityCertificationController extends Controller
     public function rejected()
     {
         if (request()->ajax()) {
-            $query = IncapacityCertifications::with([
-                'user.userDetails',
-                'letter',
-            ])->where('users_id', Auth::user()->id)->where('status', 'Ditolak')->get();
+            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('categories_id', 3)->where('status', 'Ditolak')->get();
+            $query = IncapacityCertifications::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Ditolak')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -164,14 +156,24 @@ class UserIncapacityCertificationController extends Controller
      */
     public function store(Request $request)
     {
+        $item = new Letter();
+        $item->users_id = Auth::user()->id;
+        $item->categories_id = 3;
+        $item->status = 'Belum Diproses';
+        $item->posisi = 'Staff';
+        $item->tujuan = $request->tujuan;
+        $item->save();
+
         $data = IncapacityCertifications::create([
+            'letters_id' => $item->id,
             'users_id' => Auth::user()->id,
-            'letters_id' => 4,
             'tujuan' => $request->tujuan,
-            'surat_rtrw' => $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public'),
-            'posisi' => 'staff',
             'status' => 'Belum Diproses',
+            'posisi' => 'Staff',
+            'surat_rtrw' => $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public'),
         ]);
+
+        
 
         if ($data) {
             Alert::success('Berhasil', 'Permohonan berhasil dikirim');
@@ -228,6 +230,10 @@ class UserIncapacityCertificationController extends Controller
                 Storage::disk('public')->delete($fileLama);
             }
         }
+        $item = Letter::findOrFail($data->letters_id);
+        $item->tujuan = $request->tujuan;
+        $item->save();
+
         $data->update([
             'tujuan' => $request->tujuan,
             'surat_rtrw' => $data->surat_rtrw,

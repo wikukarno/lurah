@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Lurah;
 
 use App\Http\Controllers\Controller;
+use App\Models\Letter;
 use App\Models\Permits;
 use Illuminate\Http\Request;
 
@@ -357,7 +358,12 @@ class LurahPermitsController extends Controller
     public function update(Request $request, $id)
     {
         $item = Permits::findOrFail($id);
-
+        $data = Letter::findOrFail($item->letters_id);
+        $data->update([
+            'status' => 'Selesai Diproses',
+            'posisi' => 'Staff',
+        ]);
+        
         $item->update([
             'status' => 'Selesai Diproses',
             'posisi' => 'staff',

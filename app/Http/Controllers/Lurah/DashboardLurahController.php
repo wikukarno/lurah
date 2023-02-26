@@ -97,83 +97,82 @@ class DashboardLurahController extends Controller
     public function getLaporan(Request $request)
     {
         if (request()->ajax()) {
-            $query = Letter::with('user.userDetails', 'business', 'funeral', 'incapacity', 'permits')
-                ->whereHas('business', function ($query) {
-                    $query->where('status', 'Selesai Diproses');
-                })
-                ->orWhereHas('funeral', function ($query) {
-                    $query->where('status', 'Selesai Diproses');
-                })
-                ->orWhereHas('incapacity', function ($query) {
-                    $query->where('status', 'Selesai Diproses');
-                })
-                ->orWhereHas('permits', function ($query) {
-                    $query->where('status', 'Selesai Diproses');
-                })->get();
+            $query = Letter::with(['category', 'business', 'permits', 'incapacity', 'funeral'])->where('status', 'Selesai Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
-                ->editColumn('tahun', function ($item) {
-                    foreach ($item->business as $business) {
-                        return $business->created_at->isoFormat('Y');
-                    }
-                    foreach ($item->funeral as $funeral) {
-                        return $funeral->created_at->isoFormat('Y');
-                    }
-                    foreach ($item->incapacity as $incapacity) {
-                        return $incapacity->created_at->isoFormat('Y');
-                    }
-                    foreach ($item->permits as $permits) {
-                        return $permits->created_at->isoFormat('Y');
+                ->editColumn('nama', function($item){
+                    if($item->categories_id == 4){
+                        return $item->nama;
+                    }else{
+                        return $item->user->name;
                     }
                 })
+                ->editColumn('categories_id', function($item){
+                    return $item->category->name;
+                })
+                ->editColumn('tahun', function ($item) {
+                    // foreach ($item->business as $business) {
+                    //     return $business->created_at->isoFormat('Y');
+                    // }
+                    // foreach ($item->funeral as $funeral) {
+                    //     return $funeral->created_at->isoFormat('Y');
+                    // }
+                    // foreach ($item->incapacity as $incapacity) {
+                    //     return $incapacity->created_at->isoFormat('Y');
+                    // }
+                    // foreach ($item->permits as $permits) {
+                    //     return $permits->created_at->isoFormat('Y');
+                    // }
+                    return $item->created_at->isoFormat('Y');
+                })
                 ->editColumn('bulan', function ($item) {
-                    foreach ($item->business as $business) {
-                        return $business->created_at->isoFormat('MMMM');
-                    }
-                    foreach ($item->funeral as $funeral) {
-                        return $funeral->created_at->isoFormat('MMMM');
-                    }
-                    foreach ($item->incapacity as $incapacity) {
-                        return $incapacity->created_at->isoFormat('MMMM');
-                    }
-                    foreach ($item->permits as $permits) {
-                        return $permits->created_at->isoFormat('MMMM');
-                    }
+                    // foreach ($item->business as $business) {
+                    //     return $business->created_at->isoFormat('MMMM');
+                    // }
+                    // foreach ($item->funeral as $funeral) {
+                    //     return $funeral->created_at->isoFormat('MMMM');
+                    // }
+                    // foreach ($item->incapacity as $incapacity) {
+                    //     return $incapacity->created_at->isoFormat('MMMM');
+                    // }
+                    // foreach ($item->permits as $permits) {
+                    //     return $permits->created_at->isoFormat('MMMM');
+                    // }
+                    return $item->created_at->isoFormat('MMMM');
                 })
                 ->editColumn('nik', function ($item) {
                     return $item->user->userDetails->nik;
                 })
-                ->editColumn('nama', function ($item) {
-                    return $item->user->name;
-                })
                 ->editColumn('created_at', function ($item) {
-                    foreach ($item->business as $business) {
-                        return $business->created_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
-                    }
-                    foreach ($item->funeral as $funeral) {
-                        return $funeral->created_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
-                    }
-                    foreach ($item->incapacity as $incapacity) {
-                        return $incapacity->created_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
-                    }
-                    foreach ($item->permits as $permits) {
-                        return $permits->created_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
-                    }
+                    // foreach ($item->business as $business) {
+                    //     return $business->created_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
+                    // }
+                    // foreach ($item->funeral as $funeral) {
+                    //     return $funeral->created_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
+                    // }
+                    // foreach ($item->incapacity as $incapacity) {
+                    //     return $incapacity->created_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
+                    // }
+                    // foreach ($item->permits as $permits) {
+                    //     return $permits->created_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
+                    // }
+                    return $item->created_at->isoFormat('D MMMM Y');
                 })
                 ->editColumn('updated_at', function ($item) {
-                    foreach ($item->business as $business) {
-                        return $business->updated_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
-                    }
-                    foreach ($item->funeral as $funeral) {
-                        return $funeral->updated_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
-                    }
-                    foreach ($item->incapacity as $incapacity) {
-                        return $incapacity->updated_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
-                    }
-                    foreach ($item->permits as $permits) {
-                        return $permits->updated_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
-                    }
+                    // foreach ($item->business as $business) {
+                    //     return $business->updated_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
+                    // }
+                    // foreach ($item->funeral as $funeral) {
+                    //     return $funeral->updated_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
+                    // }
+                    // foreach ($item->incapacity as $incapacity) {
+                    //     return $incapacity->updated_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
+                    // }
+                    // foreach ($item->permits as $permits) {
+                    //     return $permits->updated_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
+                    // }
+                    return $item->updated_at->isoFormat('D MMMM Y');
                 })
                 ->rawColumns(['created_at', 'updated_at', 'nik', 'nama', 'tahun'])
                 ->make(true);
@@ -183,28 +182,11 @@ class DashboardLurahController extends Controller
         // $year = Letter::with('user.userDetails')->selectRaw('YEAR(created_at) year')->groupBy('year')->get();
 
         // make sure to use the right syntax for your query builder and model relationships (if you have any) and make sure you have the right table names in your database.
-        $months = Letter::whereHas('business', function ($query) {
-            $query->where('status', 'Selesai Diproses');
-            })
-            ->orWhereHas('funeral', function ($query) {
-                $query->where('status', 'Selesai Diproses');
-            })
-            ->orWhereHas('incapacity', function ($query) {
-                $query->where('status', 'Selesai Diproses');
-            })
-            ->orWhereHas('permits', function ($query) {
-                $query->where('status', 'Selesai Diproses');
-            })
-            ->selectRaw('MONTH(created_at) month')
-            ->groupBy('month')
-            ->get();
-        // ->get();
 
+        $months = Letter::selectRaw('MONTH(created_at) month')->groupBy('month')->get();
+        $years = Letter::selectRaw('YEAR(created_at) year')->groupBy('year')->get();
 
-
-        // dd($months->toArray());
-
-        return view('pages.lurah.laporan', compact('months'));
+        return view('pages.lurah.laporan', compact('months', 'years'));
     }
 
 
@@ -235,19 +217,7 @@ class DashboardLurahController extends Controller
             // $months = Letter::with(['business', 'permits', 'incapacity', 'funeral', 'user.userDetails'])->whereMonth('created_at', $request->month)->get();
 
 
-            $months = Letter::with(['business', 'permits', 'incapacity', 'funeral', 'user.userDetails'])
-                ->whereHas('business', function ($query) use ($request) {
-                    $query->whereMonth('created_at', $request->month);
-                })
-                ->orWhereHas('funeral', function ($query) use ($request) {
-                    $query->whereMonth('created_at', $request->month);
-                })
-                ->orWhereHas('incapacity', function ($query) use ($request) {
-                    $query->whereMonth('created_at', $request->month);
-                })
-                ->orWhereHas('permits', function ($query) use ($request) {
-                    $query->whereMonth('created_at', $request->month);
-                })->get();
+            $months = Letter::where('status', 'Selesai Diproses')->whereMonth('created_at', $request->month)->get();
 
             return datatables()->of($months)
                 ->addIndexColumn()
@@ -272,16 +242,7 @@ class DashboardLurahController extends Controller
     {
         if (request()->ajax()) {
 
-            // $years = Letter::with(['business', 'permits', 'incapacity', 'funeral', 'user.userDetails'])->whereYear('created_at', $request->year)->get();
-            $years = Letter::whereHas('business', function ($query) use ($request) {
-                $query->whereYear('created_at', Carbon::parse($request->year))->orWhere('status', 'Selesai Diproses');
-            })->orWhereHas('funeral', function ($query) use ($request) {
-                $query->whereYear('created_at', Carbon::parse($request->year))->orWhere('status', 'Selesai Diproses');
-            })->orWhereHas('incapacity', function ($query) use ($request) {
-                $query->whereYear('created_at', Carbon::parse($request->year))->orWhere('status', 'Selesai Diproses');
-            })->orWhereHas('permits', function ($query) use ($request) {
-                $query->whereYear('created_at', Carbon::parse($request->year))->orWhere('status', 'Selesai Diproses');
-            })->get();
+            $years = Letter::where('status', 'Selesai Diproses')->whereYear('created_at', $request->year)->get();
 
             return datatables()->of($years)
                 ->addIndexColumn()

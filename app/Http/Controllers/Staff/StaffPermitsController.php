@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Models\Letter;
 use App\Models\Permits;
 use Illuminate\Http\Request;
 
@@ -376,6 +377,11 @@ class StaffPermitsController extends Controller
     public function update(Request $request, $id)
     {
         $item = Permits::findOrFail($id);
+        $data = Letter::findOrFail($item->letters_id);
+        $data->update([
+            'status' => 'Sedang Diproses',
+            'posisi' => 'lurah'
+        ]);
 
         $item->update([
             'status' => 'Sedang Diproses',
@@ -398,15 +404,19 @@ class StaffPermitsController extends Controller
 
     public function tolakSki(Request $request)
     {
-        $sku = Permits::findOrFail($request->id);
-        $sku->status = 'Ditolak';
-        $sku->alasan_penolakan = $request->alasan_penolakan;
-        $sku->save();
+        $ski = Permits::findOrFail($request->id);
+        $data = Letter::findOrFail($ski->letters_id);
+        $data->update([
+            'status' => 'Ditolak',
+        ]);
+        $ski->status = 'Ditolak';
+        $ski->alasan_penolakan = $request->alasan_penolakan;
+        $ski->save();
 
-        if ($sku) {
-            return redirect()->route('sku-staff.index');
+        if ($ski) {
+            return redirect()->route('ski-staff.index');
         } else {
-            return redirect()->route('sku-staff.index');
+            return redirect()->route('ski-staff.index');
         }
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\IncapacityCertifications;
+use App\Models\Letter;
 use Illuminate\Http\Request;
 
 class StaffIncapacityCertificationController extends Controller
@@ -385,6 +386,11 @@ class StaffIncapacityCertificationController extends Controller
     public function update(Request $request, $id)
     {
         $item = IncapacityCertifications::findOrFail($id);
+        $data = Letter::findOrFail($item->letters_id);
+        $data->update([
+            'status' => 'Sedang Diproses',
+            'posisi' => 'lurah',
+        ]);
 
         $item->update([
             'status' => 'Sedang Diproses',
@@ -407,15 +413,19 @@ class StaffIncapacityCertificationController extends Controller
 
     public function tolakSktm(Request $request)
     {
-        $sku = IncapacityCertifications::findOrFail($request->id);
-        $sku->status = 'Ditolak';
-        $sku->alasan_penolakan = $request->alasan_penolakan;
-        $sku->save();
+        $sktm = IncapacityCertifications::findOrFail($request->id);
+        $data = Letter::findOrFail($sktm->letters_id);
+        $data->update([
+            'status' => 'Ditolak',
+        ]);
+        $sktm->status = 'Ditolak';
+        $sktm->alasan_penolakan = $request->alasan_penolakan;
+        $sktm->save();
 
-        if ($sku) {
-            return redirect()->route('sku-staff.index');
+        if ($sktm) {
+            return redirect()->route('sktm-staff.index');
         } else {
-            return redirect()->route('sku-staff.index');
+            return redirect()->route('sktm-staff.index');
         }
     }
 

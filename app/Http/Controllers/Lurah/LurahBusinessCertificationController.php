@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Lurah;
 
 use App\Http\Controllers\Controller;
 use App\Models\BusinessCertifications;
+use App\Models\Letter;
 use Illuminate\Http\Request;
 
 class LurahBusinessCertificationController extends Controller
@@ -361,7 +362,11 @@ class LurahBusinessCertificationController extends Controller
     public function update(Request $request, $id)
     {
         $item = BusinessCertifications::findOrFail($id);
-
+        $data = Letter::findOrFail($item->letters_id);
+        $data->update([
+            'status' => 'Selesai Diproses',
+            'posisi' => 'Staff',
+        ]);
         $item->update([
             'status' => 'Selesai Diproses',
             'posisi' => 'staff',

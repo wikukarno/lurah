@@ -12,9 +12,19 @@ class Letter extends Model
 
     protected $fillable = [
         'users_id',
-        'jenis_surat',
-
+        'categories_id',
+        'status',
+        'posisi',
+        'nama',
+        'nama_usaha',
+        'nama_izin',
+        'tujuan',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'categories_id', 'id');
+    }
 
     public function user()
     {
