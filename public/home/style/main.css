@@ -24,9 +24,11 @@ html {
 }
 
 .section-hero-content {
+  margin-top: -80px;
   background-image: url("../images/header.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: cover;
-  /* height: 700px; */
 }
 .section-hero-content .overlay {
   background-color: rgba(0, 0, 0, 0.7);

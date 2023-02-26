@@ -26,9 +26,7 @@
                             <a class="navbar-brand" href="/">
                                 <img src="{{ asset('assets/images/logo.png') }}" class="img-fluid" alt="Logo" />
                             </a>
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -55,6 +53,55 @@
         </div>
     </section>
     <!-- End Header -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Beranda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#jadwal">Jadwal</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#informasi">Informasi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" target="_blank"
+                                href="https://api.whatsapp.com/send?phone=6282268777140&text=Assalamu'alaikum%20Pak,%20saya%20ingin%20bertanya%20?">Kontak</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    @auth
+                    @if (Auth::user()->roles == 'Lurah')
+                    <a href="{{ route('lurah.dashboard') }}" class="btn btn-success mx-2 mt-4">
+                        Dashboard
+                    </a>
+                    @elseif (Auth::user()->roles == 'Staff')
+                    <a href="{{ route('staff.dashboard') }}" class="btn btn-success mx-2 mt-4">
+                        Dashboard
+                    </a>
+                    @else
+                    <a href="{{ route('user.dashboard') }}" class="btn btn-success mx-2 mt-4">
+                        Dashboard
+                    </a>
+                    @endif
+                    @endauth
+                    @guest
+                    <a href="{{ route('login') }}" class="btn btn-success mx-2 mt-4"> Masuk </a>
+                    <a href="{{ route('register') }}" class="btn btn-primary mx-2 mt-4"> Daftar Sekarang </a>
+                    @endguest
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero -->
     <section class="section-hero-content text-center">
