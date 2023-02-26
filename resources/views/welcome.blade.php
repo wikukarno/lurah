@@ -59,6 +59,9 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
+                    <a class="navbar-brand" href="/">
+                        <img src="{{ asset('assets/images/logo.png') }}" class="img-fluid" alt="Logo" style="max-height: 50px" />
+                    </a>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
