@@ -69,26 +69,26 @@ class DashboardLurahController extends Controller
         // $getSuratDitolak = $suratDitolak->count();
         // $getSuratSelesai = $suratSelesai->count();
 
-        $skuProgress = BusinessCertifications::where('status', 'Sedang Diproses')->count();
-        $skpProgress = FuneralCertifications::where('status', 'Sedang Diproses')->count();
-        $sktmProgress = IncapacityCertifications::where('status', 'Sedang Diproses')->count();
-        $skiProgress = Permits::where('status', 'Sedang Diproses')->count();
+        // $skuProgress = BusinessCertifications::where('status', 'Sedang Diproses')->count();
+        // $skpProgress = FuneralCertifications::where('status', 'Sedang Diproses')->count();
+        // $sktmProgress = IncapacityCertifications::where('status', 'Sedang Diproses')->count();
+        // $skiProgress = Permits::where('status', 'Sedang Diproses')->count();
 
-        $getSuratDiteruskan = $skuProgress + $skpProgress + $sktmProgress + $skiProgress;
+        $getSuratDiteruskan = Letter::where('status', 'Sedang Diproses')->count();
 
-        $skuDitolak = BusinessCertifications::where('status', 'Ditolak')->count();
-        $skpDitolak = FuneralCertifications::where('status', 'Ditolak')->count();
-        $sktmDitolak = IncapacityCertifications::where('status', 'Ditolak')->count();
-        $skiDitolak = Permits::where('status', 'Ditolak')->count();
+        // $skuDitolak = BusinessCertifications::where('status', 'Ditolak')->count();
+        // $skpDitolak = FuneralCertifications::where('status', 'Ditolak')->count();
+        // $sktmDitolak = IncapacityCertifications::where('status', 'Ditolak')->count();
+        // $skiDitolak = Permits::where('status', 'Ditolak')->count();
 
-        $getSuratDitolak = $skuDitolak + $skpDitolak + $sktmDitolak + $skiDitolak;
+        $getSuratDitolak = Letter::where('status', 'Ditolak')->count();
 
-        $skuSelesai = BusinessCertifications::where('status', 'Selesai Diproses')->count();
-        $skpSelesai = FuneralCertifications::where('status', 'Selesai Diproses')->count();
-        $sktmSelesai = IncapacityCertifications::where('status', 'Selesai Diproses')->count();
-        $skiSelesai = Permits::where('status', 'Selesai Diproses')->count();
+        // $skuSelesai = BusinessCertifications::where('status', 'Selesai Diproses')->count();
+        // $skpSelesai = FuneralCertifications::where('status', 'Selesai Diproses')->count();
+        // $sktmSelesai = IncapacityCertifications::where('status', 'Selesai Diproses')->count();
+        // $skiSelesai = Permits::where('status', 'Selesai Diproses')->count();
 
-        $getSuratSelesai = $skuSelesai + $skpSelesai + $sktmSelesai + $skiSelesai;
+        $getSuratSelesai = Letter::where('status', 'Selesai Diproses')->count();
 
         $totalSurat = $sku + $skp + $sktm + $ski;
         return view('pages.lurah.dashboard', compact('dataUser', 'sku', 'skp', 'sktm', 'ski', 'totalSurat', 'getSuratDiteruskan', 'getSuratDitolak', 'getSuratSelesai'));

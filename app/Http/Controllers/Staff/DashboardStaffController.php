@@ -92,9 +92,9 @@ class DashboardStaffController extends Controller
 
         $totalSurat = $sku + $skp + $sktm + $ski;
 
-        $totalSuratProses = $skuProses + $skpProses + $sktmProses + $skiProses;
-        $totalSuratSelesai = $skuSelesai + $skpSelesai + $sktmSelesai + $skiSelesai;
-        $totalSuratDitolak = $skuDitolak + $skpDitolak + $sktmDitolak + $skiDitolak;
+        $totalSuratProses = Letter::where('status', 'Sedang Diproses')->count();
+        $totalSuratSelesai = Letter::where('status', 'Selesai Diproses')->count();
+        $totalSuratDitolak = Letter::where('status', 'Ditolak')->count();
         
 
         return view('pages.staff.dashboard', compact('dataUser', 'totalSurat', 'sku', 'skp', 'sktm', 'ski', 'skuMasuk', 'skpMasuk', 'sktmMasuk', 'skiMasuk', 'skuProses', 'skpProses', 'sktmProses', 'skiProses', 'skuSelesai', 'skpSelesai', 'sktmSelesai', 'skiSelesai', 'skuDitolak', 'skpDitolak', 'sktmDitolak', 'skiDitolak', 'totalSuratProses', 'totalSuratSelesai', 'totalSuratDitolak'));

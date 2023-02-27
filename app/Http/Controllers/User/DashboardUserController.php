@@ -68,25 +68,25 @@ class DashboardUserController extends Controller
         // $getSuratDiproses = $letterOnProgress->count();
         // $getSuratSelesai = $letterComplete->count();
 
-        $skuProgress = Letter::where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
-        $skuSelesai = Letter::where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
-        $skuDitolak = Letter::where('users_id', Auth::user()->id)->where('status', 'Ditolak')->count();
+        // $skuProgress = Letter::where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
+        // $skuSelesai = Letter::where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
+        // $skuDitolak = Letter::where('users_id', Auth::user()->id)->where('status', 'Ditolak')->count();
         
-        $skiProgress = Letter::where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
-        $skiSelesai = Letter::where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
-        $skiDitolak = Letter::where('users_id', Auth::user()->id)->where('status', 'Ditolak')->count();
+        // $skiProgress = Letter::where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
+        // $skiSelesai = Letter::where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
+        // $skiDitolak = Letter::where('users_id', Auth::user()->id)->where('status', 'Ditolak')->count();
 
-        $sktmProgress = Letter::where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
-        $sktmSelesai = Letter::where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
-        $sktmDitolak = Letter::where('users_id', Auth::user()->id)->where('status', 'Ditolak')->count();
+        // $sktmProgress = Letter::where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
+        // $sktmSelesai = Letter::where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
+        // $sktmDitolak = Letter::where('users_id', Auth::user()->id)->where('status', 'Ditolak')->count();
 
-        $skpProgress = Letter::where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
-        $skpSelesai = Letter::where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
-        $skpDitolak = Letter::where('users_id', Auth::user()->id)->where('status', 'Ditolak')->count();
+        // $skpProgress = Letter::where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
+        // $skpSelesai = Letter::where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
+        // $skpDitolak = Letter::where('users_id', Auth::user()->id)->where('status', 'Ditolak')->count();
 
-        $getSuratDitolak = $skuDitolak + $skiDitolak + $sktmDitolak + $skpDitolak;
-        $getSuratDiproses = $skuProgress + $skiProgress + $sktmProgress + $skpProgress;
-        $getSuratSelesai = $skuSelesai + $skiSelesai + $sktmSelesai + $skpSelesai;
+        $getSuratDitolak = Letter::where('users_id', Auth::user()->id)->where('status', 'Ditolak')->count();
+        $getSuratDiproses = Letter::where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
+        $getSuratSelesai = Letter::where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
 
 
 
