@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('funeral_certifications', function (Blueprint $table) {
-            $table->id();
+            $table->string('id', 11)->primary();
             $table->string('users_id');
             $table->string('letters_id');
             $table->string('nik');

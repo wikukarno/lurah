@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('letters', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('users_id')->constrained('users');
+            $table->string('id', 11)->primary();
+            $table->string('users_id');
             $table->string('categories_id');
             $table->enum('status', ['Belum Diproses', 'Sedang Diproses', 'Selesai Diproses', 'Ditolak'])->default('Belum Diproses')->nullable();
             $table->enum('posisi', ['staff', 'lurah'])->default('staff')->nullable();
