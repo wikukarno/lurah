@@ -158,7 +158,7 @@ class UserPermitsController extends Controller
     {
         $item = new Letter();
         $item->users_id = Auth::user()->id;
-        $item->categories_id = 2;
+        $item->categories_id = '04b7ef39-c117-4bb1-9b0d-1936c503c62f';
         $item->status = 'Belum Diproses';
         $item->posisi = 'Staff';
         $item->nama_izin = $request->nama_izin;

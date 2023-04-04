@@ -161,7 +161,7 @@ class UserFuneralCertificationController extends Controller
         // dd($request->all());
         $item = new Letter();
         $item->users_id = Auth::user()->id;
-        $item->categories_id = 4;
+        $item->categories_id = 'bf088ce2-753c-4c40-9a06-c078b75bc418';
         $item->status = 'Belum Diproses';
         $item->posisi = 'Staff';
         $item->nama = $request->nama;

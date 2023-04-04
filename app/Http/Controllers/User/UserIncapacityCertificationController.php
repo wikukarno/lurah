@@ -158,7 +158,7 @@ class UserIncapacityCertificationController extends Controller
     {
         $item = new Letter();
         $item->users_id = Auth::user()->id;
-        $item->categories_id = 3;
+        $item->categories_id = '2ae90619-d692-481b-b172-cf6946552980';
         $item->status = 'Belum Diproses';
         $item->posisi = 'Staff';
         $item->tujuan = $request->tujuan;

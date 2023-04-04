@@ -179,7 +179,7 @@ class UserBusinessCertificationController extends Controller
     {
         $item = new Letter();
         $item->users_id = Auth::user()->id;
-        $item->categories_id = 1;
+        $item->categories_id = '031c06c3-a838-4c59-b843-fed512c264ce';
         $item->status = 'Belum Diproses';
         $item->posisi = 'Staff';
         $item->nama_usaha = $request->nama_usaha;
