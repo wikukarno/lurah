@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -17,7 +18,7 @@ class UserSeeder extends Seeder
     {
         $user = [
             [
-                'id' => 1,
+                'id' => '169a222e-5eeb-414e-9765-59c94e186168',
                 'name' => 'Lurah',
                 'email' => 'lurah@gmail.com',
                 'password' => bcrypt('123456'),
@@ -27,7 +28,7 @@ class UserSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
-                'id' => 2,
+                'id' => '169a123e-7jkb-414e-9765-59c94e186169',
                 'name' => 'Staff',
                 'email' => 'staff@gmail.com',
                 'password' => bcrypt('123456'),
@@ -37,7 +38,7 @@ class UserSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
-                'id' => 3,
+                'id' => '169a111e-7jkb-414e-9765-59c94e186170',
                 'name' => 'Normansyah',
                 'email' => 'norman@gmail.com',
                 'password' => bcrypt('123456'),

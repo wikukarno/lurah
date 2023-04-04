@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\UserDetails;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class UserDetailsSeeder extends Seeder
 {
@@ -17,8 +18,8 @@ class UserDetailsSeeder extends Seeder
     {
         $userDetails = [
             [
-                'id' => 1,
-                'users_id' => 1,
+                'id' => Str::uuid(),
+                'users_id' => '169a222e-5eeb-414e-9765-59c94e186168',
                 'nik' => '1234567890123456',
                 'phone' => '081234567890',
                 'jenis_kelamin' => 'Laki-laki',
@@ -35,8 +36,8 @@ class UserDetailsSeeder extends Seeder
                 'updated_at'=> now()
             ],
             [
-                'id' => 2,
-                'users_id' => 2,
+                'id' => Str::uuid(),
+                'users_id' => '169a123e-7jkb-414e-9765-59c94e186169',
                 'nik' => '1234567890123454',
                 'phone' => '081234567890',
                 'jenis_kelamin' => 'Laki-laki',
@@ -53,8 +54,8 @@ class UserDetailsSeeder extends Seeder
                 'updated_at'=> now()
             ],
             [
-                'id' => 3,
-                'users_id' => 3,
+                'id' => Str::uuid(),
+                'users_id' => '169a111e-7jkb-414e-9765-59c94e186170',
                 'nik' => '1234567890123455',
                 'phone' => '081234567890',
                 'jenis_kelamin' => 'Laki-laki',

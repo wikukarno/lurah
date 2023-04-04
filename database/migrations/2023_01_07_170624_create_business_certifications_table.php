@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('business_certifications', function (Blueprint $table) {
-            $table->string('id', 11)->primary();
+            $table->string('id', 50)->primary();
             $table->string('users_id');
             $table->string('letters_id');
             $table->string('nama_usaha');

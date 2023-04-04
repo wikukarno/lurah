@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class CategorySeeder extends Seeder
 {
@@ -17,7 +18,7 @@ class CategorySeeder extends Seeder
     {
         $category = [
             [
-                'id' => 1,
+                'id' => Str::uuid(),
                 'name' => 'Surat Keterangan Usaha',
                 'created_at' => now(),
                 'updated_at'=> now(),
@@ -25,7 +26,7 @@ class CategorySeeder extends Seeder
             ],
 
             [
-                'id' => 2,
+                'id' => Str::uuid(),
                 'name' => 'Surat Keterangan Izin',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -33,14 +34,14 @@ class CategorySeeder extends Seeder
             ],
 
             [
-                'id' => 3,
+                'id' => Str::uuid(),
                 'name' => 'Surat Keterangan Tidak Mampu',
                 'created_at' => now(),
                 'updated_at' => now(),
                 'deleted_at' => null
             ],
             [
-                'id' => 4,
+                'id' => Str::uuid(),
                 'name' => 'Surat Keterangan Pemakaman',
                 'created_at' => now(),
                 'updated_at' => now(),
