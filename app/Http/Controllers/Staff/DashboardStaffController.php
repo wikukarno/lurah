@@ -11,6 +11,7 @@ use App\Models\Permits;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DashboardStaffController extends Controller
 {
@@ -138,11 +139,61 @@ class DashboardStaffController extends Controller
                 })
                 ->editColumn('action', function ($item) {
                     return '
-                        <div class="form-group">
-                            <a href="' . route('staff.detail-verifikasi', $item->id) . '" class="btn btn-sm btn-primary">Detail</a>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="verifikasiPengguna(' . $item->id . ')">Verifikasi</a>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakVerifikasi(' . $item->id . ')">Tolak</a>
+                        <div class="form-group d-flex">
+                            <a href="' . route('staff.detail-verifikasi', $item->id) . '" class="btn btn-sm btn-primary mx-1">Detail</a>
+                            <form id="form-verifikasi-pengguna" method="POST">
+                                ' . csrf_field() . '
+                                <input type="hidden" name="id" value="' . $item->id . '">
+                                <button type="submit" id="btnVerifikasi" class="btn btn-sm btn-success mx-1">Verifikasi</button>
+                            </form>
+
+                            <a href="' . route('staff.get-tolak', $item->id) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
                         </div>
+                        <script>
+                            $("#form-verifikasi-pengguna").submit(function (e) {
+                                e.preventDefault();
+                                var id = $("input[name=id]").val();
+
+                                Swal.fire({
+                                    title: "Apakah anda yakin?",
+                                    text: "Ingin memverifikasi pengguna ini",
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#3085d6",
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "Ya, verifikasi!",
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $.ajax({
+                                            url: "' . route('staff.verifikasi') . '",
+                                            type: "POST",
+                                            data: {
+                                                id: id,
+                                                _token: "' . csrf_token() . '"
+                                            },
+                                            success: function (data) {
+                                                if (data.status == "success") {
+                                                    Swal.fire(
+                                                        "Berhasil!",
+                                                        "Berhasil memverifikasi pengguna",
+                                                        "success"
+                                                    )
+                                                    $("#tb_verifikasi_penduduk").DataTable().ajax.reload();
+                                                } else {
+                                                    Swal.fire({
+                                                        title: "Gagal!",
+                                                        text: data.message,
+                                                        icon: "error",
+                                                        showConfirmButton: false,
+                                                        timer: 1500
+                                                    });
+                                                }
+                                            }
+                                        });
+                                    }
+                                })
+                            });
+                        </script>
                     ';
                 })
                 ->rawColumns(['alamat', 'avatar', 'action'])
@@ -177,23 +228,32 @@ class DashboardStaffController extends Controller
         return view('pages.staff.detail-verifikasi', compact('data', 'users'));
     }
 
-    public function tolakVerifikasi(Request $request)
+
+    public function getTolak($id)
     {
-        $data = User::findOrFail($request->id_penolakan);
-        $data->status_account = 'ditolak';
-        $data->alasan_penolakan = $request->alasan_penolakan;
-        $data->save();
+        $data = User::findOrFail($id);
+        return view('pages.staff.tolak-verifikasi', compact('data'));
+    }
+
+    public function tolakVerifikasi(Request $request, $id)
+    {
+        // $data = User::findOrFail($request->id);
+        // $data->status_account = 'ditolak';
+        // $data->alasan_penolakan = $request->alasan_penolakan;
+        // $data->save();
+
+        $data = $request->all();
+        $data['status_account'] = 'ditolak';
+
+        $tolak = User::findOrFail($id);
+        $tolak->update($data);
 
         if ($data) {
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Berhasil tolak verifikasi pengguna'
-            ]);
+            Alert::success('Berhasil', 'Verifikasi pengguna ditolak');
+            return redirect()->route('staff.verifikasi-penduduk');
         } else {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Gagal tolak verifikasi pengguna'
-            ]);
+            Alert::error('Gagal', 'Verifikasi pengguna gagal ditolak');
+            return redirect()->route('staff.verifikasi-penduduk');
         }
     }
 }

@@ -21,6 +21,18 @@ class IncapacityCertifications extends Model
         'surat_rtrw',
     ];
 
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->{$model->getKeyName()} = (string) Str::uuid();
+        });
+    }
+
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'users_id');

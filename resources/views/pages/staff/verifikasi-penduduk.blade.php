@@ -99,7 +99,6 @@ Verifikasi Pengguna
 
     function tolakVerifikasi(id){
         $('#tolakVerifikasiModal').modal('show');
-        $('#id_penolakan').val(id);
     }
 
     $('#form-tolak-verifikasi').submit(function(e){

@@ -170,7 +170,8 @@ Route::prefix('/pages/dashboard/staff')
         Route::get('/verifikasi-penduduk', [DashboardStaffController::class, 'verifikasiPenduduk'])->name('staff.verifikasi-penduduk');
         Route::get('/verifikasi-penduduk/detail/{id}', [DashboardStaffController::class, 'detailVerifikasi'])->name('staff.detail-verifikasi');
         Route::post('/verifikasi-penduduk/verifikasi', [DashboardStaffController::class, 'verifikasi'])->name('staff.verifikasi');
-        Route::post('/verifikasi-penduduk/tolak', [DashboardStaffController::class, 'tolakVerifikasi'])->name('staff.tolak-verifikasi');
+        Route::get('/verifikasi-penduduk/tolak/{id}', [DashboardStaffController::class, 'getTolak'])->name('staff.get-tolak');
+        Route::post('/verifikasi-penduduk/tolak/verifikasi/{id}', [DashboardStaffController::class, 'tolakVerifikasi'])->name('staff.tolak-verifikasi');
 
         // Route Resource
         Route::resource('sku-staff', StaffBusinessCertificationController::class);
