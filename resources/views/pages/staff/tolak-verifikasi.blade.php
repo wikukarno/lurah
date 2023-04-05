@@ -26,10 +26,10 @@ Verifikasi Pengguna
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12 col-lg-6">
+                                <div class="col-12 col-lg-6 mb-2">
                                     <a href="{{ route('staff.verifikasi-penduduk') }}" class="btn btn-secondary btn-block">Batal</a>
                                 </div>
-                                <div class="col-12 col-lg-6">
+                                <div class="col-12 col-lg-6 mb-2">
                                     <button type="submit" class="btn btn-danger btn-block">Tolak
                                         Sekarang</button>
                                 </div>
