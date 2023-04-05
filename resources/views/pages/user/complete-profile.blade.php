@@ -24,7 +24,8 @@
                                             id="nik" 
                                             type="nik" 
                                             class="form-control @error('nik') is-invalid @enderror" 
-                                            name="nik"
+                                            name="nik" 
+                                            maxlength="16"
                                             value="{{ old('nik') }}" 
                                             required>
                                             @error('nik')
@@ -37,7 +38,7 @@
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="phone">Nomor Telepon</label>
-                                            <input type="number" class="form-control" id="phone" name="phone" required>
+                                            <input type="number" class="form-control" id="phone" maxlength="12" name="phone" required>
                                         </div>
                                     </div>
                                 </div>

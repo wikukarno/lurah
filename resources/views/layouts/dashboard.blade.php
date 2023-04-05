@@ -51,7 +51,7 @@
     <script>
         $('#nik').on('keyup', function() {
             var nik = $(this).val();
-            if (nik.length > 16) {
+            if (nik.length >= 16) {
                 $(this).val(nik.substring(0, 16));
             }
         });
