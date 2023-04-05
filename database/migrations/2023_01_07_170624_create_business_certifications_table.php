@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('business_certifications', function (Blueprint $table) {
             $table->string('id', 50)->primary();
-            $table->string('users_id');
-            $table->string('letters_id');
-            $table->string('nama_usaha');
-            $table->string('jenis_usaha');
-            $table->string('surat_rtrw');
-            $table->string('alasan_penolakan')->nullable();
+            $table->string('users_id', 50);
+            $table->string('letters_id', 50);
+            $table->string('nama_usaha', 30);
+            $table->string('jenis_usaha', 20);
+            $table->text('surat_rtrw');
+            $table->string('alasan_penolakan', 30)->nullable();
             $table->enum('posisi', ['staff', 'lurah'])->default('staff')->nullable();
             $table->enum('status', ['Belum Diproses', 'Sedang Diproses', 'Selesai Diproses', 'Ditolak'])->default('Belum Diproses')->nullable();
             $table->timestamps();

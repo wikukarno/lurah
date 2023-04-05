@@ -26,7 +26,7 @@ class BusinessCertificationRequest extends FormRequest
         return [
             'letters_id' => 'integer',
             'users_id' => 'integer',
-            'nama_usaha' => 'required|string',
+            'nama_usaha' => 'required|string|max:30',
             'jenis_usaha' => 'required|string',
             'surat_rtrw' => 'image|mimes:jpeg,jpg|max:2048',
             'alasan_penolakan' => 'nullable|string',

@@ -20,7 +20,7 @@ Surat Keterangan Usaha
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="nama">Nama Usaha <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="nama_usaha" name="nama_usaha"
+                                        <input type="text" class="form-control" id="nama_usaha" name="nama_usaha" maxlength="30"
                                             placeholder="Masukkan nama usaha" required
                                             oninvalid="this.setCustomValidity('Masukan nama usaha')"
                                             oninput="setCustomValidity('')">

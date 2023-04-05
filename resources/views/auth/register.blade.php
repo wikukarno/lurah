@@ -19,7 +19,7 @@ Daftar Akun
                 @csrf
                 <div class="input-group mb-3">
                     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                        value="{{ old('name') }}" placeholder="Nama lengkap" required
+                        value="{{ old('name') }}" placeholder="Nama lengkap" required maxlength="30"
                         oninvalid="this.setCustomValidity('Harap masukan nama')" oninput="setCustomValidity('')">
                     <div class="input-group-append">
                         <div class="input-group-text">
@@ -34,7 +34,7 @@ Daftar Akun
                 </div>
                 <div class="input-group mb-3">
                     <input type="email" class="form-control @error('email') is-invalid @enderror"
-                        value="{{ old('email') }}" name="email" placeholder="Alamat email" required
+                        value="{{ old('email') }}" name="email" placeholder="Alamat email" required maxlength="30"
                         oninvalid="this.setCustomValidity('Harap masukan email')" oninput="setCustomValidity('')">
                     <div class="input-group-append">
                         <div class="input-group-text">
@@ -48,7 +48,7 @@ Daftar Akun
                     @enderror
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" maxlength="50"
                         placeholder="Kata sandi" required oninvalid="this.setCustomValidity('Harap masukan kata sandi')"
                         oninput="setCustomValidity('')" autocomplete="new-password">
                     <div class="input-group-append">

@@ -20,14 +20,14 @@ Tambah Surat Keterangan Tidak Mampu
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="nama">NIK</label>
-                                        <input type="number" class="form-control" id="nik" name="nik"
+                                        <input type="number" class="form-control" id="nik" name="nik" maxlength="16"
                                             value="{{ Auth::user()->userDetails->nik }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="nama">Nama</label>
-                                        <input type="text" class="form-control" id="nama" name="nama"
+                                        <input type="text" class="form-control" id="nama" name="nama" maxlength="30"
                                             value="{{ Auth::user()->name }}" readonly>
                                     </div>
                                 </div>
@@ -37,7 +37,7 @@ Tambah Surat Keterangan Tidak Mampu
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="nama">Tempat Lahir</label>
-                                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"
+                                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" maxlength="30"
                                             value="{{ Auth::user()->userDetails->tempat_lahir }}" readonly>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@ Tambah Surat Keterangan Tidak Mampu
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="nama">Pekerjaan</label>
-                                        <input type="text" class="form-control" id="pekerjaan" name="pekerjaan"
+                                        <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" maxlength="30"
                                             value="{{ Auth::user()->userDetails->pekerjaan }}" readonly>
                                     </div>
                                 </div>
@@ -120,7 +120,7 @@ Tambah Surat Keterangan Tidak Mampu
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="tujuan_surat">Keperluan Surat</label>
-                                        <input type="text" class="form-control" id="tujuan" name="tujuan"
+                                        <input type="text" class="form-control" id="tujuan" name="tujuan" maxlength="30"
                                             placeholder="cth: Bantuan Baznas" required>
                                     </div>
                                 </div>

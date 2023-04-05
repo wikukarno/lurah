@@ -21,14 +21,14 @@ Update Surat Keterangan Pemakaman
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="nama">NIK</label>
-                                        <input type="number" class="form-control" id="nik" name="nik"
+                                        <input type="number" class="form-control" id="nik" name="nik" maxlength="16"
                                             value="{{ $item->nik }}">
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="nama">Nama Alm/Almh</label>
-                                        <input type="text" class="form-control" id="nama" name="nama"
+                                        <input type="text" class="form-control" id="nama" name="nama" maxlength="30"
                                             value="{{ $item->nama }}">
                                     </div>
                                 </div>
@@ -38,7 +38,7 @@ Update Surat Keterangan Pemakaman
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="nama">Tempat Lahir</label>
-                                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"
+                                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" maxlength="30"
                                             value="{{ $item->tempat_lahir }}">
                                     </div>
                                 </div>
@@ -73,7 +73,7 @@ Update Surat Keterangan Pemakaman
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="nama_pemakaman">Nama Tempat Pemakaman</label>
-                                        <input type="text" class="form-control" id="tempat_pemakaman"
+                                        <input type="text" class="form-control" id="tempat_pemakaman" maxlength="30"
                                             name="tempat_pemakaman" value="{{ $item->tempat_pemakaman }}">
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@ Update Surat Keterangan Pemakaman
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="nama">Pekerjaan</label>
-                                        <input type="text" class="form-control" id="pekerjaan" name="pekerjaan"
+                                        <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" maxlength="30"
                                             value="{{ $item->pekerjaan }}">
                                     </div>
                                 </div>
@@ -114,14 +114,14 @@ Update Surat Keterangan Pemakaman
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="nama">Kecamatan</label>
-                                        <input type="text" class="form-control" id="kecamatan" name="kecamatan"
+                                        <input type="text" class="form-control" id="kecamatan" name="kecamatan" maxlength="20"
                                             value="{{ $item->kecamatan }}">
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="nama">Kelurahan</label>
-                                        <input type="text" class="form-control" id="kelurahan" name="kelurahan"
+                                        <input type="text" class="form-control" id="kelurahan" name="kelurahan" maxlength="15"
                                             value="{{ $item->kelurahan }}">
                                     </div>
                                 </div>
@@ -137,7 +137,7 @@ Update Surat Keterangan Pemakaman
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="nama">RT / RW</label>
-                                        <input type="text" class="form-control" id="rtrw" name="rtrw"
+                                        <input type="text" class="form-control" id="rtrw" name="rtrw" maxlength="10"
                                             value="{{ $item->rtrw }}">
                                     </div>
                                 </div>
@@ -147,7 +147,7 @@ Update Surat Keterangan Pemakaman
                                 <div class="col-12 col-lg-12">
                                     <div class="form-group">
                                         <label for="alamat">Alamat</label>
-                                        <input type="text" class="form-control" id="alamat" name="alamat"
+                                        <input type="text" class="form-control" id="alamat" name="alamat" maxlength="50"
                                             value="{{ $item->alamat }}">
                                     </div>
                                 </div>

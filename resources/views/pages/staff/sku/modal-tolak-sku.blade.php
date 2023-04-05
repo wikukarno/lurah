@@ -16,7 +16,7 @@
               <div class="col-12">
                 <div class="form-group">
                   <label for="nama">Alasan Penolakan</label>
-                  <textarea name="alasan_penolakan" id="alasan_penolakan" class="form-control" required></textarea>
+                  <textarea name="alasan_penolakan" id="alasan_penolakan" maxlength="30" class="form-control" required></textarea>
                 </div>
               </div>
             </div>

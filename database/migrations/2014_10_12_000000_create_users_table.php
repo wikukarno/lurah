@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->string('id', 50)->primary();
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('name', 30);
+            $table->string('email', 30)->unique();
             $table->string('roles')->default('User');
             $table->enum('status_account', ['none', 'pending', 'ditolak', 'blokir', 'verifikasi'])->default('none');
-            $table->string('alasan_penolakan')->nullable();
+            $table->string('alasan_penolakan', 30)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

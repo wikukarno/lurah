@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->string('id', 50)->primary();
-            $table->string('name');
+            $table->string('name', 30);
             $table->timestamps();
             $table->softDeletes();
         });

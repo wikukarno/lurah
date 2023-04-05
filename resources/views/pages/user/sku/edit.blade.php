@@ -21,7 +21,7 @@ Update Surat Keterangan Usaha
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="nama">Nama Usaha <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="nama_usaha" name="nama_usaha" value="{{ $item->nama_usaha }}" required>
+                                        <input type="text" class="form-control" id="nama_usaha" name="nama_usaha" maxlength="30" value="{{ $item->nama_usaha }}" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">

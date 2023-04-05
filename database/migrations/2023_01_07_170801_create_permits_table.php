@@ -15,21 +15,21 @@ return new class extends Migration
     {
         Schema::create('permits', function (Blueprint $table) {
             $table->string('id', 50)->primary();
-            $table->string('users_id');
-            $table->string('letters_id');
-            $table->string('perihal');
-            $table->string('tujuan_surat');
-            $table->string('nama_izin');
+            $table->string('users_id', 50);
+            $table->string('letters_id', 50);
+            $table->string('perihal', 30);
+            $table->string('tujuan_surat', 30);
+            $table->string('nama_izin', 30);
 
             $table->date('tanggal_izin');
-            $table->string('tempat_izin');
-            $table->string('waktu_izin');
-            $table->string('jumlah_peserta');
-            $table->string('hiburan');
-            $table->string('surat_rtrw');
+            $table->string('tempat_izin', 30);
+            $table->string('waktu_izin', 7);
+            $table->string('jumlah_peserta', 5);
+            $table->string('hiburan', 20);
+            $table->text('surat_rtrw');
 
 
-            $table->string('alasan_penolakan')->nullable();
+            $table->string('alasan_penolakan', 30)->nullable();
             $table->enum('posisi', ['staff', 'lurah'])->default('staff')->nullable();
             $table->enum('status', ['Belum Diproses', 'Sedang Diproses', 'Selesai Diproses', 'Ditolak'])->default('Belum Diproses')->nullable();
             $table->timestamps();

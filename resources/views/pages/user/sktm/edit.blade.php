@@ -22,7 +22,7 @@ Update Surat Keterangan Tidak Mampu
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="tujuan_surat">Keperluan Surat</label>
-                                        <input type="text" class="form-control" id="tujuan" name="tujuan" value="{{ $item->tujuan }}">
+                                        <input type="text" class="form-control" id="tujuan" name="tujuan" maxlength="30" value="{{ $item->tujuan }}">
                                     </div>
                                 </div>
 
