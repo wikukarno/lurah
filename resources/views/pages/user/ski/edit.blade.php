@@ -31,7 +31,7 @@ Update Surat Izin
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="perihal">Perihal</label>
-                                        <input type="text" class="form-control" maxlength="30" id="perihal"
+                                        <input type="text" class="form-control" maxlength="40" id="perihal"
                                             name="perihal" value="{{ $item->perihal }}">
                                     </div>
                                 </div>
