@@ -25,6 +25,7 @@
                                             type="nik" 
                                             class="form-control @error('nik') is-invalid @enderror" 
                                             name="nik" 
+                                            maxlength="16"
                                             value="{{ old('nik') }}" 
                                             required>
                                             @error('nik')
@@ -37,7 +38,7 @@
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="phone">Nomor Telepon</label>
-                                            <input type="number" class="form-control" id="phone" name="phone" required>
+                                            <input type="number" class="form-control" id="phone" maxlength="12" name="phone" required>
                                         </div>
                                     </div>
                                 </div>
@@ -56,7 +57,7 @@
                                         <div class="form-group">
                                             <label for="tempat_lahir">Tempat Lahir</label>
                                             <input type="text" class="form-control" id="tempat_lahir"
-                                                name="tempat_lahir" required>
+                                                name="tempat_lahir" maxlength="30" required>
                                         </div>
                                     </div>
                                 </div>
@@ -71,7 +72,7 @@
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="pekerjaan">Pekerjaan</label>
-                                            <input type="text" class="form-control" id="pekerjaan" name="pekerjaan"
+                                            <input type="text" class="form-control" maxlength="30" id="pekerjaan" name="pekerjaan"
                                                 required>
                                         </div>
                                     </div>
@@ -80,21 +81,21 @@
                                     <div class="col-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="kecamatan">Kecamatan</label>
-                                            <input type="text" class="form-control" id="kecamatan" name="kecamatan"
+                                            <input type="text" class="form-control" id="kecamatan" maxlength="20" name="kecamatan"
                                                 required>
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="kelurahan">Kelurahan</label>
-                                            <input type="text" class="form-control" id="kelurahan" name="kelurahan"
+                                            <input type="text" class="form-control" maxlength="15" id="kelurahan" name="kelurahan"
                                                 required>
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="rtrw">RT/RW</label>
-                                            <input type="text" class="form-control" id="rtrw" name="rtrw" required>
+                                            <input type="text" class="form-control" maxlength="10" id="rtrw" name="rtrw" required>
                                         </div>
                                     </div>
                                 </div>
@@ -149,7 +150,7 @@
                                     <div class="col-12 col-lg-12">
                                         <div class="form-group">
                                             <label for="address">Alamat</label>
-                                            <textarea class="form-control" id="address" name="address" required>
+                                            <textarea class="form-control" maxlength="50" id="address" name="address" required>
                                             </textarea>
                                         </div>
                                     </div>
