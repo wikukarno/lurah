@@ -55,6 +55,13 @@
                 $(this).val(nik.substring(0, 16));
             }
         });
+
+        $('#jumlah_peserta').on('keyup', function() {
+            var jumlah_peserta = $(this).val();
+            if (jumlah_peserta.length > 5) {
+                $(this).val(jumlah_peserta.substring(0, 5));
+            }
+        });
     
         // make phone number 12 digit
         $('#phone').on('keyup', function() {
