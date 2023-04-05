@@ -25,7 +25,7 @@
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="nik">Nik <span id="cekNik"></span></label>
-                                            <input type="number" class="form-control" id="nik" name="nik" maxlength="16"
+                                            <input type="number" class="form-control" id="nik" name="nik" maxlength="16" max="16"
                                                 value="{{ $users->userDetails->nik }}">
                                         </div>
                                     </div>

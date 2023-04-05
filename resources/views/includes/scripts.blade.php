@@ -51,25 +51,3 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
-
-{{-- <script>
-    jQuery.datetimepicker.setLocale('id');
-    jQuery(['#tanggal_lahir', '#tanggal_meninggal', '#tanggal_dimakamkan', '#tanggal_pelaksanaan_izin']).datetimepicker({
-        i18n:{
-            de:
-            {
-                months:[
-                'Januari','Februari','Maret','April',
-                'Mei','Juni','Juli','Agustus',
-                'September','Oktober','November','Desember',
-                ],
-                dayOfWeek:[
-                "So.", "Mo", "Di", "Mi",
-                "Do", "Fr", "Sa.",
-                ]
-            }
-        },
-        timepicker:false,
-        format:'d.m.Y'
-    });
-</script> --}}

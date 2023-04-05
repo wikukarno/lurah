@@ -48,6 +48,22 @@
     @include('sweetalert::alert')
     @stack('before-scripts')
     @include('includes.scripts')
+    <script>
+        $('#nik').on('keyup', function() {
+            var nik = $(this).val();
+            if (nik.length > 16) {
+                $(this).val(nik.substring(0, 16));
+            }
+        });
+    
+        // make phone number 12 digit
+        $('#phone').on('keyup', function() {
+            var phone = $(this).val();
+            if (phone.length > 12) {
+                $(this).val(phone.substring(0, 12));
+            }
+        });
+    </script>
     @stack('after-scripts')
 
 </body>
