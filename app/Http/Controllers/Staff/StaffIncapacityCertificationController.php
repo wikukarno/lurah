@@ -77,9 +77,7 @@ class StaffIncapacityCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSktm(' . $item->id . ')">
-                                Tolak
-                            </a>
+                            <a href="' . route('staff.get-tolak', $item->id) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
 
                         ';
                     }
