@@ -8,6 +8,7 @@ use App\Models\Letter;
 use App\Models\UserDetails;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class StaffBusinessCertificationController extends Controller
 {
@@ -79,9 +80,7 @@ class StaffBusinessCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKU(' . $item->id . ')">
-                                Tolak
-                            </a>
+                            <a href="' . route('staff.get-tolak-sku', $item->id) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
 
                         ';
                     }
@@ -403,6 +402,12 @@ class StaffBusinessCertificationController extends Controller
         //
     }
 
+    public function getTolakSku($id)
+    {
+        $data = BusinessCertifications::findOrFail($id);
+        return view('pages.staff.sktm.tolak', compact('data'));
+    }
+
     public function tolakSku(Request $request)
     {
         $sku = BusinessCertifications::findOrFail($request->id);
@@ -415,8 +420,10 @@ class StaffBusinessCertificationController extends Controller
         $sku->save();
 
         if ($sku) {
+            Alert::success('Berhasil', 'Surat Keterangan Usaha berhasil ditolak');
             return redirect()->route('sku-staff.index');
         } else {
+            Alert::error('Gagal', 'Surat Keterangan Usaha gagal ditolak');
             return redirect()->route('sku-staff.index');
         }
     }

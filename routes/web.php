@@ -33,6 +33,8 @@ use App\Http\Controllers\User\UserFuneralCertificationController;
 use App\Http\Controllers\User\UserIncapacityCertificationController;
 use App\Http\Controllers\User\UserPermitsController;
 use App\Models\BusinessCertifications;
+use App\Models\FuneralCertifications;
+use App\Models\Permits;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -172,6 +174,18 @@ Route::prefix('/pages/dashboard/staff')
         Route::post('/verifikasi-penduduk/verifikasi', [DashboardStaffController::class, 'verifikasi'])->name('staff.verifikasi');
         Route::get('/verifikasi-penduduk/tolak/{id}', [DashboardStaffController::class, 'getTolak'])->name('staff.get-tolak');
         Route::post('/verifikasi-penduduk/tolak/verifikasi/{id}', [DashboardStaffController::class, 'tolakVerifikasi'])->name('staff.tolak-verifikasi');
+
+        Route::get('/sktm-staff/tolak/{id}', [StaffIncapacityCertificationController::class, 'getTolakSktm'])->name('staff.get-tolak-sktm');
+        Route::post('/sktm-staff/tolak/{id}/tolak', [StaffIncapacityCertificationController::class, 'tolakSktm'])->name('staff.tolak-sktm');
+
+        Route::get('/skp-staff/tolak/{id}', [StaffFuneralCertificationController::class, 'getTolakSkp'])->name('staff.get-tolak-skp');
+        Route::post('/skp-staff/tolak/{id}/tolak', [StaffFuneralCertificationController::class, 'tolakSkp'])->name('staff.tolak-skp');
+
+        Route::get('/ski-staff/tolak/{id}', [StaffPermitsController::class, 'getTolakSki'])->name('staff.get-tolak-ski');
+        Route::post('/ski-staff/tolak/{id}/tolak', [StaffPermitsController::class, 'tolakSki'])->name('staff.tolak-ski');
+
+        Route::get('/sku-staff/tolak/{id}', [StaffBusinessCertificationController::class, 'getTolakSku'])->name('staff.get-tolak-sku');
+        Route::post('/sku-staff/tolak/{id}/tolak', [StaffBusinessCertificationController::class, 'tolakSku'])->name('staff.tolak-sku');
 
         // Route Resource
         Route::resource('sku-staff', StaffBusinessCertificationController::class);

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Letter;
 use App\Models\Permits;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class StaffPermitsController extends Controller
 {
@@ -77,9 +78,7 @@ class StaffPermitsController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSki(' . $item->id . ')">
-                                Tolak
-                            </a>
+                            <a href="' . route('staff.get-tolak-ski', $item->id) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
 
                         ';
                     }
@@ -402,6 +401,12 @@ class StaffPermitsController extends Controller
         //
     }
 
+    public function getTolakSki($id)
+    {
+        $data = Permits::findOrFail($id);
+        return view('pages.staff.ski.tolak', compact('data'));
+    }
+
     public function tolakSki(Request $request)
     {
         $ski = Permits::findOrFail($request->id);
@@ -414,8 +419,10 @@ class StaffPermitsController extends Controller
         $ski->save();
 
         if ($ski) {
+            Alert::success('Berhasil', 'Surat Keterangan Izin Berhasil Ditolak');
             return redirect()->route('ski-staff.index');
         } else {
+            Alert::error('Gagal', 'Surat Keterangan Izin Gagal Ditolak');
             return redirect()->route('ski-staff.index');
         }
     }

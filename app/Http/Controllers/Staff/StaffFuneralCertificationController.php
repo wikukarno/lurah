@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\FuneralCertifications;
 use App\Models\Letter;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class StaffFuneralCertificationController extends Controller
 {
@@ -77,9 +78,7 @@ class StaffFuneralCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKP(' . $item->id . ')">
-                                Tolak
-                            </a>
+                            <a href="' . route('staff.get-tolak-skp', $item->id) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
 
                         ';
                     }
@@ -401,6 +400,12 @@ class StaffFuneralCertificationController extends Controller
         //
     }
 
+    public function getTolakSkp($id)
+    {
+        $data = FuneralCertifications::findOrFail($id);
+        return view('pages.staff.skp.tolak', compact('data'));
+    }
+
     public function tolakSkp(Request $request)
     {
         $skp = FuneralCertifications::findOrFail($request->id);
@@ -414,8 +419,10 @@ class StaffFuneralCertificationController extends Controller
 
 
         if ($skp) {
+            Alert::success('Berhasil', 'Surat Keterangan Pindah Ditolak');
             return redirect()->route('skp-staff.index');
         } else {
+            Alert::error('Gagal', 'Surat Keterangan Pindah Gagal Ditolak');
             return redirect()->route('skp-staff.index');
         }
     }

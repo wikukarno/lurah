@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\IncapacityCertifications;
 use App\Models\Letter;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class StaffIncapacityCertificationController extends Controller
 {
@@ -77,7 +78,7 @@ class StaffIncapacityCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="' . route('staff.get-tolak', $item->id) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
+                            <a href="' . route('staff.get-tolak-sktm', $item->id) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
 
                         ';
                     }
@@ -409,6 +410,12 @@ class StaffIncapacityCertificationController extends Controller
         //
     }
 
+    public function getTolakSktm($id)
+    {
+        $data = IncapacityCertifications::findOrFail($id);
+        return view('pages.staff.sktm.tolak', compact('data'));
+    }
+
     public function tolakSktm(Request $request)
     {
         $sktm = IncapacityCertifications::findOrFail($request->id);
@@ -421,8 +428,10 @@ class StaffIncapacityCertificationController extends Controller
         $sktm->save();
 
         if ($sktm) {
+            Alert::success('Berhasil', 'Surat Keterangan Tidak Mampu Berhasil Ditolak');
             return redirect()->route('sktm-staff.index');
         } else {
+            Alert::error('Gagal', 'Surat Keterangan Tidak Mampu Gagal Ditolak');
             return redirect()->route('sktm-staff.index');
         }
     }
