@@ -388,7 +388,14 @@ class StaffBusinessCertificationController extends Controller
             'posisi' => 'lurah',
         ]);
 
-        return redirect()->route('sku-staff.index');
+        if($item){
+            Alert::success('Berhasil', 'Surat Keterangan Usaha berhasil diteruskan');
+            return redirect()->route('sku-staff.index');
+        }else{
+            Alert::error('Gagal', 'Surat Keterangan Usaha gagal diteruskan');
+            return redirect()->route('sku-staff.index');
+        }
+
     }
 
     /**

@@ -386,7 +386,13 @@ class StaffFuneralCertificationController extends Controller
             'posisi' => 'lurah',
         ]);
 
-        return redirect()->route('skp-staff.index');
+        if($item){
+            Alert::success('Berhasil', 'Surat Keterangan Pemakaman berhasil diteruskan');
+            return redirect()->route('skp-staff.index');
+        }else{
+            Alert::error('Gagal', 'Surat Keterangan Pemakaman gagal diteruskan');
+            return redirect()->route('skp-staff.index');
+        }
     }
 
     /**

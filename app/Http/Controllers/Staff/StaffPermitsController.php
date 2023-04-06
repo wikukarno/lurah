@@ -387,7 +387,13 @@ class StaffPermitsController extends Controller
             'posisi' => 'lurah',
         ]);
 
-        return redirect()->route('ski-staff.index');
+        if($item){
+            Alert::success('Berhasil', 'Surat Keterangan Izin Usaha berhasil diteruskan');
+            return redirect()->route('ski-staff.index');
+        }else{
+            Alert::error('Gagal', 'Surat Keterangan Izin Usaha gagal diteruskan');
+            return redirect()->route('ski-staff.index');
+        }
     }
 
     /**

@@ -396,7 +396,13 @@ class StaffIncapacityCertificationController extends Controller
             'posisi' => 'lurah',
         ]);
 
-        return redirect()->route('sktm-staff.index');
+        if($item){
+            Alert::success('Berhasil', 'Surat Keterangan Tidak Mampu berhasil diteruskan');
+            return redirect()->route('sktm-staff.index');
+        }else{
+            Alert::error('Gagal', 'Surat Keterangan Tidak Mampu gagal diteruskan');
+            return redirect()->route('sktm-staff.index');
+        }
     }
 
     /**
