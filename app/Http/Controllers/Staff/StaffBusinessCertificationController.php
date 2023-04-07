@@ -412,7 +412,7 @@ class StaffBusinessCertificationController extends Controller
     public function getTolakSku($id)
     {
         $data = BusinessCertifications::findOrFail($id);
-        return view('pages.staff.sktm.tolak', compact('data'));
+        return view('pages.staff.sku.tolak', compact('data'));
     }
 
     public function tolakSku(Request $request)

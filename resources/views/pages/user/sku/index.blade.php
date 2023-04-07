@@ -293,27 +293,27 @@ Surat Keterangan Usaha
         })
     }
 
-        function penolakan(id){
+    function penolakan(id){
         $.ajax({
-        type: "POST",
-        url: "{{ route('get-penolakan-sku') }}",
-        data: {
-        id: id,
-        _token: "{{ csrf_token() }}"
-        },
-        dataType: "JSON",
-        success: function (response) {
-        Swal.fire({
-        title: 'Surat Ditolak!',
-        text: "Keterangan Penolakan : " +response.alasan_penolakan,
-        icon: 'error',
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Oke'
+            type: "POST",
+            url: "{{ route('get-penolakan-sku') }}",
+            data: {
+                id: id,
+                _token: "{{ csrf_token() }}"
+            },
+            dataType: "JSON",
+            success: function (response) {
+                Swal.fire({
+                title: 'Surat Ditolak!',
+                text: "Keterangan Penolakan : " +response.alasan_penolakan,
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oke'
+                });
+            }
         });
-        }
-        });
-        }
+    }
 
         function deleteData(id){
             Swal.fire({

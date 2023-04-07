@@ -43,17 +43,61 @@ class UserBusinessCertificationController extends Controller
 
                 ->editColumn('action', function ($item) {
                     return '
-                        <a href="' . route('sku-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
-                            <i class="fa fa-eye"></i>
-                        </a>
+                        <div class="d-flex">
+                            <a href="' . route('sku-user.show', $item->id) . '" class="btn btn-sm btn-secondary mx-1">
+                                <i class="fa fa-eye"></i>
+                            </a>
 
-                        <a href="' . route('sku-user.edit', $item->id) . '" class="btn btn-sm btn-info">
-                            <i class="fa fa-pencil-alt"></i>
-                        </a>
+                            <a href="' . route('sku-user.edit', $item->id) . '" class="btn btn-sm btn-info mx-1">
+                                <i class="fa fa-pencil-alt"></i>
+                            </a>
 
-                        <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="deleteData('. $item->id .')">
-                            <i class="fa fa-trash"></i>
-                        </a>
+                            <form id="form-delete-letters" method="POST">
+                                ' . csrf_field() . '
+                                <input type="hidden" name="id" value="' . $item->id . '">
+                                <button type="submit" id="btnDelete" class="btn btn-sm btn-danger mx-1"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </div>
+
+                        <script>
+                            $("#form-delete-letters").submit(function (e) {
+                                e.preventDefault();
+                                var id = $("input[name=id]").val();
+
+                                Swal.fire({
+                                    title: "Apakah anda yakin?",
+                                    text: "Ingin menghapus surat ini?",
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#3085d6",
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "Ya, Hapus!",
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $.ajax({
+                                            url: "' . route('sku-user.hapus') . '",
+                                            type: "POST",
+                                            data: {
+                                                id: id,
+                                                _token: "' . csrf_token() . '"
+                                            },
+                                            success: function (data) {
+                                                Swal.fire(
+                                                    "Berhasil!",
+                                                    "Surat berhasil dihapus",
+                                                    "success"
+                                                )
+                                                $("#tb_sku_user_belum_diproses").DataTable().ajax.reload();
+                                                $("#tb_sku_user_ditolak").DataTable().ajax.reload();
+                                                $("#tb_sku_user_sedang_diproses").DataTable().ajax.reload();
+                                                $("#tb_sku_user_selesai_diproses").DataTable().ajax.reload();
+                                            }
+                                        });
+                                    }
+                                })
+                            });
+                        </script>
+                        
                     ';
                 })
 
@@ -120,6 +164,7 @@ class UserBusinessCertificationController extends Controller
     }
     public function rejected()
     {
+
         if (request()->ajax()) {
             // $query = Letter::where('users_id', Auth::user()->id)->where('categories_id', 1)->where('status', 'Ditolak')->get();
             $query = BusinessCertifications::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Ditolak')->get();
@@ -145,9 +190,6 @@ class UserBusinessCertificationController extends Controller
                         <div class="form-group">
                             <a href="' . route('sku-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
-                            </a>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="penolakan(' . $item->id . ')">
-                                Ditolak
                             </a>
                         </div>
                     ';

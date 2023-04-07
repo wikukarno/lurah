@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('id', 50)->primary();
             $table->string('name', 30);
             $table->string('email', 30)->unique();
-            $table->string('roles')->default('User');
+            $table->string('roles', 6)->default('User'); 
             $table->enum('status_account', ['none', 'pending', 'ditolak', 'blokir', 'verifikasi'])->default('none');
             $table->string('alasan_penolakan', 30)->nullable();
             $table->timestamp('email_verified_at')->nullable();
