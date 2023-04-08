@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Lurah;
 
 use App\Http\Controllers\Controller;
 use App\Models\BusinessCertifications;
+use App\Models\Category;
 use App\Models\FuneralCertifications;
 use App\Models\IncapacityCertifications;
 use App\Models\Letter;
@@ -97,15 +98,13 @@ class DashboardLurahController extends Controller
     public function getLaporan(Request $request)
     {
         if (request()->ajax()) {
-            $query = Letter::with(['category', 'business', 'permits', 'incapacity', 'funeral'])->where('status', 'Selesai Diproses')->get();
-
+            $query = Letter::with('user', 'category')->where('status', 'Selesai Diproses')->get();
             return datatables()->of($query)
                 ->addIndexColumn()
                 ->editColumn('nama', function($item){
-                    if($item->categories_id == 4){
-                        return $item->nama;
-                    }else{
-                        return $item->user->name;
+                    $category = Category::where('id', $item->categories_id)->first();
+                    if($item->categories_id == $category->id){
+                        return $item->nama != null ? $item->nama : $item->user->name;
                     }
                 })
                 ->editColumn('categories_id', function($item){
@@ -174,7 +173,7 @@ class DashboardLurahController extends Controller
                     // }
                     return $item->updated_at->isoFormat('D MMMM Y');
                 })
-                ->rawColumns(['created_at', 'updated_at', 'nik', 'nama', 'tahun'])
+                ->rawColumns(['created_at', 'updated_at', 'nik', 'nama', 'tahun', 'bulan', 'categories_id'])
                 ->make(true);
         }
 

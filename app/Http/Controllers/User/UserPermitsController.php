@@ -6,6 +6,7 @@ use App\Models\Letter;
 use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Permits;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -139,7 +140,7 @@ class UserPermitsController extends Controller
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="selesaiProses(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="selesaiProses()">
                                 Selesai Diproses
                             </a>
                         </div>
@@ -199,9 +200,10 @@ class UserPermitsController extends Controller
      */
     public function store(Request $request)
     {
+        $category = Category::where('name', 'Surat Keterangan Izin')->first();
         $item = new Letter();
         $item->users_id = Auth::user()->id;
-        $item->categories_id = '04b7ef39-c117-4bb1-9b0d-1936c503c62f';
+        $item->categories_id = $category->id;
         $item->status = 'Belum Diproses';
         $item->posisi = 'Staff';
         $item->nama_izin = $request->nama_izin;

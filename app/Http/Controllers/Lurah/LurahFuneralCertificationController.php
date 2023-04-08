@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\FuneralCertifications;
 use App\Models\Letter;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LurahFuneralCertificationController extends Controller
 {
@@ -274,8 +275,6 @@ class LurahFuneralCertificationController extends Controller
                             <a href="' . route('skp-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
-                            
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSkp(' . $item->id . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
@@ -372,7 +371,13 @@ class LurahFuneralCertificationController extends Controller
             'posisi' => 'staff',
         ]);
 
-        return redirect()->route('skp-lurah.index');
+        if($item){
+            Alert::success('Berhasil', 'Surat Keterangan Pemakaman Berhasil Disetujui');
+            return redirect()->route('skp-lurah.index');
+        }else{
+            Alert::error('Gagal', 'Surat Keterangan Pemakaman Gagal Disetujui');
+            return redirect()->route('skp-lurah.index');
+        }
     }
 
     /**

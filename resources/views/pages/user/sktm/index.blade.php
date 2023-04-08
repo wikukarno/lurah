@@ -292,7 +292,7 @@ Surat Keterangan Tidak Mampu
     
     });
 
-    function selesaiProses(id){
+    function selesaiProses(){
         Swal.fire({
             title: 'Surat Selesai Diproses!',
             text: "Surat Keterangan Tidak Mampu Anda Telah Selesai Diproses, Silahkan Ambil Surat Anda Dikantor Lurah Sorek Satu Dengan Membawa Fotocopy KK, Fotocopy KTP, dan Surat Pengaturan RT/RW. Terima Kasih",

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Letter;
 use App\Models\Permits;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LurahPermitsController extends Controller
 {
@@ -270,8 +271,6 @@ class LurahPermitsController extends Controller
                             <a href="' . route('ski-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSki(' . $item->id . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
-                            
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSki(' . $item->id . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
@@ -369,7 +368,13 @@ class LurahPermitsController extends Controller
             'posisi' => 'staff',
         ]);
 
-        return redirect()->route('ski-lurah.index');
+        if($item){
+            Alert::success('Berhasil', 'Surat Keterangan Izin Berhasil Disetujui');
+            return redirect()->route('ski-lurah.index');
+        }else{
+            Alert::error('Gagal', 'Surat Keterangan Izin Gagal Disetujui');
+            return redirect()->route('ski-lurah.index');
+        }
     }
 
     /**

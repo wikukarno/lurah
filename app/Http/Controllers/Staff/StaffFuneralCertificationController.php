@@ -288,8 +288,6 @@ class StaffFuneralCertificationController extends Controller
                             <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
-                            
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSkp(' . $item->id . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
@@ -425,10 +423,10 @@ class StaffFuneralCertificationController extends Controller
 
 
         if ($skp) {
-            Alert::success('Berhasil', 'Surat Keterangan Pindah Ditolak');
+            Alert::success('Berhasil', 'Surat Keterangan Pemakaman Ditolak');
             return redirect()->route('skp-staff.index');
         } else {
-            Alert::error('Gagal', 'Surat Keterangan Pindah Gagal Ditolak');
+            Alert::error('Gagal', 'Surat Keterangan Pemakaman Gagal Ditolak');
             return redirect()->route('skp-staff.index');
         }
     }

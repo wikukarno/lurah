@@ -297,8 +297,6 @@ class StaffIncapacityCertificationController extends Controller
                             <a href="' . route('sktm-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSktm(' . $item->id . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
-                            
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSktm(' . $item->id . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '

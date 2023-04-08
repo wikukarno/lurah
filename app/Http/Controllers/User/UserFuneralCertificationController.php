@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\FuneralCertifications;
 use App\Models\Letter;
 use App\Models\User;
@@ -140,7 +141,7 @@ class UserFuneralCertificationController extends Controller
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="selesaiProses(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="selesaiProses()">
                                 Selesai Diproses
                             </a>
                         </div>
@@ -200,10 +201,10 @@ class UserFuneralCertificationController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        $category = Category::where('name', 'Surat Keterangan Pemakaman')->first();
         $item = new Letter();
         $item->users_id = Auth::user()->id;
-        $item->categories_id = 'bf088ce2-753c-4c40-9a06-c078b75bc418';
+        $item->categories_id = $category->id;
         $item->status = 'Belum Diproses';
         $item->posisi = 'Staff';
         $item->nama = $request->nama;

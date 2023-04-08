@@ -42,10 +42,10 @@ Data Laporan
                             </div>
                             <div class="row">
                                 <div class="col-12 col-lg-6">
-                                    <button class="btn btn-info btn-block" onclick="downloadLaporanBulanan()">Download Laporan Bulanan</button>
+                                    <button class="btn btn-info btn-block mb-2" onclick="downloadLaporanBulanan()">Download Laporan Bulanan</button>
                                 </div>
                                 <div class="col-12 col-lg-6">
-                                    <button class="btn btn-primary btn-block" onclick="downloadLaporanTahunan(this)">Download Laporan Tahunan</button>
+                                    <button class="btn btn-primary btn-block mb-2" onclick="downloadLaporanTahunan(this)">Download Laporan Tahunan</button>
                                 </div>
                             </div>
                         </div>

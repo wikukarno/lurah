@@ -292,7 +292,7 @@ Surat Izin
     
     });
 
-        function selesaiProses(id){
+        function selesaiProses(){
             Swal.fire({
                 title: 'Surat Selesai Diproses!',
                 text: "Surat Keterangan Izin Anda Telah Selesai Diproses, Silahkan Ambil Surat Anda Dikantor Lurah Sorek Satu Dengan Membawa Fotocopy KK, Fotocopy KTP, dan Surat Pengaturan RT/RW. Terima Kasih",

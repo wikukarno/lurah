@@ -288,8 +288,6 @@ class StaffPermitsController extends Controller
                             <a href="' . route('ski-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSki(' . $item->id . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
-                            
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSki(' . $item->id . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '

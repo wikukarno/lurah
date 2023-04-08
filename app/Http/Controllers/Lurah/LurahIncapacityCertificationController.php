@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\IncapacityCertifications;
 use App\Models\Letter;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LurahIncapacityCertificationController extends Controller
 {
@@ -271,8 +272,6 @@ class LurahIncapacityCertificationController extends Controller
                             <a href="' . route('sktm-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSktm(' . $item->id . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
-                            
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSktm(' . $item->id . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
@@ -370,7 +369,13 @@ class LurahIncapacityCertificationController extends Controller
             'posisi' => 'staff',
         ]);
 
-        return redirect()->route('sktm-lurah.index');
+        if($item){
+            Alert::success('Berhasil', 'Surat Keterangan Tidak Mampu Berhasil Disetujui');
+            return redirect()->route('sktm-lurah.index');
+        }else{
+            Alert::error('Gagal', 'Surat Keterangan Tidak Mampu Gagal Disetujui');
+            return redirect()->route('sktm-lurah.index');
+        }
     }
 
     /**

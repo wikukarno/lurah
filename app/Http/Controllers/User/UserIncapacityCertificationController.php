@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\IncapacityCertifications;
 use App\Models\Letter;
 use App\Models\User;
@@ -139,7 +140,7 @@ class UserIncapacityCertificationController extends Controller
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="selesaiProses(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="selesaiProses()">
                                 Selesai Diproses
                             </a>
                         </div>
@@ -199,9 +200,10 @@ class UserIncapacityCertificationController extends Controller
      */
     public function store(Request $request)
     {
+        $category = Category::where('name', 'Surat Keterangan Tidak Mampu')->first();
         $item = new Letter();
         $item->users_id = Auth::user()->id;
-        $item->categories_id = '2ae90619-d692-481b-b172-cf6946552980';
+        $item->categories_id = $category->id;
         $item->status = 'Belum Diproses';
         $item->posisi = 'Staff';
         $item->tujuan = $request->tujuan;

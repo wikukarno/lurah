@@ -7,6 +7,15 @@ Surat Keterangan Izin
 @section('content')
 <section class="main-content">
     <div class="container-fluid">
+        @if ($item->alasan_penolakan != null)
+        <div class="row">
+            <div class="col-12 col-lg-12">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Alasan Penolakan :</strong> {{ $item->alasan_penolakan }}.
+                </div>
+            </div>
+        </div>
+        @endif
         <div class="row">
             <div class="col-12">
                 <div class="card">

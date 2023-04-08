@@ -290,8 +290,6 @@ class StaffBusinessCertificationController extends Controller
                             <a href="' . route('sku-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSku(' . $item->id . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
-                            
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSku(' . $item->id . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '

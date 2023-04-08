@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BusinessCertifications;
 use App\Models\Letter;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LurahBusinessCertificationController extends Controller
 {
@@ -274,8 +275,6 @@ class LurahBusinessCertificationController extends Controller
                             <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSku(' . $item->id . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
-                            
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSku(' . $item->id . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
@@ -372,7 +371,13 @@ class LurahBusinessCertificationController extends Controller
             'posisi' => 'staff',
         ]);
 
-        return redirect()->route('sku-lurah.index');
+        if($item){
+            Alert::success('Berhasil', 'Surat Keterangan Usaha Berhasil Disetujui');
+            return redirect()->route('sku-lurah.index');
+        }else{
+            Alert::error('Gagal', 'Surat Keterangan Usaha Gagal Disetujui');
+            return redirect()->route('sku-lurah.index');
+        }
     }
 
     /**

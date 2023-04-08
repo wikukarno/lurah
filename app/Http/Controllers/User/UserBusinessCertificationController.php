@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BusinessCertificationRequest;
 use App\Models\BusinessCertifications;
+use App\Models\Category;
 use App\Models\Letter;
 use App\Models\User;
 use App\Models\UserDetails;
@@ -150,7 +151,7 @@ class UserBusinessCertificationController extends Controller
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="selesaiProses(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="selesaiProses()">
                                 Selesai Diproses
                             </a>
                         </div>
@@ -219,9 +220,10 @@ class UserBusinessCertificationController extends Controller
      */
     public function store(BusinessCertificationRequest $request)
     {
+        $category = Category::where('name', 'Surat Keterangan Usaha')->first();
         $item = new Letter();
         $item->users_id = Auth::user()->id;
-        $item->categories_id = '031c06c3-a838-4c59-b843-fed512c264ce';
+        $item->categories_id = $category->id;
         $item->status = 'Belum Diproses';
         $item->posisi = 'Staff';
         $item->nama_usaha = $request->nama_usaha;

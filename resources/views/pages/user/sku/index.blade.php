@@ -282,7 +282,7 @@ Surat Keterangan Usaha
     ],
     });
 
-    function selesaiProses(id){
+    function selesaiProses(){
         Swal.fire({
             title: 'Surat Selesai Diproses!',
             text: "Surat Keterangan Usaha Anda Telah Selesai Diproses, Silahkan Ambil Surat Anda Dikantor Lurah Sorek Satu Dengan Membawa Fotocopy KK, Fotocopy KTP, dan Surat Pengaturan RT/RW. Terima Kasih",
@@ -315,40 +315,40 @@ Surat Keterangan Usaha
         });
     }
 
-        function deleteData(id){
-            Swal.fire({
-                title: 'Apakah Anda Yakin?',
-                text: "Data Akan Dihapus Secara Permanen",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Hapus!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "POST",
-                        url: "{{ route('sku-user.hapus') }}",
-                        data: {
-                            id: id,
-                            _token: "{{ csrf_token() }}"
-                        },
-                        dataType: "JSON",
-                        success: function (response) {
-                            Swal.fire(
-                                'Terhapus!',
-                                'Data Berhasil Dihapus.',
-                                'success'
-                            )
-                            $('#tb_sku_user_belum_diproses').DataTable().ajax.reload();
-                            $('#tb_sku_user_sedang_diproses').DataTable().ajax.reload();
-                            $('#tb_sku_user_selesai_diproses').DataTable().ajax.reload();
-                            $('#tb_sku_user_ditolak').DataTable().ajax.reload();
-                        }
-                    });
-                }
-            });
-        }
+    function deleteData(id){
+        Swal.fire({
+            title: 'Apakah Anda Yakin?',
+            text: "Data Akan Dihapus Secara Permanen",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('sku-user.hapus') }}",
+                    data: {
+                        id: id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    dataType: "JSON",
+                    success: function (response) {
+                        Swal.fire(
+                            'Terhapus!',
+                            'Data Berhasil Dihapus.',
+                            'success'
+                        )
+                        $('#tb_sku_user_belum_diproses').DataTable().ajax.reload();
+                        $('#tb_sku_user_sedang_diproses').DataTable().ajax.reload();
+                        $('#tb_sku_user_selesai_diproses').DataTable().ajax.reload();
+                        $('#tb_sku_user_ditolak').DataTable().ajax.reload();
+                    }
+                });
+            }
+        });
+    }
 
 </script>
 @endpush
