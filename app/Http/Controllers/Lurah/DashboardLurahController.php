@@ -7,8 +7,14 @@ use App\Models\BusinessCertifications;
 use App\Models\Category;
 use App\Models\FuneralCertifications;
 use App\Models\IncapacityCertifications;
+use App\Models\KategoriSurat;
+use App\Models\Laporan;
 use App\Models\Letter;
 use App\Models\Permits;
+use App\Models\SKI;
+use App\Models\SKP;
+use App\Models\SKTM;
+use App\Models\SKU;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,12 +25,12 @@ class DashboardLurahController extends Controller
     public function index()
     {
         $dataUser = User::whereNot('roles', 'lurah')->Where('status_account', 'verifikasi')->count();
-        $sku = BusinessCertifications::where('posisi', 'lurah')->count();
-        $skp = FuneralCertifications::where('posisi', 'lurah')->count();
-        $sktm = IncapacityCertifications::where('posisi', 'lurah')->count();
-        $ski = Permits::where('posisi', 'lurah')->count();
+        $sku = SKU::where('posisi', 'lurah')->count();
+        $skp = SKP::where('posisi', 'lurah')->count();
+        $sktm = SKTM::where('posisi', 'lurah')->count();
+        $ski = SKI::where('posisi', 'lurah')->count();
 
-        // $suratProgress = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+        // $suratProgress = Laporan::with(['business', 'funeral', 'incapacity', 'permits'])
         //     ->whereHas('business', function ($query) {
         //         $query->where('status', 'Sedang Diproses');
         //     })
@@ -38,7 +44,7 @@ class DashboardLurahController extends Controller
         //         $query->where('status', 'Sedang Diproses');
         //     });
 
-        // $suratDitolak = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+        // $suratDitolak = Laporan::with(['business', 'funeral', 'incapacity', 'permits'])
         //     ->whereHas('business', function ($query) {
         //         $query->where('status', 'Ditolak');
         //     })
@@ -52,7 +58,7 @@ class DashboardLurahController extends Controller
         //         $query->where('status', 'Ditolak');
         //     });
 
-        // $suratSelesai = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+        // $suratSelesai = Laporan::with(['business', 'funeral', 'incapacity', 'permits'])
         //     ->whereHas('business', function ($query) {
         //         $query->where('status', 'Selesai Diproses');
         //     })
@@ -70,26 +76,26 @@ class DashboardLurahController extends Controller
         // $getSuratDitolak = $suratDitolak->count();
         // $getSuratSelesai = $suratSelesai->count();
 
-        // $skuProgress = BusinessCertifications::where('status', 'Sedang Diproses')->count();
-        // $skpProgress = FuneralCertifications::where('status', 'Sedang Diproses')->count();
-        // $sktmProgress = IncapacityCertifications::where('status', 'Sedang Diproses')->count();
-        // $skiProgress = Permits::where('status', 'Sedang Diproses')->count();
+        // $skuProgress = SKI::where('status', 'Sedang Diproses')->count();
+        // $skpProgress = SKP::where('status', 'Sedang Diproses')->count();
+        // $sktmProgress = SKTM::where('status', 'Sedang Diproses')->count();
+        // $skiProgress = SKI::where('status', 'Sedang Diproses')->count();
 
-        $getSuratDiteruskan = Letter::where('status', 'Sedang Diproses')->count();
+        $getSuratDiteruskan = Laporan::where('status', 'Sedang Diproses')->where('posisi', 'lurah')->count();
 
-        // $skuDitolak = BusinessCertifications::where('status', 'Ditolak')->count();
-        // $skpDitolak = FuneralCertifications::where('status', 'Ditolak')->count();
-        // $sktmDitolak = IncapacityCertifications::where('status', 'Ditolak')->count();
-        // $skiDitolak = Permits::where('status', 'Ditolak')->count();
+        // $skuDitolak = SKI::where('status', 'Ditolak')->count();
+        // $skpDitolak = SKP::where('status', 'Ditolak')->count();
+        // $sktmDitolak = SKTM::where('status', 'Ditolak')->count();
+        // $skiDitolak = SKI::where('status', 'Ditolak')->count();
 
-        $getSuratDitolak = Letter::where('status', 'Ditolak')->count();
+        $getSuratDitolak = Laporan::where('status', 'Ditolak')->count();
 
-        // $skuSelesai = BusinessCertifications::where('status', 'Selesai Diproses')->count();
-        // $skpSelesai = FuneralCertifications::where('status', 'Selesai Diproses')->count();
-        // $sktmSelesai = IncapacityCertifications::where('status', 'Selesai Diproses')->count();
-        // $skiSelesai = Permits::where('status', 'Selesai Diproses')->count();
+        // $skuSelesai = SKI::where('status', 'Selesai Diproses')->count();
+        // $skpSelesai = SKP::where('status', 'Selesai Diproses')->count();
+        // $sktmSelesai = SKTM::where('status', 'Selesai Diproses')->count();
+        // $skiSelesai = SKI::where('status', 'Selesai Diproses')->count();
 
-        $getSuratSelesai = Letter::where('status', 'Selesai Diproses')->count();
+        $getSuratSelesai = Laporan::where('status', 'Selesai Diproses')->count();
 
         $totalSurat = $sku + $skp + $sktm + $ski;
         return view('pages.lurah.dashboard', compact('dataUser', 'sku', 'skp', 'sktm', 'ski', 'totalSurat', 'getSuratDiteruskan', 'getSuratDitolak', 'getSuratSelesai'));
@@ -98,17 +104,17 @@ class DashboardLurahController extends Controller
     public function getLaporan(Request $request)
     {
         if (request()->ajax()) {
-            $query = Letter::with('user', 'category')->where('status', 'Selesai Diproses')->get();
+            $query = Laporan::with('user', 'category')->where('status', 'Selesai Diproses')->get();
             return datatables()->of($query)
                 ->addIndexColumn()
-                ->editColumn('nama', function($item){
-                    $category = Category::where('id', $item->categories_id)->first();
-                    if($item->categories_id == $category->id){
-                        return $item->nama != null ? $item->nama : $item->user->name;
-                    }
-                })
-                ->editColumn('categories_id', function($item){
-                    return $item->category->name;
+                // ->editColumn('nama', function ($item) {
+                //     $category = KategoriSurat::where('id_kategori_surat', $item->id_kategori_surat)->first();
+                //     if ($item->id_kategori_surat == $category->id_kategori_surat) {
+                //         return $item->nama != null ? $item->nama : $item->user->name;
+                //     }
+                // })
+                ->editColumn('id_kategori_surat', function ($item) {
+                    return $item->category->nama;
                 })
                 ->editColumn('tahun', function ($item) {
                     // foreach ($item->business as $business) {
@@ -140,9 +146,9 @@ class DashboardLurahController extends Controller
                     // }
                     return $item->created_at->isoFormat('MMMM');
                 })
-                ->editColumn('nik', function ($item) {
-                    return $item->user->userDetails->nik;
-                })
+                // ->editColumn('nik', function ($item) {
+                //     return $item->user->userDetails->nik;
+                // })
                 ->editColumn('created_at', function ($item) {
                     // foreach ($item->business as $business) {
                     //     return $business->created_at->isoFormat('D MMMM Y' . ' ' . 'H:mm');
@@ -177,13 +183,13 @@ class DashboardLurahController extends Controller
                 ->make(true);
         }
 
-        // $month = Letter::with('user.userDetails')->selectRaw('MONTH(created_at) month')->groupBy('month')->get();
-        // $year = Letter::with('user.userDetails')->selectRaw('YEAR(created_at) year')->groupBy('year')->get();
+        // $month = Laporan::with('user.userDetails')->selectRaw('MONTH(created_at) month')->groupBy('month')->get();
+        // $year = Laporan::with('user.userDetails')->selectRaw('YEAR(created_at) year')->groupBy('year')->get();
 
         // make sure to use the right syntax for your query builder and model relationships (if you have any) and make sure you have the right table names in your database.
 
-        $months = Letter::selectRaw('MONTH(created_at) month')->groupBy('month')->get();
-        $years = Letter::selectRaw('YEAR(created_at) year')->groupBy('year')->get();
+        $months = Laporan::selectRaw('MONTH(created_at) month')->groupBy('month')->get();
+        $years = Laporan::selectRaw('YEAR(created_at) year')->groupBy('year')->get();
 
         return view('pages.lurah.laporan', compact('months', 'years'));
     }
@@ -213,10 +219,10 @@ class DashboardLurahController extends Controller
 
         if (request()->ajax()) {
 
-            // $months = Letter::with(['business', 'permits', 'incapacity', 'funeral', 'user.userDetails'])->whereMonth('created_at', $request->month)->get();
+            // $months = Laporan::with(['business', 'permits', 'incapacity', 'funeral', 'user.userDetails'])->whereMonth('created_at', $request->month)->get();
 
 
-            $months = Letter::where('status', 'Selesai Diproses')->whereMonth('created_at', $request->month)->get();
+            $months = Laporan::where('status', 'Selesai Diproses')->whereMonth('created_at', $request->month)->get();
 
             return datatables()->of($months)
                 ->addIndexColumn()
@@ -241,7 +247,7 @@ class DashboardLurahController extends Controller
     {
         if (request()->ajax()) {
 
-            $years = Letter::where('status', 'Selesai Diproses')->whereYear('created_at', $request->year)->get();
+            $years = Laporan::where('status', 'Selesai Diproses')->whereYear('created_at', $request->year)->get();
 
             return datatables()->of($years)
                 ->addIndexColumn()
@@ -266,7 +272,7 @@ class DashboardLurahController extends Controller
     {
         if (request()->ajax()) {
 
-            $getMonthYear = Letter::with(['business', 'permits', 'incapacity', 'funeral', 'user.userDetails'])->selectRaw('MONTH(created_at) month, YEAR(created_at) year')->whereMonth('created_at', $request->month)->whereYear('created_at', $request->year)->get();
+            $getMonthYear = Laporan::with(['business', 'permits', 'incapacity', 'funeral', 'user.userDetails'])->selectRaw('MONTH(created_at) month, YEAR(created_at) year')->whereMonth('created_at', $request->month)->whereYear('created_at', $request->year)->get();
 
             return datatables()->of($getMonthYear)
                 ->addIndexColumn()

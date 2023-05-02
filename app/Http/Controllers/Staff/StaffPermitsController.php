@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Models\Laporan;
 use App\Models\Letter;
 use App\Models\Permits;
+use App\Models\SKI;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -18,7 +20,7 @@ class StaffPermitsController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Permits::with([
+            $query = SKI::with([
                 'user.userDetails',
                 'letter',
             ])->where('status', 'Belum Diproses')->get();
@@ -48,29 +50,29 @@ class StaffPermitsController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('ski-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('ski-staff.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('ski-staff.cetak-ski', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('ski-staff.cetak-ski', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('ski-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSki(' . $item->id . ')">
+                            <a href="' . route('ski-staff.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary" onclick="lampiranSki(' . $item->id_surat_keterangan_izin . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSki(' . $item->id . ')">' . $item->status . '</a>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSki(' . $item->id_surat_keterangan_izin . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('ski-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('ski-staff.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('ski-staff.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('ski-staff.update', $item->id_surat_keterangan_izin) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -78,7 +80,7 @@ class StaffPermitsController extends Controller
                                 </button>
                             </form>
 
-                            <a href="' . route('staff.get-tolak-ski', $item->id) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
+                            <a href="' . route('staff.get-tolak-ski', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
 
                         ';
                     }
@@ -93,7 +95,7 @@ class StaffPermitsController extends Controller
     public function onProgress()
     {
         if (request()->ajax()) {
-            $query = Permits::with([
+            $query = SKI::with([
                 'user.userDetails',
                 'letter',
             ])->where('status', 'Sedang Diproses')->get();
@@ -123,29 +125,29 @@ class StaffPermitsController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('ski-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('ski-staff.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('ski-staff.cetak-ski', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('ski-staff.cetak-ski', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('ski-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSki(' . $item->id . ')">
+                            <a href="' . route('ski-staff.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary" onclick="lampiranSki(' . $item->id_surat_keterangan_izin . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSki(' . $item->id . ')">' . $item->status . '</a>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSki(' . $item->id_surat_keterangan_izin . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('ski-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('ski-staff.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('ski-staff.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('ski-staff.update', $item->id_surat_keterangan_izin) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -153,7 +155,7 @@ class StaffPermitsController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSki(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSki(' . $item->id_surat_keterangan_izin . ')">
                                 Tolak
                             </a>
 
@@ -169,7 +171,7 @@ class StaffPermitsController extends Controller
     public function success()
     {
         if (request()->ajax()) {
-            $query = Permits::with([
+            $query = SKI::with([
                 'user.userDetails',
                 'letter',
             ])->where('status', 'Selesai Diproses')->get();
@@ -199,29 +201,29 @@ class StaffPermitsController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('ski-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('ski-staff.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('ski-staff.cetak-ski', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('ski-staff.cetak-ski', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('ski-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSki(' . $item->id . ')">
+                            <a href="' . route('ski-staff.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary" onclick="lampiranSki(' . $item->id_surat_keterangan_izin . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSki(' . $item->id . ')">' . $item->status . '</a>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSki(' . $item->id_surat_keterangan_izin . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('ski-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('ski-staff.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('ski-staff.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('ski-staff.update', $item->id_surat_keterangan_izin) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -229,7 +231,7 @@ class StaffPermitsController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSki(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSki(' . $item->id_surat_keterangan_izin . ')">
                                 Tolak
                             </a>
 
@@ -245,7 +247,7 @@ class StaffPermitsController extends Controller
     public function rejected()
     {
         if (request()->ajax()) {
-            $query = Permits::with([
+            $query = SKI::with([
                 'user.userDetails',
                 'letter',
             ])->where('status', 'Ditolak')->get();
@@ -275,27 +277,27 @@ class StaffPermitsController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('ski-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('ski-staff.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('ski-staff.cetak-ski', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('ski-staff.cetak-ski', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('ski-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSki(' . $item->id . ')">
+                            <a href="' . route('ski-staff.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary" onclick="lampiranSki(' . $item->id_surat_keterangan_izin . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('ski-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('ski-staff.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('ski-staff.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('ski-staff.update', $item->id_surat_keterangan_izin) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -303,7 +305,7 @@ class StaffPermitsController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSki(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSki(' . $item->id_surat_keterangan_izin . ')">
                                 Tolak
                             </a>
 
@@ -346,7 +348,7 @@ class StaffPermitsController extends Controller
      */
     public function show($id)
     {
-        $item = Permits::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+        $item = SKI::with(['user.userDetails', 'letter'])->where('id_surat_keterangan_izin', $id)->findOrFail($id);
 
         return view('pages.staff.ski.show', [
             'item' => $item,
@@ -373,8 +375,8 @@ class StaffPermitsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $item = Permits::findOrFail($id);
-        $data = Letter::findOrFail($item->letters_id);
+        $item = SKI::findOrFail($id);
+        $data = Laporan::findOrFail($item->id_laporan);
         $data->update([
             'status' => 'Sedang Diproses',
             'posisi' => 'lurah'
@@ -407,14 +409,14 @@ class StaffPermitsController extends Controller
 
     public function getTolakSki($id)
     {
-        $data = Permits::findOrFail($id);
+        $data = SKI::findOrFail($id);
         return view('pages.staff.ski.tolak', compact('data'));
     }
 
     public function tolakSki(Request $request)
     {
-        $ski = Permits::findOrFail($request->id);
-        $data = Letter::findOrFail($ski->letters_id);
+        $ski = SKI::findOrFail($request->id_surat_keterangan_izin);
+        $data = Laporan::findOrFail($ski->id_laporan);
         $data->update([
             'status' => 'Ditolak',
         ]);
@@ -431,9 +433,4 @@ class StaffPermitsController extends Controller
         }
     }
 
-    public function showTolakSki(Request $request)
-    {
-        $data = Permits::findOrFail($request->id);
-        return response()->json($data);
-    }
 }

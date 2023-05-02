@@ -11,11 +11,12 @@ Verifikasi Pengguna
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Verifikasi Pengguna</h3>
+                        <h3 class="card-title">Alasan Penolakan</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('staff.tolak-verifikasi', $data->id) }}" method="POST">
+                        <form action="{{ route('staff.tolak-verifikasi', $data->id_user) }}" method="POST">
                             @csrf
+                            <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
                             <div class="row">
                                 <div class="col-12 col-lg-12">
                                     <div class="form-group">

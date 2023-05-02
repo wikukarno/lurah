@@ -100,13 +100,13 @@ class ProfileStaffController extends Controller
         $user->status_perkawinan = $request->status_perkawinan;
         $user->address = $request->address;
 
-        $fileLama = $user->avatar;
+        $fileLama = $user->foto;
         $fileLamaKtp = $user->ktp;
         $fileLamaKk = $user->kk;
 
-        if ($request->avatar != null) {
-            $user->avatar = $request->file('avatar')->storeAs('assets/avatar', '' . Auth::user()->name . '_' 
-            . $request->file('avatar')->getClientOriginalName(),
+        if ($request->foto != null) {
+            $user->foto = $request->file('foto')->storeAs('assets/foto', '' . Auth::user()->nama . '_' 
+            . $request->file('foto')->getClientOriginalName(),
             'public');
             if ($fileLama != null) {
                 Storage::disk('public')->delete($fileLama);
@@ -115,8 +115,8 @@ class ProfileStaffController extends Controller
 
         if ($request->ktp != null) {
             $user->ktp = $request->file('ktp')->storeAs('assets/ktp',
-                '' . Auth::user()->name . '_'
-                . $request->file('avatar')->getClientOriginalName(),
+                '' . Auth::user()->nama . '_'
+                . $request->file('foto')->getClientOriginalName(),
                 'public'
             );
             if ($fileLamaKtp != null) {
@@ -126,8 +126,8 @@ class ProfileStaffController extends Controller
 
         if ($request->kk != null) {
             $user->kk = $request->file('kk')->storeAs('assets/kk',
-                '' . Auth::user()->name . '_'
-                . $request->file('avatar')->getClientOriginalName(),
+                '' . Auth::user()->nama . '_'
+                . $request->file('foto')->getClientOriginalName(),
                 'public'
             );
             if ($fileLamaKk != null) {
@@ -149,7 +149,7 @@ class ProfileStaffController extends Controller
     public function ubahFoto(Request $request)
     {
         $user = User::find($request->id);
-        $user->avatar = $request->file('avatar')->store('assets/profile', 'public');
+        $user->foto = $request->file('foto')->store('assets/profile', 'public');
         $user->save();
 
         // Alert::success('Berhasil', 'Foto Profile Berhasil Diubah');

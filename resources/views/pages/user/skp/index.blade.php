@@ -39,9 +39,10 @@ Surat Keterangan Pemakaman
                             <img src="{{ asset('assets/images/ditolak.svg') }}" class="figure-img img-fluid" alt="">
                             <figcaption class="figure-caption">
                                 <h3 class="text-center">Mohon Maaf!</h3>
-                                <p class="text-center">Permohonan akun anda ditolak, karena anda bukan warga dari
-                                    kelurahan sorek satu
+                                <p class="text-center">Permohonan akun anda ditolak, karena {{ $user->alasan_penolakan }}
                                     Terimakasih</p>
+                                    <a href="{{ route('complete-profile') }}" class="btn btn-primary"> <i class="fas fa-plus"></i>&nbsp;
+                                        Ajukan Ulang</a>
                             </figcaption>
                         </figure>
                     </div>
@@ -207,7 +208,7 @@ Surat Keterangan Pemakaman
     url: "{{ route('skp-user.index') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'DT_RowIndex', name: 'id_surat_keterangan_pemakaman' },
     { data: 'nama', name: 'nama' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -228,7 +229,7 @@ Surat Keterangan Pemakaman
     url: "{{ route('skp-user.onProgress') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'DT_RowIndex', name: 'id_surat_keterangan_pemakaman' },
     { data: 'nama', name: 'nama' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -249,7 +250,7 @@ Surat Keterangan Pemakaman
     url: "{{ route('skp-user.success') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'DT_RowIndex', name: 'id_surat_keterangan_pemakaman' },
     { data: 'nama', name: 'nama' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -270,7 +271,7 @@ Surat Keterangan Pemakaman
     url: "{{ route('skp-user.rejected') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'DT_RowIndex', name: 'id_surat_keterangan_pemakaman' },
     { data: 'nama', name: 'nama' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },

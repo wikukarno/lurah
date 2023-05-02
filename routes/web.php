@@ -80,10 +80,10 @@ Route::prefix('/pages/dashboard/lurah')
         Route::get('/ski/cetak/{id}', [CetakController::class, 'cetak_ski'])->name('ski-lurah.cetak-ski');
 
         // Route get lampiran
-        Route::post('/sku/get-lampiran', [SkuLurahController::class, 'show'])->name('sku-lurah.show');
-        Route::post('/skp/get-lampiran', [SkpLurahController::class, 'show'])->name('skp-lurah.show');
-        Route::post('/sktm/get-lampiran', [SktmLurahController::class, 'show'])->name('sktm-lurah.show');
-        Route::post('/ski/get-lampiran', [SkiLurahController::class, 'show'])->name('ski-lurah.show');
+        // Route::post('/sku/get-lampiran', [SkuLurahController::class, 'show'])->name('sku-lurah.show');
+        // Route::post('/skp/get-lampiran', [SkpLurahController::class, 'show'])->name('skp-lurah.show');
+        // Route::post('/sktm/get-lampiran', [SktmLurahController::class, 'show'])->name('sktm-lurah.show');
+        // Route::post('/ski/get-lampiran', [SkiLurahController::class, 'show'])->name('ski-lurah.show');
 
         // Route get akun, edit akun, ubah foto
         Route::post('/get-akun', [ProfileLurahController::class, 'show'])->name('lurah.get-akun');
@@ -106,10 +106,14 @@ Route::prefix('/pages/dashboard/lurah')
         // Route get month
         Route::post('/month', [DashboardLurahController::class, 'showMonth'])->name('lurah.get-month');
 
-        Route::post('/sku/show/tolak-sku', [LurahBusinessCertificationController::class, 'showTolakSku'])->name('sku-lurah.show-tolak-sku');
-        Route::post('/skp/show/tolak-skp', [LurahFuneralCertificationController::class, 'showTolakSkp'])->name('skp-lurah.show-tolak-skp');
-        Route::post('/sktm/show/tolak-sktm', [LurahIncapacityCertificationController::class, 'showTolakSktm'])->name('sktm-lurah.show-tolak-sktm');
-        Route::post('/ski/show/tolak-ski', [LurahPermitsController::class, 'showTolakSki'])->name('ski-staff.show-tolak-ski');
+        // Route::post('/sku/show/tolak-sku', [LurahBusinessCertificationController::class, 'showTolakSku'])->name('sku-lurah.show-tolak-sku');
+        // Route::post('/skp/show/tolak-skp', [LurahFuneralCertificationController::class, 'showTolakSkp'])->name('skp-lurah.show-tolak-skp');
+        // Route::post('/sktm/show/tolak-sktm', [LurahIncapacityCertificationController::class, 'showTolakSktm'])->name('sktm-lurah.show-tolak-sktm');
+        // Route::post('/ski/show/tolak-ski', [LurahPermitsController::class, 'showTolakSki'])->name('ski-staff.show-tolak-ski');
+
+        Route::post('/sku/setujui', [LurahBusinessCertificationController::class, 'setujui'])->name('sku-lurah.setujui');
+        Route::post('/sktm/setujui', [LurahIncapacityCertificationController::class, 'setujui'])->name('sktm-lurah.setujui');
+        Route::post('/ski/setujui', [LurahPermitsController::class, 'setujui'])->name('ski-lurah.setujui');
 
         Route::resource('sku-lurah', LurahBusinessCertificationController::class);
         Route::resource('skp-lurah', LurahFuneralCertificationController::class);
@@ -126,7 +130,7 @@ Route::prefix('/pages/dashboard/staff')
 
         // Route get lampiran sku
         Route::get('/sku/cetak/{id}', [CetakController::class, 'cetak_sku'])->name('sku-staff.cetak-sku');
-        Route::post('/sku/get-lampiran', [StaffBusinessCertificationController::class, 'show'])->name('sku-staff.show');
+        // Route::post('/sku/get-lampiran', [StaffBusinessCertificationController::class, 'show'])->name('sku-staff.show');
         Route::post('/sku/get-detail-users', [StaffBusinessCertificationController::class, 'showDetails'])->name('sku-staff.showDetails');
         Route::post('/sku/tolak-sku', [StaffBusinessCertificationController::class, 'tolakSku'])->name('sku-staff.tolak');
         Route::post('/sku/show/tolak-sku', [StaffBusinessCertificationController::class, 'showTolakSku'])->name('sku-staff.show-tolak-sku');
@@ -136,7 +140,7 @@ Route::prefix('/pages/dashboard/staff')
 
         // Route get lampiran skp
         Route::get('/skp/cetak/{id}', [CetakController::class, 'cetak_skp'])->name('skp-staff.cetak-skp');
-        Route::post('/skp/get-lampiran', [SkpStaffController::class, 'show'])->name('skp-staff.show');
+        // Route::post('/skp/get-lampiran', [SkpStaffController::class, 'show'])->name('skp-staff.show');
         Route::post('/skp/show/tolak-skp', [StaffFuneralCertificationController::class, 'showTolakSkp'])->name('skp-staff.show-tolak-skp');
         Route::post('/skp/tolak-skp', [StaffFuneralCertificationController::class, 'tolakSkp'])->name('skp-staff.tolak');
         Route::get('/skp-staff/diproses', [StaffFuneralCertificationController::class, 'onProgress'])->name('skp-staff.onProgress');
@@ -145,7 +149,7 @@ Route::prefix('/pages/dashboard/staff')
 
         // Route get lampiran sktm
         Route::get('/sktm/cetak/{id}', [CetakController::class, 'cetak_sktm'])->name('sktm-staff.cetak-sktm');
-        Route::post('/sktm/get-lampiran', [StaffIncapacityCertificationController::class, 'show'])->name('sktm-staff.show');
+        // Route::post('/sktm/get-lampiran', [StaffIncapacityCertificationController::class, 'show'])->name('sktm-staff.show');
         Route::post('/sktm/show/tolak-sktm', [StaffIncapacityCertificationController::class, 'showTolakSktm'])->name('sktm-staff.show-tolak-sktm');
         Route::post('/sktm/tolak-sktm', [StaffIncapacityCertificationController::class, 'tolakSktm'])->name('sktm-staff.tolak');
         Route::get('/sktm-staff/diproses', [StaffIncapacityCertificationController::class, 'onProgress'])->name('sktm-staff.onProgress');
@@ -154,8 +158,8 @@ Route::prefix('/pages/dashboard/staff')
 
         // Route get lampiran ski
         Route::get('/ski/cetak/{id}', [CetakController::class, 'cetak_ski'])->name('ski-staff.cetak-ski');
-        Route::post('/ski/get-lampiran', [SkiStaffController::class, 'show'])->name('ski-staff.show');
-        Route::post('/ski/show/tolak-ski', [StaffPermitsController::class, 'showTolakSki'])->name('ski-staff.show-tolak-ski');
+        // Route::post('/ski/get-lampiran', [SkiStaffController::class, 'show'])->name('ski-staff.show');
+        // Route::post('/ski/show/tolak-ski', [StaffPermitsController::class, 'showTolakSki'])->name('ski-staff.show-tolak-ski');
         Route::post('/ski/tolak-ski', [StaffPermitsController::class, 'tolakSki'])->name('ski-staff.tolak');
         Route::get('/ski-staff/diproses', [StaffPermitsController::class, 'onProgress'])->name('ski-staff.onProgress');
         Route::get('/ski-staff/selesai', [StaffPermitsController::class, 'success'])->name('ski-staff.success');
@@ -205,7 +209,7 @@ Route::prefix('/pages/dashboard/user')
         Route::get('/sku-user/diproses', [UserBusinessCertificationController::class, 'onProgress'])->name('sku-user.onProgress');
         Route::get('/sku-user/selesai', [UserBusinessCertificationController::class, 'success'])->name('sku-user.success');
         Route::get('/sku-user/ditolak', [UserBusinessCertificationController::class, 'rejected'])->name('sku-user.rejected');
-        
+
         Route::post('/sku-user/delete', [UserBusinessCertificationController::class, 'destroy'])->name('sku-user.hapus');
         Route::post('/ski-user/delete', [UserPermitsController::class, 'destroy'])->name('ski-user.hapus');
         Route::post('/skp-user/delete', [UserFuneralCertificationController::class, 'destroy'])->name('skp-user.hapus');

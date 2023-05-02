@@ -39,8 +39,10 @@ Surat Izin
                             <img src="{{ asset('assets/images/ditolak.svg') }}" class="figure-img img-fluid" alt="">
                             <figcaption class="figure-caption">
                                 <h3 class="text-center">Mohon Maaf!</h3>
-                                <p class="text-center">Permohonan akun anda ditolak, karena anda bukan warga dari kelurahan sorek satu
+                                <p class="text-center">Permohonan akun anda ditolak, karena {{ $user->alasan_penolakan }}
                                     Terimakasih</p>
+                                <a href="{{ route('complete-profile') }}" class="btn btn-primary"> <i class="fas fa-plus"></i>&nbsp;
+                                    Ajukan Ulang</a>
                             </figcaption>
                         </figure>
                     </div>
@@ -49,7 +51,7 @@ Surat Izin
         </div>
     </div>
 </section>
-@elseif (count($userDetails) > 0)
+@elseif ($user->status_account == 'verifikasi')
 <section class="main-content">
     <div class="container-fluid">
         <div class="row">

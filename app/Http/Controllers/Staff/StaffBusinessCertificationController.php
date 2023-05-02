@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\BusinessCertifications;
-use App\Models\Letter;
+use App\Models\Laporan;
+use App\Models\SKU;
 use App\Models\UserDetails;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,9 +21,8 @@ class StaffBusinessCertificationController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = BusinessCertifications::with([
-                'user.userDetails',
-                'letter',
+            $query = SKU::with([
+                'user',
             ])->where('status', 'Belum Diproses')->get();
 
             return datatables()->of($query)
@@ -95,9 +95,8 @@ class StaffBusinessCertificationController extends Controller
     public function onProgress()
     {
         if (request()->ajax()) {
-            $query = BusinessCertifications::with([
-                'user.userDetails',
-                'letter',
+            $query = SKU::with([
+                'user',
             ])->where('status', 'Sedang Diproses')->get();
 
             return datatables()->of($query)
@@ -171,9 +170,8 @@ class StaffBusinessCertificationController extends Controller
     public function success()
     {
         if (request()->ajax()) {
-            $query = BusinessCertifications::with([
-                'user.userDetails',
-                'letter',
+            $query = SKU::with([
+                'user',
             ])->where('status', 'Selesai Diproses')->get();
 
             return datatables()->of($query)
@@ -247,9 +245,8 @@ class StaffBusinessCertificationController extends Controller
     public function rejected()
     {
         if (request()->ajax()) {
-            $query = BusinessCertifications::with([
-                'user.userDetails',
-                'letter',
+            $query = SKU::with([
+                'user',
             ])->where('status', 'Ditolak')->get();
 
             return datatables()->of($query)
@@ -348,8 +345,7 @@ class StaffBusinessCertificationController extends Controller
      */
     public function show($id)
     {
-        $item = BusinessCertifications::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
-
+        $item = SKU::findOrFail($id);
         return view('pages.staff.sku.show', [
             'item' => $item,
         ]);
@@ -375,8 +371,8 @@ class StaffBusinessCertificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $item = BusinessCertifications::findOrFail($id);
-        $data = Letter::findOrFail($item->letters_id);
+        $item = SKU::findOrFail($id);
+        $data = Laporan::findOrFail($item->id_laporan);
         $data->update([
             'status' => 'Sedang Diproses',
             'posisi' => 'lurah',
@@ -409,14 +405,14 @@ class StaffBusinessCertificationController extends Controller
 
     public function getTolakSku($id)
     {
-        $data = BusinessCertifications::findOrFail($id);
+        $data = SKU::findOrFail($id);
         return view('pages.staff.sku.tolak', compact('data'));
     }
 
     public function tolakSku(Request $request)
     {
-        $sku = BusinessCertifications::findOrFail($request->id);
-        $data = Letter::findOrFail($sku->letters_id);
+        $sku = SKU::findOrFail($request->id);
+        $data = Laporan::findOrFail($sku->id_laporan);
         $data->update([
             'status' => 'Ditolak',
         ]);
@@ -435,7 +431,7 @@ class StaffBusinessCertificationController extends Controller
 
     public function showTolakSku(Request $request)
     {
-        $data = BusinessCertifications::findOrFail($request->id);
+        $data = SKU::findOrFail($request->id_surat_keterangan_usaha);
         return response()->json($data);
     }
 }

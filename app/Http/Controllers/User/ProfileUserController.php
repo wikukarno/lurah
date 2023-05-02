@@ -20,9 +20,8 @@ class ProfileUserController extends Controller
      */
     public function index()
     {
-        $userDetails = UserDetails::with('user')->where('users_id', Auth::user()->id)->get();
-        $users = User::with('userDetails')->where('id', Auth::user()->id)->first();
-        return view('pages.user.profile', compact('users', 'userDetails'));
+        $users = User::where('id', Auth::user()->id)->first();
+        return view('pages.user.profile', compact('users'));
     }
 
     /**
@@ -43,11 +42,10 @@ class ProfileUserController extends Controller
      */
     public function store(Request $request)
     {
-        $data = UserDetails::Create(
+        $data = User::Create(
             [
-                'users_id' => Auth::user()->id,
                 'nik' => $request->nik,
-                'phone' => $request->phone,
+                'no_telepon' => $request->no_telepon,
                 'jenis_kelamin' => $request->jenis_kelamin,
                 'tempat_lahir' => $request->tempat_lahir,
                 'tanggal_lahir' => $request->tanggal_lahir,
@@ -57,14 +55,14 @@ class ProfileUserController extends Controller
                 'kecamatan' => $request->kecamatan,
                 'agama' => $request->agama,
                 'status_perkawinan' => $request->status_perkawinan,
-                'address' => $request->address,
-                'avatar' => $request->file('avatar')->store('assets/avatar', 'public'),
+                'alamat' => $request->alamat,
+                'foto' => $request->file('foto')->store('assets/foto', 'public'),
                 'ktp' => $request->file('ktp')->store('assets/ktp', 'public'),
                 'kk' => $request->file('kk')->store('assets/kk', 'public'),
             ]
         );
 
-        $user = User::find(Auth::user()->id);
+        $user = User::find(Auth::user()->id_user_user);
         $user->status_account = 'pending';
         $user->save();
 
@@ -79,7 +77,8 @@ class ProfileUserController extends Controller
 
     public function completeProfile(Request $request)
     {
-        return view('pages.user.complete-profile');
+        $item = User::find(Auth::user()->id_user_user);
+        return view('pages.user.complete-profile', compact('item'));
     }
 
     /**
@@ -91,7 +90,7 @@ class ProfileUserController extends Controller
     public function show(Request $request)
     {
         if (request()->ajax()) {
-            $where = array('users.id' => $request->id);
+            $where = array('users.id_user' => $request->id_user);
             $result = User::where($where)->first();
             if ($result) {
                 return Response()->json($result);
@@ -112,7 +111,7 @@ class ProfileUserController extends Controller
      */
     public function edit($id)
     {
-        $users = User::with('userDetails')->findOrFail($id);
+        $users = User::findOrFail($id);
         return view('pages.user.update-profile', compact('users'));
     }
 
@@ -125,9 +124,9 @@ class ProfileUserController extends Controller
      */
     public function update(Request $request)
     {
-        $user = UserDetails::where('users_id', Auth::user()->id)->first();
+        $user = User::findOrFail(Auth::user()->id);
         $user->nik = $request->nik;
-        $user->phone = $request->phone;
+        $user->no_telepon = $request->no_telepon;
         $user->jenis_kelamin = $request->jenis_kelamin;
         $user->tempat_lahir = $request->tempat_lahir;
         $user->tanggal_lahir = $request->tanggal_lahir;
@@ -137,14 +136,17 @@ class ProfileUserController extends Controller
         $user->rtrw = $request->rtrw;
         $user->agama = $request->agama;
         $user->status_perkawinan = $request->status_perkawinan;
-        $user->address = $request->address;
+        $user->alamat = $request->alamat;
+        if($user->status_account == "none"){
+            $user->status_account = "pending";
+        }
 
-        $fileLama = $user->avatar;
+        $fileLama = $user->foto;
         $fileLamaKtp = $user->ktp;
         $fileLamaKk = $user->kk;
 
-        if ($request->avatar != null) {
-            $user->avatar = $request->file('avatar')->store('assets/avatar', 'public');
+        if ($request->foto != null) {
+            $user->foto = $request->file('foto')->store('assets/foto', 'public');
             if ($fileLama != null) {
                 Storage::disk('public')->delete($fileLama);
             }
@@ -177,8 +179,8 @@ class ProfileUserController extends Controller
 
     public function ubahFoto(Request $request)
     {
-        $user = User::find($request->id);
-        $user->avatar = $request->file('avatar')->store('assets/profile', 'public');
+        $user = User::find($request->id_user);
+        $user->foto = $request->file('foto')->store('assets/profile', 'public');
         $user->save();
 
         if ($user) {
@@ -204,5 +206,11 @@ class ProfileUserController extends Controller
     public function cekNik(Request $request)
     {
        return UserDetails::where('nik', $request->nik)->count() > 0 ? 'false' : 'true';
+    }
+
+
+    public function storeCompleteProfile(Request $request)
+    {
+        $data = User::findOrFail(Auth::user()->id_user);
     }
 }

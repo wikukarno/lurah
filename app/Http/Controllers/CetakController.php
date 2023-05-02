@@ -5,8 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\BusinessCertifications;
 use App\Models\FuneralCertifications;
 use App\Models\IncapacityCertifications;
+use App\Models\Laporan;
 use App\Models\Letter;
 use App\Models\Permits;
+use App\Models\SKI;
+use App\Models\SKP;
+use App\Models\SKTM;
+use App\Models\SKU;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -22,7 +27,7 @@ class CetakController extends Controller
         $data = file_get_contents($path);
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $sku = BusinessCertifications::with(['user'])->where('id', $request->id)->first();
+        $sku = SKU::with(['user'])->where('id', $request->id)->first();
         $user = User::with(['userDetails'])->where('id', $request->id)->first();
         $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.surat-keterangan-usaha', [
             'pic' => $pic,
@@ -31,7 +36,7 @@ class CetakController extends Controller
         ]);
 
         $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
-        return $pdf->download('Surat_Keterangan_Usaha_' . $sku->user->name . '_' . $tgl_cetak . '.pdf');
+        return $pdf->download('Surat_Keterangan_Usaha_' . $sku->user->nama . '_' . $tgl_cetak . '.pdf');
         // return $pdf->stream('Surat_Keterangan_Usaha_' . $user->name . '_' . $tgl_cetak . '.pdf');
     }
 
@@ -43,7 +48,7 @@ class CetakController extends Controller
         $data = file_get_contents($path);
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $skp = FuneralCertifications::with(['user'])->where('id', $request->id)->first();
+        $skp = SKP::with(['user'])->where('id_surat_keterangan_pemakaman', $request->id_surat_keterangan_pemakaman)->first();
         $user = User::with(['userDetails'])->where('id', $request->id)->first();
         $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.surat-keterangan-pemakaman', [
             'pic' => $pic,
@@ -64,7 +69,7 @@ class CetakController extends Controller
         $data = file_get_contents($path);
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $sktm = IncapacityCertifications::with(['user.userDetails'])->where('id', $request->id)->first();
+        $sktm = SKTM::with(['user.userDetails'])->where('id_surat_tidak_mampu', $request->id_surat_tidak_mampu)->first();
         $user = User::with(['userDetails'])->where('id', $request->id)->first();
         $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.surat-keterangan-tidak-mampu', [
             'pic' => $pic,
@@ -85,7 +90,7 @@ class CetakController extends Controller
         $data = file_get_contents($path);
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $ski = Permits::with(['user.userDetails'])->where('id', $request->id)->first();
+        $ski = SKI::with(['user.userDetails'])->where('id_surat_keterangan_izin', $request->id_surat_keterangan_izin)->first();
         $user = User::with(['userDetails'])->where('id', $request->id)->first();
         $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.surat-izin', [
             'pic' => $pic,
@@ -105,8 +110,8 @@ class CetakController extends Controller
         $data = file_get_contents($path);
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $laporan = Letter::whereMonth('created_at', $request->month)->first();
-        $items = Letter::with('category')->whereMonth('created_at', $request->month)->whereYear('created_at', $request->year)->where('status', 'Selesai Diproses')->get();
+        $laporan = Laporan::whereMonth('created_at', $request->month)->first();
+        $items = Laporan::with('category')->whereMonth('created_at', $request->month)->whereYear('created_at', $request->year)->where('status', 'Selesai Diproses')->get();
         $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
         $getMonth = $request->month;
         $getYear = $request->year;
@@ -128,9 +133,9 @@ class CetakController extends Controller
         $data = file_get_contents($path);
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $laporan = Letter::whereYear('created_at', $request->year)->first();
-        // $items = Letter::whereYear('created_at', $request->year)->get();
-        $items = Letter::with('category', 'funeral')->whereYear('created_at', $request->year)->where('status', 'Selesai Diproses')->get();
+        $laporan = Laporan::whereYear('created_at', $request->year)->first();
+        // $items = Laporan::whereYear('created_at', $request->year)->get();
+        $items = Laporan::with('category', 'funeral')->whereYear('created_at', $request->year)->where('status', 'Selesai Diproses')->get();
 
         $getYear = $request->year;
         $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');

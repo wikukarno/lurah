@@ -14,8 +14,9 @@
                     <div class="card-body">
 
                         <section class="section-profile-content">
-                            <form action="{{ route('akun-user.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('akun-user.update', $item->id_user) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
@@ -38,7 +39,7 @@
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="phone">Nomor Telepon</label>
-                                            <input type="number" class="form-control" id="phone" maxlength="12" name="phone" required>
+                                            <input type="number" class="form-control" id="phone" maxlength="12" name="no_telepon" required>
                                         </div>
                                     </div>
                                 </div>
@@ -142,7 +143,7 @@
                                     <div class="col-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="kk">Upload Foto Profile</label>
-                                            <input type="file" class="form-control" id="avatar" name="avatar" required>
+                                            <input type="file" class="form-control" id="avatar" name="foto" required>
                                         </div>
                                     </div>
                                 </div>
@@ -150,7 +151,7 @@
                                     <div class="col-12 col-lg-12">
                                         <div class="form-group">
                                             <label for="address">Alamat</label>
-                                            <textarea class="form-control" maxlength="50" id="address" name="address" required>
+                                            <textarea class="form-control" maxlength="50" id="address" name="alamat" required>
                                             </textarea>
                                         </div>
                                     </div>

@@ -5,7 +5,10 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\FuneralCertifications;
+use App\Models\KategoriSurat;
+use App\Models\Laporan;
 use App\Models\Letter;
+use App\Models\SKP;
 use App\Models\User;
 use App\Models\UserDetails;
 use Illuminate\Http\Request;
@@ -23,8 +26,8 @@ class UserFuneralCertificationController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('categories_id', 4)->where('status', 'Belum Diproses')->get();
-            $query = FuneralCertifications::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Belum Diproses')->get();
+            // $query = Letter::with('user')->where('users_id', Auth::user()->id_user)->where('categories_id', 4)->where('status', 'Belum Diproses')->get();
+            $query = SKP::with('user.userDetails')->where('id_user', Auth::user()->id_user)->where('status', 'Belum Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -34,17 +37,17 @@ class UserFuneralCertificationController extends Controller
                 ->editColumn('action', function ($item) {
                     return '
                         <div class="d-flex">
-                            <a href="' . route('skp-user.show', $item->id) . '" class="btn btn-sm btn-secondary mx-1">
+                            <a href="' . route('skp-user.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary mx-1">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('skp-user.edit', $item->id) . '" class="btn btn-sm btn-info mx-1">
+                            <a href="' . route('skp-user.edit', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-info mx-1">
                                 <i class="fa fa-pencil-alt"></i>
                             </a>
 
                             <form id="form-delete-letters" method="POST">
                                 ' . csrf_field() . '
-                                <input type="hidden" name="id" value="' . $item->id . '">
+                                <input type="hidden" name="id_surat_keterangan_pemakaman" value="' . $item->id_surat_keterangan_pemakaman . '">
                                 <button type="submit" id="btnDelete" class="btn btn-sm btn-danger mx-1"><i class="fas fa-trash"></i></button>
                             </form>
                         </div> 
@@ -52,7 +55,7 @@ class UserFuneralCertificationController extends Controller
                         <script>
                             $("#form-delete-letters").submit(function (e) {
                                 e.preventDefault();
-                                var id = $("input[name=id]").val();
+                                var id = $("input[name=id_surat_keterangan_pemakaman]").val();
 
                                 Swal.fire({
                                     title: "Apakah anda yakin?",
@@ -68,7 +71,7 @@ class UserFuneralCertificationController extends Controller
                                             url: "' . route('skp-user.hapus') . '",
                                             type: "POST",
                                             data: {
-                                                id: id,
+                                                id_surat_keterangan_pemakaman: id,
                                                 _token: "' . csrf_token() . '"
                                             },
                                             success: function (data) {
@@ -93,16 +96,16 @@ class UserFuneralCertificationController extends Controller
                 ->rawColumns(['created_at', 'action'])
                 ->make(true);
         }
-        $userDetails = UserDetails::with('user')->where('users_id', Auth::user()->id)->get();
-        $user = User::where('id', Auth::user()->id)->first();
+        $userDetails = UserDetails::with('user')->where('users_id', Auth::user()->id_user)->get();
+        $user = User::where('id', Auth::user()->id_user)->first();
         return view('pages.user.skp.index', compact('userDetails', 'user'));
     }
 
     public function onProgress()
     {
         if (request()->ajax()) {
-            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('categories_id', 4)->where('status', 'Sedang Diproses')->get();
-            $query = FuneralCertifications::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->get();
+            // $query = Letter::with('user')->where('users_id', Auth::user()->id_user)->where('categories_id', 4)->where('status', 'Sedang Diproses')->get();
+            $query = SKP::with('user.userDetails')->where('id_user', Auth::user()->id_user)->where('status', 'Sedang Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -112,7 +115,7 @@ class UserFuneralCertificationController extends Controller
 
                 ->editColumn('action', function ($item) {
                     return '
-                        <a href="' . route('skp-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                        <a href="' . route('skp-user.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                             <i class="fa fa-eye"></i>
                         </a>
                     ';
@@ -126,8 +129,8 @@ class UserFuneralCertificationController extends Controller
     public function success()
     {
         if (request()->ajax()) {
-            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('categories_id', 4)->where('status', 'Selesai Diproses')->get();
-            $query = FuneralCertifications::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->get();
+            // $query = Letter::with('user')->where('users_id', Auth::user()->id_user)->where('categories_id', 4)->where('status', 'Selesai Diproses')->get();
+            $query = SKP::with('user.userDetails')->where('id_user', Auth::user()->id_user)->where('status', 'Selesai Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -137,7 +140,7 @@ class UserFuneralCertificationController extends Controller
                 ->editColumn('action', function ($item) {
                     return '
                         <div class="form-group">
-                            <a href="' . route('skp-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-user.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
@@ -156,8 +159,8 @@ class UserFuneralCertificationController extends Controller
     public function rejected()
     {
         if (request()->ajax()) {
-            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('categories_id', 4)->where('status', 'Ditolak')->get();
-            $query = FuneralCertifications::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Ditolak')->get();
+            // $query = Letter::with('user')->where('users_id', Auth::user()->id_user)->where('categories_id', 4)->where('status', 'Ditolak')->get();
+            $query = SKP::with('user.userDetails')->where('id_user', Auth::user()->id_user)->where('status', 'Ditolak')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -167,11 +170,8 @@ class UserFuneralCertificationController extends Controller
                 ->editColumn('action', function ($item) {
                     return '
                         <div class="form-group">
-                            <a href="' . route('skp-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-user.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
-                            </a>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="penolakan(' . $item->id . ')">
-                                Ditolak
                             </a>
                         </div>
                     ';
@@ -201,18 +201,18 @@ class UserFuneralCertificationController extends Controller
      */
     public function store(Request $request)
     {
-        $category = Category::where('name', 'Surat Keterangan Pemakaman')->first();
-        $item = new Letter();
-        $item->users_id = Auth::user()->id;
-        $item->categories_id = $category->id;
+        $category = KategoriSurat::where('nama', 'Surat Keterangan Pemakaman')->first();
+        $item = new Laporan();
+        $item->id_user = Auth::user()->id_user;
+        $item->id_kategori_surat = $category->id_kategori_surat;
         $item->status = 'Belum Diproses';
         $item->posisi = 'Staff';
         $item->nama = $request->nama;
         $item->save();
 
-        $data = FuneralCertifications::create([
-            'users_id' => Auth::user()->id,
-            'letters_id' => $item->id,
+        $data = SKP::create([
+            'id_user' => Auth::user()->id_user,
+            'id_laporan' => $item->id_laporan,
             'nik' => $request->nik,
             'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,
@@ -226,7 +226,7 @@ class UserFuneralCertificationController extends Controller
             'agama' => $request->agama,
             'status' => 'Belum Diproses',
             'posisi' => 'Staff',
-            'surat_rtrw' => $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public'),
+            'surat_rtrw' => $request->file('surat_rtrw')->store('assets/surat_rtrw', 'public'),
             'tanggal_meninggal' => $request->tanggal_meninggal,
             'tempat_pemakaman'  => $request->tempat_pemakaman,
             'tanggal_dimakamkan' => $request->tanggal_dimakamkan,
@@ -249,7 +249,8 @@ class UserFuneralCertificationController extends Controller
      */
     public function show($id)
     {
-        $item = FuneralCertifications::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+        $item = SKP::with(['user.userDetails', 'letter'])->where('id_user', Auth::user()->id_user)->findOrFail($id);
+        // dd($item);
 
         return view('pages.user.skp.show', [
             'item' => $item,
@@ -264,7 +265,7 @@ class UserFuneralCertificationController extends Controller
      */
     public function edit($id)
     {
-        $item = FuneralCertifications::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+        $item = SKP::with(['user.userDetails', 'letter'])->where('id_user', Auth::user()->id_user)->findOrFail($id);
         return view('pages.user.skp.edit', [
             'item' => $item,
         ]);
@@ -279,16 +280,16 @@ class UserFuneralCertificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = FuneralCertifications::findOrFail($id);
+        $data = SKP::findOrFail($id);
         $fileLama = $data->surat_rtrw;
         if ($request->surat_rtrw != null) {
-            $data->surat_rtrw = $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public');
+            $data->surat_rtrw = $request->file('surat_rtrw')->store('assets/surat_rtrw', 'public');
             if ($fileLama != null) {
                 Storage::disk('public')->delete($fileLama);
             }
         }
 
-        $item = Letter::findOrFail($data->letters_id);
+        $item = Laporan::findOrFail($data->id_laporan);
         $item->nama = $request->nama;
         $item->save();
 
@@ -327,8 +328,8 @@ class UserFuneralCertificationController extends Controller
      */
     public function destroy(Request $request)
     {
-        $data = FuneralCertifications::findOrFail($request->id);
-        $item = Letter::findOrFail($data->letters_id);
+        $data = SKP::findOrFail($request->id_surat_keterangan_pemakaman);
+        $item = Laporan::findOrFail($data->id_laporan);
         // if ($data->surat_rtrw != null) {
         //     Storage::disk('public')->delete($data->surat_rtrw);
         // }

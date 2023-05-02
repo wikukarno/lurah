@@ -21,14 +21,14 @@ Tambah Surat Keterangan Tidak Mampu
                                     <div class="form-group">
                                         <label for="nama">NIK</label>
                                         <input type="number" class="form-control" id="nik" name="nik" maxlength="16"
-                                            value="{{ Auth::user()->userDetails->nik }}" readonly>
+                                            value="{{ Auth::user()->nik }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="nama">Nama</label>
                                         <input type="text" class="form-control" id="nama" name="nama" maxlength="30"
-                                            value="{{ Auth::user()->name }}" readonly>
+                                            value="{{ Auth::user()->nama }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -38,21 +38,21 @@ Tambah Surat Keterangan Tidak Mampu
                                     <div class="form-group">
                                         <label for="nama">Tempat Lahir</label>
                                         <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" maxlength="30"
-                                            value="{{ Auth::user()->userDetails->tempat_lahir }}" readonly>
+                                            value="{{ Auth::user()->tempat_lahir }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="tanggal_lahir">Tanggal Lahir</label>
                                         <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir"
-                                            value="{{ Auth::user()->userDetails->tanggal_lahir }}" readonly>
+                                            value="{{ Auth::user()->tanggal_lahir }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="nama">Jenis Kelamin</label>
                                         <input type="text" class="form-control"
-                                            value="{{ Auth::user()->userDetails->jenis_kelamin }}" readonly>
+                                            value="{{ Auth::user()->jenis_kelamin }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -62,21 +62,21 @@ Tambah Surat Keterangan Tidak Mampu
                                     <div class="form-group">
                                         <label for="nama">Pekerjaan</label>
                                         <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" maxlength="30"
-                                            value="{{ Auth::user()->userDetails->pekerjaan }}" readonly>
+                                            value="{{ Auth::user()->pekerjaan }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="nama">Agama</label>
                                         <input type="text" name="agama" id="agama" class="form-control"
-                                            value="{{ Auth::user()->userDetails->agama }}" readonly>
+                                            value="{{ Auth::user()->agama }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="nama">Status Perkawinan</label>
                                         <input type="text" class="form-control" name="status_perkawinan"
-                                            value="{{ Auth::user()->userDetails->status_perkawinan }}" readonly>
+                                            value="{{ Auth::user()->status_perkawinan }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -86,21 +86,21 @@ Tambah Surat Keterangan Tidak Mampu
                                     <div class="form-group">
                                         <label for="nama">Kecamatan</label>
                                         <input type="text" class="form-control" id="kecamatan" name="kecamatan"
-                                            value="{{ Auth::user()->userDetails->kecamatan }}" readonly>
+                                            value="{{ Auth::user()->kecamatan }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="nama">Kelurahan</label>
                                         <input type="text" class="form-control" id="kelurahan" name="kelurahan"
-                                            value="{{ Auth::user()->userDetails->kelurahan }}" readonly>
+                                            value="{{ Auth::user()->kelurahan }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="nama">RT / RW</label>
                                         <input type="text" class="form-control" id="rtrw" name="rtrw"
-                                            value="{{ Auth::user()->userDetails->rtrw }}" readonly>
+                                            value="{{ Auth::user()->rtrw }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@ Tambah Surat Keterangan Tidak Mampu
                                     <div class="form-group">
                                         <label for="alamat">Alamat</label>
                                         <input type="text" class="form-control" id="alamat" name="alamat"
-                                            value="{{ Auth::user()->userDetails->address }}" readonly>
+                                            value="{{ Auth::user()->address }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -139,14 +139,14 @@ Tambah Surat Keterangan Tidak Mampu
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="">Foto KTP Asli</label>
-                                        <img src="{{ Storage::url(Auth::user()->userDetails->ktp) }}" class="img-fluid"
+                                        <img src="{{ Storage::url(Auth::user()->ktp) }}" class="img-fluid"
                                             alt="ktp">
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="">Foto KK Asli</label>
-                                        <img src="{{ Storage::url(Auth::user()->userDetails->kk) }}" class="img-fluid"
+                                        <img src="{{ Storage::url(Auth::user()->kk) }}" class="img-fluid"
                                             alt="kk">
                                     </div>
                                 </div>

@@ -7,19 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class BusinessCertifications extends Model
+class SKTM extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'letters_id',
-        'users_id',
-        'nama_usaha',
-        'jenis_usaha',
-        'surat_rtrw',
-        'alasan_penolakan',
-        'posisi',
-        'status'
+    protected $table = 'surat_keterangan_tidak_mampu';
+    protected $primaryKey = 'id_surat_tidak_mampu';
+    protected $guarded = [
+        'id_surat_tidak_mampu'
     ];
 
     public $incrementing = false;

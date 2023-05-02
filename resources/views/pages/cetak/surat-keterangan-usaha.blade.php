@@ -113,63 +113,63 @@
             @php
             // $ttl = \Carbon\Carbon::now()->isoFormat('D MMMM Y', strtotime($sku->tanggal_lahir));
             // $ttl = date('d l Y', strtotime($sku->tanggal_lahir));
-            $ttl = \Carbon\Carbon::parse($sku->user->userDetails->tanggal_lahir)->isoFormat('D MMMM Y');
+            $ttl = \Carbon\Carbon::parse($sku->user->tanggal_lahir)->isoFormat('D MMMM Y');
             @endphp
             <tbody>
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td style="text-transform: uppercase"><b>{{ $sku->user->name }}</b></td>
+                    <td style="text-transform: uppercase"><b>{{ $sku->user->nama }}</b></td>
                 </tr>
                 <tr>
                     <td>Jenis Kelamin</td>
                     <td>:</td>
-                    <td>{{ $sku->user->userDetails->jenis_kelamin }}</td>
+                    <td>{{ $sku->user->jenis_kelamin }}</td>
                 </tr>
                 <tr>
                     <td>Tempat/ Tgl.Lahir</td>
                     <td>:</td>
-                    <td>{{ $sku->user->userDetails->tempat_lahir }}, {{ $ttl }}</td>
+                    <td>{{ $sku->user->tempat_lahir }}, {{ $ttl }}</td>
                 </tr>
                 <tr>
                     <td>Pekerjaan</td>
                     <td>:</td>
-                    <td>{{ $sku->user->userDetails->pekerjaan }}</td>
+                    <td>{{ $sku->user->pekerjaan }}</td>
                 </tr>
                 <tr>
                     <td>Alamat</td>
                     <td>:</td>
-                    <td>{{ $sku->user->userDetails->address }}</td>
+                    <td>{{ $sku->user->alamat }}</td>
                 </tr>
                 <tr>
                     <td>RT/RW</td>
                     <td>:</td>
-                    <td>{{ $sku->user->userDetails->rtrw }}</td>
+                    <td>{{ $sku->user->rtrw }}</td>
                 </tr>
                 <tr>
                     <td>Kelurahan</td>
                     <td>:</td>
-                    <td>{{ $sku->user->userDetails->kelurahan }}</td>
+                    <td>{{ $sku->user->kelurahan }}</td>
                 </tr>
                 <tr>
                     <td>Kecamatan</td>
                     <td>:</td>
-                    <td>{{ $sku->user->userDetails->kecamatan }}</td>
+                    <td>{{ $sku->user->kecamatan }}</td>
                 </tr>
                 <tr>
                     <td>Agama</td>
                     <td>:</td>
-                    <td>{{ $sku->user->userDetails->agama }}</td>
+                    <td>{{ $sku->user->agama }}</td>
                 </tr>
                 <tr>
                     <td>Status Perkawinan</td>
                     <td>:</td>
-                    <td>{{ $sku->user->userDetails->status_perkawinan }}</td>
+                    <td>{{ $sku->user->status_perkawinan }}</td>
                 </tr>
                 <tr>
                     <td>NIK</td>
                     <td>:</td>
-                    <td>{{ $sku->user->userDetails->nik }}</td>
+                    <td>{{ $sku->user->nik }}</td>
                 </tr>
             </tbody>
         </table>

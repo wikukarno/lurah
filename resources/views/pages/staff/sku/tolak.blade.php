@@ -16,6 +16,7 @@ Tolak Surat
                     <div class="card-body">
                         <form action="{{ route('staff.tolak-sku', $data->id) }}" method="POST">
                             @csrf
+                            <input type="hidden" name="id" id="id" value="{{ $data->id }}">
                             <div class="row">
                                 <div class="col-12 col-lg-12">
                                     <div class="form-group">

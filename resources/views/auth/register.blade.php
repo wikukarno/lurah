@@ -18,14 +18,14 @@ Daftar Akun
             <form action="{{ route('register') }}" method="post">
                 @csrf
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                        value="{{ old('name') }}" placeholder="Nama lengkap" required maxlength="30"
+                    <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama"
+                        value="{{ old('nama') }}" placeholder="Nama lengkap" required maxlength="30"
                         oninvalid="this.setCustomValidity('Harap masukan nama')" oninput="setCustomValidity('')">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
                         </div>
-                        @error('name')
+                        @error('nama')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

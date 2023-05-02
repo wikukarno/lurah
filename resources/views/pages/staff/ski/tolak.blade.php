@@ -14,8 +14,9 @@ Tolak Surat Keterangan Izin
                         <h3 class="card-title">Tolak Surat Keterangan Izin</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('staff.tolak-ski', $data->id) }}" method="POST">
+                        <form action="{{ route('staff.tolak-ski', $data->id_surat_keterangan_izin) }}" method="POST">
                             @csrf
+                            <input type="hidden" name="id_surat_keterangan_izin" id="id_surat_keterangan_izin" value="{{ $data->id_surat_keterangan_izin }}">
                             <div class="row">
                                 <div class="col-12 col-lg-12">
                                     <div class="form-group">

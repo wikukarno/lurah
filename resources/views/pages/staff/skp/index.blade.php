@@ -137,7 +137,7 @@ Surat Keterangan Pemakaman
                 url: "{{ route('skp-staff.index') }}",
             },
             columns: [
-                { data: 'DT_RowIndex', name: 'id' },
+                { data: 'DT_RowIndex', name: 'id_surat_keterangan_pemakaman' },
                 { data: 'nama', name: 'nama' },
                 { data: 'created_at', name: 'created_at' },
                 { data: 'posisi', name: 'posisi' },
@@ -158,7 +158,7 @@ Surat Keterangan Pemakaman
                 url: "{{ route('skp-staff.onProgress') }}",
             },
             columns: [
-                { data: 'DT_RowIndex', name: 'id' },
+                { data: 'DT_RowIndex', name: 'id_surat_keterangan_pemakaman' },
                 { data: 'nama', name: 'nama' },
                 { data: 'created_at', name: 'created_at' },
                 { data: 'posisi', name: 'posisi' },
@@ -179,7 +179,7 @@ Surat Keterangan Pemakaman
                 url: "{{ route('skp-staff.success') }}",
             },
             columns: [
-                { data: 'DT_RowIndex', name: 'id' },
+                { data: 'DT_RowIndex', name: 'id_surat_keterangan_pemakaman' },
                 { data: 'nama', name: 'nama' },
                 { data: 'created_at', name: 'created_at' },
                 { data: 'posisi', name: 'posisi' },
@@ -200,7 +200,7 @@ Surat Keterangan Pemakaman
                 url: "{{ route('skp-staff.rejected') }}",
             },
             columns: [
-                { data: 'DT_RowIndex', name: 'id' },
+                { data: 'DT_RowIndex', name: 'id_surat_keterangan_pemakaman' },
                 { data: 'nama', name: 'nama' },
                 { data: 'created_at', name: 'created_at' },
                 { data: 'posisi', name: 'posisi' },
@@ -225,60 +225,60 @@ Surat Keterangan Pemakaman
             })
         }
 
-        function tolakSKP(id){
-            $('#tolakSkpModal').modal('show');
-            $('#id-skp').val(id);
-        }
+        // function tolakSKP(id){
+        //     $('#tolakSkpModal').modal('show');
+        //     $('#id-skp').val(id);
+        // }
         
-        $('#form-tolak-skp').submit(function(e){
-            e.preventDefault();
-            var formData = new FormData(this);
-            $.ajax({
-                type:'POST',
-                url: "{{ url('pages/dashboard/staff/skp/tolak-skp') }}",
-                data: formData,
-                cache:false,
-                contentType: false,
-                processData: false,
-                success: (data) => {
-                    $('#tolakSkpModal').modal('hide');
-                    $('#tb_skp_staff_ditolak').DataTable().ajax.reload();
-                    Swal.fire({
-                    title: 'Surat Ditolak!',
-                    text: "Surat Keterangan Pemakaman Berhasil Ditolak",
-                    icon: 'error',
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Oke'
-                    }).then((result) => {
-                    if (result.isConfirmed) {
-                    window.location.reload();
-                    }
-                    });
-                }
-            });
-        });
+        // $('#form-tolak-skp').submit(function(e){
+        //     e.preventDefault();
+        //     var formData = new FormData(this);
+        //     $.ajax({
+        //         type:'POST',
+        //         url: "{{ url('pages/dashboard/staff/skp/tolak-skp') }}",
+        //         data: formData,
+        //         cache:false,
+        //         contentType: false,
+        //         processData: false,
+        //         success: (data) => {
+        //             $('#tolakSkpModal').modal('hide');
+        //             $('#tb_skp_staff_ditolak').DataTable().ajax.reload();
+        //             Swal.fire({
+        //             title: 'Surat Ditolak!',
+        //             text: "Surat Keterangan Pemakaman Berhasil Ditolak",
+        //             icon: 'error',
+        //             confirmButtonColor: '#3085d6',
+        //             cancelButtonColor: '#d33',
+        //             confirmButtonText: 'Oke'
+        //             }).then((result) => {
+        //             if (result.isConfirmed) {
+        //             window.location.reload();
+        //             }
+        //             });
+        //         }
+        //     });
+        // });
         
-        function showRejectSkp(id){
-        $.ajax({
-        type:'POST',
-        url: "{{ url('/pages/dashboard/staff/skp/show/tolak-skp') }}",
-        data: {
-        id: id,
-        _token: "{{ csrf_token() }}"
-        },
-        dataType: 'json',
-        success: (res) => {
-        Swal.fire({
-        title: 'Alasan Penolakan Surat',
-        text: res.alasan_penolakan,
-        icon: 'error',
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        });
-        }
-        });
-        }
+        // function showRejectSkp(id){
+        // $.ajax({
+        // type:'POST',
+        // url: "{{ url('/pages/dashboard/staff/skp/show/tolak-skp') }}",
+        // data: {
+        // id: id,
+        // _token: "{{ csrf_token() }}"
+        // },
+        // dataType: 'json',
+        // success: (res) => {
+        // Swal.fire({
+        // title: 'Alasan Penolakan Surat',
+        // text: res.alasan_penolakan,
+        // icon: 'error',
+        // confirmButtonColor: '#3085d6',
+        // cancelButtonColor: '#d33',
+        // });
+        // }
+        // });
+        // }
 
 </script>
 @endpush

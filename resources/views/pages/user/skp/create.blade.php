@@ -21,14 +21,14 @@ Tambah Surat Keterangan Pemakaman
                                     <div class="form-group">
                                         <label for="nama">NIK</label>
                                         <input type="number" class="form-control" id="nik" name="nik" maxlength="16"
-                                            value="{{ Auth::user()->userDetails->nik }}">
+                                            value="{{ Auth::user()->nik }}">
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="nama">Nama Alm/Almh</label>
                                         <input type="text" class="form-control" id="nama" name="nama" maxlength="30"
-                                            value="{{ Auth::user()->name }}">
+                                            value="{{ Auth::user()->nama }}">
                                     </div>
                                 </div>
                             </div>
@@ -38,14 +38,14 @@ Tambah Surat Keterangan Pemakaman
                                     <div class="form-group">
                                         <label for="nama">Tempat Lahir</label>
                                         <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" maxlength="30"
-                                            value="{{ Auth::user()->userDetails->tempat_lahir }}">
+                                            value="{{ Auth::user()->tempat_lahir }}">
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="tanggal_lahir">Tanggal Lahir</label>
                                         <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir"
-                                            value="{{ Auth::user()->userDetails->tanggal_lahir }}">
+                                            value="{{ Auth::user()->tanggal_lahir }}">
                                     </div>
                                 </div>
 
@@ -95,7 +95,7 @@ Tambah Surat Keterangan Pemakaman
                                     <div class="form-group">
                                         <label for="nama">Pekerjaan</label>
                                         <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" maxlength="30"
-                                            value="{{ Auth::user()->userDetails->pekerjaan }}">
+                                            value="{{ Auth::user()->pekerjaan }}">
                                     </div>
                                 </div>
                             </div>
@@ -118,14 +118,14 @@ Tambah Surat Keterangan Pemakaman
                                     <div class="form-group">
                                         <label for="nama">Kecamatan</label>
                                         <input type="text" class="form-control" id="kecamatan" name="kecamatan" maxlength="20"
-                                            value="{{ Auth::user()->userDetails->kecamatan }}">
+                                            value="{{ Auth::user()->kecamatan }}">
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="nama">Kelurahan</label>
                                         <input type="text" class="form-control" id="kelurahan" name="kelurahan" maxlength="15"
-                                            value="{{ Auth::user()->userDetails->kelurahan }}">
+                                            value="{{ Auth::user()->kelurahan }}">
                                     </div>
                                 </div>
                             </div>
@@ -141,7 +141,7 @@ Tambah Surat Keterangan Pemakaman
                                     <div class="form-group">
                                         <label for="nama">RT / RW</label>
                                         <input type="text" class="form-control" id="rtrw" name="rtrw" maxlength="10"
-                                            value="{{ Auth::user()->userDetails->rtrw }}">
+                                            value="{{ Auth::user()->rtrw }}">
                                     </div>
                                 </div>
                             </div>
@@ -151,7 +151,7 @@ Tambah Surat Keterangan Pemakaman
                                     <div class="form-group">
                                         <label for="alamat">Alamat</label>
                                         <input type="text" class="form-control" id="alamat" name="alamat" maxlength="50"
-                                            value="{{ Auth::user()->userDetails->address }}">
+                                            value="{{ Auth::user()->address }}">
                                     </div>
                                 </div>
                             </div>
@@ -160,14 +160,14 @@ Tambah Surat Keterangan Pemakaman
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="">Foto KTP Asli</label>
-                                        <img src="{{ Storage::url(Auth::user()->userDetails->ktp) }}" class="img-fluid"
+                                        <img src="{{ Storage::url(Auth::user()->ktp) }}" class="img-fluid"
                                             alt="ktp">
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="">Foto KK Asli</label>
-                                        <img src="{{ Storage::url(Auth::user()->userDetails->kk) }}" class="img-fluid"
+                                        <img src="{{ Storage::url(Auth::user()->kk) }}" class="img-fluid"
                                             alt="kk">
                                     </div>
                                 </div>

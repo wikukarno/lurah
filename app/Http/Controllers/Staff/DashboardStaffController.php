@@ -6,8 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\BusinessCertifications;
 use App\Models\FuneralCertifications;
 use App\Models\IncapacityCertifications;
+use App\Models\Laporan;
 use App\Models\Letter;
 use App\Models\Permits;
+use App\Models\SKI;
+use App\Models\SKP;
+use App\Models\SKTM;
+use App\Models\SKU;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,33 +23,33 @@ class DashboardStaffController extends Controller
     public function index()
     {
         $dataUser = User::where('roles', 'user')->where('status_account', 'verifikasi')->count();
-        $sku = BusinessCertifications::count();
-        $skp = FuneralCertifications::count();
-        $sktm = IncapacityCertifications::count();
-        $ski = Permits::count();
+        $sku = SKU::count();
+        $skp = SKP::count();
+        $sktm = SKTM::count();
+        $ski = SKI::count();
 
-        $skuMasuk = BusinessCertifications::where('status', 'Belum Diproses')->count();
-        $skpMasuk = FuneralCertifications::where('status', 'Belum Diproses')->count();
-        $sktmMasuk = IncapacityCertifications::where('status', 'Belum Diproses')->count();
-        $skiMasuk = Permits::where('status', 'Belum Diproses')->count();
+        $skuMasuk = SKU::where('status', 'Belum Diproses')->count();
+        $skpMasuk = SKP::where('status', 'Belum Diproses')->count();
+        $sktmMasuk = SKTM::where('status', 'Belum Diproses')->count();
+        $skiMasuk = SKI::where('status', 'Belum Diproses')->count();
 
-        $skuProses = BusinessCertifications::where('status', 'Sedang Diproses')->count();
-        $skpProses = FuneralCertifications::where('status', 'Sedang Diproses')->count();
-        $sktmProses = IncapacityCertifications::where('status', 'Sedang Diproses')->count();
-        $skiProses = Permits::where('status', 'Sedang Diproses')->count();
+        $skuProses = SKU::where('status', 'Sedang Diproses')->count();
+        $skpProses = SKP::where('status', 'Sedang Diproses')->count();
+        $sktmProses = SKTM::where('status', 'Sedang Diproses')->count();
+        $skiProses = SKI::where('status', 'Sedang Diproses')->count();
 
-        $skuSelesai = BusinessCertifications::where('status', 'Selesai Diproses')->count();
-        $skpSelesai = FuneralCertifications::where('status', 'Selesai Diproses')->count();
-        $sktmSelesai = IncapacityCertifications::where('status', 'Selesai Diproses')->count();
-        $skiSelesai = Permits::where('status', 'Selesai Diproses')->count();
+        $skuSelesai = SKU::where('status', 'Selesai Diproses')->count();
+        $skpSelesai = SKP::where('status', 'Selesai Diproses')->count();
+        $sktmSelesai = SKTM::where('status', 'Selesai Diproses')->count();
+        $skiSelesai = SKI::where('status', 'Selesai Diproses')->count();
 
-        $skuDitolak = BusinessCertifications::where('status', 'Ditolak')->count();
-        $skpDitolak = FuneralCertifications::where('status', 'Ditolak')->count();
-        $sktmDitolak = IncapacityCertifications::where('status', 'Ditolak')->count();
-        $skiDitolak = Permits::where('status', 'Ditolak')->count();
+        $skuDitolak = SKU::where('status', 'Ditolak')->count();
+        $skpDitolak = SKP::where('status', 'Ditolak')->count();
+        $sktmDitolak = SKTM::where('status', 'Ditolak')->count();
+        $skiDitolak = SKI::where('status', 'Ditolak')->count();
 
 
-        // $suratProgress = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+        // $suratProgress = Laporan::with(['business', 'funeral', 'incapacity', 'permits'])
         //     ->whereHas('business', function ($query) {
         //         $query->where('status', 'Sedang Diproses');
         //     })
@@ -58,7 +63,7 @@ class DashboardStaffController extends Controller
         //         $query->where('status', 'Sedang Diproses');
         //     });
 
-        // $suratDitolak = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+        // $suratDitolak = Laporan::with(['business', 'funeral', 'incapacity', 'permits'])
         //     ->whereHas('business', function ($query) {
         //         $query->where('status', 'Ditolak');
         //     })
@@ -72,7 +77,7 @@ class DashboardStaffController extends Controller
         //         $query->where('status', 'Ditolak');
         //     });
 
-        // $suratSelesai = Letter::with(['business', 'funeral', 'incapacity', 'permits'])
+        // $suratSelesai = Laporan::with(['business', 'funeral', 'incapacity', 'permits'])
         //     ->whereHas('business', function ($query) {
         //         $query->where('status', 'Selesai Diproses');
         //     })
@@ -93,9 +98,9 @@ class DashboardStaffController extends Controller
 
         $totalSurat = $sku + $skp + $sktm + $ski;
 
-        $totalSuratProses = Letter::where('status', 'Sedang Diproses')->count();
-        $totalSuratSelesai = Letter::where('status', 'Selesai Diproses')->count();
-        $totalSuratDitolak = Letter::where('status', 'Ditolak')->count();
+        $totalSuratProses = Laporan::where('status', 'Sedang Diproses')->count();
+        $totalSuratSelesai = Laporan::where('status', 'Selesai Diproses')->count();
+        $totalSuratDitolak = Laporan::where('status', 'Ditolak')->count();
         
 
         return view('pages.staff.dashboard', compact('dataUser', 'totalSurat', 'sku', 'skp', 'sktm', 'ski', 'skuMasuk', 'skpMasuk', 'sktmMasuk', 'skiMasuk', 'skuProses', 'skpProses', 'sktmProses', 'skiProses', 'skuSelesai', 'skpSelesai', 'sktmSelesai', 'skiSelesai', 'skuDitolak', 'skpDitolak', 'sktmDitolak', 'skiDitolak', 'totalSuratProses', 'totalSuratSelesai', 'totalSuratDitolak'));
@@ -108,13 +113,13 @@ class DashboardStaffController extends Controller
 
             return datatables()->of($query)
                 ->addIndexColumn()
-                ->editColumn('phone', function ($item) {
-                    return $item->userDetails->phone ?? '-';
+                ->editColumn('no_telepon', function ($item) {
+                    return $item->no_telepon ?? '-';
                 })
-                ->editColumn('address', function ($item) {
-                    return $item->userDetails->address ?? '-';
+                ->editColumn('alamat', function ($item) {
+                    return $item->alamat ?? '-';
                 })
-                ->rawColumns(['address', 'phone', 'action', 'address'])
+                ->rawColumns(['alamat', 'no_telepon', 'action', 'alamat'])
                 ->make(true);
         }
         return view('pages.staff.penduduk');
@@ -127,9 +132,9 @@ class DashboardStaffController extends Controller
 
             return datatables()->of($query)
                 ->addIndexColumn()
-                ->editColumn('avatar', function ($item) {
-                    if ($item->userDetails->avatar != null) {
-                        return '<img src="' . Storage::url($item->userDetails->avatar) . '" class="img-fluid rounded-circle" width="40px" height="40px">';
+                ->editColumn('foto', function ($item) {
+                    if ($item->foto != null) {
+                        return '<img src="' . Storage::url($item->foto) . '" class="img-fluid rounded-circle" width="40px" height="40px">';
                     } else {
                         return '<img src="' . asset('assets/images/user.png') . '" class="img-fluid rounded-circle" width="40px" height="40px">';
                     }
@@ -140,19 +145,19 @@ class DashboardStaffController extends Controller
                 ->editColumn('action', function ($item) {
                     return '
                         <div class="form-group d-flex">
-                            <a href="' . route('staff.detail-verifikasi', $item->id) . '" class="btn btn-sm btn-primary mx-1">Detail</a>
+                            <a href="' . route('staff.detail-verifikasi', $item->id_user) . '" class="btn btn-sm btn-primary mx-1">Detail</a>
                             <form id="form-verifikasi-pengguna" method="POST">
                                 ' . csrf_field() . '
-                                <input type="hidden" name="id" value="' . $item->id . '">
+                                <input type="hidden" name="id_user" value="' . $item->id_user . '">
                                 <button type="submit" id="btnVerifikasi" class="btn btn-sm btn-success mx-1">Verifikasi</button>
                             </form>
 
-                            <a href="' . route('staff.get-tolak', $item->id) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
+                            <a href="' . route('staff.get-tolak', $item->id_user) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
                         </div>
                         <script>
                             $("#form-verifikasi-pengguna").submit(function (e) {
                                 e.preventDefault();
-                                var id = $("input[name=id]").val();
+                                var id = $("input[name=id_user]").val();
 
                                 Swal.fire({
                                     title: "Apakah anda yakin?",
@@ -168,7 +173,7 @@ class DashboardStaffController extends Controller
                                             url: "' . route('staff.verifikasi') . '",
                                             type: "POST",
                                             data: {
-                                                id: id,
+                                                id_user: id,
                                                 _token: "' . csrf_token() . '"
                                             },
                                             success: function (data) {
@@ -196,7 +201,7 @@ class DashboardStaffController extends Controller
                         </script>
                     ';
                 })
-                ->rawColumns(['alamat', 'avatar', 'action'])
+                ->rawColumns(['alamat', 'foto', 'action'])
                 ->make(true);
         }
         return view('pages.staff.verifikasi-penduduk');
@@ -204,7 +209,7 @@ class DashboardStaffController extends Controller
 
     public function verifikasi(Request $request)
     {
-        $data = User::findOrFail($request->id);
+        $data = User::findOrFail($request->id_user);
         $data->status_account = 'verifikasi';
         $data->save();
 
@@ -224,7 +229,7 @@ class DashboardStaffController extends Controller
     public function detailVerifikasi($id)
     {
         $data = User::findOrFail($id);
-        $users = User::with('userDetails')->where('id', $id)->first();
+        $users = User::with('userDetails')->where('id_user', $id)->first();
         return view('pages.staff.detail-verifikasi', compact('data', 'users'));
     }
 

@@ -7,19 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class BusinessCertifications extends Model
+class SKP extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'letters_id',
-        'users_id',
-        'nama_usaha',
-        'jenis_usaha',
-        'surat_rtrw',
-        'alasan_penolakan',
-        'posisi',
-        'status'
+    protected $table = 'surat_keterangan_pemakaman';
+    protected $primaryKey = 'id_surat_keterangan_pemakaman';
+    protected $guarded = [
+        'id_surat_keterangan_pemakaman'
     ];
 
     public $incrementing = false;
@@ -48,4 +43,5 @@ class BusinessCertifications extends Model
     {
         return $this->belongsTo(Letter::class, 'letters_id', 'id');
     }
+
 }

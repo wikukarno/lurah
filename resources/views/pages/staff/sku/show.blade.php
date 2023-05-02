@@ -13,7 +13,7 @@ Surat Keterangan Usaha
                     <div class="card-header">
                         <div class="header-title d-lg-flex">
                             <h3 class="card-title">Detail Data Surat Keterangan Usaha</h3>
-                            <span class="mt-1 ml-lg-3"><b>{{ $item->user->name }}</b></span>
+                            <span class="mt-1 ml-lg-3"><b>{{ $item->user->nama }}</b></span>
                         </div>
                     </div>
                     <div class="card-body">
@@ -31,13 +31,13 @@ Surat Keterangan Usaha
                                 <div class="form-group">
                                     <label for="nik">NIK</label>
                                     <input type="number" class="form-control"
-                                        value="{{ $item->user->userDetails->nik }}" readonly>
+                                        value="{{ $item->user->nik }}" readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4">
                                 <div class="form-group">
                                     <label for="nama">Nama</label>
-                                    <input type="text" class="form-control" value="{{ $item->user->name }}" readonly>
+                                    <input type="text" class="form-control" value="{{ $item->user->nama }}" readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4">
@@ -59,14 +59,14 @@ Surat Keterangan Usaha
                                 <div class="form-group">
                                     <label for="tempat_lahir">Tempat Lahir</label>
                                     <input type="text" class="form-control"
-                                        value="{{ $item->user->userDetails->tempat_lahir }}" readonly>
+                                        value="{{ $item->user->tempat_lahir }}" readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4">
                                 <div class="form-group">
                                     <label for="tanggal_lahir">Tanggal Lahir</label>
                                     <input type="text" class="form-control"
-                                        value="{{ \Carbon\Carbon::parse($item->user->userDetails->tanggal_lahir)->isoFormat('D MMMM Y') }}"
+                                        value="{{ \Carbon\Carbon::parse($item->user->tanggal_lahir)->isoFormat('D MMMM Y') }}"
                                         readonly>
                                 </div>
                             </div>
@@ -77,14 +77,14 @@ Surat Keterangan Usaha
                                 <div class="form-group">
                                     <label for="jenis_kelamin">Jenis Kelamin</label>
                                     <input type="text" class="form-control"
-                                        value="{{ $item->user->userDetails->jenis_kelamin }}" readonly>
+                                        value="{{ $item->user->jenis_kelamin }}" readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6">
                                 <div class="form-group">
                                     <label for="nama">Pekerjaan</label>
                                     <input type="text" class="form-control"
-                                        value="{{ $item->user->userDetails->pekerjaan }}" readonly>
+                                        value="{{ $item->user->pekerjaan }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -94,21 +94,21 @@ Surat Keterangan Usaha
                                 <div class="form-group">
                                     <label for="nama">Status Perkawinan</label>
                                     <input type="text" class="form-control"
-                                        value="{{ $item->user->userDetails->status_perkawinan }}" readonly>
+                                        value="{{ $item->user->status_perkawinan }}" readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4">
                                 <div class="form-group">
                                     <label for="nama">Agama</label>
                                     <input type="text" class="form-control"
-                                        value="{{ $item->user->userDetails->agama }}" readonly>
+                                        value="{{ $item->user->agama }}" readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4">
                                 <div class="form-group">
                                     <label for="nama">Kecamatan</label>
                                     <input type="text" class="form-control"
-                                        value="{{ $item->user->userDetails->kecamatan }}" readonly>
+                                        value="{{ $item->user->kecamatan }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -118,13 +118,13 @@ Surat Keterangan Usaha
                                 <div class="form-group">
                                     <label for="nama">Kelurahan</label>
                                     <input type="text" class="form-control"
-                                        value="{{ $item->user->userDetails->kelurahan }}" readonly>
+                                        value="{{ $item->user->kelurahan }}" readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6">
                                 <div class="form-group">
                                     <label for="nama">RT / RW</label>
-                                    <input type="text" class="form-control" value="{{ $item->user->userDetails->rtrw }}"
+                                    <input type="text" class="form-control" value="{{ $item->user->rtrw }}"
                                         readonly>
                                 </div>
                             </div>
@@ -135,7 +135,7 @@ Surat Keterangan Usaha
                                 <div class="form-group">
                                     <label for="alamat">Alamat</label>
                                     <input type="text" class="form-control"
-                                        value="{{ $item->user->userDetails->address }}" readonly>
+                                        value="{{ $item->user->address }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -144,14 +144,14 @@ Surat Keterangan Usaha
                             <div class="col-12 col-lg-4 mb-3">
                                 <div class="form-group">
                                     <label for="ktp">Foto KTP</label>
-                                    <img src="{{ Storage::url($item->user->userDetails->ktp) }}" alt="foto ktp"
+                                    <img src="{{ Storage::url($item->user->ktp) }}" alt="foto ktp"
                                         class="img-fluid">
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4 mb-3">
                                 <div class="form-group">
                                     <label for="ktp">Foto KK</label>
-                                    <img src="{{ Storage::url($item->user->userDetails->kk) }}" alt="foto kk"
+                                    <img src="{{ Storage::url($item->user->kk) }}" alt="foto kk"
                                         class="img-fluid">
                                 </div>
                             </div>

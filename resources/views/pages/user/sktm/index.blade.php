@@ -39,9 +39,10 @@ Surat Keterangan Tidak Mampu
                             <img src="{{ asset('assets/images/ditolak.svg') }}" class="figure-img img-fluid" alt="">
                             <figcaption class="figure-caption">
                                 <h3 class="text-center">Mohon Maaf!</h3>
-                                <p class="text-center">Permohonan akun anda ditolak, karena anda bukan warga dari
-                                    kelurahan sorek satu
+                                <p class="text-center">Permohonan akun anda ditolak, karena {{ $user->alasan_penolakan }}
                                     Terimakasih</p>
+                                    <a href="{{ route('complete-profile') }}" class="btn btn-primary"> <i class="fas fa-plus"></i>&nbsp;
+                                        Ajukan Ulang</a>
                             </figcaption>
                         </figure>
                     </div>
@@ -211,7 +212,7 @@ Surat Keterangan Tidak Mampu
     url: "{{ route('sktm-user.index') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'DT_RowIndex', name: 'id_surat_tidak_mampu' },
     { data: 'user.name', name: 'user.name' },
     { data: 'tujuan', name: 'tujuan' },
     { data: 'created_at', name: 'created_at' },
@@ -233,7 +234,7 @@ Surat Keterangan Tidak Mampu
     url: "{{ route('sktm-user.onProgress') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'DT_RowIndex', name: 'id_surat_tidak_mampu' },
     { data: 'user.name', name: 'user.name' },
     { data: 'tujuan', name: 'tujuan' },
     { data: 'created_at', name: 'created_at' },
@@ -255,7 +256,7 @@ Surat Keterangan Tidak Mampu
     url: "{{ route('sktm-user.success') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'DT_RowIndex', name: 'id_surat_tidak_mampu' },
     { data: 'user.name', name: 'user.name' },
     { data: 'tujuan', name: 'tujuan' },
     { data: 'created_at', name: 'created_at' },
@@ -277,7 +278,7 @@ Surat Keterangan Tidak Mampu
     url: "{{ route('sktm-user.rejected') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'DT_RowIndex', name: 'id_surat_tidak_mampu' },
     { data: 'user.name', name: 'user.name' },
     { data: 'tujuan', name: 'tujuan' },
     { data: 'created_at', name: 'created_at' },

@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\FuneralCertifications;
+use App\Models\Laporan;
 use App\Models\Letter;
+use App\Models\SKP;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class StaffFuneralCertificationController extends Controller
@@ -18,7 +21,7 @@ class StaffFuneralCertificationController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = FuneralCertifications::with([
+            $query = SKP::with([
                 'user.userDetails',
                 'letter',
             ])->where('status', 'Belum Diproses')->get();
@@ -48,29 +51,29 @@ class StaffFuneralCertificationController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-staff.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('skp-staff.cetak-skp', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('skp-staff.cetak-skp', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id . ')">
+                            <a href="' . route('skp-staff.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id_surat_keterangan_pemakaman . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSkp(' . $item->id . ')">' . $item->status . '</a>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSkp(' . $item->id_surat_keterangan_pemakaman . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-staff.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('skp-staff.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('skp-staff.update', $item->id_surat_keterangan_pemakaman) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -78,7 +81,7 @@ class StaffFuneralCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="' . route('staff.get-tolak-skp', $item->id) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
+                            <a href="' . route('staff.get-tolak-skp', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
 
                         ';
                     }
@@ -93,7 +96,7 @@ class StaffFuneralCertificationController extends Controller
     public function onProgress()
     {
         if (request()->ajax()) {
-            $query = FuneralCertifications::with([
+            $query = SKP::with([
                 'user.userDetails',
                 'letter',
             ])->where('status', 'Sedang Diproses')->get();
@@ -123,29 +126,29 @@ class StaffFuneralCertificationController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-staff.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('skp-staff.cetak-skp', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('skp-staff.cetak-skp', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id . ')">
+                            <a href="' . route('skp-staff.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id_surat_keterangan_pemakaman . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSkp(' . $item->id . ')">' . $item->status . '</a>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSkp(' . $item->id_surat_keterangan_pemakaman . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-staff.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('skp-staff.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('skp-staff.update', $item->id_surat_keterangan_pemakaman) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -153,7 +156,7 @@ class StaffFuneralCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKP(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKP(' . $item->id_surat_keterangan_pemakaman . ')">
                                 Tolak
                             </a>
 
@@ -169,7 +172,7 @@ class StaffFuneralCertificationController extends Controller
     public function success()
     {
         if (request()->ajax()) {
-            $query = FuneralCertifications::with([
+            $query = SKP::with([
                 'user.userDetails',
                 'letter',
             ])->where('status', 'Selesai Diproses')->get();
@@ -199,29 +202,29 @@ class StaffFuneralCertificationController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-staff.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('skp-staff.cetak-skp', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('skp-staff.cetak-skp', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id . ')">
+                            <a href="' . route('skp-staff.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id_surat_keterangan_pemakaman . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSkp(' . $item->id . ')">' . $item->status . '</a>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSkp(' . $item->id_surat_keterangan_pemakaman . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-staff.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('skp-staff.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('skp-staff.update', $item->id_surat_keterangan_pemakaman) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -229,7 +232,7 @@ class StaffFuneralCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKP(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKP(' . $item->id_surat_keterangan_pemakaman . ')">
                                 Tolak
                             </a>
 
@@ -245,7 +248,7 @@ class StaffFuneralCertificationController extends Controller
     public function rejected()
     {
         if (request()->ajax()) {
-            $query = FuneralCertifications::with([
+            $query = SKP::with([
                 'user.userDetails',
                 'letter',
             ])->where('status', 'Ditolak')->get();
@@ -275,27 +278,27 @@ class StaffFuneralCertificationController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-staff.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('skp-staff.cetak-skp', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('skp-staff.cetak-skp', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id . ')">
+                            <a href="' . route('skp-staff.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id_surat_keterangan_pemakaman . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-staff.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('skp-staff.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('skp-staff.update', $item->id_surat_keterangan_pemakaman) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -303,7 +306,7 @@ class StaffFuneralCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKP(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKP(' . $item->id_surat_keterangan_pemakaman . ')">
                                 Tolak
                             </a>
 
@@ -346,7 +349,7 @@ class StaffFuneralCertificationController extends Controller
      */
     public function show($id)
     {
-        $item = FuneralCertifications::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+        $item = SKP::with(['user.userDetails', 'letter'])->where('id_surat_keterangan_pemakaman', $id)->findOrFail($id);
 
         return view('pages.staff.skp.show', [
             'item' => $item,
@@ -373,8 +376,8 @@ class StaffFuneralCertificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $item = FuneralCertifications::findOrFail($id);
-        $data = Letter::findOrFail($item->letters_id);
+        $item = SKP::findOrFail($id);
+        $data = Laporan::findOrFail($item->id_laporan);
         $data->update([
             'status' => 'Sedang Diproses',
             'posisi' => 'lurah',
@@ -406,14 +409,14 @@ class StaffFuneralCertificationController extends Controller
 
     public function getTolakSkp($id)
     {
-        $data = FuneralCertifications::findOrFail($id);
+        $data = SKP::findOrFail($id);
         return view('pages.staff.skp.tolak', compact('data'));
     }
 
     public function tolakSkp(Request $request)
     {
-        $skp = FuneralCertifications::findOrFail($request->id);
-        $data = Letter::findOrFail($skp->letters_id);
+        $skp = SKP::findOrFail($request->id_surat_keterangan_pemakaman);
+        $data = Laporan::findOrFail($skp->id_laporan);
         $data->update([
             'status' => 'Ditolak',
         ]);
@@ -431,9 +434,4 @@ class StaffFuneralCertificationController extends Controller
         }
     }
 
-    public function showTolakSkp(Request $request)
-    {
-        $data = FuneralCertifications::findOrFail($request->id);
-        return response()->json($data);
-    }
 }

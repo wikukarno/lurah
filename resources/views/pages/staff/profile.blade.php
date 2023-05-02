@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-Profile {{ Auth::user()->name }}
+Profile {{ Auth::user()->nama }}
 @endsection
 
 @section('content')
@@ -18,9 +18,9 @@ Profile {{ Auth::user()->name }}
                             @csrf
                             <input type="hidden" name="id" value="{{ Auth::user()->id }}">
                             <div class="text-center">
-                                @if (Auth::user()->userDetails->avatar != null)
+                                @if (Auth::user()->foto != null)
 
-                                <img src="{{ Storage::url(Auth::user()->userdetails->avatar) }}"
+                                <img src="{{ Storage::url(Auth::user()->foto) }}"
                                     class="figure-img img-fluid rounded-circle thumbnail-image" alt="foto profile"
                                     id="foto-profile" />
 
@@ -31,7 +31,7 @@ Profile {{ Auth::user()->name }}
                                 @endif
                             </div>
                         </form>
-                        <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
+                        <h3 class="profile-username text-center">{{ Auth::user()->nama }}</h3>
                         <p class="text-center">{{ Auth::user()->roles }} Desa Sorek</p>
 
                         <section class="section-profile-content">

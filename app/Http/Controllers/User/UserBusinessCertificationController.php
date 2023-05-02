@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BusinessCertificationRequest;
 use App\Models\BusinessCertifications;
 use App\Models\Category;
+use App\Models\KategoriSurat;
+use App\Models\Laporan;
 use App\Models\Letter;
+use App\Models\SKU;
 use App\Models\User;
-use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -23,14 +25,11 @@ class UserBusinessCertificationController extends Controller
      */
     public function index()
     {
+        // Datatables untuk tampil data yang belum diproses
         if (request()->ajax()) {
-            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('categories_id', 1)->where('status', 'Belum Diproses')->get();
-            $query = BusinessCertifications::with('user')->where('users_id', Auth::user()->id)->where('status', 'Belum Diproses')->get();
+            $query = SKU::with('user')->where('id_user', Auth::user()->id)->where('status', 'Belum Diproses')->get();
             return datatables()->of($query)
                 ->addIndexColumn()
-                // ->editColumn('users_id', function ($item) {
-                //     return $item->user->name;
-                // })
                 ->editColumn('created_at', function ($item) {
                     return $item->created_at->isoFormat('D MMMM Y');
                 })
@@ -105,15 +104,16 @@ class UserBusinessCertificationController extends Controller
                 ->rawColumns(['created_at', 'status', 'surat_rtrw', 'action', 'nama_usaha'])
                 ->make(true);
         }
-        $userDetails = UserDetails::with('user')->where('users_id', Auth::user()->id)->get();
+
         $user = User::where('id', Auth::user()->id)->first();
-        return view('pages.user.sku.index', compact('userDetails', 'user'));
+
+        return view('pages.user.sku.index', compact('user'));
     }
     public function onProgress()
     {
+        // Datatables untuk tampil data yang sedang diproses
         if (request()->ajax()) {
-            // $query = Letter::where('users_id', Auth::user()->id)->where('categories_id', 1)->where('status', 'Sedang Diproses')->get();
-            $query = BusinessCertifications::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->get();
+            $query = SKU::with('user')->where('id_user', Auth::user()->id)->where('status', 'Sedang Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -135,9 +135,9 @@ class UserBusinessCertificationController extends Controller
     }
     public function success()
     {
+        // Datatables untuk tampil data yang berhasil
         if (request()->ajax()) {
-            // $query = Letter::where('users_id', Auth::user()->id)->where('categories_id', 1)->where('status', 'Selesai Diproses')->get();
-            $query = BusinessCertifications::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->get();
+            $query = SKU::with('user')->where('id_user', Auth::user()->id)->where('status', 'Selesai Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -166,9 +166,9 @@ class UserBusinessCertificationController extends Controller
     public function rejected()
     {
 
+        // Datatables untuk tampil data yang ditolak
         if (request()->ajax()) {
-            // $query = Letter::where('users_id', Auth::user()->id)->where('categories_id', 1)->where('status', 'Ditolak')->get();
-            $query = BusinessCertifications::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Ditolak')->get();
+            $query = SKU::with('user')->where('id_user', Auth::user()->id)->where('status', 'Ditolak')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -209,6 +209,7 @@ class UserBusinessCertificationController extends Controller
      */
     public function create()
     {
+        // arahkan ke halaman create surat keterangan usaha
         return view('pages.user.sku.create');
     }
 
@@ -220,27 +221,28 @@ class UserBusinessCertificationController extends Controller
      */
     public function store(BusinessCertificationRequest $request)
     {
-        $category = Category::where('name', 'Surat Keterangan Usaha')->first();
-        $item = new Letter();
-        $item->users_id = Auth::user()->id;
-        $item->categories_id = $category->id;
+        // buat laporan baru sesuai kategori surat
+        $category = KategoriSurat::where('nama', 'Surat Keterangan Usaha')->first();
+        $item = new Laporan();
+        $item->id_user = Auth::user()->id;
+        $item->id_kategori_surat = $category->id;
         $item->status = 'Belum Diproses';
         $item->posisi = 'Staff';
         $item->nama_usaha = $request->nama_usaha;
         $item->save();
 
-        $data = BusinessCertifications::create([
-            'letters_id' => $item->id,
-            'users_id' => Auth::user()->id,
+        // buat surat baru sesuai laporan yang dibuat
+        $data = SKU::create([
+            'id_laporan' => $item->id,
+            'id_user' => Auth::user()->id,
             'nama_usaha' => $request->nama_usaha,
             'jenis_usaha' => $request->jenis_usaha,
             'status' => 'Belum Diproses',
             'posisi' => 'Staff',
-            'surat_rtrw' => $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public'),
+            'surat_rtrw' => $request->file('surat_rtrw')->store('assets/surat_rtrw', 'public'),
         ]);
 
-        
-
+        // tampilkan notifikasi berhasil atau gagal
         if ($data) {
             Alert::success('Berhasil', 'Permohonan berhasil dikirim');
             return redirect()->route('sku-user.index');
@@ -258,8 +260,9 @@ class UserBusinessCertificationController extends Controller
      */
     public function show($id)
     {
-        $item = BusinessCertifications::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+        // tampilkan detail surat keterangan usaha sesuai id
 
+        $item = SKU::with('user', 'laporan')->where('id', $id)->findOrFail($id);
         return view('pages.user.sku.show', [
             'item' => $item,
         ]);
@@ -273,7 +276,8 @@ class UserBusinessCertificationController extends Controller
      */
     public function edit($id)
     {
-        $item = BusinessCertifications::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+        // edit surat keterangan usaha
+        $item = SKU::with(['user', 'laporan'])->where('id', $id)->findOrFail($id);
         return view('pages.user.sku.edit', [
             'item' => $item,
         ]);
@@ -288,30 +292,31 @@ class UserBusinessCertificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = BusinessCertifications::findOrFail($id);
-        $fileLama = $data->surat_rtrw;
-        if ($request->surat_rtrw != null) {
-            $data->surat_rtrw = $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public');
-            if ($fileLama != null) {
-                Storage::disk('public')->delete($fileLama);
+        $data = $request->all();
+        $sku = SKU::findOrFail($id);
+
+        // cek ada kirim file surat_rtrw baru atau tidak kalau ada hapus file lama
+        if($request->file('surat_rtrw')){
+            $data['surat_rtrw'] = $request->file('surat_rtrw')->store('assets/surat_rtrw', 'public');
+            if($sku->surat_rtrw && file_exists(storage_path('app/public/' . $sku->surat_rtrw))){
+                Storage::delete('public/'. $sku->surat_rtrw);
             }
         }
-        $item = Letter::findOrFail($data->letters_id);
-        $item->nama_usaha = $request->nama_usaha;
-        $item->save();
 
-        $data->update([
-            'nama_usaha' => $request->nama_usaha,
-            'jenis_usaha' => $request->jenis_usaha,
-            'surat_rtrw' => $data->surat_rtrw,
-        ]);
+        $sku->update($data);
 
-        if ($data) {
-            Alert::success('Berhasil', 'Permohonan berhasil diubah');
+        // update nama usaha di laporan
+        $laporan = Laporan::findOrFail($sku->id_laporan);
+        $laporan->nama_usaha = $request->nama_usaha;
+        $laporan->save();
+
+        // tampilkan notifikasi berhasil atau gagal
+        if ($sku) {
+            Alert::success('Berhasil', 'Data berhasil diubah');
             return redirect()->route('sku-user.index');
         } else {
-            Alert::error('Gagal', 'Permohonan gagal diubah');
-            return redirect()->route('sku-user.index')->with('error', 'Permohonan gagal diubah');
+            Alert::error('Gagal', 'Data gagal diubah');
+            return redirect()->route('sku-user.index')->with('error', 'Data gagal diubah');
         }
     }
 
@@ -323,17 +328,14 @@ class UserBusinessCertificationController extends Controller
      */
     public function destroy(Request $request)
     {
-        $data = BusinessCertifications::findOrFail($request->id);
-        $item = Letter::findOrFail($data->letters_id);
+        // hapus pengajuan surat di tabel sku dan laporan
+        $data = SKU::findOrFail($request->id);
+        $item = Laporan::findOrFail($data->id_laporan);
         $data->delete();
         $item->delete();
 
+        // kirim response ke ajax
         return response()->json($data);
     }
 
-    public function showTolakSku(Request $request)
-    {
-        $data = BusinessCertifications::findOrFail($request->id);
-        return response()->json($data);
-    }
 }

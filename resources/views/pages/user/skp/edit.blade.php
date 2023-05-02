@@ -14,7 +14,7 @@ Update Surat Keterangan Pemakaman
                         <h3>Update Surat Keterangan Pemakaman</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('skp-user.update', $item->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('skp-user.update', $item->id_surat_keterangan_pemakaman) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row">
@@ -157,14 +157,14 @@ Update Surat Keterangan Pemakaman
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="">Foto KTP Asli</label>
-                                        <img src="{{ Storage::url(Auth::user()->userDetails->ktp) }}" class="img-fluid"
+                                        <img src="{{ Storage::url(Auth::user()->ktp) }}" class="img-fluid"
                                             alt="ktp">
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="">Foto KK Asli</label>
-                                        <img src="{{ Storage::url(Auth::user()->userDetails->kk) }}" class="img-fluid"
+                                        <img src="{{ Storage::url(Auth::user()->kk) }}" class="img-fluid"
                                             alt="kk">
                                     </div>
                                 </div>

@@ -50,14 +50,14 @@ Surat Keterangan Usaha
                                     <div class="form-group">
                                         <label for="nama">NIK</label>
                                         <input type="number" class="form-control" id="nik" name="nik"
-                                            value="{{ Auth::user()->userDetails->nik }}" readonly>
+                                            value="{{ Auth::user()->nik }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="nama">Nama</label>
                                         <input type="text" class="form-control" id="nama" name="nama"
-                                            value="{{ Auth::user()->name }}" readonly>
+                                            value="{{ Auth::user()->nama }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -67,14 +67,14 @@ Surat Keterangan Usaha
                                     <div class="form-group">
                                         <label for="nama">Tempat Lahir</label>
                                         <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"
-                                            value="{{ Auth::user()->userDetails->tempat_lahir }}" readonly>
+                                            value="{{ Auth::user()->tempat_lahir }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="tanggal_lahir">Tanggal Lahir</label>
                                         <input type="text" class="form-control" id="tanggal_lahir" name="tanggal_lahir"
-                                            value="{{ Auth::user()->userDetails->tanggal_lahir }}" readonly>
+                                            value="{{ Auth::user()->tanggal_lahir }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@ Surat Keterangan Usaha
                                     <div class="form-group">
                                         <label for="nama">Jenis Kelamin</label>
                                         <input type="text" class="form-control"
-                                            value="{{ Auth::user()->userDetails->jenis_kelamin }}" readonly>
+                                            value="{{ Auth::user()->jenis_kelamin }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
@@ -92,14 +92,14 @@ Surat Keterangan Usaha
                                         <label for="nama">Pekerjaan</label>
                                         <input type="text" class="form-control" id="pekerjaan" name="pekerjaan"
                                             placeholder="Masukkan pekerjaan"
-                                            value="{{ Auth::user()->userDetails->pekerjaan }}" readonly>
+                                            value="{{ Auth::user()->pekerjaan }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="nama">Status Perkawinan</label>
                                         <input type="text" class="form-control" id="status_perkawinan"
-                                            value="{{ Auth::user()->userDetails->status_perkawinan }}" readonly>
+                                            value="{{ Auth::user()->status_perkawinan }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -109,14 +109,14 @@ Surat Keterangan Usaha
                                     <div class="form-group">
                                         <label for="nama">Agama</label>
                                         <input type="text" class="form-control"
-                                            value="{{ Auth::user()->userDetails->agama }}" readonly>
+                                            value="{{ Auth::user()->agama }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="nama">Kecamatan</label>
                                         <input type="text" class="form-control" id="kecamatan" name="kecamatan"
-                                            value="{{ Auth::user()->userDetails->kecamatan }}" readonly>
+                                            value="{{ Auth::user()->kecamatan }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -126,21 +126,21 @@ Surat Keterangan Usaha
                                     <div class="form-group">
                                         <label for="nama">Kelurahan</label>
                                         <input type="text" class="form-control" id="kelurahan" name="kelurahan"
-                                            value="{{ Auth::user()->userDetails->kelurahan }}" readonly>
+                                            value="{{ Auth::user()->kelurahan }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="nama">RT / RW</label>
                                         <input type="text" class="form-control" id="rtrw" name="rtrw"
-                                            value="{{ Auth::user()->userDetails->rtrw }}" readonly>
+                                            value="{{ Auth::user()->rtrw }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="alamat">Alamat</label>
                                         <input type="text" class="form-control" id="address" name="address"
-                                            value="{{ Auth::user()->userDetails->address }}" readonly>
+                                            value="{{ Auth::user()->address }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -150,7 +150,7 @@ Surat Keterangan Usaha
                                     <div class="form-group">
                                         <label for="">Foto KTP Asli</label>
                                         <figure class="figure">
-                                            <img src="{{ Storage::url(Auth::user()->userDetails->ktp) }}"
+                                            <img src="{{ Storage::url(Auth::user()->ktp) }}"
                                                 class="figure-img img-fluid rounded" alt="ktp">
                                         </figure>
                                     </div>
@@ -159,7 +159,7 @@ Surat Keterangan Usaha
                                     <div class="form-group">
                                         <label for="">Foto KK Asli</label>
                                         <figure class="figure">
-                                            <img src="{{ Storage::url(Auth::user()->userDetails->kk) }}"
+                                            <img src="{{ Storage::url(Auth::user()->kk) }}"
                                                 class="figure-img img-fluid rounded" alt="kk">
                                         </figure>
                                     </div>

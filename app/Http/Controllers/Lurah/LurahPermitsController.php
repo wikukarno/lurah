@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Lurah;
 
 use App\Http\Controllers\Controller;
+use App\Models\Laporan;
 use App\Models\Letter;
 use App\Models\Permits;
+use App\Models\SKI;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -18,7 +20,7 @@ class LurahPermitsController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Permits::with([
+            $query = SKI::with([
                 'user.userDetails',
                 'letter',
             ])->where('posisi', 'lurah')->get();
@@ -42,16 +44,55 @@ class LurahPermitsController extends Controller
                 ->editColumn('action', function ($item) {
                     if ($item->posisi == 'lurah') {
                         return '
-                            <a href="' . route('ski-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                            <form action="' . route('ski-lurah.update', $item->id) . '" method="POST" class="d-inline">
-                            ' . method_field('PUT') . '        
-                            ' . csrf_field() . '
-                                <button class="btn btn-sm btn-success">
-                                    Setujui
-                                </button>
-                            </form>
+                            <div class="d-flex">
+                                <a href="' . route('ski-lurah.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <form id="form-setujui" method="POST">
+                                    ' . csrf_field() . '
+                                    <input type="hidden" name="id_surat_keterangan_izin" value="' . $item->id_surat_keterangan_izin . '">
+                                    <button type="submit" id="btnSetujui" class="btn btn-sm btn-success mx-1">Setujui</button>
+                                </form>
+                            </div>
+
+                            <script>
+                                $("#form-setujui").submit(function (e) {
+                                    e.preventDefault();
+                                    var id = $("input[name=id_surat_keterangan_izin]").val();
+
+                                    Swal.fire({
+                                        title: "Apakah anda yakin?",
+                                        text: "Ingin Setujui surat ini?",
+                                        icon: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#3085d6",
+                                        cancelButtonColor: "#d33",
+                                        confirmButtonText: "Ya, Setujui!",
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            $.ajax({
+                                                url: "' . route('ski-lurah.setujui') . '",
+                                                type: "POST",
+                                                data: {
+                                                    id_surat_keterangan_izin: id,
+                                                    _token: "' . csrf_token() . '"
+                                                },
+                                                success: function (data) {
+                                                    Swal.fire(
+                                                        "Berhasil!",
+                                                        "Surat berhasil disetujui",
+                                                        "success"
+                                                    )
+                                                    $("#tb_ski_lurah_belum_diproses").DataTable().ajax.reload();
+                                                    $("#tb_ski_lurah_ditolak").DataTable().ajax.reload();
+                                                    $("#tb_ski_lurah_sedang_diproses").DataTable().ajax.reload();
+                                                    $("#tb_ski_lurah_selesai_diproses").DataTable().ajax.reload();
+                                                }
+                                            });
+                                        }
+                                    })
+                                });
+                            </script>
                         ';
                     } elseif ($item->status == 'Selesai') {
                         return '
@@ -61,16 +102,17 @@ class LurahPermitsController extends Controller
                         ';
                     } else {
                         return '
-                            <a href="#" class="btn btn-sm btn-secondary">
-                                <i class="fa fa-eye"></i>
-                            </a>
+                            <div class="d-flex">
+                                <a href="#" class="btn btn-sm btn-secondary">
+                                    <i class="fa fa-eye"></i>
+                                </a>
 
-                            <form action="' . route('ski-lurah.update', $item->id) . '" method="POST" class="d-inline">
-                                ' . csrf_field() . '
-                                <button class="btn btn-sm btn-warning">
-                                    Teruskan
-                                </button>
-                            </form>
+                                <form id="form-setujui" method="POST">
+                                    ' . csrf_field() . '
+                                    <input type="hidden" name="id_surat_keterangan_izin" value="' . $item->id_surat_keterangan_izin . '">
+                                    <button type="submit" id="btnSetujui" class="btn btn-sm btn-success mx-1">Setujui</button>
+                                </form>
+                            </div>
                         ';
                     }
                 })
@@ -84,7 +126,7 @@ class LurahPermitsController extends Controller
     public function onProgress()
     {
         if (request()->ajax()) {
-            $query = Permits::with([
+            $query = SKI::with([
                 'user.userDetails',
                 'letter',
             ])->where('status', 'Selesai Diproses')->get();
@@ -114,29 +156,29 @@ class LurahPermitsController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('ski-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('ski-lurah.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('ski-lurah.cetak-ski', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('ski-lurah.cetak-ski', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('ski-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSki(' . $item->id . ')">
+                            <a href="' . route('ski-lurah.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary" onclick="lampiranSki(' . $item->id_surat_keterangan_izin . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSki(' . $item->id . ')">' . $item->status . '</a>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSki(' . $item->id_surat_keterangan_izin . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('ski-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('ski-lurah.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('ski-lurah.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('ski-lurah.update', $item->id_surat_keterangan_izin) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -144,7 +186,7 @@ class LurahPermitsController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSki(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSki(' . $item->id_surat_keterangan_izin . ')">
                                 Tolak
                             </a>
 
@@ -160,7 +202,7 @@ class LurahPermitsController extends Controller
     public function success()
     {
         if (request()->ajax()) {
-            $query = Permits::with([
+            $query = SKI::with([
                 'user.userDetails',
                 'letter',
             ])->where('status', 'Selesai Diproses')->get();
@@ -190,25 +232,25 @@ class LurahPermitsController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('ski-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('ski-lurah.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('ski-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSki(' . $item->id . ')">
+                            <a href="' . route('ski-lurah.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary" onclick="lampiranSki(' . $item->id_surat_keterangan_izin . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSki(' . $item->id . ')">' . $item->status . '</a>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSki(' . $item->id_surat_keterangan_izin . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('ski-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('ski-lurah.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('ski-lurah.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('ski-lurah.update', $item->id_surat_keterangan_izin) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -216,7 +258,7 @@ class LurahPermitsController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSki(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSki(' . $item->id_surat_keterangan_izin . ')">
                                 Tolak
                             </a>
 
@@ -232,7 +274,7 @@ class LurahPermitsController extends Controller
     public function rejected()
     {
         if (request()->ajax()) {
-            $query = Permits::with([
+            $query = SKI::with([
                 'user.userDetails',
                 'letter',
             ])->where('status', 'Ditolak')->get();
@@ -262,23 +304,23 @@ class LurahPermitsController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('ski-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('ski-lurah.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('ski-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSki(' . $item->id . ')">
+                            <a href="' . route('ski-lurah.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary" onclick="lampiranSki(' . $item->id_surat_keterangan_izin . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('ski-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('ski-lurah.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('ski-lurah.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('ski-lurah.update', $item->id_surat_keterangan_izin) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -286,7 +328,7 @@ class LurahPermitsController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSki(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSki(' . $item->id_surat_keterangan_izin . ')">
                                 Tolak
                             </a>
 
@@ -329,7 +371,7 @@ class LurahPermitsController extends Controller
      */
     public function show($id)
     {
-        $item = Permits::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+        $item = SKI::with(['user.userDetails', 'letter'])->where('id_surat_keterangan_izin', $id)->findOrFail($id);
 
         return view('pages.lurah.ski.show', [
             'item' => $item,
@@ -356,8 +398,8 @@ class LurahPermitsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $item = Permits::findOrFail($id);
-        $data = Letter::findOrFail($item->letters_id);
+        $item = SKI::findOrFail($id);
+        $data = Laporan::findOrFail($item->id_laporan);
         $data->update([
             'status' => 'Selesai Diproses',
             'posisi' => 'Staff',
@@ -388,9 +430,29 @@ class LurahPermitsController extends Controller
         //
     }
 
-    public function showTolakSki(Request $request)
+    public function setujui(Request $request)
     {
-        $data = Permits::findOrFail($request->id);
-        return response()->json($data);
+        $item = SKI::findOrFail($request->id_surat_keterangan_izin);
+        $data = Laporan::findOrFail($item->id_laporan);
+
+        $data->update([
+            'status' => 'Selesai Diproses',
+            'posisi' => 'Staff',
+        ]);
+
+        $item->update([
+            'id_surat_keterangan_izin' => $request->id_surat_keterangan_izin,
+            'status' => 'Selesai Diproses',
+            'posisi' => 'staff',
+        ]);
+
+        if ($item) {
+            Alert::success('Berhasil', 'Surat Keterangan Izin Berhasil Disetujui');
+            return redirect()->route('sku-lurah.index');
+        } else {
+            Alert::error('Gagal', 'Surat Keterangan Izin Gagal Disetujui');
+            return redirect()->route('sku-lurah.index');
+        }
     }
+
 }

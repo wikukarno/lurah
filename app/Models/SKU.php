@@ -7,25 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class BusinessCertifications extends Model
+class SKU extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'letters_id',
-        'users_id',
-        'nama_usaha',
-        'jenis_usaha',
-        'surat_rtrw',
-        'alasan_penolakan',
-        'posisi',
-        'status'
+    // proteksi nama tabel dan primary key
+    protected $table = 'surat_keterangan_usaha';
+    protected $primaryKey = 'id';
+    protected $guarded = [
+        'id',
     ];
 
+    // nonaktifkan increment pada primary key
     public $incrementing = false;
 
+    // set tipe primary key
     protected $keyType = 'string';
 
+    // set default value pada kolom id
     protected static function boot()
     {
         parent::boot();
@@ -34,18 +33,15 @@ class BusinessCertifications extends Model
         });
     }
 
+    // relasi ke tabel user
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'id_user');
     }
 
-    public function userDetails()
+    // relasi ke tabel laporan
+    public function laporan()
     {
-        return $this->hasOne(User::class, 'id', 'id_user');
-    }
-
-    public function letter()
-    {
-        return $this->belongsTo(Letter::class, 'letters_id', 'id');
+        return $this->belongsTo(Laporan::class, 'id_laporan', 'id');
     }
 }

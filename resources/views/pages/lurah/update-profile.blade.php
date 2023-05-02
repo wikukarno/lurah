@@ -12,7 +12,7 @@
                         <h3 class="card-title">Update Profile Profile</h3>
                     </div>
                     <div class="card-body">
-                        <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
+                        <h3 class="profile-username text-center">{{ Auth::user()->nama }}</h3>
                         <p class="text-center">{{ Auth::user()->roles }} Desa Sorek</p>
 
                         <section class="section-profile-content">

@@ -7,7 +7,10 @@ use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\KategoriSurat;
+use App\Models\Laporan;
 use App\Models\Permits;
+use App\Models\SKI;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -23,8 +26,7 @@ class UserPermitsController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('status', 'Belum Diproses')->get();
-            $query = Permits::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Belum Diproses')->get();
+            $query = SKI::with('user.userDetails')->where('id_user', Auth::user()->id_user)->where('status', 'Belum Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -34,17 +36,17 @@ class UserPermitsController extends Controller
                 ->editColumn('action', function ($item) {
                     return '
                         <div class="d-flex">
-                            <a href="' . route('ski-user.show', $item->id) . '" class="btn btn-sm btn-secondary mx-1">
+                            <a href="' . route('ski-user.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary mx-1">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('ski-user.edit', $item->id) . '" class="btn btn-sm btn-info mx-1">
+                            <a href="' . route('ski-user.edit', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-info mx-1">
                                 <i class="fa fa-pencil-alt"></i>
                             </a>
 
                             <form id="form-delete-letters" method="POST">
                                 ' . csrf_field() . '
-                                <input type="hidden" name="id" value="' . $item->id . '">
+                                <input type="hidden" name="id_surat_keterangan_izin" value="' . $item->id_surat_keterangan_izin . '">
                                 <button type="submit" id="btnDelete" class="btn btn-sm btn-danger mx-1"><i class="fas fa-trash"></i></button>
                             </form>
                         </div>
@@ -52,7 +54,7 @@ class UserPermitsController extends Controller
                         <script>
                             $("#form-delete-letters").submit(function (e) {
                                 e.preventDefault();
-                                var id = $("input[name=id]").val();
+                                var id = $("input[name=id_surat_keterangan_izin]").val();
 
                                 Swal.fire({
                                     title: "Apakah anda yakin?",
@@ -68,7 +70,7 @@ class UserPermitsController extends Controller
                                             url: "' . route('ski-user.hapus') . '",
                                             type: "POST",
                                             data: {
-                                                id: id,
+                                                id_surat_keterangan_izin: id,
                                                 _token: "' . csrf_token() . '"
                                             },
                                             success: function (data) {
@@ -93,16 +95,16 @@ class UserPermitsController extends Controller
                 ->rawColumns(['created_at', 'action'])
                 ->make(true);
         }
-        $userDetails = UserDetails::with('user')->where('users_id', Auth::user()->id)->get();
-        $user = User::where('id', Auth::user()->id)->first();
+        $userDetails = UserDetails::with('user')->where('users_id', Auth::user()->id_user)->get();
+        $user = User::where('id', Auth::user()->id_user)->first();
         return view('pages.user.ski.index', compact('userDetails', 'user'));
     }
 
     public function onProgress()
     {
         if (request()->ajax()) {
-            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->get();
-            $query = Permits::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->get();
+            // $query = Letter::with('user')->where('users_id', Auth::user()->id_user)->where('status', 'Sedang Diproses')->get();
+            $query = SKI::with('user.userDetails')->where('id_user', Auth::user()->id_user)->where('status', 'Sedang Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -111,7 +113,7 @@ class UserPermitsController extends Controller
                 })
                 ->editColumn('action', function ($item) {
                     return '
-                        <a href="' . route('ski-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                        <a href="' . route('ski-user.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
                             <i class="fa fa-eye"></i>
                         </a>
                     ';
@@ -125,8 +127,8 @@ class UserPermitsController extends Controller
     public function success()
     {
         if (request()->ajax()) {
-            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->get();
-            $query = Permits::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->get();
+            // $query = Letter::with('user')->where('users_id', Auth::user()->id_user)->where('status', 'Selesai Diproses')->get();
+            $query = SKI::with('user.userDetails')->where('id_user', Auth::user()->id_user)->where('status', 'Selesai Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -136,7 +138,7 @@ class UserPermitsController extends Controller
                 ->editColumn('action', function ($item) {
                     return '
                         <div class="form-group">
-                            <a href="' . route('ski-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('ski-user.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
@@ -155,8 +157,8 @@ class UserPermitsController extends Controller
     public function rejected()
     {
         if (request()->ajax()) {
-            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('status', 'Ditolak')->get();
-            $query = Permits::with('user.userDetails')->where('users_id', Auth::user()->id)->where('status', 'Ditolak')->get();
+            // $query = Letter::with('user')->where('users_id', Auth::user()->id_user)->where('status', 'Ditolak')->get();
+            $query = SKI::with('user.userDetails')->where('id_user', Auth::user()->id_user)->where('status', 'Ditolak')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -166,10 +168,10 @@ class UserPermitsController extends Controller
                 ->editColumn('action', function ($item) {
                     return '
                         <div class="form-group">
-                            <a href="' . route('ski-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('ski-user.show', $item->id_surat_keterangan_izin) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="penolakan(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="penolakan(' . $item->id_surat_keterangan_izin . ')">
                                 Ditolak
                             </a>
                         </div>
@@ -200,18 +202,18 @@ class UserPermitsController extends Controller
      */
     public function store(Request $request)
     {
-        $category = Category::where('name', 'Surat Keterangan Izin')->first();
-        $item = new Letter();
-        $item->users_id = Auth::user()->id;
-        $item->categories_id = $category->id;
+        $category = KategoriSurat::where('nama', 'Surat Keterangan Izin')->first();
+        $item = new Laporan();
+        $item->id_user = Auth::user()->id_user;
+        $item->id_kategori_surat = $category->id_kategori_surat;
         $item->status = 'Belum Diproses';
         $item->posisi = 'Staff';
         $item->nama_izin = $request->nama_izin;
         $item->save();
 
-        $data = Permits::create([
-            'users_id' => Auth::user()->id,
-            'letters_id' => $item->id,
+        $data = SKI::create([
+            'id_user' => Auth::user()->id_user,
+            'id_laporan' => $item->id_laporan,
             'perihal' => $request->perihal,
             'tujuan_surat' => $request->tujuan_surat,
             'nama_izin' => $request->nama_izin,
@@ -222,7 +224,7 @@ class UserPermitsController extends Controller
             'hiburan' => $request->hiburan,
             'status' => 'Belum Diproses',
             'posisi' => 'Staff',
-            'surat_rtrw' => $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public'),
+            'surat_rtrw' => $request->file('surat_rtrw')->store('assets/surat_rtrw', 'public'),
         ]);
 
         
@@ -244,7 +246,7 @@ class UserPermitsController extends Controller
      */
     public function show($id)
     {
-        $item = Permits::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+        $item = SKI::with(['user.userDetails', 'letter'])->where('id_surat_keterangan_izin', $id)->findOrFail($id);
 
         // return Response()->json($item);
         // dd($item->waktu_izin);
@@ -261,7 +263,7 @@ class UserPermitsController extends Controller
      */
     public function edit($id)
     {
-        $item = Permits::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+        $item = SKI::with(['user.userDetails', 'letter'])->where('id_surat_keterangan_izin', $id)->findOrFail($id);
         return view('pages.user.ski.edit', [
             'item' => $item,
         ]);
@@ -276,7 +278,7 @@ class UserPermitsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Permits::findOrFail($id);
+        $data = SKI::findOrFail($id);
         $fileLama = $data->surat_rtrw;
         if ($request->surat_rtrw != null) {
             $data->surat_rtrw = $request->file('surat_rtrw')->storePubliclyAs('assets/surat_rtrw', $request->file('surat_rtrw')->getClientOriginalName(), 'public');
@@ -284,7 +286,7 @@ class UserPermitsController extends Controller
                 Storage::disk('public')->delete($fileLama);
             }
         }
-        $item = Letter::findOrFail($data->letters_id);
+        $item = Laporan::findOrFail($data->id_laporan);
         $item->nama_izin = $request->nama_izin;
         $item->save();
 
@@ -317,8 +319,8 @@ class UserPermitsController extends Controller
      */
     public function destroy(Request $request)
     {
-        $data = Permits::findOrFail($request->id);
-        $item = Letter::findOrFail($data->letters_id);
+        $data = SKI::findOrFail($request->id_surat_keterangan_izin);
+        $item = Laporan::findOrFail($data->id_laporan);
         // if ($data->surat_rtrw != null) {
         //     Storage::disk('public')->delete($data->surat_rtrw);
         // }

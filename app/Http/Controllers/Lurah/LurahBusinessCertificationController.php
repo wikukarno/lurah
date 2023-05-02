@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Lurah;
 
 use App\Http\Controllers\Controller;
 use App\Models\BusinessCertifications;
+use App\Models\Laporan;
 use App\Models\Letter;
+use App\Models\SKU;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -18,9 +20,8 @@ class LurahBusinessCertificationController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = BusinessCertifications::with([
-                'user.userDetails',
-                'letter',
+            $query = SKU::with([
+                'user',
             ])->where('posisi', 'lurah')->get();
 
             return datatables()->of($query)
@@ -42,16 +43,55 @@ class LurahBusinessCertificationController extends Controller
                 ->editColumn('action', function ($item) {
                     if ($item->posisi == 'lurah') {
                         return '
-                            <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                            <form action="' . route('sku-lurah.update', $item->id) . '" method="POST" class="d-inline">
-                            ' . method_field('PUT') . '        
-                            ' . csrf_field() . '
-                                <button class="btn btn-sm btn-success">
-                                    Setujui
-                                </button>
-                            </form>
+                            <div class="d-flex">
+                                <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <form id="form-setujui" method="POST">
+                                    ' . csrf_field() . '
+                                    <input type="hidden" name="id" value="' . $item->id . '">
+                                    <button type="submit" id="btnSetujui" class="btn btn-sm btn-success mx-1">Setujui</button>
+                                </form>
+                            </div>
+
+                            <script>
+                                $("#form-setujui").submit(function (e) {
+                                    e.preventDefault();
+                                    var id = $("input[name=id]").val();
+
+                                    Swal.fire({
+                                        title: "Apakah anda yakin?",
+                                        text: "Ingin Setujui surat ini?",
+                                        icon: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#3085d6",
+                                        cancelButtonColor: "#d33",
+                                        confirmButtonText: "Ya, Setujui!",
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            $.ajax({
+                                                url: "' . route('sku-lurah.setujui') . '",
+                                                type: "POST",
+                                                data: {
+                                                    id: id,
+                                                    _token: "' . csrf_token() . '"
+                                                },
+                                                success: function (data) {
+                                                    Swal.fire(
+                                                        "Berhasil!",
+                                                        "Surat berhasil disetujui",
+                                                        "success"
+                                                    )
+                                                    $("#tb_sku_lurah_belum_diproses").DataTable().ajax.reload();
+                                                    $("#tb_sku_lurah_ditolak").DataTable().ajax.reload();
+                                                    $("#tb_sku_lurah_sedang_diproses").DataTable().ajax.reload();
+                                                    $("#tb_sku_lurah_selesai_diproses").DataTable().ajax.reload();
+                                                }
+                                            });
+                                        }
+                                    })
+                                });
+                            </script>
                         ';
                     } elseif ($item->status == 'Selesai') {
                         return '
@@ -84,9 +124,8 @@ class LurahBusinessCertificationController extends Controller
     public function onProgress()
     {
         if (request()->ajax()) {
-            $query = BusinessCertifications::with([
-                'user.userDetails',
-                'letter',
+            $query = SKU::with([
+                'user',
             ])->where('status', 'Sedang Diproses')->get();
 
             return datatables()->of($query)
@@ -157,12 +196,12 @@ class LurahBusinessCertificationController extends Controller
         }
         return view('pages.lurah.sku.index');
     }
+
     public function success()
     {
         if (request()->ajax()) {
-            $query = BusinessCertifications::with([
-                'user.userDetails',
-                'letter',
+            $query = SKU::with([
+                'user',
             ])->where('status', 'Selesai Diproses')->get();
 
             return datatables()->of($query)
@@ -232,9 +271,8 @@ class LurahBusinessCertificationController extends Controller
     public function rejected()
     {
         if (request()->ajax()) {
-            $query = BusinessCertifications::with([
-                'user.userDetails',
-                'letter',
+            $query = SKU::with([
+                'user',
             ])->where('status', 'Ditolak')->get();
 
             return datatables()->of($query)
@@ -333,7 +371,9 @@ class LurahBusinessCertificationController extends Controller
      */
     public function show($id)
     {
-        $item = BusinessCertifications::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+        $item = SKU::with(['user'])
+                ->where('id', $id)
+                ->findOrFail($id);
 
         return view('pages.lurah.sku.show', [
             'item' => $item,
@@ -360,24 +400,7 @@ class LurahBusinessCertificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $item = BusinessCertifications::findOrFail($id);
-        $data = Letter::findOrFail($item->letters_id);
-        $data->update([
-            'status' => 'Selesai Diproses',
-            'posisi' => 'Staff',
-        ]);
-        $item->update([
-            'status' => 'Selesai Diproses',
-            'posisi' => 'staff',
-        ]);
-
-        if($item){
-            Alert::success('Berhasil', 'Surat Keterangan Usaha Berhasil Disetujui');
-            return redirect()->route('sku-lurah.index');
-        }else{
-            Alert::error('Gagal', 'Surat Keterangan Usaha Gagal Disetujui');
-            return redirect()->route('sku-lurah.index');
-        }
+        //
     }
 
     /**
@@ -391,9 +414,28 @@ class LurahBusinessCertificationController extends Controller
         //
     }
 
-    public function showTolakSku(Request $request)
+    public function setujui(Request $request)
     {
-        $data = BusinessCertifications::findOrFail($request->id);
-        return response()->json($data);
+        $item = SKU::findOrFail($request->id);
+        $data = Laporan::findOrFail($item->id_laporan);
+
+        $data->update([
+            'status' => 'Selesai Diproses',
+            'posisi' => 'Staff',
+        ]);
+
+        $item->update([
+            'id' => $request->id,
+            'status' => 'Selesai Diproses',
+            'posisi' => 'staff',
+        ]);
+
+        if($item){
+            Alert::success('Berhasil', 'Surat Keterangan Usaha Berhasil Disetujui');
+            return redirect()->route('sku-lurah.index');
+        }else{
+            Alert::error('Gagal', 'Surat Keterangan Usaha Gagal Disetujui');
+            return redirect()->route('sku-lurah.index');
+        }
     }
 }

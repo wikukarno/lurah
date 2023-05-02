@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Lurah;
 
 use App\Http\Controllers\Controller;
 use App\Models\FuneralCertifications;
+use App\Models\Laporan;
 use App\Models\Letter;
+use App\Models\SKP;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -18,7 +20,7 @@ class LurahFuneralCertificationController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = FuneralCertifications::with([
+            $query = SKP::with([
                 'user.userDetails',
                 'letter',
             ])->where('posisi', 'lurah')->get();
@@ -42,10 +44,10 @@ class LurahFuneralCertificationController extends Controller
                 ->editColumn('action', function ($item) {
                     if ($item->posisi == 'lurah') {
                         return '
-                            <a href="' . route('skp-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-lurah.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
-                            <form action="' . route('skp-lurah.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('skp-lurah.update', $item->id_surat_keterangan_pemakaman) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '        
                             ' . csrf_field() . '
                                 <button class="btn btn-sm btn-success">
@@ -65,7 +67,7 @@ class LurahFuneralCertificationController extends Controller
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('skp-lurah.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('skp-lurah.update', $item->id_surat_keterangan_pemakaman) . '" method="POST" class="d-inline">
                                 ' . csrf_field() . '
                                 <button class="btn btn-sm btn-warning">
                                     Teruskan
@@ -84,7 +86,7 @@ class LurahFuneralCertificationController extends Controller
     public function onProgress()
     {
         if (request()->ajax()) {
-            $query = FuneralCertifications::with([
+            $query = SKP::with([
                 'user.userDetails',
                 'letter',
             ])->where('status', 'Sedang Diproses')->get();
@@ -114,29 +116,29 @@ class LurahFuneralCertificationController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('skp-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-lurah.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('skp-lurah.cetak-skp', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('skp-lurah.cetak-skp', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('skp-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id . ')">
+                            <a href="' . route('skp-lurah.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id_surat_keterangan_pemakaman . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSkp(' . $item->id . ')">' . $item->status . '</a>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSkp(' . $item->id_surat_keterangan_pemakaman . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('skp-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-lurah.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('skp-lurah.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('skp-lurah.update', $item->id_surat_keterangan_pemakaman) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -144,7 +146,7 @@ class LurahFuneralCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKP(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKP(' . $item->id_surat_keterangan_pemakaman . ')">
                                 Tolak
                             </a>
 
@@ -160,7 +162,7 @@ class LurahFuneralCertificationController extends Controller
     public function success()
     {
         if (request()->ajax()) {
-            $query = FuneralCertifications::with([
+            $query = SKP::with([
                 'user.userDetails',
                 'letter',
             ])->where('status', 'Selesai Diproses')->get();
@@ -190,25 +192,25 @@ class LurahFuneralCertificationController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('skp-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-lurah.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('skp-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id . ')">
+                            <a href="' . route('skp-lurah.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id_surat_keterangan_pemakaman . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSkp(' . $item->id . ')">' . $item->status . '</a>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSkp(' . $item->id_surat_keterangan_pemakaman . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('skp-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-lurah.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('skp-lurah.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('skp-lurah.update', $item->id_surat_keterangan_pemakaman) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -216,7 +218,7 @@ class LurahFuneralCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKP(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKP(' . $item->id_surat_keterangan_pemakaman . ')">
                                 Tolak
                             </a>
 
@@ -232,7 +234,7 @@ class LurahFuneralCertificationController extends Controller
     public function rejected()
     {
         if (request()->ajax()) {
-            $query = FuneralCertifications::with([
+            $query = SKP::with([
                 'user.userDetails',
                 'letter',
             ])->where('status', 'Ditolak')->get();
@@ -262,27 +264,27 @@ class LurahFuneralCertificationController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('skp-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-lurah.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('skp-lurah.cetak-skp', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('skp-lurah.cetak-skp', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('skp-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id . ')">
+                            <a href="' . route('skp-lurah.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary" onclick="lampiranSkp(' . $item->id_surat_keterangan_pemakaman . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('skp-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('skp-lurah.show', $item->id_surat_keterangan_pemakaman) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('skp-lurah.update', $item->id) . '" method="POST" class="d-inline">
+                            <form action="' . route('skp-lurah.update', $item->id_surat_keterangan_pemakaman) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -290,7 +292,7 @@ class LurahFuneralCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKP(' . $item->id . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKP(' . $item->id_surat_keterangan_pemakaman . ')">
                                 Tolak
                             </a>
 
@@ -333,7 +335,7 @@ class LurahFuneralCertificationController extends Controller
      */
     public function show($id)
     {
-        $item = FuneralCertifications::with(['user.userDetails', 'letter'])->where('id', $id)->findOrFail($id);
+        $item = SKP::with(['user.userDetails', 'letter'])->where('id_surat_keterangan_pemakaman', $id)->findOrFail($id);
 
         return view('pages.lurah.skp.show', [
             'item' => $item,
@@ -360,8 +362,8 @@ class LurahFuneralCertificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $item = FuneralCertifications::findOrFail($id);
-        $data = Letter::findOrFail($item->letters_id);
+        $item = SKP::findOrFail($id);
+        $data = Laporan::findOrFail($item->id_laporan);
         $data->update([
             'status' => 'Selesai Diproses',
             'posisi' => 'Staff',
@@ -393,7 +395,7 @@ class LurahFuneralCertificationController extends Controller
 
     public function showTolakSkp(Request $request)
     {
-        $data = FuneralCertifications::findOrFail($request->id);
+        $data = SKP::findOrFail($request->id);
         return response()->json($data);
     }
 }

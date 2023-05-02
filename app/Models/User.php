@@ -19,20 +19,26 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'tele_id',
-        'tele_name',
-        'tele_notif',
-        'login_with',
-        'login_ip',
-        'auth_status',
-        'status_account',
-        'alasan_penolakan',
 
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+    protected $guarded = [
+        'id',
     ];
+    
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'password',
+    //     'tele_id',
+    //     'tele_name',
+    //     'tele_notif',
+    //     'login_with',
+    //     'login_ip',
+    //     'auth_status',
+    //     'status_account',
+    //     'alasan_penolakan',
+    // ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -66,9 +72,9 @@ class User extends Authenticatable
     }
     
 
-    public function userDetails()
-    {
-        return $this->hasOne(UserDetails::class, 'users_id', 'id');
-    }
+    // public function userDetails()
+    // {
+    //     return $this->hasOne(UserDetails::class, 'id_user', 'id');
+    // }
 
 }

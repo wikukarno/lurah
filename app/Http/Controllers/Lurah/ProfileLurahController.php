@@ -101,12 +101,12 @@ class ProfileLurahController extends Controller
         $user->status_perkawinan = $request->status_perkawinan;
         $user->address = $request->address;
 
-        $fileLama = $user->avatar;
+        $fileLama = $user->foto;
         $fileLamaKtp = $user->ktp;
         $fileLamaKk = $user->kk;
 
-        if ($request->avatar != null) {
-            $user->avatar = $request->file('avatar')->storePubliclyAs('assets/avatar', $request->file('avatar')->getClientOriginalName(), 'public');
+        if ($request->foto != null) {
+            $user->foto = $request->file('foto')->storePubliclyAs('assets/foto', $request->file('foto')->getClientOriginalName(), 'public');
             if ($fileLama != null) {
                 Storage::disk('public')->delete($fileLama);
             }
@@ -140,7 +140,7 @@ class ProfileLurahController extends Controller
     public function ubahFoto(Request $request)
     {
         $user = User::find($request->id);
-        $user->avatar = $request->file('avatar')->store('assets/profile', 'public');
+        $user->foto = $request->file('foto')->store('assets/profile', 'public');
         $user->save();
 
         // Alert::success('Berhasil', 'Foto Profile Berhasil Diubah');
