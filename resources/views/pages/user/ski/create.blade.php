@@ -62,7 +62,7 @@ Tambah Surat Izin
                                     <div class="form-group">
                                         <label for="alamat">Alamat</label>
                                         <input type="text" class="form-control" id="alamat" name="alamat"
-                                            value="{{ Auth::user()->address }}" readonly>
+                                            value="{{ Auth::user()->alamat }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">

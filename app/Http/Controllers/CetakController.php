@@ -90,8 +90,8 @@ class CetakController extends Controller
         $data = file_get_contents($path);
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $ski = SKI::with(['user'])->where('id_surat_keterangan_izin', $request->id_surat_keterangan_izin)->first();
-        $user = User::with(['userDetails'])->where('id', $request->id)->first();
+        $ski = SKI::with(['user'])->where('id', $request->id)->first();
+        $user = User::where('id', $request->id)->first();
         $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.surat-izin', [
             'pic' => $pic,
             'ski' => $ski,
@@ -99,7 +99,7 @@ class CetakController extends Controller
         ]);
 
         $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
-        return $pdf->download('Surat_Izin_' . $ski->nama_izin . '_' . $ski->user->name . '_' . $tgl_cetak . '.pdf');
+        return $pdf->download('Surat_Izin_' . $ski->nama_izin . '_' . $ski->user->nama . '_' . $tgl_cetak . '.pdf');
         // return $pdf->stream('Surat_Izin_keramaian_' . $user->name . '_' . $tgl_cetak .  '.pdf');
     }
 

@@ -141,8 +141,8 @@ Surat Izin Keramaian
     url: "{{ route('ski-staff.index') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id_surat_keterangan_izin' },
-    { data: 'user.name', name: 'user.name' },
+    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'user.nama', name: 'user.nama' },
     { data: 'nama_izin', name: 'nama_izin' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -163,8 +163,8 @@ Surat Izin Keramaian
     url: "{{ route('ski-staff.onProgress') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id_surat_keterangan_izin' },
-    { data: 'user.name', name: 'user.name' },
+    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'user.nama', name: 'user.nama' },
     { data: 'nama_izin', name: 'nama_izin' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -185,8 +185,8 @@ Surat Izin Keramaian
     url: "{{ route('ski-staff.success') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id_surat_keterangan_izin' },
-    { data: 'user.name', name: 'user.name' },
+    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'user.nama', name: 'user.nama' },
     { data: 'nama_izin', name: 'nama_izin' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -207,8 +207,8 @@ Surat Izin Keramaian
     url: "{{ route('ski-staff.rejected') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id_surat_keterangan_izin' },
-    { data: 'user.name', name: 'user.name' },
+    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'user.nama', name: 'user.nama' },
     { data: 'nama_izin', name: 'nama_izin' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },

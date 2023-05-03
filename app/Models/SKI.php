@@ -12,9 +12,9 @@ class SKI extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'surat_keterangan_izin';
-    protected $primaryKey = 'id_surat_keterangan_izin';
+    protected $primaryKey = 'id';
     protected $guarded = [
-        'id_surat_keterangan_izin',
+        'id',
     ];
 
     public $incrementing = false;

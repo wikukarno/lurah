@@ -14,7 +14,7 @@ Update Surat Izin
                         <h3>Update Surat Izin Keramaian</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('ski-user.update', $item->id_surat_keterangan_izin) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('ski-user.update', $item->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 

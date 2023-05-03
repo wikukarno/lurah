@@ -153,33 +153,33 @@
             @php
             // $ttl = \Carbon\Carbon::now()->isoFormat('D MMMM Y', strtotime($ski->tanggal_lahir));
             // $ttl = date('d l Y', strtotime($ski->tanggal_lahir));
-            $ttl = \Carbon\Carbon::parse($ski->user->userDetails->tanggal_lahir)->isoFormat('D MMMM Y');
+            $ttl = \Carbon\Carbon::parse($ski->user->tanggal_lahir)->isoFormat('D MMMM Y');
             @endphp
             <tbody>
                 <p>
                     <span style="padding-left: 50px">Nama</span>
                     <span style="padding-left: 90px; padding-right: 10px">:</span>
-                    <span style="text-transform: uppercase;"><b>{{ $ski->user->name }}</b></span>
+                    <span style="text-transform: uppercase;"><b>{{ $ski->user->nama }}</b></span>
                 </p>
                 <p style="margin-top: -10px">
                     <span style="padding-left: 50px">Tempat, Tgl Lahir</span>
                     <span style="padding-left: 10px; padding-right: 10px">:</span>
-                    <span>{{ $ski->user->userDetails->tempat_lahir }}, {{ $ttl }}</span>
+                    <span>{{ $ski->user->tempat_lahir }}, {{ $ttl }}</span>
                 </p>
                 <p style="margin-top: -10px">
                     <span style="padding-left: 50px">Pekerjaan</span>
                     <span style="padding-left: 65px; padding-right: 10px">:</span>
-                    <span>{{ $ski->user->userDetails->pekerjaan }}</span>
+                    <span>{{ $ski->user->pekerjaan }}</span>
                 </p>
                 <p style="margin-top: -10px">
                     <span style="padding-left: 50px">Alamat</span>
                     <span style="padding-left: 81px; padding-right: 10px">:</span>
-                    <span>{{ $ski->user->userDetails->address }}</span>
+                    <span>{{ $ski->user->alamat }}</span>
                 </p>
                 <p style="margin-top: -10px">
                     <span style="padding-left: 50px">NIK</span>
                     <span style="padding-left: 100px; padding-right: 10px">:</span>
-                    <span>{{ $ski->user->userDetails->nik }}</span>
+                    <span>{{ $ski->user->nik }}</span>
                 </p>
 
             </tbody>

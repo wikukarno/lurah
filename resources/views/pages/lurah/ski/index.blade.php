@@ -116,7 +116,7 @@ Surat Izin Keramaian
     },
     columns: [
     { data: 'DT_RowIndex', name: 'id' },
-    { data: 'user.name', name: 'user.name' },
+    { data: 'user.nama', name: 'user.nama' },
     { data: 'nama_izin', name: 'nama_izin' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -138,7 +138,7 @@ Surat Izin Keramaian
     },
     columns: [
     { data: 'DT_RowIndex', name: 'id' },
-    { data: 'user.name', name: 'user.name' },
+    { data: 'user.nama', name: 'user.nama' },
     { data: 'nama_izin', name: 'nama_izin' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -160,7 +160,7 @@ Surat Izin Keramaian
     },
     columns: [
     { data: 'DT_RowIndex', name: 'id' },
-    { data: 'user.name', name: 'user.name' },
+    { data: 'user.nama', name: 'user.nama' },
     { data: 'nama_izin', name: 'nama_izin' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -182,7 +182,7 @@ Surat Izin Keramaian
     },
     columns: [
     { data: 'DT_RowIndex', name: 'id' },
-    { data: 'user.name', name: 'user.name' },
+    { data: 'user.nama', name: 'user.nama' },
     { data: 'nama_izin', name: 'nama_izin' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },

@@ -7,37 +7,37 @@ Surat Keterangan Izin
 @section('content')
 <section class="main-content">
     <div class="container-fluid">
-        @if ($item->alasan_penolakan != null)
-        <div class="row">
-            <div class="col-12 col-lg-12">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Alasan Penolakan :</strong> {{ $item->alasan_penolakan }}.
-                </div>
-            </div>
-        </div>
-        @endif
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <div class="header-title d-lg-flex">
                             <h3 class="card-title">Detail Data Surat Keterangan Izin</h3>
-                            <span class="mt-1 ml-lg-3"><b>{{ $item->user->name }}</b></span>
+                            <span class="mt-1 ml-lg-3"><b>{{ $item->user->nama }}</b></span>
                         </div>
                     </div>
                     <div class="card-body">
+                        @if ($item->alasan_penolakan != null)
+                        <div class="row">
+                            <div class="col-12 col-lg-12">
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Alasan Penolakan :</strong> {{ $item->alasan_penolakan }}.
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                         <div class="row">
                             <div class="col-12 col-lg-4">
                                 <div class="form-group">
                                     <label for="nik">NIK</label>
                                     <input type="number" class="form-control"
-                                        value="{{ $item->user->userDetails->nik }}" readonly>
+                                        value="{{ $item->user->nik }}" readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4">
                                 <div class="form-group">
                                     <label for="nama">Nama</label>
-                                    <input type="text" class="form-control" value="{{ $item->user->name }}" readonly>
+                                    <input type="text" class="form-control" value="{{ $item->user->nama }}" readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4">
@@ -108,13 +108,13 @@ Surat Keterangan Izin
                                 <div class="form-group">
                                     <label for="nama">Kelurahan</label>
                                     <input type="text" class="form-control"
-                                        value="{{ $item->user->userDetails->kelurahan }}" readonly>
+                                        value="{{ $item->user->kelurahan }}" readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6">
                                 <div class="form-group">
                                     <label for="nama">RT / RW</label>
-                                    <input type="text" class="form-control" value="{{ $item->user->userDetails->rtrw }}"
+                                    <input type="text" class="form-control" value="{{ $item->user->rtrw }}"
                                         readonly>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@ Surat Keterangan Izin
                                 <div class="form-group">
                                     <label for="alamat">Alamat</label>
                                     <input type="text" class="form-control"
-                                        value="{{ $item->user->userDetails->address }}" readonly>
+                                        value="{{ $item->user->alamat }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -134,14 +134,14 @@ Surat Keterangan Izin
                             <div class="col-12 col-lg-4 mb-3">
                                 <div class="form-group">
                                     <label for="ktp">Foto KTP</label>
-                                    <img src="{{ Storage::url($item->user->userDetails->ktp) }}" alt="foto ktp"
+                                    <img src="{{ Storage::url($item->user->ktp) }}" alt="foto ktp"
                                         class="img-fluid">
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4 mb-3">
                                 <div class="form-group">
                                     <label for="ktp">Foto KK</label>
-                                    <img src="{{ Storage::url($item->user->userDetails->kk) }}" alt="foto kk"
+                                    <img src="{{ Storage::url($item->user->kk) }}" alt="foto kk"
                                         class="img-fluid">
                                 </div>
                             </div>
