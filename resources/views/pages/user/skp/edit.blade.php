@@ -14,7 +14,7 @@ Update Surat Keterangan Pemakaman
                         <h3>Update Surat Keterangan Pemakaman</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('skp-user.update', $item->id_surat_keterangan_pemakaman) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('skp-user.update', $item->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row">

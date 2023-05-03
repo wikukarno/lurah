@@ -12,9 +12,9 @@ class SKP extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'surat_keterangan_pemakaman';
-    protected $primaryKey = 'id_surat_keterangan_pemakaman';
+    protected $primaryKey = 'id';
     protected $guarded = [
-        'id_surat_keterangan_pemakaman'
+        'id'
     ];
 
     public $incrementing = false;

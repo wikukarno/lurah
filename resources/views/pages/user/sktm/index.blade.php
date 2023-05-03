@@ -5,7 +5,30 @@ Surat Keterangan Tidak Mampu
 @endsection
 
 @section('content')
-@if ($user->status_account == 'pending')
+@if ($user->status_account == 'none')
+<section class="main-content">
+    <div class="container-fluid">
+        <div class="row text-center">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <figure class="figure">
+                            <img src="{{ asset('assets/img/data.svg') }}" class="figure-img img-fluid" alt="">
+                            <figcaption class="figure-caption mt-5">
+                                <h3 class="text-center">Data Anda Belum Lengkap</h3>
+                                <p class="text-center">Silahkan Lengkapi Profile Anda Terlebih Dahulu</p>
+                                <a href="{{ route('complete-profile') }}" class="btn btn-primary"> <i
+                                        class="fas fa-plus"></i>&nbsp;
+                                    Lengkapi Data</a>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@elseif ($user->status_account == 'pending')
 <section class="main-content">
     <div class="container-fluid">
         <div class="row text-center">
@@ -39,10 +62,12 @@ Surat Keterangan Tidak Mampu
                             <img src="{{ asset('assets/images/ditolak.svg') }}" class="figure-img img-fluid" alt="">
                             <figcaption class="figure-caption">
                                 <h3 class="text-center">Mohon Maaf!</h3>
-                                <p class="text-center">Permohonan akun anda ditolak, karena {{ $user->alasan_penolakan }}
+                                <p class="text-center">Permohonan akun anda ditolak, karena {{ $user->alasan_penolakan
+                                    }}
                                     Terimakasih</p>
-                                    <a href="{{ route('complete-profile') }}" class="btn btn-primary"> <i class="fas fa-plus"></i>&nbsp;
-                                        Ajukan Ulang</a>
+                                <a href="{{ route('complete-profile') }}" class="btn btn-primary"> <i
+                                        class="fas fa-plus"></i>&nbsp;
+                                    Ajukan Ulang</a>
                             </figcaption>
                         </figure>
                     </div>
@@ -51,7 +76,7 @@ Surat Keterangan Tidak Mampu
         </div>
     </div>
 </section>
-@elseif(count($userDetails) > 0)
+@else
 <section class="main-content">
     <div class="container-fluid">
         <div class="row">
@@ -176,29 +201,6 @@ Surat Keterangan Tidak Mampu
         </div>
     </div>
 </section>
-@else
-<section class="main-content">
-    <div class="container-fluid">
-        <div class="row text-center">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <figure class="figure">
-                            <img src="{{ asset('assets/img/data.svg') }}" class="figure-img img-fluid" alt="">
-                            <figcaption class="figure-caption mt-5">
-                                <h3 class="text-center">Data Anda Belum Lengkap</h3>
-                                <p class="text-center">Silahkan Lengkapi Profile Anda Terlebih Dahulu</p>
-                                <a href="{{ route('complete-profile') }}" class="btn btn-primary"> <i
-                                        class="fas fa-plus"></i>&nbsp;
-                                    Lengkapi Data</a>
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 @endif
 @endsection
 
@@ -212,8 +214,8 @@ Surat Keterangan Tidak Mampu
     url: "{{ route('sktm-user.index') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id_surat_tidak_mampu' },
-    { data: 'user.name', name: 'user.name' },
+    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'user.nama', name: 'user.nama' },
     { data: 'tujuan', name: 'tujuan' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -234,8 +236,8 @@ Surat Keterangan Tidak Mampu
     url: "{{ route('sktm-user.onProgress') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id_surat_tidak_mampu' },
-    { data: 'user.name', name: 'user.name' },
+    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'user.nama', name: 'user.nama' },
     { data: 'tujuan', name: 'tujuan' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -256,8 +258,8 @@ Surat Keterangan Tidak Mampu
     url: "{{ route('sktm-user.success') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id_surat_tidak_mampu' },
-    { data: 'user.name', name: 'user.name' },
+    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'user.nama', name: 'user.nama' },
     { data: 'tujuan', name: 'tujuan' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -278,8 +280,8 @@ Surat Keterangan Tidak Mampu
     url: "{{ route('sktm-user.rejected') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id_surat_tidak_mampu' },
-    { data: 'user.name', name: 'user.name' },
+    { data: 'DT_RowIndex', name: 'id' },
+    { data: 'user.nama', name: 'user.nama' },
     { data: 'tujuan', name: 'tujuan' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },

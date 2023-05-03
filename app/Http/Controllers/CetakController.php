@@ -48,7 +48,7 @@ class CetakController extends Controller
         $data = file_get_contents($path);
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $skp = SKP::with(['user'])->where('id_surat_keterangan_pemakaman', $request->id_surat_keterangan_pemakaman)->first();
+        $skp = SKP::with(['user'])->where('id', $request->id)->first();
         $user = User::with(['userDetails'])->where('id', $request->id)->first();
         $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.surat-keterangan-pemakaman', [
             'pic' => $pic,
@@ -57,7 +57,7 @@ class CetakController extends Controller
         ]);
 
         $tgl_cetak = Carbon::now()->isoFormat('D MMMM Y');
-        return $pdf->download('Surat_Keterangan_Pemakaman_' . $skp->user->name . '_' . $tgl_cetak . '.pdf');
+        return $pdf->download('Surat_Keterangan_Pemakaman_' . $skp->user->nama . '_' . $tgl_cetak . '.pdf');
         // return $pdf->stream('Surat_Keterangan_Pemakaman_' . $user->name . '_' . $tgl_cetak .  '.pdf');
     }
 
@@ -69,7 +69,7 @@ class CetakController extends Controller
         $data = file_get_contents($path);
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $sktm = SKTM::with(['user.userDetails'])->where('id_surat_tidak_mampu', $request->id_surat_tidak_mampu)->first();
+        $sktm = SKTM::with(['user'])->where('id', $request->id)->first();
         $user = User::with(['userDetails'])->where('id', $request->id)->first();
         $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.surat-keterangan-tidak-mampu', [
             'pic' => $pic,
@@ -90,7 +90,7 @@ class CetakController extends Controller
         $data = file_get_contents($path);
         $pic  = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $ski = SKI::with(['user.userDetails'])->where('id_surat_keterangan_izin', $request->id_surat_keterangan_izin)->first();
+        $ski = SKI::with(['user'])->where('id_surat_keterangan_izin', $request->id_surat_keterangan_izin)->first();
         $user = User::with(['userDetails'])->where('id', $request->id)->first();
         $pdf  = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pages.cetak.surat-izin', [
             'pic' => $pic,

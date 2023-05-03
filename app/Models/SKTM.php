@@ -12,9 +12,9 @@ class SKTM extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'surat_keterangan_tidak_mampu';
-    protected $primaryKey = 'id_surat_tidak_mampu';
+    protected $primaryKey = 'id';
     protected $guarded = [
-        'id_surat_tidak_mampu'
+        'id'
     ];
 
     public $incrementing = false;

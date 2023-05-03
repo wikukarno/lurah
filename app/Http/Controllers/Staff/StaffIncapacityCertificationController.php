@@ -21,7 +21,7 @@ class StaffIncapacityCertificationController extends Controller
     {
         if (request()->ajax()) {
             $query = SKTM::with([
-                'user.userDetails',
+                'user',
                 'letter',
             ])->where('status', 'Belum Diproses')->get();
 
@@ -50,29 +50,29 @@ class StaffIncapacityCertificationController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('sktm-staff.show', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('sktm-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('sktm-staff.cetak-sktm', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('sktm-staff.cetak-sktm', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('sktm-staff.show', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-secondary" onclick="lampiranSktm(' . $item->id_surat_tidak_mampu . ')">
+                            <a href="' . route('sktm-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSktm(' . $item->id . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSktm(' . $item->id_surat_tidak_mampu . ')">' . $item->status . '</a>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSktm(' . $item->id . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('sktm-staff.show', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('sktm-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('sktm-staff.update', $item->id_surat_tidak_mampu) . '" method="POST" class="d-inline">
+                            <form action="' . route('sktm-staff.update', $item->id) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -80,7 +80,7 @@ class StaffIncapacityCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="' . route('staff.get-tolak-sktm', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
+                            <a href="' . route('staff.get-tolak-sktm', $item->id) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
 
                         ';
                     }
@@ -96,7 +96,7 @@ class StaffIncapacityCertificationController extends Controller
     {
         if (request()->ajax()) {
             $query = SKTM::with([
-                'user.userDetails',
+                'user',
                 'letter',
             ])->where('status', 'Sedang Diproses')->get();
 
@@ -128,29 +128,29 @@ class StaffIncapacityCertificationController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('sktm-staff.show', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('sktm-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('sktm-staff.cetak-sktm', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('sktm-staff.cetak-sktm', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('sktm-staff.show', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-secondary" onclick="lampiranSktm(' . $item->id_surat_tidak_mampu . ')">
+                            <a href="' . route('sktm-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSktm(' . $item->id . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSktm(' . $item->id_surat_tidak_mampu . ')">' . $item->status . '</a>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSktm(' . $item->id . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('sktm-staff.show', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('sktm-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('sktm-staff.update', $item->id_surat_tidak_mampu) . '" method="POST" class="d-inline">
+                            <form action="' . route('sktm-staff.update', $item->id) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -158,7 +158,7 @@ class StaffIncapacityCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKtm(' . $item->id_surat_tidak_mampu . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKtm(' . $item->id . ')">
                                 Tolak
                             </a>
 
@@ -175,7 +175,7 @@ class StaffIncapacityCertificationController extends Controller
     {
         if (request()->ajax()) {
             $query = SKTM::with([
-                'user.userDetails',
+                'user',
                 'letter',
             ])->where('status', 'Selesai Diproses')->get();
 
@@ -207,29 +207,29 @@ class StaffIncapacityCertificationController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('sktm-staff.show', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('sktm-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('sktm-staff.cetak-sktm', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('sktm-staff.cetak-sktm', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('sktm-staff.show', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-secondary" onclick="lampiranSktm(' . $item->id_surat_tidak_mampu . ')">
+                            <a href="' . route('sktm-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSktm(' . $item->id . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSktm(' . $item->id_surat_tidak_mampu . ')">' . $item->status . '</a>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="showRejectSktm(' . $item->id . ')">' . $item->status . '</a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('sktm-staff.show', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('sktm-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('sktm-staff.update', $item->id_surat_tidak_mampu) . '" method="POST" class="d-inline">
+                            <form action="' . route('sktm-staff.update', $item->id) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -237,7 +237,7 @@ class StaffIncapacityCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKtm(' . $item->id_surat_tidak_mampu . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKtm(' . $item->id . ')">
                                 Tolak
                             </a>
 
@@ -254,7 +254,7 @@ class StaffIncapacityCertificationController extends Controller
     {
         if (request()->ajax()) {
             $query = SKTM::with([
-                'user.userDetails',
+                'user',
                 'letter',
             ])->where('status', 'Ditolak')->get();
 
@@ -286,27 +286,27 @@ class StaffIncapacityCertificationController extends Controller
                         ';
                     } elseif ($item->status == 'Selesai Diproses') {
                         return '
-                            <a href="' . route('sktm-staff.show', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('sktm-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('sktm-staff.cetak-sktm', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-success" target="_blank">
+                            <a href="' . route('sktm-staff.cetak-sktm', $item->id) . '" class="btn btn-sm btn-success" target="_blank">
                                 Cetak
                             </a>
                         ';
                     } elseif ($item->status == 'Ditolak') {
                         return '
-                            <a href="' . route('sktm-staff.show', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-secondary" onclick="lampiranSktm(' . $item->id_surat_tidak_mampu . ')">
+                            <a href="' . route('sktm-staff.show', $item->id) . '" class="btn btn-sm btn-secondary" onclick="lampiranSktm(' . $item->id . ')">
                                 <i class="fa fa-eye"></i>
                             </a>
                         ';
                     } elseif ($item->status == 'Belum Diproses') {
                         return '
-                            <a href="' . route('sktm-staff.show', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('sktm-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <form action="' . route('sktm-staff.update', $item->id_surat_tidak_mampu) . '" method="POST" class="d-inline">
+                            <form action="' . route('sktm-staff.update', $item->id) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '    
                             ' . csrf_field() . '
                                 <button type="submit" class="btn btn-sm btn-warning">
@@ -314,7 +314,7 @@ class StaffIncapacityCertificationController extends Controller
                                 </button>
                             </form>
 
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKtm(' . $item->id_surat_tidak_mampu . ')">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="tolakSKtm(' . $item->id . ')">
                                 Tolak
                             </a>
 
@@ -357,7 +357,7 @@ class StaffIncapacityCertificationController extends Controller
      */
     public function show($id)
     {
-        $item = SKTM::with(['user.userDetails', 'letter'])->where('id_surat_tidak_mampu', $id)->findOrFail($id);
+        $item = SKTM::with(['user', 'letter'])->where('id', $id)->findOrFail($id);
 
         return view('pages.staff.sktm.show', [
             'item' => $item,
@@ -424,7 +424,7 @@ class StaffIncapacityCertificationController extends Controller
 
     public function tolakSktm(Request $request)
     {
-        $sktm = SKTM::findOrFail($request->id_surat_tidak_mampu);
+        $sktm = SKTM::findOrFail($request->id);
         $data = Laporan::findOrFail($sktm->id_laporan);
         $data->update([
             'status' => 'Ditolak',

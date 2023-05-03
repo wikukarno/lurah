@@ -14,10 +14,10 @@ Tolak Surat
                         <h3 class="card-title">Tolak Surat Keterangan Pemakaman</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('staff.tolak-skp', $data->id_surat_keterangan_pemakaman) }}" method="POST">
+                        <form action="{{ route('staff.tolak-skp', $data->id) }}" method="POST">
                             @csrf
-                            <input type="hidden" name="id_surat_keterangan_pemakaman" id="id_surat_keterangan_pemakaman"
-                                value="{{ $data->id_surat_keterangan_pemakaman }}">
+                            <input type="hidden" name="id" id="id"
+                                value="{{ $data->id }}">
                             <div class="row">
                                 <div class="col-12 col-lg-12">
                                     <div class="form-group">

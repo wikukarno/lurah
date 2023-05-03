@@ -26,7 +26,7 @@ class UserIncapacityCertificationController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = SKTM::with('user.userDetails')->where('id_user', Auth::user()->id_user)->where('status', 'Belum Diproses')->get();
+            $query = SKTM::with('user')->where('id_user', Auth::user()->id)->where('status', 'Belum Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -36,17 +36,17 @@ class UserIncapacityCertificationController extends Controller
                 ->editColumn('action', function ($item) {
                     return '
                         <div class="d-flex">
-                            <a href="' . route('sktm-user.show', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-secondary mx-1">
+                            <a href="' . route('sktm-user.show', $item->id) . '" class="btn btn-sm btn-secondary mx-1">
                                 <i class="fa fa-eye"></i>
                             </a>
 
-                            <a href="' . route('sktm-user.edit', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-info mx-1">
+                            <a href="' . route('sktm-user.edit', $item->id) . '" class="btn btn-sm btn-info mx-1">
                                 <i class="fa fa-pencil-alt"></i>
                             </a>
 
                             <form id="form-delete-letters" method="POST">
                                 ' . csrf_field() . '
-                                <input type="hidden" name="id_surat_tidak_mampu" value="' . $item->id_surat_tidak_mampu . '">
+                                <input type="hidden" name="id" value="' . $item->id . '">
                                 <button type="submit" id="btnDelete" class="btn btn-sm btn-danger mx-1"><i class="fas fa-trash"></i></button>
                             </form>
                         </div>
@@ -54,7 +54,7 @@ class UserIncapacityCertificationController extends Controller
                         <script>
                             $("#form-delete-letters").submit(function (e) {
                                 e.preventDefault();
-                                var id = $("input[name=id_surat_tidak_mampu]").val();
+                                var id = $("input[name=id]").val();
 
                                 Swal.fire({
                                     title: "Apakah anda yakin?",
@@ -70,7 +70,7 @@ class UserIncapacityCertificationController extends Controller
                                             url: "' . route('sktm-user.hapus') . '",
                                             type: "POST",
                                             data: {
-                                                id_surat_tidak_mampu: id,
+                                                id: id,
                                                 _token: "' . csrf_token() . '"
                                             },
                                             success: function (data) {
@@ -95,16 +95,14 @@ class UserIncapacityCertificationController extends Controller
                 ->rawColumns(['created_at', 'action'])
                 ->make(true);
         }
-        $userDetails = UserDetails::with('user')->where('users_id', Auth::user()->id_user)->get();
-        $user = User::where('id', Auth::user()->id_user)->first();
-        return view('pages.user.sktm.index', compact('userDetails', 'user'));
+        $user = User::where('id', Auth::user()->id)->first();
+        return view('pages.user.sktm.index', compact('user'));
     }
 
     public function onProgress()
     {
         if (request()->ajax()) {
-            // $query = Letter::with('user')->where('id_user', Auth::user()->id_user)->where('categories_id', 3)->where('status', 'Sedang Diproses')->get();
-            $query = SKTM::with('user.userDetails')->where('id_user', Auth::user()->id_user)->where('status', 'Sedang Diproses')->get();
+            $query = SKTM::with('user')->where('id_user', Auth::user()->id)->where('status', 'Sedang Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -113,7 +111,7 @@ class UserIncapacityCertificationController extends Controller
                 })
                 ->editColumn('action', function ($item) {
                     return '
-                        <a href="' . route('sktm-user.show', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-secondary">
+                        <a href="' . route('sktm-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
                             <i class="fa fa-eye"></i>
                         </a>
                     ';
@@ -127,8 +125,7 @@ class UserIncapacityCertificationController extends Controller
     public function success()
     {
         if (request()->ajax()) {
-            // $query = Letter::with('user')->where('id_user', Auth::user()->id_user)->where('categories_id', 3)->where('status', 'Selesai Diproses')->get();
-            $query = SKTM::with('user.userDetails')->where('id_user', Auth::user()->id_user)->where('status', 'Selesai Diproses')->get();
+            $query = SKTM::with('user')->where('id_user', Auth::user()->id)->where('status', 'Selesai Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -138,7 +135,7 @@ class UserIncapacityCertificationController extends Controller
                 ->editColumn('action', function ($item) {
                     return '
                         <div class="form-group">
-                            <a href="' . route('sktm-user.show', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('sktm-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
 
@@ -157,8 +154,7 @@ class UserIncapacityCertificationController extends Controller
     public function rejected()
     {
         if (request()->ajax()) {
-            // $query = Letter::with('user')->where('id_user', Auth::user()->id_user)->where('categories_id', 3)->where('status', 'Ditolak')->get();
-            $query = SKTM::with('user.userDetails')->where('id_user', Auth::user()->id_user)->where('status', 'Ditolak')->get();
+            $query = SKTM::with('user')->where('id_user', Auth::user()->id)->where('status', 'Ditolak')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -168,7 +164,7 @@ class UserIncapacityCertificationController extends Controller
                 ->editColumn('action', function ($item) {
                     return '
                         <div class="form-group">
-                            <a href="' . route('sktm-user.show', $item->id_surat_tidak_mampu) . '" class="btn btn-sm btn-secondary">
+                            <a href="' . route('sktm-user.show', $item->id) . '" class="btn btn-sm btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
                         </div>
@@ -201,16 +197,16 @@ class UserIncapacityCertificationController extends Controller
     {
         $category = KategoriSurat::where('nama', 'Surat Keterangan Tidak Mampu')->first();
         $item = new Laporan();
-        $item->id_user = Auth::user()->id_user;
-        $item->id_kategori_surat = $category->id_kategori_surat;
+        $item->id_user = Auth::user()->id;
+        $item->id_kategori_surat = $category->id;
         $item->status = 'Belum Diproses';
         $item->posisi = 'Staff';
         $item->tujuan = $request->tujuan;
         $item->save();
 
         $data = SKTM::create([
-            'id_laporan' => $item->id_laporan,
-            'id_user' => Auth::user()->id_user,
+            'id_laporan' => $item->id,
+            'id_user' => Auth::user()->id,
             'tujuan' => $request->tujuan,
             'status' => 'Belum Diproses',
             'posisi' => 'Staff',
@@ -236,7 +232,7 @@ class UserIncapacityCertificationController extends Controller
      */
     public function show($id)
     {
-        $item = SKTM::with(['user.userDetails', 'letter'])->where('id_surat_tidak_mampu', $id)->findOrFail($id);
+        $item = SKTM::with(['user', 'letter'])->where('id', $id)->findOrFail($id);
 
         return view('pages.user.sktm.show', [
             'item' => $item,
@@ -251,7 +247,7 @@ class UserIncapacityCertificationController extends Controller
      */
     public function edit($id)
     {
-        $item = SKTM::with(['user.userDetails', 'letter'])->where('id_surat_tidak_mampu', $id)->findOrFail($id);
+        $item = SKTM::with(['user', 'letter'])->where('id', $id)->findOrFail($id);
         return view('pages.user.sktm.edit', [
             'item' => $item,
         ]);
@@ -300,7 +296,7 @@ class UserIncapacityCertificationController extends Controller
      */
     public function destroy(Request $request)
     {
-        $data = SKTM::findOrFail($request->id_surat_tidak_mampu);
+        $data = SKTM::findOrFail($request->id);
         $item = Laporan::findOrFail($data->id_laporan);
         // if ($data->surat_rtrw != null) {
         //     Storage::disk('public')->delete($data->surat_rtrw);

@@ -133,57 +133,57 @@
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td style="text-transform: uppercase"><b>{{ $sktm->user->name ?? '-' }}</b></td>
+                    <td style="text-transform: uppercase"><b>{{ $sktm->user->nama ?? '-' }}</b></td>
                 </tr>
                 <tr>
                     <td>Jenis Kelamin</td>
                     <td>:</td>
-                    <td>{{ $sktm->user->userDetails->jenis_kelamin ?? '-' }}</td>
+                    <td>{{ $sktm->user->jenis_kelamin ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Tempat/ Tgl.Lahir</td>
                     <td>:</td>
-                    <td>{{ $sktm->user->userDetails->tempat_lahir ?? '-' }}, {{ $ttl ?? '-' }}</td>
+                    <td>{{ $sktm->user->tempat_lahir ?? '-' }}, {{ $ttl ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Pekerjaan</td>
                     <td>:</td>
-                    <td>{{ $sktm->user->userDetails->pekerjaan ?? '-' }}</td>
+                    <td>{{ $sktm->user->pekerjaan ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Alamat</td>
                     <td>:</td>
-                    <td>{{ $sktm->user->userDetails->address ?? '-' }}</td>
+                    <td>{{ $sktm->user->alamat ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>RT/RW</td>
                     <td>:</td>
-                    <td>{{ $sktm->user->userDetails->rtrw ?? '-' }}</td>
+                    <td>{{ $sktm->user->rtrw ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Kelurahan</td>
                     <td>:</td>
-                    <td>{{ $sktm->user->userDetails->kelurahan ?? '-' }}</td>
+                    <td>{{ $sktm->user->kelurahan ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Kecamatan</td>
                     <td>:</td>
-                    <td>{{ $sktm->user->userDetails->kecamatan ?? '-' }}</td>
+                    <td>{{ $sktm->user->kecamatan ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Agama</td>
                     <td>:</td>
-                    <td>{{ $sktm->user->userDetails->agama ?? '-' }}</td>
+                    <td>{{ $sktm->user->agama ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Status Perkawinan</td>
                     <td>:</td>
-                    <td>{{ $sktm->user->userDetails->status_perkawinan ?? '-' }}</td>
+                    <td>{{ $sktm->user->status_perkawinan ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>NIK</td>
                     <td>:</td>
-                    <td>{{ $sktm->user->userDetails->nik ?? '-' }}</td>
+                    <td>{{ $sktm->user->nik ?? '-' }}</td>
                 </tr>
             </tbody>
         </table>
