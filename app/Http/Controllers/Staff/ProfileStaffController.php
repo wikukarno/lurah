@@ -19,7 +19,7 @@ class ProfileStaffController extends Controller
      */
     public function index()
     {
-        $users = User::with('userDetails')->where('id', Auth::user()->id)->first();
+        $users = User::where('id', Auth::user()->id)->first();
         return view('pages.staff.profile', compact('users'));
     }
 
@@ -73,7 +73,7 @@ class ProfileStaffController extends Controller
      */
     public function edit($id)
     {
-        $users = User::with('userDetails')->findOrFail($id);
+        $users = User::findOrFail($id);
         return view('pages.staff.update-profile', compact('users'));
     }
 
@@ -86,9 +86,9 @@ class ProfileStaffController extends Controller
      */
     public function update(Request $request)
     {
-        $user = UserDetails::where('users_id', Auth::user()->id)->first();
+        $user = User::where('id', Auth::user()->id)->first();
         $user->nik = $request->nik;
-        $user->phone = $request->phone;
+        $user->no_telepon = $request->no_telepon;
         $user->jenis_kelamin = $request->jenis_kelamin;
         $user->tempat_lahir = $request->tempat_lahir;
         $user->tanggal_lahir = $request->tanggal_lahir;
@@ -98,7 +98,7 @@ class ProfileStaffController extends Controller
         $user->rtrw = $request->rtrw;
         $user->agama = $request->agama;
         $user->status_perkawinan = $request->status_perkawinan;
-        $user->address = $request->address;
+        $user->alamat = $request->alamat;
 
         $fileLama = $user->foto;
         $fileLamaKtp = $user->ktp;

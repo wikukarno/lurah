@@ -26,14 +26,14 @@
                                         <div class="form-group">
                                             <label for="nik">Nik <span id="cekNik"></span></label>
                                             <input type="number" class="form-control" id="nik" name="nik" maxlength="16"
-                                                value="{{ $users->userDetails->nik }}">
+                                                value="{{ $users->nik }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="phone">Nomor Telepon</label>
-                                            <input type="number" class="form-control" id="phone" name="phone" maxlength="12"
-                                                value="{{ $users->userDetails->phone }}">
+                                            <label for="no_telepon">Nomor Telepon</label>
+                                            <input type="number" class="form-control" id="no_telepon" name="no_telepon" maxlength="12"
+                                                value="{{ $users->no_telepon }}">
                                         </div>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                                         <div class="form-group">
                                             <label for="tempat_lahir">Tempat Lahir</label>
                                             <input type="text" class="form-control" id="tempat_lahir" maxlength="30"
-                                                name="tempat_lahir" value="{{ $users->userDetails->tempat_lahir }}">
+                                                name="tempat_lahir" value="{{ $users->tempat_lahir }}">
                                         </div>
                                     </div>
                                 </div>
@@ -66,14 +66,14 @@
                                         <div class="form-group">
                                             <label for="tanggal_lahir">Tanggal Lahir</label>
                                             <input type="date" class="form-control" id="tanggal_lahir"
-                                                name="tanggal_lahir" value="{{ $users->userDetails->tanggal_lahir }}">
+                                                name="tanggal_lahir" value="{{ $users->tanggal_lahir }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="pekerjaan">Pekerjaan</label>
                                             <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" maxlength="30"
-                                                value="{{ $users->userDetails->pekerjaan }}">
+                                                value="{{ $users->pekerjaan }}">
                                         </div>
                                     </div>
                                 </div>
@@ -82,21 +82,21 @@
                                         <div class="form-group">
                                             <label for="kecamatan">Kecamatan</label>
                                             <input type="text" class="form-control" id="kecamatan" name="kecamatan" maxlength="20"
-                                                value="{{ $users->userDetails->kecamatan }}">
+                                                value="{{ $users->kecamatan }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="kelurahan">Kelurahan</label>
                                             <input type="text" class="form-control" id="kelurahan" name="kelurahan" maxlength="15"
-                                                value="{{ $users->userDetails->kelurahan }}">
+                                                value="{{ $users->kelurahan }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="rtrw">RT/RW</label>
                                             <input type="text" class="form-control" id="rtrw" name="rtrw" maxlength="10"
-                                                value="{{ $users->userDetails->rtrw }}">
+                                                value="{{ $users->rtrw }}">
                                         </div>
                                     </div>
                                 </div>
@@ -160,9 +160,9 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-12">
                                         <div class="form-group">
-                                            <label for="address">Alamat</label>
-                                            <input type="text" class="form-control" id="address" name="address" maxlength="50"
-                                                value="{{ $users->userDetails->address }}">
+                                            <label for="alamat">Alamat</label>
+                                            <input type="text" class="form-control" id="alamat" name="alamat" maxlength="50"
+                                                value="{{ $users->alamat }}">
                                         </div>
                                     </div>
                                 </div>

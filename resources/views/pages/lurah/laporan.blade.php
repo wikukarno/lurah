@@ -54,8 +54,8 @@ Data Laporan
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        {{-- <th>NIK</th> --}}
-                                        {{-- <th>Nama</th> --}}
+                                        <th>NIK</th>
+                                        <th>Nama</th>
                                         <th>Jenis Surat</th>
                                         <th>Tanggal Diajukan</th>
                                         <th>Tanggal Disetujui</th>
@@ -68,8 +68,8 @@ Data Laporan
                                 <tfoot>
                                     <tr>
                                         <th style="display:none">No.</th>
-                                        {{-- <th style="display:none">NIK</th> --}}
-                                        {{-- <th style="display:none">Nama</th> --}}
+                                        <th style="display:none">NIK</th>
+                                        <th style="display:none">Nama</th>
                                         <th style="display:none">Jenis Surat</th>
                                         <th style="display:none">Tanggal Diajukan</th>
                                         <th style="display:none">Tanggal Disetujui</th>
@@ -121,8 +121,8 @@ Data Laporan
         },
         columns: [
             { data: 'DT_RowIndex', name: 'id_laporan' },
-            // { data: 'nik', name: 'nik' },
-            // { data: 'nama', name: 'nama' },
+            { data: 'user.nik', name: 'user.nik' },
+            { data: 'user.nama', name: 'user.nama' },
             { data: 'id_kategori_surat', name: 'id_kategori_surat' },
             { data: 'created_at', name: 'created_at' },
             { data: 'updated_at', name: 'updated_at' },

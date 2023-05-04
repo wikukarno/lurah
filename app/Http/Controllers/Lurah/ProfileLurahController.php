@@ -19,7 +19,7 @@ class ProfileLurahController extends Controller
      */
     public function index()
     {
-        $users = User::with('userDetails')->where('id', Auth::user()->id)->first();
+        $users = User::where('id', Auth::user()->id)->first();
         return view('pages.lurah.profile', compact('users'));
     }
 
@@ -74,7 +74,7 @@ class ProfileLurahController extends Controller
      */
     public function edit($id)
     {
-        $users = User::with('userDetails')->findOrFail($id);
+        $users = User::findOrFail($id);
         return view('pages.lurah.update-profile', compact('users'));
     }
 
@@ -87,9 +87,9 @@ class ProfileLurahController extends Controller
      */
     public function update(Request $request)
     {
-        $user = UserDetails::where('users_id', Auth::user()->id)->first();
+        $user = User::where('id', Auth::user()->id)->first();
         $user->nik = $request->nik;
-        $user->phone = $request->phone;
+        $user->no_telepon = $request->no_telepon;
         $user->jenis_kelamin = $request->jenis_kelamin;
         $user->tempat_lahir = $request->tempat_lahir;
         $user->tanggal_lahir = $request->tanggal_lahir;
@@ -99,28 +99,28 @@ class ProfileLurahController extends Controller
         $user->rtrw = $request->rtrw;
         $user->agama = $request->agama;
         $user->status_perkawinan = $request->status_perkawinan;
-        $user->address = $request->address;
+        $user->alamat = $request->alamat;
 
         $fileLama = $user->foto;
         $fileLamaKtp = $user->ktp;
         $fileLamaKk = $user->kk;
 
         if ($request->foto != null) {
-            $user->foto = $request->file('foto')->storePubliclyAs('assets/foto', $request->file('foto')->getClientOriginalName(), 'public');
+            $user->foto = $request->file('foto')->store('assets/foto', 'public');
             if ($fileLama != null) {
                 Storage::disk('public')->delete($fileLama);
             }
         }
 
         if ($request->ktp != null) {
-            $user->ktp = $request->file('ktp')->storePubliclyAs('assets/ktp', $request->file('ktp')->getClientOriginalName(), 'public');
+            $user->ktp = $request->file('ktp')->store('assets/ktp', 'public');
             if ($fileLamaKtp != null) {
                 Storage::disk('public')->delete($fileLamaKtp);
             }
         }
 
         if ($request->kk != null) {
-            $user->kk = $request->file('kk')->storePubliclyAs('assets/kk', $request->file('kk')->getClientOriginalName(), 'public');
+            $user->kk = $request->file('kk')->store('assets/kk', 'public');
             if ($fileLamaKk != null) {
                 Storage::disk('public')->delete($fileLamaKk);
             }

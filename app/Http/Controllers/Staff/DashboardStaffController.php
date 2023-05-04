@@ -109,7 +109,7 @@ class DashboardStaffController extends Controller
     public function getPenduduk()
     {
         if (request()->ajax()) {
-            $query = User::with(['userDetails'])->where('roles', 'User')->where('status_account', 'verifikasi')->get();
+            $query = User::where('roles', 'User')->where('status_account', 'verifikasi')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()

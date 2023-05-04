@@ -49,9 +49,9 @@ Data Penduduk
             columns: [
                 { data: 'DT_RowIndex', name: 'id' },
                 { data: 'email', name: 'email' },
-                { data: 'name', name: 'name' },
-                { data: 'phone', name: 'phone' },
-                { data: 'address', name: 'address' },
+                { data: 'nama', name: 'nama' },
+                { data: 'no_telepon', name: 'no_telepon' },
+                { data: 'alamat', name: 'alamat' },
             ],
 
         });

@@ -13,6 +13,7 @@ use App\Http\Controllers\Lurah\SkpLurahController;
 use App\Http\Controllers\Lurah\SktmLurahController;
 use App\Http\Controllers\Lurah\SkuLurahController;
 use App\Http\Controllers\Staff\DashboardStaffController;
+use App\Http\Controllers\Staff\KategoriSuratController;
 use App\Http\Controllers\Staff\ProfileStaffController;
 use App\Http\Controllers\Staff\SkiStaffController;
 use App\Http\Controllers\Staff\SkpStaffController;
@@ -197,6 +198,7 @@ Route::prefix('/pages/dashboard/staff')
         Route::resource('sktm-staff', StaffIncapacityCertificationController::class);
         Route::resource('ski-staff', StaffPermitsController::class);
         Route::resource('akun-staff', ProfileStaffController::class);
+        Route::resource('kategori-surat', KategoriSuratController::class);
     });
 
 // Route User

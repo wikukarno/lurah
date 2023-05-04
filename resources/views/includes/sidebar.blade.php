@@ -86,6 +86,10 @@
                 <a href="{{ route('staff.verifikasi-penduduk') }}" class="nav-link"><i class="fas fa-user-check"></i>
                     <span>Verifikasi Pengguna</span></a>
             </li>
+            <li class="{{ (request()->is('pages/dashboard/staff/kategori-surat') ? 'active' : '') }}">
+                <a href="{{ route('kategori-surat.index') }}" class="nav-link"><i class="fas fa-list"></i>
+                    <span>Kategori Surat</span></a>
+            </li>
             <li class="{{ (request()->is('pages/dashboard/staff/sku-staff') ? 'active' : '') }}">
                 <a href="{{ route('sku-staff.index') }}" class="nav-link"><i class="fas fa-store"></i>
                     <span>SK Usaha</span></a>

@@ -43,14 +43,14 @@ Profile {{ Auth::user()->nama }}
                                         <div class="form-group">
                                             <label for="nik">Nik</label>
                                             <input type="number" class="form-control" id="nik" name="nik"
-                                                value="{{ $users->userDetails->nik ?? '' }}" readonly>
+                                                value="{{ $users->nik ?? '' }}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="phone">Nomor Telepon</label>
-                                            <input type="text" class="form-control" id="phone" name="phone"
-                                                value="{{ $users->userDetails->phone ?? '' }}" readonly>
+                                            <label for="no_telepon">Nomor Telepon</label>
+                                            <input type="text" class="form-control" id="no_telepon" name="no_telepon"
+                                                value="{{ $users->no_telepon ?? '' }}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@ Profile {{ Auth::user()->nama }}
                                         <div class="form-group">
                                             <label for="jenis_kelamin">Jenis Kelamin</label>
                                             <input type="text" class="form-control"
-                                                value="{{ $users->userDetails->jenis_kelamin ?? '' }}" readonly>
+                                                value="{{ $users->jenis_kelamin ?? '' }}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">
@@ -67,7 +67,7 @@ Profile {{ Auth::user()->nama }}
                                             <label for="tempat_lahir">Tempat Lahir</label>
                                             <input type="text" class="form-control" id="tempat_lahir"
                                                 name="tempat_lahir"
-                                                value="{{ $users->userDetails->tempat_lahir ?? '' }}" readonly>
+                                                value="{{ $users->tempat_lahir ?? '' }}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -77,14 +77,14 @@ Profile {{ Auth::user()->nama }}
                                             <label for="tanggal_lahir">Tanggal Lahir</label>
                                             <input type="text" class="form-control" id="tanggal_lahir"
                                                 name="tanggal_lahir"
-                                                value="{{ $users->userDetails->tanggal_lahir ?? '' }}" readonly>
+                                                value="{{ $users->tanggal_lahir ?? '' }}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="pekerjaan">Pekerjaan</label>
                                             <input type="text" class="form-control" id="pekerjaan" name="pekerjaan"
-                                                value="{{ $users->userDetails->pekerjaan ?? '' }}" readonly>
+                                                value="{{ $users->pekerjaan ?? '' }}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -93,21 +93,21 @@ Profile {{ Auth::user()->nama }}
                                         <div class="form-group">
                                             <label for="kecamatan">Kecamatan</label>
                                             <input type="text" class="form-control" id="kecamatan" name="kecamatan"
-                                                value="{{ $users->userDetails->kecamatan ?? '' }}" readonly>
+                                                value="{{ $users->kecamatan ?? '' }}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="kelurahan">Kelurahan</label>
                                             <input type="text" class="form-control" id="kelurahan" name="kelurahan"
-                                                value="{{ $users->userDetails->kelurahan ?? '' }}" readonly>
+                                                value="{{ $users->kelurahan ?? '' }}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-4">
                                         <div class="form-group">
                                             <label for="rtrw">RT/RW</label>
                                             <input type="text" class="form-control" id="rtrw" name="rtrw"
-                                                value="{{ $users->userDetails->rtrw ?? '' }}" readonly>
+                                                value="{{ $users->rtrw ?? '' }}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -116,7 +116,7 @@ Profile {{ Auth::user()->nama }}
                                         <div class="form-group">
                                             <label for="agama">Agama</label>
                                             <input type="text" class="form-control" id="agama" name="agama"
-                                                value="{{ $users->userDetails->agama ?? '' }}" readonly>
+                                                value="{{ $users->agama ?? '' }}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">
@@ -124,16 +124,16 @@ Profile {{ Auth::user()->nama }}
                                             <label for="status_perkawinan">Status Perkawinan</label>
                                             <input type="text" class="form-control" id="status_perkawinan"
                                                 name="status_perkawinan"
-                                                value="{{ $users->userDetails->status_perkawinan ?? '' }}" readonly>
+                                                value="{{ $users->status_perkawinan ?? '' }}" readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12 col-lg-12">
                                         <div class="form-group">
-                                            <label for="address">Alamat</label>
+                                            <label for="alamat">Alamat</label>
                                             <input type="text" class="form-control"
-                                                value="{{ $users->userDetails->address ?? '' }}" readonly>
+                                                value="{{ $users->alamat ?? '' }}" readonly>
                                         </div>
                                     </div>
                                 </div>
