@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\Letter;
-use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\KategoriSurat;
 use App\Models\Laporan;
-use App\Models\Permits;
 use App\Models\SKI;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +19,109 @@ class UserPermitsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function showSkiDashboard()
+    {
+        // Datatables untuk tampil semua data surat keterangan usaha
+        if (request()->ajax()) {
+            $query = SKI::with('user')->where('id_user', Auth::user()->id)->get();
+            return datatables()->of($query)
+                ->addIndexColumn()
+                ->editColumn('created_at', function ($item) {
+                    return $item->created_at->isoFormat('D MMMM Y');
+                })
+                ->editColumn('surat_rtrw', function ($item) {
+                    return '
+                        <a href="' . asset('storage/' . $item->surat_rtrw) . '" target="_blank" class="btn btn-sm btn-primary">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                    ';
+                })
+
+                ->editColumn('action', function ($item) {
+                    if ($item->status == 'Belum Diproses') {
+                        return '
+                            <div class="d-flex">
+                                <a href="' . route('ski-user.show', $item->id) . '" class="btn btn-sm btn-secondary mx-1">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+
+                                <a href="' . route('ski-user.edit', $item->id) . '" class="btn btn-sm btn-info mx-1">
+                                    <i class="fa fa-pencil-alt"></i>
+                                </a>
+
+                                <form id="form-delete-letters" method="POST">
+                                    ' . csrf_field() . '
+                                    <input type="hidden" name="id" value="' . $item->id . '">
+                                    <button type="submit" id="btnDelete" class="btn btn-sm btn-danger mx-1"><i class="fas fa-trash"></i></button>
+                                </form>
+                            </div>
+
+                            <script>
+                                $("#form-delete-letters").submit(function (e) {
+                                    e.preventDefault();
+                                    var id = $("input[name=id]").val();
+
+                                    Swal.fire({
+                                        title: "Apakah anda yakin?",
+                                        text: "Ingin menghapus surat ini?",
+                                        icon: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#3085d6",
+                                        cancelButtonColor: "#d33",
+                                        confirmButtonText: "Ya, Hapus!",
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            $.ajax({
+                                                url: "' . route('ski-user.hapus') . '",
+                                                type: "POST",
+                                                data: {
+                                                    id: id,
+                                                    _token: "' . csrf_token() . '"
+                                                },
+                                                success: function (data) {
+                                                    Swal.fire(
+                                                        "Berhasil!",
+                                                        "Surat berhasil dihapus",
+                                                        "success"
+                                                    )
+                                                    $("#tb_ski_user_belum_diproses").DataTable().ajax.reload();
+                                                    $("#tb_ski_user_ditolak").DataTable().ajax.reload();
+                                                    $("#tb_ski_user_sedang_diproses").DataTable().ajax.reload();
+                                                    $("#tb_ski_user_selesai_diproses").DataTable().ajax.reload();
+                                                }
+                                            });
+                                        }
+                                    })
+                                });
+                            </script>
+                            
+                        ';
+                    } elseif ($item->status == 'Sedang Diproses') {
+                        return '
+                            <span class="badge badge-warning">Sedang Diproses</span>
+                        ';
+                    } elseif ($item->status == 'Selesai Diproses') {
+                        return '
+                            <a href="javascript:void(0)" class="badge badge-success" onclick="selesaiProses()">
+                                Selesai Diproses
+                            </a>
+                        ';
+                    } else {
+                        return '
+                            <a href="' . route('ski-user.show', $item->id) . '" class="badge badge-danger mx-1">Ditolak
+                            </a>
+                        ';
+                    }
+                })
+
+                ->rawColumns(['created_at', 'status', 'surat_rtrw', 'action', 'nama_usaha'])
+                ->make(true);
+        }
+
+        return view('pages.user.ski.show-surat');
+    }
+    
     public function index()
     {
         if (request()->ajax()) {
@@ -102,7 +201,6 @@ class UserPermitsController extends Controller
     public function onProgress()
     {
         if (request()->ajax()) {
-            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('status', 'Sedang Diproses')->get();
             $query = SKI::with('user')->where('id_user', Auth::user()->id)->where('status', 'Sedang Diproses')->get();
 
             return datatables()->of($query)
@@ -126,7 +224,6 @@ class UserPermitsController extends Controller
     public function success()
     {
         if (request()->ajax()) {
-            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('status', 'Selesai Diproses')->get();
             $query = SKI::with('user')->where('id_user', Auth::user()->id)->where('status', 'Selesai Diproses')->get();
 
             return datatables()->of($query)
@@ -156,7 +253,6 @@ class UserPermitsController extends Controller
     public function rejected()
     {
         if (request()->ajax()) {
-            // $query = Letter::with('user')->where('users_id', Auth::user()->id)->where('status', 'Ditolak')->get();
             $query = SKI::with('user')->where('id_user', Auth::user()->id)->where('status', 'Ditolak')->get();
 
             return datatables()->of($query)
@@ -242,7 +338,7 @@ class UserPermitsController extends Controller
      */
     public function show($id)
     {
-        $item = SKI::with(['user', 'letter'])->where('id', $id)->findOrFail($id);
+        $item = SKI::with(['user', 'laporan'])->where('id', $id)->findOrFail($id);
 
         // return Response()->json($item);
         // dd($item->waktu_izin);
@@ -259,7 +355,7 @@ class UserPermitsController extends Controller
      */
     public function edit($id)
     {
-        $item = SKI::with(['user', 'letter'])->where('id', $id)->findOrFail($id);
+        $item = SKI::with(['user', 'laporan'])->where('id', $id)->findOrFail($id);
         return view('pages.user.ski.edit', [
             'item' => $item,
         ]);

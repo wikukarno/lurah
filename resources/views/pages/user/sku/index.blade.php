@@ -202,7 +202,7 @@ Surat Keterangan Usaha
     url: "{{ route('sku-user.index') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id_surat_keterangan_usaha' },
+    { data: 'DT_RowIndex', name: 'id' },
     { data: 'nama_usaha', name: 'nama_usaha' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -222,7 +222,7 @@ Surat Keterangan Usaha
     url: "{{ route('sku-user.onProgress') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id_surat_keterangan_usaha' },
+    { data: 'DT_RowIndex', name: 'id' },
     { data: 'nama_usaha', name: 'nama_usaha' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -243,7 +243,7 @@ Surat Keterangan Usaha
     url: "{{ route('sku-user.success') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id_surat_keterangan_usaha' },
+    { data: 'DT_RowIndex', name: 'id' },
     { data: 'nama_usaha', name: 'nama_usaha' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -264,7 +264,7 @@ Surat Keterangan Usaha
     url: "{{ route('sku-user.rejected') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id_surat_keterangan_usaha' },
+    { data: 'DT_RowIndex', name: 'id' },
     { data: 'nama_usaha', name: 'nama_usaha' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },

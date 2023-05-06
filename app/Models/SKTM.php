@@ -34,13 +34,9 @@ class SKTM extends Model
         return $this->hasOne(User::class, 'id', 'id_user');
     }
 
-    public function userDetails()
+    // relasi ke tabel laporan
+    public function laporan()
     {
-        return $this->hasOne(User::class, 'id', 'id_user');
-    }
-
-    public function letter()
-    {
-        return $this->belongsTo(Letter::class, 'letters_id', 'id');
+        return $this->belongsTo(Laporan::class, 'id_laporan', 'id');
     }
 }

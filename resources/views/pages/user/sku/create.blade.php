@@ -20,8 +20,8 @@ Surat Keterangan Usaha
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="nama">Nama Usaha <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="nama_usaha" name="nama_usaha" maxlength="30"
-                                            placeholder="Masukkan nama usaha" required
+                                        <input type="text" class="form-control" id="nama_usaha" name="nama_usaha"
+                                            maxlength="30" placeholder="Masukkan nama usaha" required
                                             oninvalid="this.setCustomValidity('Masukan nama usaha')"
                                             oninput="setCustomValidity('')">
                                     </div>
@@ -91,8 +91,8 @@ Surat Keterangan Usaha
                                     <div class="form-group">
                                         <label for="nama">Pekerjaan</label>
                                         <input type="text" class="form-control" id="pekerjaan" name="pekerjaan"
-                                            placeholder="Masukkan pekerjaan"
-                                            value="{{ Auth::user()->pekerjaan }}" readonly>
+                                            placeholder="Masukkan pekerjaan" value="{{ Auth::user()->pekerjaan }}"
+                                            readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
@@ -108,8 +108,8 @@ Surat Keterangan Usaha
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label for="nama">Agama</label>
-                                        <input type="text" class="form-control"
-                                            value="{{ Auth::user()->agama }}" readonly>
+                                        <input type="text" class="form-control" value="{{ Auth::user()->agama }}"
+                                            readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">

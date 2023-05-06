@@ -244,6 +244,17 @@ Route::prefix('/pages/dashboard/user')
         Route::post('/penolakan/skp', [DashboardUserController::class, 'getPenolakanSkp'])->name('get-penolakan-skp');
         Route::post('/sku/show/tolak-sku', [UserBusinessCertificationController::class, 'showTolakSku'])->name('sku-user.show-tolak-sku');
 
+
+        // Tampilkan semua surat pada dashboard
+        Route::get('/surat-keterangan-usaha', [UserBusinessCertificationController::class, 'showSkuDashboard'])->name('sku-user.show-sku-dashboard');
+        Route::get('/surat-keterangan-izin', [UserPermitsController::class, 'showSkiDashboard'])->name('ski-user.show-ski-dashboard');
+        Route::get('/surat-keterangan-tidak-mampu', [UserIncapacityCertificationController::class, 'showSktmDashboard'])->name('sktm-user.show-sktm-dashboard');
+        Route::get('/surat-keterangan-pemakaman', [UserFuneralCertificationController::class, 'showSkpDashboard'])->name('skp-user.show-skp-dashboard');
+        Route::get('/surat', [DashboardUserController::class, 'showSuratUserDashboard'])->name('user.show-surat-user-dashboard');
+        Route::get('/surat-ditolak', [DashboardUserController::class, 'showSuratDitolakUserDashboard'])->name('user.show-surat-ditolak-dashboard');
+        Route::get('/surat-diproses', [DashboardUserController::class, 'showSuratDiprosesUserDashboard'])->name('user.show-surat-diproses-dashboard');
+        Route::get('/surat-selesai', [DashboardUserController::class, 'showSuratSelesaiDiprosesUserDashboard'])->name('user.show-surat-selesai-dashboard');
+
         // Route Resource
         Route::resource('sku-user', UserBusinessCertificationController::class);
         Route::resource('skp-user', UserFuneralCertificationController::class);

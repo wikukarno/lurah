@@ -39,9 +39,10 @@ class SKP extends Model
         return $this->hasOne(User::class, 'id', 'id_user');
     }
 
-    public function letter()
+    // relasi ke tabel laporan
+    public function laporan()
     {
-        return $this->belongsTo(Letter::class, 'letters_id', 'id');
+        return $this->belongsTo(Laporan::class, 'id_laporan', 'id');
     }
 
 }

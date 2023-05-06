@@ -210,7 +210,7 @@ Surat Keterangan Pemakaman
     url: "{{ route('skp-user.index') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id_surat_keterangan_pemakaman' },
+    { data: 'DT_RowIndex', name: 'id' },
     { data: 'nama', name: 'nama' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -231,7 +231,7 @@ Surat Keterangan Pemakaman
     url: "{{ route('skp-user.onProgress') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id_surat_keterangan_pemakaman' },
+    { data: 'DT_RowIndex', name: 'id' },
     { data: 'nama', name: 'nama' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -252,7 +252,7 @@ Surat Keterangan Pemakaman
     url: "{{ route('skp-user.success') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id_surat_keterangan_pemakaman' },
+    { data: 'DT_RowIndex', name: 'id' },
     { data: 'nama', name: 'nama' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
@@ -273,7 +273,7 @@ Surat Keterangan Pemakaman
     url: "{{ route('skp-user.rejected') }}",
     },
     columns: [
-    { data: 'DT_RowIndex', name: 'id_surat_keterangan_pemakaman' },
+    { data: 'DT_RowIndex', name: 'id' },
     { data: 'nama', name: 'nama' },
     { data: 'created_at', name: 'created_at' },
     { data: 'posisi', name: 'posisi' },
