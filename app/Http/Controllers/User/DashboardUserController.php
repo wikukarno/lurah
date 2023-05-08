@@ -22,10 +22,22 @@ class DashboardUserController extends Controller
     public function index()
     {
         // dapatkan semua data surat yang dimiliki user yang sedang login
-        $getBusiness = SKU::where('id_user', Auth::user()->id)->count();
-        $getFunerals = SKP::where('id_user', Auth::user()->id)->count();
-        $getIncapacity = SKTM::where('id_user', Auth::user()->id)->count();
-        $getPermits = SKI::where('id_user', Auth::user()->id)->count();
+        $getBusinessOnProgress = SKU::where('id_user', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
+        $getBusinessFinished = SKU::where('id_user', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
+        $getBusinessRejected = SKU::where('id_user', Auth::user()->id)->where('status', 'Ditolak')->count();
+
+        $getFuneralsOnProgress = SKP::where('id_user', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
+        $getFuneralsFinished = SKP::where('id_user', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
+        $getFuneralsRejected = SKP::where('id_user', Auth::user()->id)->where('status', 'Ditolak')->count();
+
+        $getIncapacityOnProgress = SKTM::where('id_user', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
+        $getIncapacityFinished = SKTM::where('id_user', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
+        $getIncapacityRejected = SKTM::where('id_user', Auth::user()->id)->where('status', 'Ditolak')->count();
+
+
+        $getPermitsOnProgress = SKI::where('id_user', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
+        $getPermitsFinished = SKI::where('id_user', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
+        $getPermitsRejected = SKI::where('id_user', Auth::user()->id)->where('status', 'Ditolak')->count();
 
         // dapatkan semua data surat yang dimiliki user yang sedang login berdasarkan status
         $getSuratDitolak = Laporan::where('id_user', Auth::user()->id)->where('status', 'Ditolak')->count();
@@ -33,17 +45,29 @@ class DashboardUserController extends Controller
         $getSuratSelesai = Laporan::where('id_user', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
 
         // hitung total surat yang dimiliki user yang sedang login
-        $totalSurat = $getBusiness + $getFunerals + $getIncapacity + $getPermits;
+        $sku = SKU::where('id_user', Auth::user()->id)->count();
+        $skp = SKP::where('id_user', Auth::user()->id)->count();
+        $sktm = SKTM::where('id_user', Auth::user()->id)->count();
+        $ski = SKI::where('id_user', Auth::user()->id)->count();
+        $totalSurat = $sku + $skp + $sktm + $ski;
 
         return view('pages.user.dashboard', compact(
             'totalSurat', 
             'getSuratDitolak', 
             'getSuratDiproses', 
             'getSuratSelesai',
-            'getBusiness',
-            'getFunerals',
-            'getIncapacity',
-            'getPermits'
+            'getBusinessOnProgress',
+            'getBusinessFinished',
+            'getBusinessRejected',
+            'getFuneralsOnProgress',
+            'getFuneralsFinished',
+            'getFuneralsRejected',
+            'getIncapacityOnProgress',
+            'getIncapacityFinished',
+            'getIncapacityRejected',
+            'getPermitsOnProgress',
+            'getPermitsFinished',
+            'getPermitsRejected'
         ));
     }
 
