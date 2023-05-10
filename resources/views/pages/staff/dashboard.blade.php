@@ -34,6 +34,7 @@
                                     <span class="badge badge-danger mr-2">
                                         {{ $skuDitolak }} Ditolak
                                     </span>
+                                    {{ $sku }}
                                 </div>
                             </div>
                         </div>

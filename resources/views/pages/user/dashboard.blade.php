@@ -12,10 +12,12 @@
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                <a href="{{ route('sku-user.show-sku-dashboard') }}">
+                {{-- <a href="{{ route('sku-user.show-sku-dashboard') }}"> --}}
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-success">
-                            <i class="far fa-user"></i>
+                            <div class="mx-auto my-auto font-statistik">
+                                {{ $sku }} 
+                            </div>
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
@@ -23,26 +25,31 @@
                             </div>
                             <div class="card-body">
                                 <div class="keterangan d-md-flex d-lg-flex mt-2">
-                                    <span class="badge badge-warning mr-2">
+                                    <a href="#skubelumproses" onclick="skuBelumDiproses()" class="badge badge-secondary mr-2">
+                                        {{ $getBusinessNotProcessed }} Belum Diproses
+                                    </a>
+                                    <a href="#skusedangdiproses" onclick="skuSedangDiproses()" class="badge badge-warning mr-2">
                                         {{ $getBusinessOnProgress }} Diproses
-                                    </span>
-                                    <span class="badge badge-success mr-2">
+                                    </a>
+                                    <a href="#skuselesaiproses" onclick="skuSelesaiProses()" class="badge badge-success mr-2">
                                         {{ $getBusinessFinished }} Selesai
-                                    </span>
-                                    <span class="badge badge-danger mr-2">
+                                    </a>
+                                    <a href="#skuditolak" onclick="skuDitolak()" class="badge badge-danger mr-2">
                                         {{ $getBusinessRejected }} Ditolak
-                                    </span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </a>
+                {{-- </a> --}}
             </div>
             <div class="col-lg-6 col-md-6 col-sm6 col-12">
-                <a href="{{ route('ski-user.show-ski-dashboard') }}">
+                {{-- <a href="{{ route('ski-user.show-ski-dashboard') }}"> --}}
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-primary">
-                            <i class="far fa-user"></i>
+                            <div class="mx-auto my-auto font-statistik">
+                                {{ $ski }}
+                            </div>
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
@@ -63,7 +70,7 @@
                             </div>
                         </div>
                     </div>
-                </a>
+                {{-- </a> --}}
             </div>
         </div>
         <div class="row">
@@ -145,11 +152,36 @@
 </div>
 @endsection
 
+@push('after-scripts')
+    <script>
+
+        function skuBelumDiproses() {
+            window.location.href = "{{ route('sku-user.index') }}#skubelumproses";
+        }
+
+        function skuSedangDiproses() {
+            window.location.href = "{{ route('sku-user.index') }}#skusedangproses";
+        }
+        function skuSelesaiProses() {
+            window.location.href = "{{ route('sku-user.index') }}#skuselesaiproses";
+        }
+        function skuDitolak() {
+            window.location.href = "{{ route('sku-user.index') }}#skuditolak";
+        }
+    </script>
+@endpush
+
+
 @push('after-styles')
 <style>
     h4 {
         color: black !important;
         font-weight: 600 !important;
+    }
+    .font-statistik{
+        font-weight: 700 !important;
+        font-size: 24px !important;
+        color: #fff !important;
     }
 </style>
 @endpush

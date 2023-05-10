@@ -22,19 +22,22 @@ class DashboardUserController extends Controller
     public function index()
     {
         // dapatkan semua data surat yang dimiliki user yang sedang login
+        $getBusinessNotProcessed = SKU::where('id_user', Auth::user()->id)->where('status', 'Belum Diproses')->count();
         $getBusinessOnProgress = SKU::where('id_user', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
         $getBusinessFinished = SKU::where('id_user', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
         $getBusinessRejected = SKU::where('id_user', Auth::user()->id)->where('status', 'Ditolak')->count();
 
+        $getFuneralsNotProcessed = SKP::where('id_user', Auth::user()->id)->where('status', 'Belum Diproses')->count();
         $getFuneralsOnProgress = SKP::where('id_user', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
         $getFuneralsFinished = SKP::where('id_user', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
         $getFuneralsRejected = SKP::where('id_user', Auth::user()->id)->where('status', 'Ditolak')->count();
 
+        $getIncapacityNotProcessed = SKTM::where('id_user', Auth::user()->id)->where('status', 'Belum Diproses')->count();
         $getIncapacityOnProgress = SKTM::where('id_user', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
         $getIncapacityFinished = SKTM::where('id_user', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
         $getIncapacityRejected = SKTM::where('id_user', Auth::user()->id)->where('status', 'Ditolak')->count();
 
-
+        $getPermitsNotProcessed = SKI::where('id_user', Auth::user()->id)->where('status', 'Belum Diproses')->count();
         $getPermitsOnProgress = SKI::where('id_user', Auth::user()->id)->where('status', 'Sedang Diproses')->count();
         $getPermitsFinished = SKI::where('id_user', Auth::user()->id)->where('status', 'Selesai Diproses')->count();
         $getPermitsRejected = SKI::where('id_user', Auth::user()->id)->where('status', 'Ditolak')->count();
@@ -67,7 +70,15 @@ class DashboardUserController extends Controller
             'getIncapacityRejected',
             'getPermitsOnProgress',
             'getPermitsFinished',
-            'getPermitsRejected'
+            'getPermitsRejected',
+            'getBusinessNotProcessed',
+            'getFuneralsNotProcessed',
+            'getIncapacityNotProcessed',
+            'getPermitsNotProcessed',
+            'sku',
+            'skp',
+            'sktm',
+            'ski',
         ));
     }
 
