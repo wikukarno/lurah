@@ -180,3 +180,12 @@
     </section>
 </div>
 @endsection
+
+@push('after-styles')
+<style>
+    h4 {
+        color: black !important;
+        font-weight: 600 !important;
+    }
+</style>
+@endpush

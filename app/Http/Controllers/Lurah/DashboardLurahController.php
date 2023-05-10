@@ -25,80 +25,40 @@ class DashboardLurahController extends Controller
     public function index()
     {
         $dataUser = User::whereNot('roles', 'lurah')->Where('status_account', 'verifikasi')->count();
-        $sku = SKU::where('posisi', 'lurah')->count();
-        $skp = SKP::where('posisi', 'lurah')->count();
-        $sktm = SKTM::where('posisi', 'lurah')->count();
-        $ski = SKI::where('posisi', 'lurah')->count();
+        $sku = SKU::count();
+        $skp = SKP::count();
+        $sktm = SKTM::count();
+        $ski = SKI::count();
 
-        // $suratProgress = Laporan::with(['business', 'funeral', 'incapacity', 'permits'])
-        //     ->whereHas('business', function ($query) {
-        //         $query->where('status', 'Sedang Diproses');
-        //     })
-        //     ->orWhereHas('funeral', function ($query) {
-        //         $query->where('status', 'Sedang Diproses');
-        //     })
-        //     ->orWhereHas('incapacity', function ($query) {
-        //         $query->where('status', 'Sedang Diproses');
-        //     })
-        //     ->orWhereHas('permits', function ($query) {
-        //         $query->where('status', 'Sedang Diproses');
-        //     });
+        $skuMasuk = SKU::where('status', 'Belum Diproses')->count();
+        $skpMasuk = SKP::where('status', 'Belum Diproses')->count();
+        $sktmMasuk = SKTM::where('status', 'Belum Diproses')->count();
+        $skiMasuk = SKI::where('status', 'Belum Diproses')->count();
 
-        // $suratDitolak = Laporan::with(['business', 'funeral', 'incapacity', 'permits'])
-        //     ->whereHas('business', function ($query) {
-        //         $query->where('status', 'Ditolak');
-        //     })
-        //     ->orWhereHas('funeral', function ($query) {
-        //         $query->where('status', 'Ditolak');
-        //     })
-        //     ->orWhereHas('incapacity', function ($query) {
-        //         $query->where('status', 'Ditolak');
-        //     })
-        //     ->orWhereHas('permits', function ($query) {
-        //         $query->where('status', 'Ditolak');
-        //     });
+        $skuProses = SKU::where('status', 'Sedang Diproses')->count();
+        $skpProses = SKP::where('status', 'Sedang Diproses')->count();
+        $sktmProses = SKTM::where('status', 'Sedang Diproses')->count();
+        $skiProses = SKI::where('status', 'Sedang Diproses')->count();
 
-        // $suratSelesai = Laporan::with(['business', 'funeral', 'incapacity', 'permits'])
-        //     ->whereHas('business', function ($query) {
-        //         $query->where('status', 'Selesai Diproses');
-        //     })
-        //     ->orWhereHas('funeral', function ($query) {
-        //         $query->where('status', 'Selesai Diproses');
-        //     })
-        //     ->orWhereHas('incapacity', function ($query) {
-        //         $query->where('status', 'Selesai Diproses');
-        //     })
-        //     ->orWhereHas('permits', function ($query) {
-        //         $query->where('status', 'Selesai Diproses');
-        //     });
+        $skuSelesai = SKU::where('status', 'Selesai Diproses')->count();
+        $skpSelesai = SKP::where('status', 'Selesai Diproses')->count();
+        $sktmSelesai = SKTM::where('status', 'Selesai Diproses')->count();
+        $skiSelesai = SKI::where('status', 'Selesai Diproses')->count();
 
-        // $getSuratDiteruskan = $suratProgress->count();
-        // $getSuratDitolak = $suratDitolak->count();
-        // $getSuratSelesai = $suratSelesai->count();
+        $skuDitolak = SKU::where('status', 'Ditolak')->count();
+        $skpDitolak = SKP::where('status', 'Ditolak')->count();
+        $sktmDitolak = SKTM::where('status', 'Ditolak')->count();
+        $skiDitolak = SKI::where('status', 'Ditolak')->count();
 
-        // $skuProgress = SKI::where('status', 'Sedang Diproses')->count();
-        // $skpProgress = SKP::where('status', 'Sedang Diproses')->count();
-        // $sktmProgress = SKTM::where('status', 'Sedang Diproses')->count();
-        // $skiProgress = SKI::where('status', 'Sedang Diproses')->count();
-
-        $getSuratDiteruskan = Laporan::where('status', 'Sedang Diproses')->where('posisi', 'lurah')->count();
-
-        // $skuDitolak = SKI::where('status', 'Ditolak')->count();
-        // $skpDitolak = SKP::where('status', 'Ditolak')->count();
-        // $sktmDitolak = SKTM::where('status', 'Ditolak')->count();
-        // $skiDitolak = SKI::where('status', 'Ditolak')->count();
-
-        $getSuratDitolak = Laporan::where('status', 'Ditolak')->count();
-
-        // $skuSelesai = SKI::where('status', 'Selesai Diproses')->count();
-        // $skpSelesai = SKP::where('status', 'Selesai Diproses')->count();
-        // $sktmSelesai = SKTM::where('status', 'Selesai Diproses')->count();
-        // $skiSelesai = SKI::where('status', 'Selesai Diproses')->count();
-
-        $getSuratSelesai = Laporan::where('status', 'Selesai Diproses')->count();
 
         $totalSurat = $sku + $skp + $sktm + $ski;
-        return view('pages.lurah.dashboard', compact('dataUser', 'sku', 'skp', 'sktm', 'ski', 'totalSurat', 'getSuratDiteruskan', 'getSuratDitolak', 'getSuratSelesai'));
+
+        $totalSuratProses = Laporan::where('status', 'Sedang Diproses')->count();
+        $totalSuratSelesai = Laporan::where('status', 'Selesai Diproses')->count();
+        $totalSuratDitolak = Laporan::where('status', 'Ditolak')->count();
+
+
+        return view('pages.lurah.dashboard', compact('dataUser', 'totalSurat', 'sku', 'skp', 'sktm', 'ski', 'skuMasuk', 'skpMasuk', 'sktmMasuk', 'skiMasuk', 'skuProses', 'skpProses', 'sktmProses', 'skiProses', 'skuSelesai', 'skpSelesai', 'sktmSelesai', 'skiSelesai', 'skuDitolak', 'skpDitolak', 'sktmDitolak', 'skiDitolak', 'totalSuratProses', 'totalSuratSelesai', 'totalSuratDitolak'));
     }
 
     public function getLaporan(Request $request)

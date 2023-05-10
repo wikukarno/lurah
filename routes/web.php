@@ -116,15 +116,12 @@ Route::prefix('/pages/dashboard/lurah')
         Route::post('/sktm/setujui', [LurahIncapacityCertificationController::class, 'setujui'])->name('sktm-lurah.setujui');
         Route::post('/ski/setujui', [LurahPermitsController::class, 'setujui'])->name('ski-lurah.setujui');
 
-    // Tampilkan semua surat pada dashboard
-    // Route::get('/surat-keterangan-usaha', [UserBusinessCertificationController::class, 'showSkuDashboard'])->name('sku-user.show-sku-dashboard');
-    // Route::get('/surat-keterangan-izin', [UserPermitsController::class, 'showSkiDashboard'])->name('ski-user.show-ski-dashboard');
-    // Route::get('/surat-keterangan-tidak-mampu', [UserIncapacityCertificationController::class, 'showSktmDashboard'])->name('sktm-user.show-sktm-dashboard');
-    // Route::get('/surat-keterangan-pemakaman', [UserFuneralCertificationController::class, 'showSkpDashboard'])->name('skp-user.show-skp-dashboard');
-    // Route::get('/surat', [DashboardUserController::class, 'showSuratUserDashboard'])->name('user.show-surat-user-dashboard');
-    // Route::get('/surat-ditolak', [DashboardUserController::class, 'showSuratDitolakUserDashboard'])->name('user.show-surat-ditolak-dashboard');
-    // Route::get('/surat-diproses', [DashboardUserController::class, 'showSuratDiprosesUserDashboard'])->name('user.show-surat-diproses-dashboard');
-    // Route::get('/surat-selesai', [DashboardUserController::class, 'showSuratSelesaiDiprosesUserDashboard'])->name('user.show-surat-selesai-dashboard');
+        // Tampilkan semua surat pada dashboard
+        Route::get('/surat-keterangan-usaha', [LurahBusinessCertificationController::class, 'showSkuLurahDashboard'])->name('sku-lurah.show-sku-dashboard');
+        Route::get('/surat-keterangan-izin', [LurahPermitsController::class, 'showSkiLurahDashboard'])->name('ski-lurah.show-ski-dashboard');
+        Route::get('/surat-keterangan-tidak-mampu', [LurahIncapacityCertificationController::class, 'showSktmLurahDashboard'])->name('sktm-lurah.show-sktm-dashboard');
+        Route::get('/surat-keterangan-pemakaman', [LurahFuneralCertificationController::class, 'showSkpLurahDashboard'])->name('skp-lurah.show-skp-dashboard');
+        Route::get('/surat', [DashboardStaffController::class, 'allSurat'])->name('lurah.all-surat');
 
         Route::resource('sku-lurah', LurahBusinessCertificationController::class);
         Route::resource('skp-lurah', LurahFuneralCertificationController::class);

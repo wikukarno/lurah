@@ -51,53 +51,6 @@ class DashboardStaffController extends Controller
         $skiDitolak = SKI::where('status', 'Ditolak')->count();
 
 
-        // $suratProgress = Laporan::with(['business', 'funeral', 'incapacity', 'permits'])
-        //     ->whereHas('business', function ($query) {
-        //         $query->where('status', 'Sedang Diproses');
-        //     })
-        //     ->orWhereHas('funeral', function ($query) {
-        //         $query->where('status', 'Sedang Diproses');
-        //     })
-        //     ->orWhereHas('incapacity', function ($query) {
-        //         $query->where('status', 'Sedang Diproses');
-        //     })
-        //     ->orWhereHas('permits', function ($query) {
-        //         $query->where('status', 'Sedang Diproses');
-        //     });
-
-        // $suratDitolak = Laporan::with(['business', 'funeral', 'incapacity', 'permits'])
-        //     ->whereHas('business', function ($query) {
-        //         $query->where('status', 'Ditolak');
-        //     })
-        //     ->orWhereHas('funeral', function ($query) {
-        //         $query->where('status', 'Ditolak');
-        //     })
-        //     ->orWhereHas('incapacity', function ($query) {
-        //         $query->where('status', 'Ditolak');
-        //     })
-        //     ->orWhereHas('permits', function ($query) {
-        //         $query->where('status', 'Ditolak');
-        //     });
-
-        // $suratSelesai = Laporan::with(['business', 'funeral', 'incapacity', 'permits'])
-        //     ->whereHas('business', function ($query) {
-        //         $query->where('status', 'Selesai Diproses');
-        //     })
-        //     ->orWhereHas('funeral', function ($query) {
-        //         $query->where('status', 'Selesai Diproses');
-        //     })
-        //     ->orWhereHas('incapacity', function ($query) {
-        //         $query->where('status', 'Selesai Diproses');
-        //     })
-        //     ->orWhereHas('permits', function ($query) {
-        //         $query->where('status', 'Selesai Diproses');
-        //     });
-
-        // $getSuratDiteruskan = $suratProgress->count();
-        // $getSuratDitolak = $suratDitolak->count();
-        // $getSuratSelesai = $suratSelesai->count();
-
-
         $totalSurat = $sku + $skp + $sktm + $ski;
 
         $totalSuratProses = Laporan::where('status', 'Sedang Diproses')->count();

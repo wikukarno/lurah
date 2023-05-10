@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-Semua Surat
+Surat Keterangan Tidak Mampu
 @endsection
 
 @section('content')
@@ -12,19 +12,20 @@ Semua Surat
                 <div class="card">
                     <div class="card-header">
                         <div class="header-title">
-                            <h3 class="card-title">Daftar Semua Surat</h3>
+                            <h3 class="card-title">Data Surat Keterangan Tidak Mampu</h3>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="tb_lurah_semua_surat" class="table table-hover scroll-horizontal-vertical w-100">
+                            <table id="tb_sktm_lurah"
+                                class="table table-hover scroll-horizontal-vertical w-100">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>NIK</th>
                                         <th>Nama</th>
-                                        <th>Jenis Surat</th>
-                                        <th>Tanggal Diajukan</th>
+                                        <th>Keperluan</th>
+                                        <th>Tanggal Pengajuan</th>
+                                        <th>Posisi</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -42,22 +43,37 @@ Semua Surat
 
 @push('after-scripts')
 <script>
-    $('#tb_lurah_semua_surat').DataTable({
+    $('#tb_sktm_lurah').DataTable({
         processing: true,
         serverSide: true,
         ordering: [[1, 'asc']],
         ajax: {
-            url: "{{ route('lurah.all-surat') }}",
+            url: "{{ route('sktm-lurah.show-sktm-dashboard') }}",
         },
         columns: [
             { data: 'DT_RowIndex', name: 'id' },
-            { data: 'user.nik', name: 'user.nik' },
-            { data: 'nama', name: 'nama' },
-            { data: 'id_kategori_surat', name: 'id_kategori_surat' },
+            { data: 'user.nama', name: 'user.nama' },
+            { data: 'tujuan', name: 'tujuan' },
             { data: 'created_at', name: 'created_at' },
-            { data: 'action', name: 'action', orderable: false, searchable: false}
+            { data: 'posisi', name: 'posisi' },
+            {
+            data: 'action',
+            name: 'action',
+            orderable: false,
+            searchable: false
+            },
         ],
     });
 
+    function selesaiProses(){
+        Swal.fire({
+            title: 'Surat Selesai Diproses!',
+            text: "Surat Keterangan Tidak Mampu Anda Telah Selesai Diproses, Silahkan Ambil Surat Anda Dikantor Lurah Sorek Satu Dengan Membawa Fotocopy KK, Fotocopy KTP, dan Surat Pengaturan RT/RW. Terima Kasih",
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Oke'
+        })
+    }
 </script>
 @endpush
