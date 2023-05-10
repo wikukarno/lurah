@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
-use App\Models\BusinessCertifications;
-use App\Models\FuneralCertifications;
-use App\Models\IncapacityCertifications;
-use App\Models\Laporan;
-use App\Models\Letter;
-use App\Models\Permits;
 use App\Models\SKI;
 use App\Models\SKP;
-use App\Models\SKTM;
 use App\Models\SKU;
+use App\Models\SKTM;
 use App\Models\User;
+use App\Models\Letter;
+use App\Models\Laporan;
+use App\Models\Permits;
 use Illuminate\Http\Request;
+use App\Models\KategoriSurat;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\FuneralCertifications;
+use App\Models\BusinessCertifications;
 use Illuminate\Support\Facades\Storage;
+use App\Models\IncapacityCertifications;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class DashboardStaffController extends Controller
@@ -260,5 +262,151 @@ class DashboardStaffController extends Controller
             Alert::error('Gagal', 'Verifikasi pengguna gagal ditolak');
             return redirect()->route('staff.verifikasi-penduduk');
         }
+    }
+
+    public function allSurat()
+    {
+        // Datatables untuk tampil semua data surat keterangan usaha
+        if (request()->ajax()) {
+            $query = Laporan::with('user')->get();
+            return datatables()->of($query)
+                ->addIndexColumn()
+                ->editColumn('created_at', function ($item) {
+                    return $item->created_at->isoFormat('D MMMM Y');
+                })
+                ->editColumn('id_kategori_surat', function ($item) {
+                    $category = KategoriSurat::where('id', $item->id_kategori_surat)->first();
+                    if ($item->id_kategori_surat == $category->id) {
+                        return $category->nama;
+                    }
+                })
+
+                ->editColumn('nama', function ($item) {
+                    return $item->nama != null ? $item->nama : $item->user->nama;
+                })
+
+                ->editColumn('action', function ($item) {
+                    $sku = SKU::where('id_laporan', $item->id)->first();
+                    $ski = SKI::where('id_laporan', $item->id)->first();
+                    $sktm = SKTM::where('id_laporan', $item->id)->first();
+                    $skp = SKP::where('id_laporan', $item->id)->first();
+                    if ($item->status == 'Belum Diproses') {
+                        if($sku != null){
+                            return '
+                                <a href="' . route('sku-staff.show', $sku->id) . '" class="btn btn-sm btn-secondary">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+
+                                <form action="' . route('sku-staff.update', $sku->id) . '" method="POST" class="d-inline">
+                                ' . method_field('PUT') . '    
+                                ' . csrf_field() . '
+                                    <button type="submit" class="btn btn-sm btn-warning">
+                                        Teruskan
+                                    </button>
+                                </form>
+
+                                <a href="' . route('staff.get-tolak-sku', $sku->id) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
+
+                            ';
+                        }elseif ($ski != null) {
+                            return '
+                                    <a href="' . route('ski-staff.show', $ski->id) . '" class="btn btn-sm btn-secondary">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+
+                                    <form action="' . route('ski-staff.update', $ski->id) . '" method="POST" class="d-inline">
+                                    ' . method_field('PUT') . '    
+                                    ' . csrf_field() . '
+                                        <button type="submit" class="btn btn-sm btn-warning">
+                                            Teruskan
+                                        </button>
+                                    </form>
+
+                                    <a href="' . route('staff.get-tolak-ski', $ski->id) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
+
+                                ';
+                        }elseif ($sktm != null) {
+                            return '
+                                    <a href="' . route('sktm-staff.show', $sktm->id) . '" class="btn btn-sm btn-secondary">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+
+                                    <form action="' . route('sktm-staff.update', $sktm->id) . '" method="POST" class="d-inline">
+                                    ' . method_field('PUT') . '    
+                                    ' . csrf_field() . '
+                                        <button type="submit" class="btn btn-sm btn-warning">
+                                            Teruskan
+                                        </button>
+                                    </form>
+
+                                    <a href="' . route('staff.get-tolak-sktm', $sktm->id) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
+
+                                ';
+                        }elseif ($skp != null){
+                            return '
+                                    <a href="' . route('skp-staff.show', $skp->id) . '" class="btn btn-sm btn-secondary">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+
+                                    <form action="' . route('skp-staff.update', $skp->id) . '" method="POST" class="d-inline">
+                                    ' . method_field('PUT') . '    
+                                    ' . csrf_field() . '
+                                        <button type="submit" class="btn btn-sm btn-warning">
+                                            Teruskan
+                                        </button>
+                                    </form>
+
+                                    <a href="' . route('staff.get-tolak-skp', $skp->id) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
+
+                                ';
+                        }
+                    } elseif ($item->status == 'Sedang Diproses') {
+                        return '
+                            <span class="badge badge-warning">Sedang Diproses</span>
+                        ';
+                    } elseif ($item->status == 'Selesai Diproses') {
+                        return '
+                            <span class="badge badge-success">
+                                Selesai Diproses
+                            </span>
+                        ';
+                    } else {
+                        $sku = SKU::where('id_laporan', $item->id)->first();
+                        $ski = SKI::where('id_laporan', $item->id)->first();
+                        $sktm = SKTM::where('id_laporan', $item->id)->first();
+                        $skp = SKP::where('id_laporan', $item->id)->first();
+                        if ($sku != null) {
+                            return '
+                                <a href="' . route('sku-staff.show', $sku->id) . '" class="badge badge-danger">
+                                    Ditolak
+                                </a>
+                            ';
+                        } elseif ($ski != null) {
+                            return '
+                                <a href="' . route('ski-staff.show', $ski->id) . '" class="badge badge-danger">
+                                    Ditolak
+                                </a>
+                            ';
+                        } elseif ($sktm != null) {
+                            return '
+                                <a href="' . route('sktm-staff.show', $sktm->id) . '" class="badge badge-danger">
+                                    Ditolak
+                                </a>
+                            ';
+                        } elseif ($skp != null) {
+                            return '
+                                <a href="' . route('skp-staff.show', $skp->id) . '" class="badge badge-danger">
+                                    Ditolak
+                                </a>
+                            ';
+                        }
+                    }
+                })
+
+                ->rawColumns(['created_at', 'status', 'surat_rtrw', 'action', 'nama_usaha'])
+                ->make(true);
+        }
+
+        return view('pages.staff.semua-surat');
     }
 }

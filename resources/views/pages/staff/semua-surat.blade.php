@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-Surat Keterangan Izin
+Semua Surat
 @endsection
 
 @section('content')
@@ -12,19 +12,19 @@ Surat Keterangan Izin
                 <div class="card">
                     <div class="card-header">
                         <div class="header-title">
-                            <h3 class="card-title">Daftar Surat Izin</h3>
+                            <h3 class="card-title">Daftar Semua Surat</h3>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="tb_ski_user" class="table table-hover scroll-horizontal-vertical w-100">
+                            <table id="tb_staff_semua_surat" class="table table-hover scroll-horizontal-vertical w-100">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
+                                        <th>NIK</th>
                                         <th>Nama</th>
-                                        <th>Nama Izin</th>
-                                        <th>Tanggal Pengajuan</th>
-                                        <th>Posisi</th>
+                                        <th>Jenis Surat</th>
+                                        <th>Tanggal Diajukan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -42,38 +42,22 @@ Surat Keterangan Izin
 
 @push('after-scripts')
 <script>
-    $('#tb_ski_user').DataTable({
+    $('#tb_staff_semua_surat').DataTable({
         processing: true,
         serverSide: true,
         ordering: [[1, 'asc']],
         ajax: {
-            url: "{{ route('ski-user.show-ski-dashboard') }}",
+            url: "{{ route('staff.all-surat') }}",
         },
         columns: [
             { data: 'DT_RowIndex', name: 'id' },
-            { data: 'user.nama', name: 'user.nama' },
-            { data: 'nama_izin', name: 'nama_izin' },
+            { data: 'user.nik', name: 'user.nik' },
+            { data: 'nama', name: 'nama' },
+            { data: 'id_kategori_surat', name: 'id_kategori_surat' },
             { data: 'created_at', name: 'created_at' },
-            { data: 'posisi', name: 'posisi' },
-            {
-            data: 'action',
-            name: 'action',
-            orderable: false,
-            searchable: false
-            },
+            { data: 'action', name: 'action', orderable: false, searchable: false}
         ],
     });
-
-    function selesaiProses(){
-        Swal.fire({
-            title: 'Surat Selesai Diproses!',
-            text: "Surat Keterangan Izin Anda Telah Selesai Diproses, Silahkan Ambil Surat Anda Dikantor Lurah Sorek Satu Dengan Membawa Fotocopy KK, Fotocopy KTP, dan Surat Pengaturan RT/RW. Terima Kasih",
-            icon: 'success',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Oke'
-        })
-    }
 
 </script>
 @endpush

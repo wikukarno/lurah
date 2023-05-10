@@ -18,12 +18,74 @@ class StaffFuneralCertificationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function showSkpStaffDashboard()
+    {
+        // Datatables untuk tampil semua data surat keterangan usaha
+        if (request()->ajax()) {
+            $query = SKP::with('user')->get();
+            return datatables()->of($query)
+                ->addIndexColumn()
+                ->editColumn('created_at', function ($item) {
+                    return $item->created_at->isoFormat('D MMMM Y');
+                })
+                ->editColumn('surat_rtrw', function ($item) {
+                    return '
+                        <a href="' . asset('storage/' . $item->surat_rtrw) . '" target="_blank" class="btn btn-sm btn-primary">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                    ';
+                })
+
+                ->editColumn('action', function ($item) {
+                    if ($item->status == 'Belum Diproses') {
+                        return '
+                            <a href="' . route('skp-staff.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                                <i class="fa fa-eye"></i>
+                            </a>
+
+                            <form action="' . route('skp-staff.update', $item->id) . '" method="POST" class="d-inline">
+                            ' . method_field('PUT') . '    
+                            ' . csrf_field() . '
+                                <button type="submit" class="btn btn-sm btn-warning">
+                                    Teruskan
+                                </button>
+                            </form>
+
+                            <a href="' . route('staff.get-tolak-sku', $item->id) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
+
+                        ';
+                    } elseif ($item->status == 'Sedang Diproses') {
+                        return '
+                            <span class="badge badge-warning">Sedang Diproses</span>
+                        ';
+                    } elseif ($item->status == 'Selesai Diproses') {
+                        return '
+                            <span class="badge badge-success">
+                                Selesai Diproses
+                            </span>
+                        ';
+                    } else {
+                        return '
+                            <a href="' . route('skp-staff.show', $item->id) . '" class="badge badge-danger mx-1">Ditolak
+                            </a>
+                        ';
+                    }
+                })
+
+                ->rawColumns(['created_at', 'status', 'surat_rtrw', 'action', 'nama_usaha'])
+                ->make(true);
+        }
+
+        return view('pages.staff.skp.show-surat');
+    }
+    
     public function index()
     {
         if (request()->ajax()) {
             $query = SKP::with([
                 'user',
-                'letter',
+                'laporan',
             ])->where('status', 'Belum Diproses')->get();
 
             return datatables()->of($query)
@@ -98,7 +160,7 @@ class StaffFuneralCertificationController extends Controller
         if (request()->ajax()) {
             $query = SKP::with([
                 'user',
-                'letter',
+                'laporan',
             ])->where('status', 'Sedang Diproses')->get();
 
             return datatables()->of($query)
@@ -174,7 +236,7 @@ class StaffFuneralCertificationController extends Controller
         if (request()->ajax()) {
             $query = SKP::with([
                 'user',
-                'letter',
+                'laporan',
             ])->where('status', 'Selesai Diproses')->get();
 
             return datatables()->of($query)
@@ -250,7 +312,7 @@ class StaffFuneralCertificationController extends Controller
         if (request()->ajax()) {
             $query = SKP::with([
                 'user',
-                'letter',
+                'laporan',
             ])->where('status', 'Ditolak')->get();
 
             return datatables()->of($query)
@@ -349,7 +411,7 @@ class StaffFuneralCertificationController extends Controller
      */
     public function show($id)
     {
-        $item = SKP::with(['user', 'letter'])->where('id', $id)->findOrFail($id);
+        $item = SKP::with(['user', 'laporan'])->where('id', $id)->findOrFail($id);
 
         return view('pages.staff.skp.show', [
             'item' => $item,

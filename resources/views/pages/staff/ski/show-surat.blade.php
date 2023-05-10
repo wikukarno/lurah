@@ -17,7 +17,7 @@ Surat Keterangan Izin
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="tb_ski_user" class="table table-hover scroll-horizontal-vertical w-100">
+                            <table id="tb_ski_staff" class="table table-hover scroll-horizontal-vertical w-100">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -42,12 +42,12 @@ Surat Keterangan Izin
 
 @push('after-scripts')
 <script>
-    $('#tb_ski_user').DataTable({
+    $('#tb_ski_staff').DataTable({
         processing: true,
         serverSide: true,
         ordering: [[1, 'asc']],
         ajax: {
-            url: "{{ route('ski-user.show-ski-dashboard') }}",
+            url: "{{ route('ski-staff.show-ski-dashboard') }}",
         },
         columns: [
             { data: 'DT_RowIndex', name: 'id' },
