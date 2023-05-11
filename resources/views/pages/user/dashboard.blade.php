@@ -119,7 +119,7 @@
                         </div>
                         <div class="card-body">
                             <div class="keterangan d-md-flex d-lg-flex mt-2">
-                                <a href="#skibelumproses" onclick="skiBelumProses()" class="badge badge-warning mr-2">
+                                <a href="#skibelumproses" onclick="skiBelumProses()" class="badge badge-secondary mr-2">
                                     {{ $getPermitsOnProgress }} Belum Diproses
                                 </a>
                                 <a href="#skisedangproses" onclick="skiSedangProses()" class="badge badge-warning mr-2">

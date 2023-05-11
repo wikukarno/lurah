@@ -434,7 +434,7 @@ class LurahIncapacityCertificationController extends Controller
      */
     public function show($id)
     {
-        $item = SKTM::with(['user', 'letter'])->where('id', $id)->findOrFail($id);
+        $item = SKTM::with(['user'])->where('id', $id)->findOrFail($id);
 
         return view('pages.lurah.sktm.show', [
             'item' => $item,

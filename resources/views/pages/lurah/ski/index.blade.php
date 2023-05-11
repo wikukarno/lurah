@@ -18,17 +18,17 @@ Surat Izin Keramaian
                     <div class="card-body">
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a href="#" class="nav-link active" id="pills-belum-diproses-tab" data-toggle="pill"
-                                    data-target="#pills-belum-diproses" type="button" role="tab"
+                                <a href="#skibelumproses" onclick="skiBelumProses()" class="nav-link active" id="pills-belum-diproses-tab"
+                                    data-toggle="pill" data-target="#pills-belum-diproses" type="button" role="tab"
                                     aria-controls="pills-belum-diproses" aria-selected="true">Belum Diproses</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="#" class="nav-link" id="pills-selesai-diproses-tab" data-toggle="pill"
-                                    data-target="#pills-selesai-diproses" type="button" role="tab"
+                                <a href="#skiselesaiproses" onclick="skiSelesaiProses()" class="nav-link" id="pills-selesai-diproses-tab"
+                                    data-toggle="pill" data-target="#pills-selesai-diproses" type="button" role="tab"
                                     aria-controls="pills-selesai-diproses" aria-selected="false">Selesai Diproses</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="#" class="nav-link" id="pills-ditolak-tab" data-toggle="pill"
+                                <a href="#skiditolak" onclick="skiDitolak()" class="nav-link" id="pills-ditolak-tab" data-toggle="pill"
                                     data-target="#pills-ditolak" type="button" role="tab" aria-controls="pills-ditolak"
                                     aria-selected="false">Ditolak</a>
                             </li>
@@ -106,6 +106,37 @@ Surat Izin Keramaian
 @endsection
 
 @push('after-scripts')
+
+<script>
+    function skiBelumProses(){
+        window.location.hash = 'skibelumproses';
+    }
+    function skiSedangProses(){
+        window.location.hash = 'skisedangproses';
+    }
+    function skiSelesaiProses(){
+        window.location.hash = 'skiselesaiproses';
+    }
+    function skiDitolak(){
+        window.location.hash = 'skiditolak';
+    }
+
+    $(document).ready(function(){
+        if(window.location.hash == '#skibelumproses'){
+            $('#pills-belum-diproses-tab').click();
+        }
+        if(window.location.hash == '#skisedangproses'){
+            $('#pills-sedang-diproses-tab').click();
+        }
+        if(window.location.hash == '#skiselesaiproses'){
+            $('#pills-selesai-diproses-tab').click();
+        }
+        if(window.location.hash == '#skiditolak'){
+            $('#pills-ditolak-tab').click();
+        }
+    });
+</script>
+
 <script>
     $('#tb_ski_lurah_belum_diproses').DataTable({
     processing: true,

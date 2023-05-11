@@ -205,7 +205,6 @@ Profile {{ Auth::user()->nama }}
     </div>
 </section>
 @endif
-@include('pages.user.modal-ubah-profile')
 @endsection
 
 @push('after-scripts')

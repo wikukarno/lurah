@@ -83,8 +83,7 @@ class LurahPermitsController extends Controller
     {
         if (request()->ajax()) {
             $query = SKI::with([
-                'user',
-                'letter',
+                'user'
             ])->where('posisi', 'lurah')->get();
 
             return datatables()->of($query)
@@ -190,7 +189,6 @@ class LurahPermitsController extends Controller
         if (request()->ajax()) {
             $query = SKI::with([
                 'user',
-                'letter',
             ])->where('status', 'Selesai Diproses')->get();
 
             return datatables()->of($query)
@@ -266,7 +264,6 @@ class LurahPermitsController extends Controller
         if (request()->ajax()) {
             $query = SKI::with([
                 'user',
-                'letter',
             ])->where('status', 'Selesai Diproses')->get();
 
             return datatables()->of($query)
@@ -338,7 +335,6 @@ class LurahPermitsController extends Controller
         if (request()->ajax()) {
             $query = SKI::with([
                 'user',
-                'letter',
             ])->where('status', 'Ditolak')->get();
 
             return datatables()->of($query)
@@ -433,7 +429,7 @@ class LurahPermitsController extends Controller
      */
     public function show($id)
     {
-        $item = SKI::with(['user', 'letter'])->where('id', $id)->findOrFail($id);
+        $item = SKI::with(['user'])->where('id', $id)->findOrFail($id);
 
         return view('pages.lurah.ski.show', [
             'item' => $item,

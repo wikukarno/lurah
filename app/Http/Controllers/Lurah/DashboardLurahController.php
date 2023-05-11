@@ -30,10 +30,10 @@ class DashboardLurahController extends Controller
         $sktm = SKTM::count();
         $ski = SKI::count();
 
-        $skuMasuk = SKU::where('status', 'Belum Diproses')->count();
-        $skpMasuk = SKP::where('status', 'Belum Diproses')->count();
-        $sktmMasuk = SKTM::where('status', 'Belum Diproses')->count();
-        $skiMasuk = SKI::where('status', 'Belum Diproses')->count();
+        $skuMasuk = SKU::where('posisi', 'lurah')->count();
+        $skpMasuk = SKP::where('posisi', 'lurah')->count();
+        $sktmMasuk = SKTM::where('posisi', 'lurah')->count();
+        $skiMasuk = SKI::where('posisi', 'lurah')->count();
 
         $skuProses = SKU::where('status', 'Sedang Diproses')->count();
         $skpProses = SKP::where('status', 'Sedang Diproses')->count();

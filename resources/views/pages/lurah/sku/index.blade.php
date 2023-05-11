@@ -18,17 +18,17 @@ Surat Keterangan Usaha
                     <div class="card-body">
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a href="#" class="nav-link active" id="pills-belum-diproses-tab" data-toggle="pill"
-                                    data-target="#pills-belum-diproses" type="button" role="tab"
+                                <a href="#skubelumproses" onclick="skuBelumProses()" class="nav-link active" id="pills-belum-diproses-tab"
+                                    data-toggle="pill" data-target="#pills-belum-diproses" type="button" role="tab"
                                     aria-controls="pills-belum-diproses" aria-selected="true">Belum Diproses</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="#" class="nav-link" id="pills-selesai-diproses-tab" data-toggle="pill"
-                                    data-target="#pills-selesai-diproses" type="button" role="tab"
+                                <a href="#skuselesaiproses" onclick="skuSelesaiProses()" class="nav-link" id="pills-selesai-diproses-tab"
+                                    data-toggle="pill" data-target="#pills-selesai-diproses" type="button" role="tab"
                                     aria-controls="pills-selesai-diproses" aria-selected="false">Selesai Diproses</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="#" class="nav-link" id="pills-ditolak-tab" data-toggle="pill"
+                                <a href="#skuditolak" onclick="skuDitolak()" class="nav-link" id="pills-ditolak-tab" data-toggle="pill"
                                     data-target="#pills-ditolak" type="button" role="tab" aria-controls="pills-ditolak"
                                     aria-selected="false">Ditolak</a>
                             </li>
@@ -105,6 +105,36 @@ Surat Keterangan Usaha
 @endsection
 
 @push('after-scripts')
+<script>
+    function skuBelumProses(){
+        window.location.hash = 'skubelumproses';
+    }
+
+    function skuSedangProses(){
+        window.location.hash = 'skusedangproses';
+    }
+
+    function skuSelesaiProses(){
+        window.location.hash = 'skuselesaiproses';
+    }
+
+    function skuDitolak(){
+        window.location.hash = 'skuditolak';
+    }
+
+    $(document).ready(function(){
+        // get hash on url
+        var hash = window.location.hash;
+        if(hash == '#skusedangproses'){
+            $('#pills-sedang-diproses-tab').click();
+        }else if(hash == '#skuselesaiproses'){
+            $('#pills-selesai-diproses-tab').click();
+        }else if(hash == '#skuditolak'){
+            $('#pills-ditolak-tab').click();
+        }
+    });
+</script>
+
 <script>
     $('#tb_sku_lurah_belum_diproses').DataTable({
     processing: true,

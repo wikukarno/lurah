@@ -11,133 +11,125 @@
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                <a href="{{ route('sku-lurah.show-sku-dashboard') }}">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-success">
-                            <i class="fas fa-store"></i>
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-success">
+                        <div class="mx-auto-my-auto font-statistik">
+                            {{ $sku }}
                         </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Surat Keterangan Usaha</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="keterangan d-md-flex d-lg-flex mt-2">
-                                    <span class="badge badge-secondary mr-2">
-                                        {{ $skuMasuk }} Belum Diproses
-                                    </span>
-                                    <span class="badge badge-warning mr-2">
-                                        {{ $skuProses }} Diproses
-                                    </span>
-                                    <span class="badge badge-success mr-2">
-                                        {{ $skuSelesai }} Selesai
-                                    </span>
-                                    <span class="badge badge-danger mr-2">
-                                        {{ $skuDitolak }} Ditolak
-                                    </span>
-                                </div>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Surat Keterangan Usaha</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="keterangan d-md-flex d-lg-flex mt-2">
+                                <a href="#skubelumproses" onclick="skuBelumProses()" class="badge badge-secondary mr-2">
+                                    {{ $skuMasuk }} Belum Diproses
+                                </a>
+                                <a href="#skuselesaiproses" onclick="skuSelesaiProses()"
+                                    class="badge badge-success mr-2">
+                                    {{ $skuSelesai }} Selesai
+                                </a>
+                                <a href="#skuditolak" onclick="skuDitolak()" class="badge badge-danger mr-2">
+                                    {{ $skuDitolak }} Ditolak
+                                </a>
                             </div>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                <a href="{{ route('ski-lurah.show-ski-dashboard') }}">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon" style="background-color: rgb(201, 69, 17)">
-                            <i class="fas fa-info"></i>
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-secondary">
+                        <div class="mx-auto my-auto font-statistik">
+                            {{ $skp }}
                         </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Surat Keterangan Izin</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="keterangan d-md-flex d-lg-flex mt-2">
-                                    <span class="badge badge-secondary mr-2">
-                                        {{ $skiMasuk }} Belum Diproses
-                                    </span>
-                                    <span class="badge badge-warning mr-2">
-                                        {{ $skiProses }} Diproses
-                                    </span>
-                                    <span class="badge badge-success mr-2">
-                                        {{ $skiSelesai }} Selesai
-                                    </span>
-                                    <span class="badge badge-danger mr-2">
-                                        {{ $skiDitolak }} Ditolak
-                                    </span>
-                                </div>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Surat Keterangan Pemakaman</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="keterangan d-md-flex d-lg-flex mt-2">
+                                <a href="#skpbelumproses" onclick="skpBelumProses()" class="badge badge-secondary mr-2">
+                                    {{ $skpMasuk }} Belum Diproses
+                                </a>
+                                <a href="#skpselesai" onclick="skpSelesaiProses()" class="badge badge-success mr-2">
+                                    {{ $skpSelesai }} Selesai
+                                </a>
+                                <a href="#skpditolak" onclick="skpDitolak()" class="badge badge-danger mr-2">
+                                    {{ $skpDitolak }} Ditolak
+                                </a>
                             </div>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                <a href="{{ route('sktm-lurah.show-sktm-dashboard') }}">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon" style="background: rgb(116, 104, 3)">
-                            <i class="far fa-file"></i>
+                <div class="card card-statistic-1">
+                    <div class="card-icon" style="background: rgb(116, 104, 3)">
+                        <div class="mx-auto my-auto font-statistik">
+                            {{ $sktm }}
                         </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Surat Keterangan Tidak Mampu</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="keterangan d-md-flex d-lg-flex mt-2">
-                                    <span class="badge badge-secondary mr-2">
-                                        {{ $sktmMasuk }} Belum Diproses
-                                    </span>
-                                    <span class="badge badge-warning mr-2">
-                                        {{ $sktmProses }} Diproses
-                                    </span>
-                                    <span class="badge badge-success mr-2">
-                                        {{ $sktmSelesai }} Selesai
-                                    </span>
-                                    <span class="badge badge-danger mr-2">
-                                        {{ $sktmDitolak }} Ditolak
-                                    </span>
-                                </div>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Surat Keterangan Tidak Mampu</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="keterangan d-md-flex d-lg-flex mt-2">
+                                <a href="#sktmbelumproses" onclick="sktmBelumProses()"
+                                    class="badge badge-secondary mr-2">
+                                    {{ $sktmMasuk }} Belum Diproses
+                                </a>
+                                <a href="#sktmselesaiproses" onclick="sktmSelesaiProses()"
+                                    class="badge badge-success mr-2">
+                                    {{ $sktmSelesai }} Selesai
+                                </a>
+                                <a href="#sktmditolak" onclick="sktmDitolak()" class="badge badge-danger mr-2">
+                                    {{ $sktmDitolak }} Ditolak
+                                </a>
                             </div>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                <a href="{{ route('skp-lurah.show-skp-dashboard') }}">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-secondary">
-                            <i class="fas fa-gem"></i>
+                <div class="card card-statistic-1">
+                    <div class="card-icon" style="background-color: rgb(201, 69, 17)">
+                        <div class="mx-auto my-auto font-statistik">
+                            {{ $ski }}
                         </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Surat Keterangan Pemakaman</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="keterangan d-md-flex d-lg-flex mt-2">
-                                    <span class="badge badge-secondary mr-2">
-                                        {{ $skpMasuk }} Belum Diproses
-                                    </span>
-                                    <span class="badge badge-warning mr-2">
-                                        {{ $skpProses }} Diproses
-                                    </span>
-                                    <span class="badge badge-success mr-2">
-                                        {{ $skpSelesai }} Selesai
-                                    </span>
-                                    <span class="badge badge-danger mr-2">
-                                        {{ $skpDitolak }} Ditolak
-                                    </span>
-                                </div>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Surat Keterangan Izin</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="keterangan d-md-flex d-lg-flex mt-2">
+                                <a href="#skibelumproses" onclick="skiBelumProses()" class="badge badge-secondary mr-2">
+                                    {{ $skiMasuk }} Belum Diproses
+                                </a>
+                                <a href="#skiselesaiproses" onclick="skiSelesaiProses()"
+                                    class="badge badge-success mr-2">
+                                    {{ $skiSelesai }} Selesai
+                                </a>
+                                <a href="#skiditolak" onclick="skiDitolak()" class="badge badge-danger mr-2">
+                                    {{ $skiDitolak }} Ditolak
+                                </a>
                             </div>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
 
@@ -181,11 +173,77 @@
 </div>
 @endsection
 
+@push('after-scripts')
+<script>
+    // Url Hash for sku
+        function skuBelumProses() {
+                window.location.href = "{{ route('sku-lurah.index') }}#skubelumproses";
+            }
+        function skuSedangProses() {
+            window.location.href = "{{ route('sku-lurah.index') }}#skusedangproses";
+        }
+        function skuSelesaiProses() {
+            window.location.href = "{{ route('sku-lurah.index') }}#skuselesaiproses";
+        }
+        function skuDitolak() {
+            window.location.href = "{{ route('sku-lurah.index') }}#skuditolak";
+        }
+    
+        // Url Hash for skp
+        function skpBelumProses() {
+            window.location.href = "{{ route('skp-lurah.index') }}#skpbelumproses";
+        }
+        function skpSedangProses() {
+            window.location.href = "{{ route('skp-lurah.index') }}#skpsedangproses";
+        }
+        function skpSelesaiProses() {
+            window.location.href = "{{ route('skp-lurah.index') }}#skpselesaiproses";
+        }
+        function skpDitolak() {
+            window.location.href = "{{ route('skp-lurah.index') }}#skpditolak";
+        }
+    
+        // Url Hash for sktm
+        function sktmBelumProses() {
+            window.location.href = "{{ route('sktm-lurah.index') }}#sktmbelumproses";
+        }
+        function sktmSedangProses() {
+            window.location.href = "{{ route('sktm-lurah.index') }}#sktmsedangproses";
+        }
+        function sktmSelesaiProses() {
+            window.location.href = "{{ route('sktm-lurah.index') }}#sktmselesaiproses";
+        }
+        function sktmDitolak() {
+            window.location.href = "{{ route('sktm-lurah.index') }}#sktmditolak";
+        }
+    
+        // Url Hash for ski
+        function skiBelumProses() {
+            window.location.href = "{{ route('ski-lurah.index') }}#skibelumproses";
+        }
+        function skiSedangProses() {
+            window.location.href = "{{ route('ski-lurah.index') }}#skisedangproses";
+        }
+        function skiSelesaiProses() {
+            window.location.href = "{{ route('ski-lurah.index') }}#skiselesaiproses";
+        }
+        function skiDitolak() {
+            window.location.href = "{{ route('ski-lurah.index') }}#skiditolak";
+        }
+</script>
+@endpush
+
 @push('after-styles')
 <style>
     h4 {
         color: black !important;
         font-weight: 600 !important;
+    }
+
+    .font-statistik {
+        font-weight: 700 !important;
+        font-size: 24px !important;
+        color: #fff !important;
     }
 </style>
 @endpush

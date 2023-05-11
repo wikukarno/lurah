@@ -18,22 +18,22 @@ Surat Keterangan Tidak Mampu
                     <div class="card-body">
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a href="#" class="nav-link active" id="pills-belum-diproses-tab" data-toggle="pill"
+                                <a href="#sktmbelumproses" onclick="sktmBelumProses()" class="nav-link active" id="pills-belum-diproses-tab" data-toggle="pill"
                                     data-target="#pills-belum-diproses" type="button" role="tab"
                                     aria-controls="pills-belum-diproses" aria-selected="true">Belum Diproses</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="#" class="nav-link" id="pills-sedang-diproses-tab" data-toggle="pill"
+                                <a href="#sktmsedangproses" onclick="sktmSedangProses()" class="nav-link" id="pills-sedang-diproses-tab" data-toggle="pill"
                                     data-target="#pills-sedang-diproses" type="button" role="tab"
                                     aria-controls="pills-sedang-diproses" aria-selected="false">Sedang Diproses</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="#" class="nav-link" id="pills-selesai-diproses-tab" data-toggle="pill"
+                                <a href="#sktmselesaiproses" onclick="sktmSelesaiProses()" class="nav-link" id="pills-selesai-diproses-tab" data-toggle="pill"
                                     data-target="#pills-selesai-diproses" type="button" role="tab"
                                     aria-controls="pills-selesai-diproses" aria-selected="false">Selesai Diproses</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="#" class="nav-link" id="pills-ditolak-tab" data-toggle="pill"
+                                <a href="#sktmDitolak" onclick="sktmDitolak()" class="nav-link" id="pills-ditolak-tab" data-toggle="pill"
                                     data-target="#pills-ditolak" type="button" role="tab" aria-controls="pills-ditolak"
                                     aria-selected="false">Ditolak</a>
                             </li>
@@ -132,6 +132,36 @@ Surat Keterangan Tidak Mampu
 @endsection
 
 @push('after-scripts')
+<script>
+    function sktmBelumProses(){
+        window.location.hash = 'sktmbelumproses';
+    }
+    function sktmSedangProses(){
+        window.location.hash = 'sktmsedangproses';
+    }
+    function sktmSelesaiProses(){
+        window.location.hash = 'sktmselesaiproses';
+    }
+    function sktmDitolak(){
+        window.location.hash = 'sktmditolak';
+    }
+
+    $(document).ready(function(){
+        if(window.location.hash == '#sktmbelumproses'){
+            $('#pills-belum-diproses-tab').click();
+        }
+        if(window.location.hash == '#sktmsedangproses'){
+            $('#pills-sedang-diproses-tab').click();
+        }
+        if(window.location.hash == '#sktmselesaiproses'){
+            $('#pills-selesai-diproses-tab').click();
+        }
+        if(window.location.hash == '#sktmditolak'){
+            $('#pills-ditolak-tab').click();
+        }
+    });
+</script>
+
 <script>
     $('#tb_sktm_staff_belum_diproses').DataTable({
         processing: true,

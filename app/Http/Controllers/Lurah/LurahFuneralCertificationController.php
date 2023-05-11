@@ -83,8 +83,7 @@ class LurahFuneralCertificationController extends Controller
     {
         if (request()->ajax()) {
             $query = SKP::with([
-                'user',
-                'letter',
+                'user'
             ])->where('posisi', 'lurah')->get();
 
             return datatables()->of($query)
@@ -150,7 +149,6 @@ class LurahFuneralCertificationController extends Controller
         if (request()->ajax()) {
             $query = SKP::with([
                 'user',
-                'letter',
             ])->where('status', 'Sedang Diproses')->get();
 
             return datatables()->of($query)
@@ -226,7 +224,6 @@ class LurahFuneralCertificationController extends Controller
         if (request()->ajax()) {
             $query = SKP::with([
                 'user',
-                'letter',
             ])->where('status', 'Selesai Diproses')->get();
 
             return datatables()->of($query)
@@ -298,7 +295,6 @@ class LurahFuneralCertificationController extends Controller
         if (request()->ajax()) {
             $query = SKP::with([
                 'user',
-                'letter',
             ])->where('status', 'Ditolak')->get();
 
             return datatables()->of($query)
@@ -397,7 +393,7 @@ class LurahFuneralCertificationController extends Controller
      */
     public function show($id)
     {
-        $item = SKP::with(['user', 'letter'])->where('id', $id)->findOrFail($id);
+        $item = SKP::with(['user'])->where('id', $id)->findOrFail($id);
 
         return view('pages.lurah.skp.show', [
             'item' => $item,

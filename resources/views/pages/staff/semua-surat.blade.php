@@ -47,7 +47,7 @@ Semua Surat
         serverSide: true,
         ordering: [[1, 'asc']],
         ajax: {
-            url: "{{ route('staff.all-surat') }}",
+            url: "{{ route('lurah.all-surat') }}",
         },
         columns: [
             { data: 'DT_RowIndex', name: 'id' },
