@@ -420,23 +420,31 @@ class LurahFuneralCertificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $item = SKP::findOrFail($id);
+        //
+    }
+
+    public function setujui(Request $request)
+    {
+        $item = SKP::findOrFail($request->id);
         $data = Laporan::findOrFail($item->id_laporan);
+
         $data->update([
             'status' => 'Selesai Diproses',
             'posisi' => 'Staff',
         ]);
+
         $item->update([
+            'id' => $request->id,
             'status' => 'Selesai Diproses',
             'posisi' => 'staff',
         ]);
 
-        if($item){
-            Alert::success('Berhasil', 'Surat Keterangan Pemakaman Berhasil Disetujui');
-            return redirect()->route('skp-lurah.index');
-        }else{
-            Alert::error('Gagal', 'Surat Keterangan Pemakaman Gagal Disetujui');
-            return redirect()->route('skp-lurah.index');
+        if ($item) {
+            Alert::success('Berhasil', 'Surat Keterangan Usaha Berhasil Disetujui');
+            return redirect()->route('sku-lurah.index');
+        } else {
+            Alert::error('Gagal', 'Surat Keterangan Usaha Gagal Disetujui');
+            return redirect()->route('sku-lurah.index');
         }
     }
 

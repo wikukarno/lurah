@@ -25,15 +25,16 @@ class DashboardLurahController extends Controller
     public function index()
     {
         $dataUser = User::whereNot('roles', 'lurah')->Where('status_account', 'verifikasi')->count();
-        $sku = SKU::where('posisi', 'lurah')->count();
-        $skp = SKP::where('posisi', 'lurah')->count();
-        $sktm = SKTM::where('posisi', 'lurah')->count();
-        $ski = SKI::where('posisi', 'lurah')->count();
 
-        $skuMasuk = SKU::where('posisi', 'lurah')->count();
-        $skpMasuk = SKP::where('posisi', 'lurah')->count();
-        $sktmMasuk = SKTM::where('posisi', 'lurah')->count();
-        $skiMasuk = SKI::where('posisi', 'lurah')->count();
+        $sku = SKU::whereNot('status', 'Belum Diproses')->count();
+        $skp = SKP::whereNot('status', 'Belum Diproses')->count();
+        $sktm = SKTM::whereNot('status', 'Belum Diproses')->count();
+        $ski = SKI::whereNot('status', 'Belum Diproses')->count();
+
+        $skuMasuk = SKU::where('posisi', 'lurah')->where('status', 'Sedang Diproses')->count();
+        $skpMasuk = SKP::where('posisi', 'lurah')->where('status', 'Sedang Diproses')->count();
+        $sktmMasuk = SKTM::where('posisi', 'lurah')->where('status', 'Sedang Diproses')->count();
+        $skiMasuk = SKI::where('posisi', 'lurah')->where('status', 'Sedang Diproses')->count();
 
         $skuProses = SKU::where('status', 'Sedang Diproses')->count();
         $skpProses = SKP::where('status', 'Sedang Diproses')->count();
@@ -51,7 +52,7 @@ class DashboardLurahController extends Controller
         $skiDitolak = SKI::where('status', 'Ditolak')->count();
 
 
-        $totalSurat = $sku + $skp + $sktm + $ski;
+        $totalSurat = Laporan::whereNot('status', 'Belum Diproses')->count();
 
         $totalSuratProses = Laporan::where('status', 'Sedang Diproses')->count();
         $totalSuratSelesai = Laporan::where('status', 'Selesai Diproses')->count();
@@ -245,5 +246,300 @@ class DashboardLurahController extends Controller
                 ->rawColumns(['created_at', 'updated_at'])
                 ->make(true);
         }
+    }
+
+    public function allSurat()
+    {
+        // Datatables untuk tampil semua data surat keterangan usaha
+        if (request()->ajax()) {
+            $query = Laporan::with('user')->whereNot('status', 'Belum Diproses')->get();
+            return datatables()->of($query)
+                ->addIndexColumn()
+                ->editColumn('created_at', function ($item) {
+                    return $item->created_at->isoFormat('D MMMM Y');
+                })
+                ->editColumn('id_kategori_surat', function ($item) {
+                    $category = KategoriSurat::where('id', $item->id_kategori_surat)->first();
+                    if ($item->id_kategori_surat == $category->id) {
+                        return $category->nama;
+                    }
+                })
+
+                ->editColumn('nama', function ($item) {
+                    return $item->nama != null ? $item->nama : $item->user->nama;
+                })
+
+                ->editColumn('action', function ($item) {
+                    $sku = SKU::where('id_laporan', $item->id)->first();
+                    $ski = SKI::where('id_laporan', $item->id)->first();
+                    $sktm = SKTM::where('id_laporan', $item->id)->first();
+                    $skp = SKP::where('id_laporan', $item->id)->first();
+                    if ($item->status == 'Sedang Diproses') {
+                        if ($sku != null) {
+                        return '
+                            <div class="d-flex">
+                                <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <form id="form-setujui" method="POST">
+                                    ' . csrf_field() . '
+                                    <input type="hidden" name="id" value="' . $item->id . '">
+                                    <button type="submit" id="btnSetujui" class="btn btn-sm btn-success mx-1">Setujui</button>
+                                </form>
+                            </div>
+
+                            <script>
+                                $("#form-setujui").submit(function (e) {
+                                    e.preventDefault();
+                                    var id = $("input[name=id]").val();
+
+                                    Swal.fire({
+                                        title: "Apakah anda yakin?",
+                                        text: "Ingin Setujui surat ini?",
+                                        icon: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#3085d6",
+                                        cancelButtonColor: "#d33",
+                                        confirmButtonText: "Ya, Setujui!",
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            $.ajax({
+                                                url: "' . route('sku-lurah.setujui') . '",
+                                                type: "POST",
+                                                data: {
+                                                    id: id,
+                                                    _token: "' . csrf_token() . '"
+                                                },
+                                                success: function (data) {
+                                                    Swal.fire(
+                                                        "Berhasil!",
+                                                        "Surat berhasil disetujui",
+                                                        "success"
+                                                    )
+                                                    $("#tb_sku_lurah_belum_diproses").DataTable().ajax.reload();
+                                                    $("#tb_sku_lurah_ditolak").DataTable().ajax.reload();
+                                                    $("#tb_sku_lurah_sedang_diproses").DataTable().ajax.reload();
+                                                    $("#tb_sku_lurah_selesai_diproses").DataTable().ajax.reload();
+                                                }
+                                            });
+                                        }
+                                    })
+                                });
+                            </script>
+                        ';
+                        } elseif ($ski != null) {
+                            return '
+                                <div class="d-flex">
+                                    <a href="' . route('ski-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <form id="form-setujui" method="POST">
+                                        ' . csrf_field() . '
+                                        <input type="hidden" name="id" value="' . $item->id . '">
+                                        <button type="submit" id="btnSetujui" class="btn btn-sm btn-success mx-1">Setujui</button>
+                                    </form>
+                                </div>
+
+                                <script>
+                                    $("#form-setujui").submit(function (e) {
+                                        e.preventDefault();
+                                        var id = $("input[name=id]").val();
+
+                                        Swal.fire({
+                                            title: "Apakah anda yakin?",
+                                            text: "Ingin Setujui surat ini?",
+                                            icon: "warning",
+                                            showCancelButton: true,
+                                            confirmButtonColor: "#3085d6",
+                                            cancelButtonColor: "#d33",
+                                            confirmButtonText: "Ya, Setujui!",
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                $.ajax({
+                                                    url: "' . route('ski-lurah.setujui') . '",
+                                                    type: "POST",
+                                                    data: {
+                                                        id: id,
+                                                        _token: "' . csrf_token() . '"
+                                                    },
+                                                    success: function (data) {
+                                                        Swal.fire(
+                                                            "Berhasil!",
+                                                            "Surat berhasil disetujui",
+                                                            "success"
+                                                        )
+                                                        $("#tb_ski_lurah_belum_diproses").DataTable().ajax.reload();
+                                                        $("#tb_ski_lurah_ditolak").DataTable().ajax.reload();
+                                                        $("#tb_ski_lurah_sedang_diproses").DataTable().ajax.reload();
+                                                        $("#tb_ski_lurah_selesai_diproses").DataTable().ajax.reload();
+                                                    }
+                                                });
+                                            }
+                                        })
+                                    });
+                                </script>
+                            ';
+                        } elseif ($sktm != null) {
+                            return '
+                                <div class="d-flex">
+                                    <a href="' . route('sktm-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <form id="form-setujui" method="POST">
+                                        ' . csrf_field() . '
+                                        <input type="hidden" name="id" value="' . $item->id . '">
+                                        <button type="submit" id="btnSetujui" class="btn btn-sm btn-success mx-1">Setujui</button>
+                                    </form>
+                                </div>
+
+                                <script>
+                                    $("#form-setujui").submit(function (e) {
+                                        e.preventDefault();
+                                        var id = $("input[name=id]").val();
+
+                                        Swal.fire({
+                                            title: "Apakah anda yakin?",
+                                            text: "Ingin Setujui surat ini?",
+                                            icon: "warning",
+                                            showCancelButton: true,
+                                            confirmButtonColor: "#3085d6",
+                                            cancelButtonColor: "#d33",
+                                            confirmButtonText: "Ya, Setujui!",
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                $.ajax({
+                                                    url: "' . route('sktm-lurah.setujui') . '",
+                                                    type: "POST",
+                                                    data: {
+                                                        id: id,
+                                                        _token: "' . csrf_token() . '"
+                                                    },
+                                                    success: function (data) {
+                                                        Swal.fire(
+                                                            "Berhasil!",
+                                                            "Surat berhasil disetujui",
+                                                            "success"
+                                                        )
+                                                        $("#tb_sktm_lurah_belum_diproses").DataTable().ajax.reload();
+                                                        $("#tb_sktm_lurah_ditolak").DataTable().ajax.reload();
+                                                        $("#tb_sktm_lurah_sedang_diproses").DataTable().ajax.reload();
+                                                        $("#tb_sktm_lurah_selesai_diproses").DataTable().ajax.reload();
+                                                    }
+                                                });
+                                            }
+                                        })
+                                    });
+                                </script>
+                            ';
+                        } elseif ($skp != null) {
+                        // return '
+                        //     <a href="#" class="btn btn-sm btn-secondary">
+                        //         <i class="fa fa-eye"></i>
+                        //     </a>
+
+                        //     <form action="' . route('skp-lurah.update', $item->id) . '" method="POST" class="d-inline">
+                        //         ' . csrf_field() . '
+                        //         <button class="btn btn-sm btn-warning">
+                        //             Teruskan
+                        //         </button>
+                        //     </form>
+                        // ';
+
+                            return '
+                                <div class="d-flex">
+                                    <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <form id="form-setujui" method="POST">
+                                        ' . csrf_field() . '
+                                        <input type="hidden" name="id" value="' . $item->id . '">
+                                        <button type="submit" id="btnSetujui" class="btn btn-sm btn-success mx-1">Setujui</button>
+                                    </form>
+                                </div>
+
+                                <script>
+                                    $("#form-setujui").submit(function (e) {
+                                        e.preventDefault();
+                                        var id = $("input[name=id]").val();
+
+                                        Swal.fire({
+                                            title: "Apakah anda yakin?",
+                                            text: "Ingin Setujui surat ini?",
+                                            icon: "warning",
+                                            showCancelButton: true,
+                                            confirmButtonColor: "#3085d6",
+                                            cancelButtonColor: "#d33",
+                                            confirmButtonText: "Ya, Setujui!",
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                $.ajax({
+                                                    url: "' . route('skp-lurah.setujui') . '",
+                                                    type: "POST",
+                                                    data: {
+                                                        id: id,
+                                                        _token: "' . csrf_token() . '"
+                                                    },
+                                                    success: function (data) {
+                                                        Swal.fire(
+                                                            "Berhasil!",
+                                                            "Surat berhasil disetujui",
+                                                            "success"
+                                                        )
+                                                        $("#tb_sku_lurah_belum_diproses").DataTable().ajax.reload();
+                                                        $("#tb_sku_lurah_ditolak").DataTable().ajax.reload();
+                                                        $("#tb_sku_lurah_sedang_diproses").DataTable().ajax.reload();
+                                                        $("#tb_sku_lurah_selesai_diproses").DataTable().ajax.reload();
+                                                    }
+                                                });
+                                            }
+                                        })
+                                    });
+                                </script>
+                            ';
+                        }
+                    } elseif ($item->status == 'Selesai Diproses') {
+                        return '
+                            <span class="badge badge-success">
+                                Selesai Diproses
+                            </span>
+                        ';
+                    } else {
+                        $sku = SKU::where('id_laporan', $item->id)->first();
+                        $ski = SKI::where('id_laporan', $item->id)->first();
+                        $sktm = SKTM::where('id_laporan', $item->id)->first();
+                        $skp = SKP::where('id_laporan', $item->id)->first();
+                        if ($sku != null) {
+                            return '
+                                <a href="' . route('sku-lurah.show', $sku->id) . '" class="badge badge-danger">
+                                    Ditolak
+                                </a>
+                            ';
+                        } elseif ($ski != null) {
+                            return '
+                                <a href="' . route('ski-lurah.show', $ski->id) . '" class="badge badge-danger">
+                                    Ditolak
+                                </a>
+                            ';
+                        } elseif ($sktm != null) {
+                            return '
+                                <a href="' . route('sktm-lurah.show', $sktm->id) . '" class="badge badge-danger">
+                                    Ditolak
+                                </a>
+                            ';
+                        } elseif ($skp != null) {
+                            return '
+                                <a href="' . route('skp-lurah.show', $skp->id) . '" class="badge badge-danger">
+                                    Ditolak
+                                </a>
+                            ';
+                        }
+                    }
+                })
+
+                ->rawColumns(['created_at', 'status', 'surat_rtrw', 'action', 'nama_usaha'])
+                ->make(true);
+        }
+
+        return view('pages.lurah.semua-surat');
     }
 }

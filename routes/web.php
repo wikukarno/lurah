@@ -113,6 +113,7 @@ Route::prefix('/pages/dashboard/lurah')
         // Route::post('/ski/show/tolak-ski', [LurahPermitsController::class, 'showTolakSki'])->name('ski-staff.show-tolak-ski');
 
         Route::post('/sku/setujui', [LurahBusinessCertificationController::class, 'setujui'])->name('sku-lurah.setujui');
+        Route::post('/skp/setujui', [LurahFuneralCertificationController::class, 'setujui'])->name('skp-lurah.setujui');
         Route::post('/sktm/setujui', [LurahIncapacityCertificationController::class, 'setujui'])->name('sktm-lurah.setujui');
         Route::post('/ski/setujui', [LurahPermitsController::class, 'setujui'])->name('ski-lurah.setujui');
 
@@ -121,7 +122,7 @@ Route::prefix('/pages/dashboard/lurah')
         Route::get('/surat-keterangan-izin', [LurahPermitsController::class, 'showSkiLurahDashboard'])->name('ski-lurah.show-ski-dashboard');
         Route::get('/surat-keterangan-tidak-mampu', [LurahIncapacityCertificationController::class, 'showSktmLurahDashboard'])->name('sktm-lurah.show-sktm-dashboard');
         Route::get('/surat-keterangan-pemakaman', [LurahFuneralCertificationController::class, 'showSkpLurahDashboard'])->name('skp-lurah.show-skp-dashboard');
-        Route::get('/surat', [DashboardStaffController::class, 'allSurat'])->name('lurah.all-surat');
+        Route::get('/surat', [DashboardLurahController::class, 'allSurat'])->name('lurah.all-surat');
 
         Route::resource('sku-lurah', LurahBusinessCertificationController::class);
         Route::resource('skp-lurah', LurahFuneralCertificationController::class);
