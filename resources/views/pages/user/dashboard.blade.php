@@ -47,7 +47,9 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-warning">
-                        <i class="far fa-user"></i>
+                        <div class="mx-auto my-auto font-statistik">
+                            {{ $skp }}
+                        </div>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
@@ -78,7 +80,9 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-secondary">
-                        <i class="far fa-user"></i>
+                        <div class="mx-auto my-auto font-statistik">
+                            {{ $sktm }}
+                        </div>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
@@ -88,7 +92,7 @@
                             <div class="keterangan d-md-flex d-lg-flex mt-2">
                                 <a href="#sktmbelumproses" onclick="sktmBelumProses()"
                                     class="badge badge-secondary mr-2">
-                                    {{ $getIncapacityOnProgress }} Belum Diproses
+                                    {{ $getIncapacityNotProcessed }} Belum Diproses
                                 </a>
                                 <a href="#sktmsedangproses" onclick="sktmSedangProses()"
                                     class="badge badge-warning mr-2">
@@ -120,7 +124,7 @@
                         <div class="card-body">
                             <div class="keterangan d-md-flex d-lg-flex mt-2">
                                 <a href="#skibelumproses" onclick="skiBelumProses()" class="badge badge-secondary mr-2">
-                                    {{ $getPermitsOnProgress }} Belum Diproses
+                                    {{ $getPermitsNotProcessed }} Belum Diproses
                                 </a>
                                 <a href="#skisedangproses" onclick="skiSedangProses()" class="badge badge-warning mr-2">
                                     {{ $getPermitsOnProgress }} Diproses
