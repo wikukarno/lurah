@@ -83,7 +83,7 @@ class DashboardStaffController extends Controller
     public function verifikasiPenduduk()
     {
         if (request()->ajax()) {
-            $query = User::with('userDetails')->where('roles', 'User')->where('status_account', 'pending')->get();
+            $query = User::where('roles', 'User')->where('status_account', 'pending')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -100,14 +100,14 @@ class DashboardStaffController extends Controller
                 ->editColumn('action', function ($item) {
                     return '
                         <div class="form-group d-flex">
-                            <a href="' . route('staff.detail-verifikasi', $item->id_user) . '" class="btn btn-sm btn-primary mx-1">Detail</a>
+                            <a href="' . route('staff.detail-verifikasi', $item->id) . '" class="btn btn-sm btn-primary mx-1">Detail</a>
                             <form id="form-verifikasi-pengguna" method="POST">
                                 ' . csrf_field() . '
-                                <input type="hidden" name="id_user" value="' . $item->id_user . '">
+                                <input type="hidden" name="id_user" value="' . $item->id . '">
                                 <button type="submit" id="btnVerifikasi" class="btn btn-sm btn-success mx-1">Verifikasi</button>
                             </form>
 
-                            <a href="' . route('staff.get-tolak', $item->id_user) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
+                            <a href="' . route('staff.get-tolak', $item->id) . '" class="btn btn-sm btn-danger mx-1">Tolak</a>
                         </div>
                         <script>
                             $("#form-verifikasi-pengguna").submit(function (e) {
@@ -184,7 +184,7 @@ class DashboardStaffController extends Controller
     public function detailVerifikasi($id)
     {
         $data = User::findOrFail($id);
-        $users = User::with('userDetails')->where('id_user', $id)->first();
+        $users = User::where('id', $id)->first();
         return view('pages.staff.detail-verifikasi', compact('data', 'users'));
     }
 

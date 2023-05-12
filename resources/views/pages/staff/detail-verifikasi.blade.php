@@ -19,7 +19,7 @@ Detail Verifikasi Pengguna
                     <div class="card-body">
                         <form action="{{ route('user.ubah-foto') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <input type="hidden" name="id_user" value="{{ Auth::user()->id_user }}">
+                            <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
                             <div class="text-center">
                                 @if ($users->foto != null)
 
@@ -34,7 +34,7 @@ Detail Verifikasi Pengguna
                                 @endif
                             </div>
                         </form>
-                        <h3 class="profile-username text-center">{{ $users->name }}</h3>
+                        <h3 class="profile-username text-center">{{ $users->nama }}</h3>
                         <p class="text-center">{{ $users->roles }} Desa Sorek</p>
 
                         <section class="section-profile-content">
@@ -53,7 +53,7 @@ Detail Verifikasi Pengguna
                                         <div class="form-group">
                                             <label for="phone">Nomor Telepon</label>
                                             <input type="text" class="form-control" id="phone" name="phone"
-                                                value="{{ $users->phone ?? '' }}" readonly>
+                                                value="{{ $users->no_telepon ?? '' }}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -136,7 +136,7 @@ Detail Verifikasi Pengguna
                                         <div class="form-group">
                                             <label for="address">Alamat</label>
                                             <input type="text" class="form-control"
-                                                value="{{ $users->address ?? '' }}" readonly>
+                                                value="{{ $users->alamat ?? '' }}" readonly>
                                         </div>
                                     </div>
                                 </div>

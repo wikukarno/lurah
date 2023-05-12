@@ -77,7 +77,7 @@ class ProfileUserController extends Controller
 
     public function completeProfile(Request $request)
     {
-        $item = User::find(Auth::user()->id_user_user);
+        $item = User::find(Auth::user()->id);
         return view('pages.user.complete-profile', compact('item'));
     }
 
@@ -205,7 +205,7 @@ class ProfileUserController extends Controller
 
     public function cekNik(Request $request)
     {
-       return UserDetails::where('nik', $request->nik)->count() > 0 ? 'false' : 'true';
+       return User::where('nik', $request->nik)->count() > 0 ? 'false' : 'true';
     }
 
 

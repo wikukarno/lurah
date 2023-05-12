@@ -51,7 +51,7 @@ Verifikasi Pengguna
             url: "{{ route('staff.verifikasi-penduduk') }}",
         },
         columns: [
-            { data: 'DT_RowIndex', name: 'id_user' },
+            { data: 'DT_RowIndex', name: 'id' },
             { data: 'foto', name: 'foto' },
             { data: 'email', name: 'email' },
             { data: 'nama', name: 'nama' },

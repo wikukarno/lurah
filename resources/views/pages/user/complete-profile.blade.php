@@ -14,7 +14,7 @@
                     <div class="card-body">
 
                         <section class="section-profile-content">
-                            <form action="{{ route('akun-user.update', $item->id_user) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('akun-user.update', $item->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
@@ -151,8 +151,7 @@
                                     <div class="col-12 col-lg-12">
                                         <div class="form-group">
                                             <label for="address">Alamat</label>
-                                            <textarea class="form-control" maxlength="50" id="address" name="alamat" required>
-                                            </textarea>
+                                            <input type="text" class="form-control" name="alamat" id="alamat">
                                         </div>
                                     </div>
                                 </div>
