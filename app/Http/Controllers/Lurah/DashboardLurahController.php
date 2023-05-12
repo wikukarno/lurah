@@ -25,10 +25,10 @@ class DashboardLurahController extends Controller
     public function index()
     {
         $dataUser = User::whereNot('roles', 'lurah')->Where('status_account', 'verifikasi')->count();
-        $sku = SKU::count();
-        $skp = SKP::count();
-        $sktm = SKTM::count();
-        $ski = SKI::count();
+        $sku = SKU::where('posisi', 'lurah')->count();
+        $skp = SKP::where('posisi', 'lurah')->count();
+        $sktm = SKTM::where('posisi', 'lurah')->count();
+        $ski = SKI::where('posisi', 'lurah')->count();
 
         $skuMasuk = SKU::where('posisi', 'lurah')->count();
         $skpMasuk = SKP::where('posisi', 'lurah')->count();
