@@ -150,7 +150,7 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-12">
                                         <div class="form-group">
-                                            <label for="address">Alamat</label>
+                                            <label for="alamat">Alamat</label>
                                             <input type="text" class="form-control" name="alamat" id="alamat">
                                         </div>
                                     </div>

@@ -36,8 +36,8 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="address">Alamat</label>
-                                    <input type="address" name="address" id="address" class="form-control">
+                                    <label for="alamat">Alamat</label>
+                                    <input type="alamat" name="alamat" id="alamat" class="form-control">
                                 </div>
                             </div>
                         </div>

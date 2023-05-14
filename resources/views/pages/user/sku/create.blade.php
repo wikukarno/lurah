@@ -155,8 +155,8 @@ Surat Keterangan Usaha
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="alamat">Alamat</label>
-                                        <input type="text" class="form-control" id="address" name="address"
-                                            value="{{ Auth::user()->address }}" readonly>
+                                        <input type="text" class="form-control" id="alamat" name="alamat"
+                                            value="{{ Auth::user()->alamat }}" readonly>
                                     </div>
                                 </div>
                             </div>

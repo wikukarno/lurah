@@ -132,7 +132,7 @@ Profile {{ Auth::user()->nama }}
                                 <div class="row">
                                     <div class="col-12 col-lg-12">
                                         <div class="form-group">
-                                            <label for="address">Alamat</label>
+                                            <label for="alamat">Alamat</label>
                                             <input type="text" class="form-control"
                                                 value="{{ $users->alamat ?? '' }}" readonly>
                                         </div>
@@ -230,7 +230,7 @@ Profile {{ Auth::user()->nama }}
                 $('#name').val(data.name);
                 $('#email').val(data.email);
                 $('#phone').val(data.phone);
-                $('#address').val(data.address);
+                $('#alamat').val(data.alamat);
             }
         });
     }
