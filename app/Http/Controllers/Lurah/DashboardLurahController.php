@@ -376,12 +376,12 @@ class DashboardLurahController extends Controller
                         } elseif ($sktm != null) {
                             return '
                                 <div class="d-flex">
-                                    <a href="' . route('sktm-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                                    <a href="' . route('sktm-lurah.show', $sktm->id) . '" class="btn btn-sm btn-secondary">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     <form id="form-setujui-sktm" method="POST">
                                         ' . csrf_field() . '
-                                        <input type="hidden" name="id" value="' . $item->id . '">
+                                        <input type="hidden" name="id" value="' . $sktm->id . '">
                                         <button type="submit" id="btnSetujuiSktm" class="btn btn-sm btn-success mx-1">Setujui</button>
                                     </form>
                                 </div>
@@ -431,7 +431,7 @@ class DashboardLurahController extends Controller
                                     <form id="form-setujui-skp" method="POST">
                                         ' . csrf_field() . '
                                         <input type="hidden" name="id" value="' . $skp->id . '">
-                                        <button type="submit" id="btnSetujui" class="btn btn-sm btn-success mx-1">Setujui</button>
+                                        <button type="submit" id="btnSetujuiSkp" class="btn btn-sm btn-success mx-1">Setujui</button>
                                     </form>
                                 </div>
 
