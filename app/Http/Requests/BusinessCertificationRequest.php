@@ -28,7 +28,7 @@ class BusinessCertificationRequest extends FormRequest
             'users_id' => 'integer',
             'nama_usaha' => 'required|string|max:30',
             'jenis_usaha' => 'required|string',
-            'surat_rtrw' => 'image|mimes:jpeg,jpg,png|max:2048',
+            'surat_rtrw' => 'image|mimes:pdf|max:20048',
             'alasan_penolakan' => 'nullable|string',
             'posisi' => 'string',
             'status' => 'string',

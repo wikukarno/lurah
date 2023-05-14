@@ -7,6 +7,14 @@ Surat Keterangan Usaha
 @section('content')
 <section class="main-content">
     <div class="container-fluid">
+
+        {{-- make status error --}}
+        @if (session('status'))
+        <div class="alert alert-danger">
+            {{ session('status') }}
+        </div>
+        @endif
+
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -40,8 +48,16 @@ Surat Keterangan Usaha
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label for="">Foto Surat Keterangan RT/RW</label>
-                                        <input type="file" class="form-control" id="surat_rtrw" name="surat_rtrw"
-                                            required>
+                                        {{-- <input type="file" class="form-control" id="surat_rtrw" name="surat_rtrw"
+                                            required> --}}
+                                        <input type="file" class="form-control
+                                            @error('surat_rtrw') is-invalid @enderror" id="surat_rtrw"
+                                            name="surat_rtrw" required>
+                                        @error('surat_rtrw')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>

@@ -278,12 +278,12 @@ class DashboardLurahController extends Controller
                         if ($sku != null) {
                         return '
                             <div class="d-flex">
-                                <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                                <a href="' . route('sku-lurah.show', $sku->id) . '" class="btn btn-sm btn-secondary">
                                     <i class="fa fa-eye"></i>
                                 </a>
                                 <form id="form-setujui" method="POST">
                                     ' . csrf_field() . '
-                                    <input type="hidden" name="id" value="' . $item->id . '">
+                                    <input type="hidden" name="id" value="' . $sku->id . '">
                                     <button type="submit" id="btnSetujui" class="btn btn-sm btn-success mx-1">Setujui</button>
                                 </form>
                             </div>
@@ -316,10 +316,7 @@ class DashboardLurahController extends Controller
                                                         "Surat berhasil disetujui",
                                                         "success"
                                                     )
-                                                    $("#tb_sku_lurah_belum_diproses").DataTable().ajax.reload();
-                                                    $("#tb_sku_lurah_ditolak").DataTable().ajax.reload();
-                                                    $("#tb_sku_lurah_sedang_diproses").DataTable().ajax.reload();
-                                                    $("#tb_sku_lurah_selesai_diproses").DataTable().ajax.reload();
+                                                    $("#tb_lurah_semua_surat").DataTable().ajax.reload();
                                                 }
                                             });
                                         }
@@ -330,12 +327,12 @@ class DashboardLurahController extends Controller
                         } elseif ($ski != null) {
                             return '
                                 <div class="d-flex">
-                                    <a href="' . route('ski-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                                    <a href="' . route('ski-lurah.show', $ski->id) . '" class="btn btn-sm btn-secondary">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     <form id="form-setujui" method="POST">
                                         ' . csrf_field() . '
-                                        <input type="hidden" name="id" value="' . $item->id . '">
+                                        <input type="hidden" name="id" value="' . $ski->id . '">
                                         <button type="submit" id="btnSetujui" class="btn btn-sm btn-success mx-1">Setujui</button>
                                     </form>
                                 </div>
@@ -368,10 +365,7 @@ class DashboardLurahController extends Controller
                                                             "Surat berhasil disetujui",
                                                             "success"
                                                         )
-                                                        $("#tb_ski_lurah_belum_diproses").DataTable().ajax.reload();
-                                                        $("#tb_ski_lurah_ditolak").DataTable().ajax.reload();
-                                                        $("#tb_ski_lurah_sedang_diproses").DataTable().ajax.reload();
-                                                        $("#tb_ski_lurah_selesai_diproses").DataTable().ajax.reload();
+                                                        $("#tb_lurah_semua_surat").DataTable().ajax.reload();
                                                     }
                                                 });
                                             }
@@ -420,10 +414,7 @@ class DashboardLurahController extends Controller
                                                             "Surat berhasil disetujui",
                                                             "success"
                                                         )
-                                                        $("#tb_sktm_lurah_belum_diproses").DataTable().ajax.reload();
-                                                        $("#tb_sktm_lurah_ditolak").DataTable().ajax.reload();
-                                                        $("#tb_sktm_lurah_sedang_diproses").DataTable().ajax.reload();
-                                                        $("#tb_sktm_lurah_selesai_diproses").DataTable().ajax.reload();
+                                                        $("#tb_lurah_semua_surat").DataTable().ajax.reload();
                                                     }
                                                 });
                                             }
@@ -432,27 +423,14 @@ class DashboardLurahController extends Controller
                                 </script>
                             ';
                         } elseif ($skp != null) {
-                        // return '
-                        //     <a href="#" class="btn btn-sm btn-secondary">
-                        //         <i class="fa fa-eye"></i>
-                        //     </a>
-
-                        //     <form action="' . route('skp-lurah.update', $item->id) . '" method="POST" class="d-inline">
-                        //         ' . csrf_field() . '
-                        //         <button class="btn btn-sm btn-warning">
-                        //             Teruskan
-                        //         </button>
-                        //     </form>
-                        // ';
-
                             return '
                                 <div class="d-flex">
-                                    <a href="' . route('sku-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                                    <a href="' . route('sku-lurah.show', $skp->id) . '" class="btn btn-sm btn-secondary">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     <form id="form-setujui" method="POST">
                                         ' . csrf_field() . '
-                                        <input type="hidden" name="id" value="' . $item->id . '">
+                                        <input type="hidden" name="id" value="' . $skp->id . '">
                                         <button type="submit" id="btnSetujui" class="btn btn-sm btn-success mx-1">Setujui</button>
                                     </form>
                                 </div>
@@ -485,10 +463,7 @@ class DashboardLurahController extends Controller
                                                             "Surat berhasil disetujui",
                                                             "success"
                                                         )
-                                                        $("#tb_sku_lurah_belum_diproses").DataTable().ajax.reload();
-                                                        $("#tb_sku_lurah_ditolak").DataTable().ajax.reload();
-                                                        $("#tb_sku_lurah_sedang_diproses").DataTable().ajax.reload();
-                                                        $("#tb_sku_lurah_selesai_diproses").DataTable().ajax.reload();
+                                                        $("#tb_lurah_semua_surat").DataTable().ajax.reload();
                                                     }
                                                 });
                                             }

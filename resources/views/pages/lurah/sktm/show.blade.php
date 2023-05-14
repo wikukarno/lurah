@@ -133,7 +133,7 @@ Surat Keterangan Tidak Mampu
                                 <div class="form-group">
                                     <label for="alamat">Alamat</label>
                                     <input type="text" class="form-control"
-                                        value="{{ $item->user->address }}" readonly>
+                                        value="{{ $item->user->alamat }}" readonly>
                                 </div>
                             </div>
                         </div>

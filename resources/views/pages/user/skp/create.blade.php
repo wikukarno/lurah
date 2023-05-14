@@ -151,7 +151,7 @@ Tambah Surat Keterangan Pemakaman
                                     <div class="form-group">
                                         <label for="alamat">Alamat</label>
                                         <input type="text" class="form-control" id="alamat" name="alamat" maxlength="50"
-                                            value="{{ Auth::user()->address }}">
+                                            value="{{ Auth::user()->alamat }}">
                                     </div>
                                 </div>
                             </div>

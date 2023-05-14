@@ -84,7 +84,7 @@ class LurahFuneralCertificationController extends Controller
         if (request()->ajax()) {
             $query = SKP::with([
                 'user'
-            ])->where('posisi', 'lurah')->get();
+            ])->where('posisi', 'lurah')->where('status', 'Sedang Diproses')->get();
 
             return datatables()->of($query)
                 ->addIndexColumn()
@@ -111,7 +111,7 @@ class LurahFuneralCertificationController extends Controller
                             <form action="' . route('skp-lurah.update', $item->id) . '" method="POST" class="d-inline">
                             ' . method_field('PUT') . '        
                             ' . csrf_field() . '
-                                <button class="btn btn-sm btn-success">
+                                <button type="submit" class="btn btn-sm btn-success">
                                     Setujui
                                 </button>
                             </form>
@@ -420,7 +420,25 @@ class LurahFuneralCertificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $item = SKP::findOrFail($id);
+        $data = Laporan::findOrFail($item->id_laporan);
+        $data->update([
+            'status' => 'Selesai Diproses',
+            'posisi' => 'Staff',
+        ]);
+
+        $item->update([
+            'status' => 'Selesai Diproses',
+            'posisi' => 'staff',
+        ]);
+
+        if ($item) {
+            Alert::success('Berhasil', 'Surat Keterangan Pemakaman Berhasil Disetujui');
+            return redirect()->route('skp-lurah.index');
+        } else {
+            Alert::error('Gagal', 'Surat Keterangan Pemakaman Gagal Disetujui');
+            return redirect()->route('skp-lurah.index');
+        }
     }
 
     public function setujui(Request $request)

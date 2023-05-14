@@ -323,7 +323,6 @@ class UserBusinessCertificationController extends Controller
      */
     public function store(BusinessCertificationRequest $request)
     {
-        // buat laporan baru sesuai kategori surat
         $category = KategoriSurat::where('nama', 'Surat Keterangan Usaha')->first();
         $item = new Laporan();
         $item->id_user = Auth::user()->id;
