@@ -28,7 +28,7 @@ Update Surat Keterangan Tidak Mampu
 
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
-                                        <label for="">Foto Surat Keterangan RT/RW</label>
+                                        <label for="">Foto Surat Keterangan RT/RW &nbsp; (.jpg .png)</label>
                                         <input type="file" class="form-control" id="surat_rtrw" name="surat_rtrw">
                                     </div>
                                 </div>
