@@ -80,14 +80,14 @@ Surat Keterangan Usaha
 <section class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 col-lg-12">
                 <div class="card">
                     <div class="card-header">
                         <div class="header-title">
                             <h3 class="card-title">Data Surat Keterangan Usaha</h3>
                             <a href="{{ route('sku-user.create') }}" class="btn btn-primary"> <i
                                     class="fas fa-plus"></i>&nbsp;
-                                Tambah Surat</a>
+                                Tambah data</a>
                         </div>
                     </div>
                     <div class="card-body">

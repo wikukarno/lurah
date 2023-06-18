@@ -135,13 +135,13 @@ class UserBusinessCertificationController extends Controller
                 ->editColumn('created_at', function ($item) {
                     return $item->created_at->isoFormat('D MMMM Y');
                 })
-                ->editColumn('surat_rtrw', function ($item) {
-                    return '
-                        <a href="' . asset('storage/' . $item->surat_rtrw) . '" target="_blank" class="btn btn-sm btn-primary">
-                            <i class="fas fa-eye"></i>
-                        </a>
-                    ';
-                })
+                // ->editColumn('surat_rtrw', function ($item) {
+                //     return '
+                //         <a href="' . asset('storage/' . $item->surat_rtrw) . '" target="_blank" class="btn btn-sm btn-primary">
+                //             <i class="fas fa-eye"></i>
+                //         </a>
+                //     ';
+                // })
 
                 ->editColumn('action', function ($item) {
                     return '
@@ -211,6 +211,7 @@ class UserBusinessCertificationController extends Controller
 
         return view('pages.user.sku.index', compact('user'));
     }
+
     public function onProgress()
     {
         // Datatables untuk tampil data yang sedang diproses
@@ -235,6 +236,7 @@ class UserBusinessCertificationController extends Controller
         }
         return view('pages.user.sku.index');
     }
+
     public function success()
     {
         // Datatables untuk tampil data yang berhasil
@@ -265,6 +267,7 @@ class UserBusinessCertificationController extends Controller
         }
         return view('pages.user.sku.index');
     }
+
     public function rejected()
     {
 

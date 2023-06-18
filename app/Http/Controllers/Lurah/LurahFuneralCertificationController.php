@@ -105,17 +105,58 @@ class LurahFuneralCertificationController extends Controller
                 ->editColumn('action', function ($item) {
                     if ($item->posisi == 'lurah') {
                         return '
-                            <a href="' . route('skp-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                            <form action="' . route('skp-lurah.update', $item->id) . '" method="POST" class="d-inline">
-                            ' . method_field('PUT') . '        
-                            ' . csrf_field() . '
-                                <button type="submit" class="btn btn-sm btn-success">
-                                    Setujui
-                                </button>
-                            </form>
+                            <div class="d-flex">
+                                <a href="' . route('skp-lurah.show', $item->id) . '" class="btn btn-sm btn-secondary">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <form id="form-setujui" method="POST">
+                                    ' . csrf_field() . '
+                                    <input type="hidden" name="id" value="' . $item->id . '">
+                                    <button type="submit" id="btnSetujui" class="btn btn-sm btn-success mx-1">Setujui</button>
+                                </form>
+                            </div>
+
+                            <script>
+                                $("#form-setujui").submit(function (e) {
+                                    e.preventDefault();
+                                    var id = $("input[name=id]").val();
+
+                                    Swal.fire({
+                                        title: "Apakah anda yakin?",
+                                        text: "Ingin Setujui surat ini?",
+                                        icon: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#3085d6",
+                                        cancelButtonColor: "#d33",
+                                        confirmButtonText: "Ya, Setujui!",
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            $.ajax({
+                                                url: "' . route('skp-lurah.setujui') . '",
+                                                type: "POST",
+                                                data: {
+                                                    id: id,
+                                                    _token: "' . csrf_token() . '"
+                                                },
+                                                success: function (data) {
+                                                    Swal.fire(
+                                                        "Berhasil!",
+                                                        "Surat berhasil disetujui",
+                                                        "success"
+                                                    )
+                                                    $("#tb_skp_lurah_belum_diproses").DataTable().ajax.reload();
+                                                    $("#tb_skp_lurah_ditolak").DataTable().ajax.reload();
+                                                    $("#tb_skp_lurah_sedang_diproses").DataTable().ajax.reload();
+                                                    $("#tb_skp_lurah_selesai_diproses").DataTable().ajax.reload();
+                                                }
+                                            });
+                                        }
+                                    })
+                                });
+                            </script>
                         ';
+
+                        
                     } elseif ($item->status == 'Selesai') {
                         return '
                             <a href="#" class="btn btn-sm btn-outline-success">
